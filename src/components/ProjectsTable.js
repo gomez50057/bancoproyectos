@@ -1,33 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 
 const imgBasePath = "img/";
 
-const ProjectsTable_circulo_ele = ["ciudadania", "dependecia", "municipio", "organismo"]; // Nombres de los elementos
+const projectsInfo = [
+    {
+        name: "Ciudadanía",
+        img: "ciudadania.png",
+        info: [
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 3", value: "Valor 3" }
+        ]
+    },
+    {
+        name: "Dependencia",
+        img: "dependecia.png",
+        info: [
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 3", value: "Valor 3" }
+        ]
+    },
+    {
+        name: "Municipio",
+        img: "municipio.png",
+        info: [
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 3", value: "Valor 3" }
+        ]
+    },
+    {
+        name: "Organismo",
+        img: "organismo.png",
+        info: [
+            { key: "Información 1", value: "Valor 1" },
+            { key: "Información 2", value: "Valor 2" },
+            { key: "Información 3", value: "Valor 3" }
+        ]
+    }
+];
 
 const ProjectsTable = () => {
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    const handleProjectClick = (index) => {
+        setSelectedProject(index);
+    };
+
     return (
         <section id='projects' className="ProjectsTable-container">
-
             <div>
                 <h2>TABLERO DE <span>PROYECTOS</span></h2>
 
                 <div className="ProjectsTable_eleccion">
-                    {ProjectsTable_circulo_ele.map((elemento, index) => (
-                        <div key={index} className="ProjectsTable_circulo">
-                            <img src={`${imgBasePath}${elemento}.png`} alt={`elemento_${index}`} />
+                    {projectsInfo.map((project, index) => (
+                        <div key={index} className="ProjectsTable_circulo" onClick={() => handleProjectClick(index)}>
+                            <img src={`${imgBasePath}${project.img}`} alt={`elemento_${index}`} />
                         </div>
                     ))}
                 </div>
             </div>
-            {/* <div className="content_home">
-                <div className="home_img">
-                    <img src={`${imgBasePath}homeimg.png`} alt="img_representativa" className="floating-img" />
+
+            {selectedProject !== null && (
+                <div className="ProjectsTable_tabla">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{projectsInfo[selectedProject].name}</th>
+                                <th>Información</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {projectsInfo[selectedProject].info.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.key}</td>
+                                    <td>{item.value}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-                <div className="home_txt">
-                    <img src={`${imgBasePath}hometxt.png`} alt="img_representativa" />
-                </div>
-            </div> */}
+            )}
         </section>
     );
 }

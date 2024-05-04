@@ -27,13 +27,11 @@ const Navbar = () => {
         <nav className="navbar">
             <img src={`${imgBasePath}head.png`} alt="img_representativa" className="floating-img" />
             <ul>
-                <li><a href="#home" className={activeLink === "#home" ? "active" : ""}>Inicio</a></li>
                 <li><a href="#about" className={activeLink === "#about" ? "active" : ""}>Sobre el Proyecto</a></li>
                 <li><a href="#projects" className={activeLink === "#projects" ? "active" : ""}>Tablero de Proyectos</a></li>
                 <li><a href="#interests" className={activeLink === "#interests" ? "active" : ""}>Páginas de Interés</a></li>
                 <li><a href="#how" className={activeLink === "#how" ? "active" : ""}>Cómo Funciona</a></li>
                 <li><a href="#map" className={activeLink === "#map" ? "active" : ""}>Mapa Interactivo</a></li>
-                <li><a href="#footer" className={activeLink === "#footer" ? "active" : ""}>Contacto</a></li>
             </ul>
         </nav>
     );

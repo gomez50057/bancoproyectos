@@ -38,7 +38,7 @@ const About = () => {
         </div>
       </div>
       <div className="background-about">
-        <img src={`${imgBasePath}backAbout.png`} alt="img_representativa" className="floating-img" />
+        <img src={`${imgBasePath}backAbout.jpg`} alt="img_representativa" className="floating-img" />
         <div className="about_num">
 
           <div className="about_numIndi">
