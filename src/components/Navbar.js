@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './styles.css'; // Importamos los estilos globales
+import './styles.css'; 
 const imgBasePath = "img/";
 
 const Navbar = () => {
@@ -29,9 +29,10 @@ const Navbar = () => {
             <ul>
                 <li><a href="#about" className={activeLink === "#about" ? "active" : ""}>Sobre el Proyecto</a></li>
                 <li><a href="#projects" className={activeLink === "#projects" ? "active" : ""}>Tablero de Proyectos</a></li>
-                <li><a href="#interests" className={activeLink === "#interests" ? "active" : ""}>Páginas de Interés</a></li>
-                <li><a href="#how" className={activeLink === "#how" ? "active" : ""}>Cómo Funciona</a></li>
+                <li><a href="#howitWorks" className={activeLink === "#how" ? "active" : ""}>Cómo Funciona</a></li>
                 <li><a href="#map" className={activeLink === "#map" ? "active" : ""}>Mapa Interactivo</a></li>
+                <li><a href="#interests" className={activeLink === "#interests" ? "active" : ""}>Genera un Proyecto</a></li>
+
             </ul>
         </nav>
     );

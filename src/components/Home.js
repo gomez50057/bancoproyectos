@@ -1,6 +1,5 @@
 import React from 'react';
-import './styles.css'; // Importamos los estilos globales
-
+import './styles.css'; 
 const imgBasePath = "img/";
 
 const Home = () => {

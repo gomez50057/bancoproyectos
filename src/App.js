@@ -15,6 +15,7 @@ import Login from './components/Login';
 const MainContent = () => {
     return (
         <div>
+            <Navbar />
             <Home />
             <About />
             <ProjectsTable />
@@ -29,7 +30,6 @@ const App = () => {
     return (
         <Router>
             <div>
-                <Navbar />
                 <Routes>
                     <Route path="/" element={<MainContent />} />
                     <Route path="/login" element={<Login />} />

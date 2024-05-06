@@ -5,7 +5,8 @@ const imgBasePath = "img/";
 
 const HowItWorks = () => {
     return (
-        <div id='how' className="how-it-works">
+        <div id='howitWorks' className="how-it-works">
+            <h2>¿CÓMO FUNCIONA <span>EL BANCO DE PROYECTOS?</span></h2>
             <div className="image-container">
                 <img src={`${imgBasePath}animation.gif`} alt="img_representativa" className="centered-image" />
             </div>
