@@ -46,11 +46,11 @@ const About = () => {
           </div>
 
           <div className="about_numIndi">
-            <p>20<span>PROYECTOS EN PROCESO DE DICTAMEN TÉCNICO</span></p>
+            <p>200<span>PROYECTOS EN PROCESO DE DICTAMEN TÉCNICO</span></p>
           </div>
 
           <div className="about_numIndi">
-            <p>20<span>PROYECTOS CON DICTAMEN TÉCNICO</span></p>
+            <p>200<span>PROYECTOS CON DICTAMEN TÉCNICO</span></p>
           </div>
 
         </div>

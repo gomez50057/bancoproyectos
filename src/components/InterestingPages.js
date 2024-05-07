@@ -11,7 +11,7 @@ const InterestingPages = () => {
     };
     return (
         <section id='interests' className="interesting-pages">
-            <h2>TABLERO DE <span>PROYECTOS</span></h2>
+            <h2 className="interests_txt">CONOCE Y CREA <span>PROPUESTAS</span></h2>
             <div className="interests_reg">
                 <div className="rectangle">
                     <p>La Unidad de Planeación y Prospectivate sugiere...</p>

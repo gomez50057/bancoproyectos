@@ -25,12 +25,17 @@ const Footer = () => {
             </div>
 
             <div className="footer_contacto">
-                <img src={`${imgBasePath}telefono.png`} alt="img_representativa" />
 
                 <div className="footer_contacto_txt">
-                    <p><span>CONTACTO:</span></p>
-                    <p><span>Tel.: 771 717 6000 ext. 0000</span></p>
-                    <p>Dirección General de Proyectos, Estudios y Prospectiva</p>
+                    <div className="footer_contacto_ico">
+                        <img src={`${imgBasePath}telefono.png`} alt="img_representativa" />
+                        <div>
+                            <p><span>CONTACTO:</span></p>
+                            <p><span>Tel.: 771 717 6000 ext. 0000</span></p>
+                        </div>
+                    </div>
+
+                    <p>Coordinación General De Planeación Y Proyectosa</p>
                     <p><span>Unidad de Planeación y Prospectiva</span></p>
                     <p>proyectosyprospectiva@hidalgo.gob.mx</p>
                     <div className="linea_footer"></div>

@@ -36,7 +36,7 @@ h2 span {
   font-weight: 700;
 }
 
-p  {
+p {
   color: var(--grisOsc);
 }
 
@@ -134,19 +134,19 @@ p  {
   left: 0;
   width: 45vw;
   height: auto;
-} 
+}
 
 .content_home .home_img {
   width: 60vw;
 }
 
 
-.content_home .home_txt img{
+.content_home .home_txt img {
   width: 100%;
   height: auto;
-} 
+}
 
-.content_home .home_img img{
+.content_home .home_img img {
   width: 100%;
   height: auto;
 }
@@ -163,12 +163,12 @@ p  {
 @keyframes floatingAnimation {
   0% {
     transform: translateY(0);
-    filter: drop-shadow(0 50px 20px rgba(105, 27, 50, 0.942));
+    filter: drop-shadow(0 50px 20px linear-gradient(180deg, #56172c, #a02242));
   }
 
   100% {
     transform: translateY(-30px);
-    filter: drop-shadow(0 100px 50px rgba(243, 243, 243, 0.3));
+    filter: drop-shadow(0 100px 50px rgbalinear-gradient(180deg, #56172c, #a02242));
   }
 }
 
@@ -211,19 +211,20 @@ p  {
 
 .about_num p {
   display: flex;
-  font-size: 40px;
-  font-weight: 700;
-  text-align: center;
-  flex-direction: column;
+  text-align: right;
   align-items: center;
-
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 700;  
+  color: var(--blanco);
 }
 
 .about_num p span {
+  margin-left: 10px;
   font-size: 18px;
   font-weight: 400;
-  width: 15vw;
-  text-align: center;
+  width: 25vw;
+  text-align: left;
   display: block;
 }
 
@@ -270,19 +271,24 @@ p  {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  width: 100%;
-  height: 90vh;
+  width: 100vw;
+  height: auto;
+  padding: 20vh 0;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  flex-direction: column;
-  justify-content: space-evenly
+}
+
+.interests_txt {
+  width: 50vw;
+  text-align: center;
 }
 
 .interests_reg {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100vw;
+  width: 50vw;
   height: auto;
 }
 
@@ -309,7 +315,7 @@ p  {
 }
 
 .rectangle button,
-.rectangle .rectangle-button{
+.rectangle .rectangle-button {
   width: 160px;
   display: flex;
   align-items: center;
@@ -351,6 +357,11 @@ p  {
 .centered-image {
   max-width: 100vw;
   max-height: 300vh;
+}
+
+
+.how-it-works h2 span {
+display: block;
 }
 
 /*  */
@@ -397,10 +408,14 @@ p  {
   color: var(--vinoClr);
 }
 
-.footer_contacto img {
-  width: 40px;
-  height: auto;
-  margin: -20% 10px 0px 0px;
+.footer_contacto_txt .footer_contacto_ico{
+  display: flex;
+}
+
+.footer_contacto_txt .footer_contacto_ico img {
+  width: auto;
+  height: 30px;
+  margin-right: 5px;
 }
 
 .footer_contacto .footer_contacto_txt p {
@@ -463,7 +478,7 @@ p  {
   height: 60%;
   border-radius: 40px;
   margin: 0 2vw;
-  padding:3vw;
+  padding: 3vw;
 }
 
 .login_txt img {
@@ -486,17 +501,17 @@ p  {
 }
 
 .link-registrarse {
-  color: inherit; 
-  text-decoration: none; 
-  transition: color 0.3s; 
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .link-registrarse:hover {
-  color: orange; 
+  color: orange;
 }
 
 .login_txt p:last-child {
-  font-size: 10px; 
+  font-size: 10px;
 }
 
 
@@ -507,10 +522,10 @@ p  {
 
 
 .input-container input {
-  width: calc(100% - 80px); 
-  padding: 10px; 
-  padding-right: 100px; 
-  box-sizing: border-box; 
+  width: calc(100% - 80px);
+  padding: 10px;
+  padding-right: 100px;
+  box-sizing: border-box;
   background-color: #000;
   width: 90%;
   margin-bottom: 5px;
@@ -524,7 +539,7 @@ p  {
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  width: 20px; 
+  width: 20px;
 }
 
 
@@ -535,7 +550,7 @@ p  {
 }
 
 
-.login_txt button{
+.login_txt button {
   width: 100%;
   display: flex;
   align-items: center;
