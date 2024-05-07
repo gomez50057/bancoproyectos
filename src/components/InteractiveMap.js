@@ -5,7 +5,7 @@ const InteractiveMap = () => {
         <section id='map'  style={{ width: '100%', height: '100vh' }}>
             <iframe 
                 title="Interactive Map"
-                src="http://sigeh.hidalgo.gob.mx/bdp/public/mapa/" 
+                src="https://gomez50057.github.io/bancoproyectosmapa/" 
                 style={{ width: '100%', height: '100%', border: 'none' }} 
                 allowFullScreen
             />

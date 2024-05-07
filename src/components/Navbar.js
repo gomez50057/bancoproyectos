@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import './styles.css'; 
+import './styles.css';
 const imgBasePath = "img/";
 
 const Navbar = () => {
-    const [activeLink, setActiveLink] = useState("#home");
+    const [scrollDirection, setScrollDirection] = useState("up");
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
-            const sections = document.querySelectorAll("section"); // Seleccionamos todas las secciones
-            sections.forEach(section => {
-                const top = section.offsetTop; // Posición superior de la sección
-                const height = section.offsetHeight; // Altura de la sección
-                if (window.pageYOffset >= top && window.pageYOffset < top + height) {
-                    setActiveLink(`#${section.id}`);
-                }
-            });
+            const currentScrollPos = window.pageYOffset;
+
+            setVisible(currentScrollPos < prevScrollPos || currentScrollPos < 10);
+            setScrollDirection(currentScrollPos < prevScrollPos ? "up" : "down");
+            setPrevScrollPos(currentScrollPos);
         };
 
         window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []); // Se ejecuta solo una vez al montar el componente
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [prevScrollPos, scrollDirection]);
 
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${visible ? 'active' : 'hidden'}`}>
             <img src={`${imgBasePath}head.png`} alt="img_representativa" className="floating-img" />
             <ul>
-                <li><a href="#about" className={activeLink === "#about" ? "active" : ""}>Sobre el Proyecto</a></li>
-                <li><a href="#projects" className={activeLink === "#projects" ? "active" : ""}>Tablero de Proyectos</a></li>
-                <li><a href="#howitWorks" className={activeLink === "#how" ? "active" : ""}>Cómo Funciona</a></li>
-                <li><a href="#map" className={activeLink === "#map" ? "active" : ""}>Mapa Interactivo</a></li>
-                {/* <li><a href="#interests" className={activeLink === "#interests" ? "active" : ""}>Genera un Proyecto</a></li> */}
-                <li><Link to="/login" className="button_acceder"> Acceder </Link></li>
-
+                <li><a href="#about">Sobre el Proyecto</a></li>
+                <li><a href="#projects">Tablero de Proyectos</a></li>
+                <li><a href="#howitWorks">Cómo Funciona</a></li>
+                <li><a href="#map">Mapa Interactivo</a></li>
+                <li><Link to="/login" className="button_acceder">Acceder</Link></li>
             </ul>
         </nav>
     );
