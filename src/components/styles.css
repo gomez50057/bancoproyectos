@@ -36,6 +36,10 @@ h2 span {
   font-weight: 700;
 }
 
+p  {
+  color: var(--grisOsc);
+}
+
 /*  */
 /* Navbar */
 /*  */
@@ -118,33 +122,53 @@ h2 span {
   z-index: 1;
   text-align: center;
   color: #fff;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
+  margin: 2%;
 }
 
-.content_home .home_img,
 .content_home .home_txt {
-  width: 50vw;
-}
+  position: absolute;
+  margin: 2%;
+  top: 0;
+  left: 0;
+  width: 45vw;
+  height: auto;
+} 
 
 .content_home .home_img {
-  animation: floatingAnimation 1.8s infinite alternate ease-in-out;
+  width: 60vw;
+}
+
+
+.content_home .home_txt img{
+  width: 100%;
+  height: auto;
+} 
+
+.content_home .home_img img{
+  width: 100%;
+  height: auto;
+}
+
+
+.content_home .home_img {
+  animation: floatingAnimation 2.5s infinite alternate ease-in-out;
 }
 
 .content_home img {
   margin-top: 120px;
-  width: 45vw;
 }
 
 @keyframes floatingAnimation {
   0% {
     transform: translateY(0);
-    filter: drop-shadow(0 50px 20px rgba(18, 18, 18, 0.5));
+    filter: drop-shadow(0 50px 20px rgba(105, 27, 50, 0.942));
   }
 
   100% {
     transform: translateY(-30px);
-    filter: drop-shadow(0 10px 20px rgba(21, 21, 21, 0.9));
+    filter: drop-shadow(0 100px 50px rgba(243, 243, 243, 0.3));
   }
 }
 
@@ -241,7 +265,7 @@ h2 span {
 
 .interesting-pages {
   position: relative;
-  background-image: url('../../public/img/b_Interestin.png');
+  background-image: url('../../public/img/b_Interestin.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -281,11 +305,11 @@ h2 span {
   text-align: center;
   font-weight: 800;
   font-size: 22px;
-  color: var(--blanco);
+  color: var(--vinoOsc);
 }
 
 .rectangle button,
-.rectangle .rectangle-button {
+.rectangle .rectangle-button{
   width: 160px;
   display: flex;
   align-items: center;
@@ -301,6 +325,8 @@ h2 span {
   border-color: buttonborder;
   border-image: initial;
 }
+
+
 
 .icon {
   width: 20px;

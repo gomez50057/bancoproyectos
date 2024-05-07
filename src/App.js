@@ -11,6 +11,8 @@ import InteractiveMap from './components/InteractiveMap';
 import Footer from './components/Footer';
 
 import Login from './components/Login';
+import NavbarLogin from './components/NavbarLogin';
+
 
 const MainContent = () => {
     return (
@@ -30,6 +32,7 @@ const App = () => {
     return (
         <Router>
             <div>
+                <NavbarLogin/>
                 <Routes>
                     <Route path="/" element={<MainContent />} />
                     <Route path="/login" element={<Login />} />
