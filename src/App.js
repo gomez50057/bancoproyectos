@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
-import ProjectsTable from './components/ProjectsTable';
+import ProjectIndicators from './components/ProjectIndicators';
 import InterestingPages from './components/InterestingPages';
 import HowItWorks from './components/HowItWorks';
 import InteractiveMap from './components/InteractiveMap';
@@ -20,7 +20,7 @@ const MainContent = () => {
             <Navbar />
             <Home />
             <About />
-            <ProjectsTable />
+            <ProjectIndicators />
             <InterestingPages />
             <HowItWorks />
             <InteractiveMap />
