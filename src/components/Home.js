@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles.css'; 
-const imgBasePath = "img/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
+
+
 
 const Home = () => {
     return (
@@ -13,6 +15,7 @@ const Home = () => {
                 </div>
                 <div className="home_img">
                     <img src={`${imgBasePath}homeimg.png`} alt="img_representativa" className="floating-img" />
+
                 </div>
             </div>
         </section>

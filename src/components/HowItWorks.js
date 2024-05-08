@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-const imgBasePath = "img/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 
 const HowItWorks = () => {

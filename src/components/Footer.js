@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.css';
-const imgBasePath = "img/footer/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/footer/";
+
 
 const Footer = () => {
     return (

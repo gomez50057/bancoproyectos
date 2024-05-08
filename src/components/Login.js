@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './styles.css';
 
-const imgBasePath = "img/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
+
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña

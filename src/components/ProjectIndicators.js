@@ -1,7 +1,8 @@
 import React from 'react';
 import './styles.css';
 
-const imgBasePath = "img/indicadores/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
+
 
 // const projectsInfo = [
 //     {

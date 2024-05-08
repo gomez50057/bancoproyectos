@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles.css';
 
-const imgBasePath = "img/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const About = () => {
   const [registeredProjects, setRegisteredProjects] = useState(0);
