@@ -1,41 +1,3 @@
-// import React from 'react';
-// import './styles.css'; // Stil-Datei importieren
-// const imgBasePath = "img/"; // Basispfad für Bilder
-
-// const Login = () => {
-
-//     return (
-//         <section id='login' className="container_login">
-//             <div className="background-login" />
-
-//             <div className="login_txt">
-//                 <img src={`${imgBasePath}estrella.png`} alt="img_representativa" />
-//                 <p>Inicia sesión y crea un proyecto</p>
-
-//                 <div className="input-container">
-//                     <input type="text" placeholder="Usuario" />
-//                 </div>
-
-//                 <div className="input-container">
-//                     <input type="password" placeholder="Contraseña" />
-//                     <img className="input-img" src={`${imgBasePath}password.png`} alt="img_representativa" />
-//                 </div>
-
-//                 <button>INGRESAR</button>
-
-//                 <p>¿No tienes una cuenta?{" "} <a href="/" className="link-registrarse"> REGÍSTRATE</a>{" "}</p>
-//             </div>
-
-//             {/* <div className="login_img">
-//                 <img src={`${imgBasePath}loginimg.png`} alt="img_representativa" />
-//             </div> */}
-
-//         </section>
-//     );
-// }
-
-// export default Login;
-
 import React, { useState } from 'react';
 import './styles.css';
 
@@ -43,14 +5,44 @@ const imgBasePath = "img/";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
-    const [passwordImg, setPasswordImg] = useState(`${imgBasePath}password.png`); // Estado para la imagen de la contraseña
+    const [username, setUsername] = useState(''); // Estado para el nombre de usuario
+    const [password, setPassword] = useState(''); // Estado para la contraseña
 
     const togglePassword = () => {
         setShowPassword(!showPassword); // Cambia el estado para mostrar/ocultar la contraseña
-        if (showPassword) {
-            setPasswordImg(`${imgBasePath}password.png`); // Cambia la imagen a mostrar la contraseña oculta
-        } else {
-            setPasswordImg(`${imgBasePath}password_visible.png`); // Cambia la imagen a mostrar la contraseña visible
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault(); // Previene el envío por defecto del formulario
+
+        // Construye el objeto de datos a enviar al servidor
+        const formData = {
+            username: username,
+            password: password
+        };
+
+        try {
+            // Realiza una solicitud POST al servidor para autenticación
+            const response = await fetch('/inicio-sesion/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            // Verifica si la solicitud fue exitosa
+            if (response.ok) {
+                // Si la respuesta fue exitosa, redirige a la página de inicio
+                window.location.href = '/dashboard';
+            } else {
+                // Si la respuesta fue un error, muestra un mensaje de error
+                alert('Credenciales inválidas');
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            // Si hay un error, muestra un mensaje de error
+            alert('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
         }
     };
 
@@ -62,16 +54,33 @@ const Login = () => {
                 <img src={`${imgBasePath}estrella.png`} alt="img_representativa" />
                 <p>Inicia sesión y crea un proyecto</p>
 
-                <div className="input-container">
-                    <input type="text" placeholder="Usuario" />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            placeholder="Usuario"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
 
-                <div className="input-container">
-                    <input type={showPassword ? "text" : "password"} placeholder="Contraseña" />
-                    <img className="input-img" src={passwordImg} alt="img_representativa" onClick={togglePassword} />
-                </div>
+                    <div className="input-container">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Contraseña"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <img
+                            className="input-img"
+                            src={showPassword ? `${imgBasePath}password_visible.png` : `${imgBasePath}password.png`}
+                            alt="img_representativa"
+                            onClick={togglePassword}
+                        />
+                    </div>
 
-                <button>INGRESAR</button>
+                    <button type="submit">INGRESAR</button>
+                </form>
 
                 <p>¿No tienes una cuenta?{" "} <a href="/" className="link-registrarse"> REGÍSTRATE</a>{" "}</p>
             </div>

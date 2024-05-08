@@ -58,7 +58,7 @@ p {
 /* Navbar */
 /*  */
 
-.navbar {
+.navbar, .NavbarLogin{
   position: fixed;
   top: 0;
   left: 0;
@@ -69,16 +69,18 @@ p {
   transition: top 0.3s;
 }
 
-.navbar.hidden {
+.navbar.hidden,
+.NavbarLogin.hidden {
   top: -100px;
 }
 
-.navbar img {
+.navbar img,
+.NavbarLogin img {
   width: 100vw;
   height: auto;
 }
 
-.navbar ul {
+.navbar ul{
   list-style: none;
   margin: 0;
   padding: 0;
@@ -86,26 +88,41 @@ p {
   justify-content: center;
 }
 
-.navbar ul li {
+.NavbarLogin ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.navbar ul li,
+.NavbarLogin ul li {
   margin: 0 10px;
 }
 
-.navbar ul li a {
+.navbar ul li a,
+.NavbarLogin ul li a {
   color: #fff;
   text-decoration: none;
   font-size: 18px;
 }
 
-.navbar ul li a:hover {
+.navbar ul li a:hover,
+.NavbarLogin ul li a:hover {
   text-decoration: underline;
 }
 
-.navbar ul li a.active {
+.navbar ul li a.active,
+.NavbarLogin ul li a.active {
   color: var(--doradoClr);
 }
 
-
-
+.NavbarLogin_inicio{
+  display: flex;
+}
 
 
 /*  */
@@ -531,12 +548,13 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: hsla(0, 0%, 18%, 0.4);
+  background-color: hsla(0, 0%, 18%, 0.6);
   width: 30vw;
   height: 60%;
   border-radius: 40px;
   margin: 0 2vw;
   padding: 3vw;
+  
 }
 
 .login_txt img {

@@ -11,7 +11,7 @@ import InteractiveMap from './components/InteractiveMap';
 import Footer from './components/Footer';
 
 import Login from './components/Login';
-// import NavbarLogin from './components/NavbarLogin';
+import NavbarLogin from './components/NavbarLogin';
 
 
 const MainContent = () => {
@@ -32,10 +32,11 @@ const App = () => {
     return (
         <Router>
             <div>
-                {/* <NavbarLogin/> */}
                 <Routes>
+                    {/* Ruta para la página principal */}
                     <Route path="/" element={<MainContent />} />
-                    <Route path="/login" element={<Login />} />
+                    {/* Ruta para la página de login */}
+                    <Route path="/login/*" element={<LoginLayout />} />
                 </Routes>
                 <Footer />
             </div>
@@ -43,5 +44,16 @@ const App = () => {
     );
 }
 
-export default App;
+const LoginLayout = () => {
+    return (
+        <div>
+            <NavbarLogin />
+            {/* Renderiza el contenido dentro de la ruta de login */}
+            <Routes>
+                <Route path="/" element={<Login />} />
+            </Routes>
+        </div>
+    );
+}
 
+export default App;
