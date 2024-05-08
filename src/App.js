@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -31,15 +31,13 @@ const MainContent = () => {
 const App = () => {
     return (
         <Router>
-            <div>
-                <Routes>
-                    {/* Ruta para la página principal */}
-                    <Route path="/" element={<MainContent />} />
-                    {/* Ruta para la página de login */}
-                    <Route path="/login/*" element={<LoginLayout />} />
-                </Routes>
-                <Footer />
-            </div>
+            <Routes>
+                {/* Ruta para la página principal */}
+                <Route path="/" element={<MainContent />} />
+                {/* Ruta para la página de login */}
+                <Route path="/login/*" element={<LoginLayout />} />
+            </Routes>
+            <Footer />
         </Router>
     );
 }
@@ -57,3 +55,4 @@ const LoginLayout = () => {
 }
 
 export default App;
+

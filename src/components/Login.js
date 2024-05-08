@@ -7,6 +7,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
     const [username, setUsername] = useState(''); // Estado para el nombre de usuario
     const [password, setPassword] = useState(''); // Estado para la contraseña
+    const [error, setError] = useState(null); // Estado para almacenar errores de inicio de sesión
 
     const togglePassword = () => {
         setShowPassword(!showPassword); // Cambia el estado para mostrar/ocultar la contraseña
@@ -31,18 +32,19 @@ const Login = () => {
                 body: JSON.stringify(formData)
             });
 
-            // Verifica si la solicitud fue exitosa
+            // Verifica si la respuesta fue exitosa
             if (response.ok) {
                 // Si la respuesta fue exitosa, redirige a la página de inicio
-                window.location.href = '/dashboard';
+                window.location.href = '/';
             } else {
                 // Si la respuesta fue un error, muestra un mensaje de error
-                alert('Credenciales inválidas');
+                const responseData = await response.json(); // Obtiene el cuerpo de la respuesta como JSON
+                setError(responseData.error || 'Credenciales inválidas'); // Establece el error en el mensaje proporcionado por el servidor
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             // Si hay un error, muestra un mensaje de error
-            alert('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
+            setError('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
         }
     };
 
@@ -78,6 +80,8 @@ const Login = () => {
                             onClick={togglePassword}
                         />
                     </div>
+
+                    {error && <div className="error-message">{error}</div>} {/* Muestra el mensaje de error si hay un error */}
 
                     <button type="submit">INGRESAR</button>
                 </form>
