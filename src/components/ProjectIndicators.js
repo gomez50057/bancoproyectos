@@ -73,7 +73,7 @@ const ProjectIndicators = () => {
                         <img src={`${imgBasePath}ciudadania.png`} alt="img_representativa" />
                         <p>120</p>
                     </div>
-                    <p className="indicators_txt">Dependencia</p>
+                    <p className="indicators_txt">Ciudadanía</p>
                 </div>
 
                 <div className="indicators_ind">
@@ -81,7 +81,7 @@ const ProjectIndicators = () => {
                         <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
                         <p>120</p>
                     </div>
-                    <p className="indicators_txt">Ciudadanía</p>
+                    <p className="indicators_txt">Dependencia</p>
                 </div>
 
                 <div className="indicators_ind">
@@ -89,7 +89,7 @@ const ProjectIndicators = () => {
                         <img src={`${imgBasePath}municipio.png`} alt="img_representativa" />
                         <p>120</p>
                     </div>
-                    <p className="indicators_txt">municipio</p>
+                    <p className="indicators_txt">Municipio</p>
                 </div>
 
                 <div className="indicators_ind">
@@ -97,7 +97,7 @@ const ProjectIndicators = () => {
                         <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
                         <p>120</p>
                     </div>
-                    <p className="indicators_txt">Ciudadanía</p>
+                    <p className="indicators_txt">Organismo</p>
                 </div>
             </div>
             

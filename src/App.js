@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 
 import Login from './components/Login';
 import NavbarLogin from './components/NavbarLogin';
-
+import FormDependencia from './components/FormDependencia';
 
 const MainContent = () => {
     return (
@@ -34,11 +34,27 @@ const App = () => {
             <Routes>
                 {/* Ruta para la página principal */}
                 <Route path="/" element={<MainContent />} />
+                {/* Ruta para la página de dependencia */}
+                <Route path="/dependencia/*" element={<DependenciaLayout />} />
                 {/* Ruta para la página de login */}
                 <Route path="/login/*" element={<LoginLayout />} />
+                {/* Ruta de página no encontrada */}
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Footer />
         </Router>
+    );
+}
+
+const DependenciaLayout = () => {
+    return (
+        <div>
+            <Navbar />
+            {/* Renderiza el contenido dentro de la ruta de dependencia */}
+            <Routes>
+                <Route path="/" element={<FormDependencia />} />
+            </Routes>
+        </div>
     );
 }
 
@@ -55,4 +71,3 @@ const LoginLayout = () => {
 }
 
 export default App;
-
