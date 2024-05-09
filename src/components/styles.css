@@ -645,15 +645,13 @@ p {
   margin-top: 10px;
 }
 
-
-
-
-
-/* styles.css */
+/*  */
+/* FormDependencia */
+/*  */
 
 .project-form-container {
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 600px;
+  margin: 80px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -719,4 +717,19 @@ textarea {
   color: #dc3545;
   font-size: 14px;
   margin-top: 5px;
+}
+
+
+
+
+/*  */
+/* TableComponent */
+/*  */
+
+.table_grid{
+  display: flex;
+
+  width: 100vw;
+  height: auto;
+  margin: 20vb;
 }

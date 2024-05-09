@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import NavbarLogin from './components/NavbarLogin';
 import FormDependencia from './components/FormDependencia';
+import TableComponent from './components/TableComponent'; // Importa el nuevo componente de tabla
 
 const MainContent = () => {
     return (
@@ -38,6 +39,8 @@ const App = () => {
                 <Route path="/dependencia/*" element={<DependenciaLayout />} />
                 {/* Ruta para la página de login */}
                 <Route path="/login/*" element={<LoginLayout />} />
+                {/* Ruta para la página de tabla */}
+                <Route path="/table/" element={<TableLayout />} />
                 {/* Ruta de página no encontrada */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
@@ -65,6 +68,18 @@ const LoginLayout = () => {
             {/* Renderiza el contenido dentro de la ruta de login */}
             <Routes>
                 <Route path="/" element={<Login />} />
+            </Routes>
+        </div>
+    );
+}
+
+const TableLayout = () => {
+    return (
+        <div>
+            {/* <Navbar /> */}
+            {/* Renderiza el contenido dentro de la ruta de tabla */}
+            <Routes>
+                <Route path="/" element={<TableComponent />} />
             </Routes>
         </div>
     );
