@@ -13,7 +13,7 @@ const InterestingPages = () => {
             <div className="interests_reg">
                 <div className="rectangle">
                     <p>La Unidad de Planeación y Prospectivate sugiere...</p>
-                    <Link to="/dependencia" className="rectangle-button">
+                    <Link to="/table" className="rectangle-button">
                         <img src={`${imgBasePath}botton.png`} alt="Icono" className="icon" />
                         Ir
                     </Link>

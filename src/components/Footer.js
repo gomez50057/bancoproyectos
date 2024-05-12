@@ -36,7 +36,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <p>Coordinación General De Planeación Y Proyectosa</p>
+                    <p>Coordinación General De Planeación Y Proyectos</p>
                     <p><span>Unidad de Planeación y Prospectiva</span></p>
                     <p>proyectosyprospectiva@hidalgo.gob.mx</p>
                     <div className="linea_footer"></div>

@@ -727,9 +727,7 @@ textarea {
 /*  */
 
 .table_grid{
-  display: flex;
-
-  width: 100vw;
+  width: 90vw;
   height: auto;
-  margin: 20vb;
+  margin: 20vh 5vw;
 }

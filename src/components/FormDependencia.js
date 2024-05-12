@@ -1,36 +1,53 @@
+// FormDependencia.js
+
 import React from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-const ProjectForm = () => {
-  const initialValues = {
-    projectName: '',
-    description: '',
-    files: [],
-  };
-
+const FormDependencia = () => {
   const validationSchema = Yup.object().shape({
     projectName: Yup.string().required('El nombre del proyecto es obligatorio'),
     description: Yup.string().required('La descripción del proyecto es obligatoria'),
-    files: Yup.array().of(Yup.mixed())
-      .test("fileFormat", "Solo se permiten archivos ZIP", (value) => {
-        if (!value) return true; // Permitimos que el campo esté vacío
-        return value.every(file => file && file.type === 'application/zip');
-      }),
+    files: Yup.array().required('El archivo ZIP es obligatorio'),
   });
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    // Aquí puedes realizar acciones con los valores del formulario, como enviarlos a un servidor
-    console.log(values);
-    resetForm();
-    setSubmitting(false);
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      const formData = new FormData();
+      formData.append('projectName', values.projectName);
+      formData.append('description', values.description);
+      
+      values.files.forEach((file, index) => {
+        formData.append(`file_${index}`, file); // Utiliza un nombre único para cada archivo
+      });
+
+      // Obtener el token CSRF de las cookies
+      const csrfToken = Cookies.get('csrftoken');
+
+      await axios.post('/guardar-proyecto/', formData, {
+        headers: {
+          'X-CSRFToken': csrfToken, // Agregar el token CSRF como encabezado
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      resetForm();
+      setSubmitting(false);
+      alert('Proyecto creado exitosamente');
+    } catch (error) {
+      console.error('Error al crear el proyecto:', error);
+      alert('Ocurrió un error al crear el proyecto. Por favor, inténtalo de nuevo.');
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className="project-form-container">
       <h2>Formulario de Proyecto</h2>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ projectName: '', description: '', files: [] }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
@@ -53,15 +70,17 @@ const ProjectForm = () => {
                   <div>
                     {values.files.map((file, index) => (
                       <div key={index} className="file-input-group">
-                        <Field
+                        <input
                           type="file"
-                          name={`files.${index}`}
+                          onChange={(event) => {
+                            push(event.currentTarget.files[0]);
+                          }}
                           accept=".zip"
                         />
                         <button type="button" onClick={() => remove(index)}>Eliminar</button>
                       </div>
                     ))}
-                    <button type="button" onClick={() => push()} className="add-file-button">Agregar Archivo</button>
+                    <button type="button" onClick={() => push(null)} className="add-file-button">Agregar Archivo</button>
                   </div>
                 )}
               </FieldArray>
@@ -75,4 +94,4 @@ const ProjectForm = () => {
   );
 }
 
-export default ProjectForm;
+export default FormDependencia;

@@ -40,7 +40,7 @@ const App = () => {
                 {/* Ruta para la página de login */}
                 <Route path="/login/*" element={<LoginLayout />} />
                 {/* Ruta para la página de tabla */}
-                <Route path="/table/" element={<TableLayout />} />
+                <Route path="/table" element={<TableLayout />} />
                 {/* Ruta de página no encontrada */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
@@ -76,7 +76,7 @@ const LoginLayout = () => {
 const TableLayout = () => {
     return (
         <div>
-            {/* <Navbar /> */}
+            <Navbar />
             {/* Renderiza el contenido dentro de la ruta de tabla */}
             <Routes>
                 <Route path="/" element={<TableComponent />} />
