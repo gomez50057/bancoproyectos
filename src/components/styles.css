@@ -58,7 +58,7 @@ p {
 /* Navbar */
 /*  */
 
-.navbar, .NavbarLogin{
+/* .navbar, .NavbarLogin{
   position: fixed;
   top: 0;
   left: 0;
@@ -67,11 +67,69 @@ p {
   padding: 0px 0px 10px 0px;
   z-index: 1000;
   transition: top 0.3s;
+} */
+
+.navbar, .NavbarLogin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0px 0px 10px 0px;
+  z-index: 1000;
+  transition: top 0.3s;
+  backdrop-filter: blur(10px); /* Efecto de glass */
+  background-color: rgba(255, 255, 255, 0.2); /* Color de fondo con transparencia */
 }
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: var(--doradoClr);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  color: var(--doradoOsc);
+}
+
+.navbar .right {
+  float: right;
+}
+
+/* .NavbarLogin {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.NavbarLogin a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.NavbarLogin a:hover {
+  color: #ddd;
+} */
+
 
 .navbar.hidden,
 .NavbarLogin.hidden {
-  top: -100px;
+  top: -150px;
 }
 
 .navbar img,
@@ -105,9 +163,10 @@ p {
 
 .navbar ul li a,
 .NavbarLogin ul li a {
-  color: #fff;
+  color: var(--doradoClr);
   text-decoration: none;
   font-size: 18px;
+  font-weight: 700;
 }
 
 .navbar ul li a:hover,
@@ -170,9 +229,9 @@ p {
 .content_home .home_txt {
   position: absolute;
   margin: 2%;
-  top: 0;
-  left: 0;
-  width: 45vw;
+  top: 8vh;
+  left: 31px;
+  width: 40vw;
   height: auto;
 }
 
@@ -354,6 +413,10 @@ p {
   text-align: center;
 }
 
+.interests_txt span {
+  display: block;
+}
+
 .interests_reg {
   display: flex;
   align-items: center;
@@ -369,11 +432,11 @@ p {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 50%;
   border: 5px solid var(--vinoOsc);
   background-color: hsla(240, 1%, 60%, 0.205);
   backdrop-filter: blur(8px);
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
 }
 
 .rectangle p {
@@ -720,8 +783,6 @@ textarea {
 }
 
 
-
-
 /*  */
 /* TableComponent */
 /*  */
@@ -730,4 +791,17 @@ textarea {
   width: 90vw;
   height: auto;
   margin: 20vh 5vw;
+}
+
+
+
+/*  */
+/* TableComponent */
+/*  */
+
+.formulario-container{
+margin-left: 10vw;
+margin-right: 10vw; 
+margin-top: 150px;
+  width: 80vw
 }

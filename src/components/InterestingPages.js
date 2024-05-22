@@ -12,7 +12,7 @@ const InterestingPages = () => {
             <h2 className="interests_txt">CONOCE Y CREA <span>PROPUESTAS</span></h2>
             <div className="interests_reg">
                 <div className="rectangle">
-                    <p>La Unidad de Planeación y Prospectivate sugiere...</p>
+                    <p>Conoce los proyectos de tu localidad</p>
                     <Link to="/table" className="rectangle-button">
                         <img src={`${imgBasePath}botton.png`} alt="Icono" className="icon" />
                         Ir
