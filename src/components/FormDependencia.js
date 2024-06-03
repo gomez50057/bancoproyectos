@@ -275,7 +275,7 @@ const Formulario = () => {
               <div>
                 <div className="titulosForm">
                   <h3>Datos Generales</h3>
-                  <div className="linea_footer"></div>
+                  <div className="linea_form"></div>
                 </div>
 
                 <div className="DatosGenerales">
@@ -332,7 +332,7 @@ const Formulario = () => {
 
                 <div className="titulosForm">
                   <h3>Fuentes de Financiamiento</h3>
-                  <div className="linea_footer"></div>
+                  <div className="linea_form"></div>
                 </div>
                 <div className="FuentesFinanciamiento">
                   <div className="formFour">
@@ -380,7 +380,7 @@ const Formulario = () => {
 
                 <div className="titulosForm">
                   <h3>Descripción del Proyecto</h3>
-                  <div className="linea_footer"></div>
+                  <div className="linea_form"></div>
                 </div>
 
                 <div className="DescripcionProyecto">
@@ -432,7 +432,7 @@ const Formulario = () => {
 
                 <div className="titulosForm">
                   <h3>Territorio y Georreferenciación</h3>
-                  <div className="linea_footer"></div>
+                  <div className="linea_form"></div>
                 </div>
 
                 <div className="formFour">
@@ -492,7 +492,7 @@ const Formulario = () => {
 
                 <div className="titulosForm">
                   <h3>Alineación Estratégica</h3>
-                  <div className="linea_footer"></div>
+                  <div className="linea_form"></div>
                 </div>
 
 
@@ -578,8 +578,8 @@ const Formulario = () => {
                 </div>
 
                 <div className="titulosForm">
-                  <h3>RENTABILIDAD / ESTUDIOS DE VIABILIDAD CARGA DE DOCUMENTACIÓN</h3>
-                  <div className="linea_footer"></div>
+                  <h3>Rentabilidad / Estudios de Viabilidad Carga de Documentación</h3>
+                  <div className="linea_form"></div>
                 </div>
                 <div className="RENTABILIDAD">
                   {[

@@ -630,7 +630,6 @@ p {
   margin-right: 25px;
 }
 
-
 .login_txt button {
   width: 100%;
   display: flex;
@@ -654,17 +653,30 @@ p {
 /* FormDependencia */
 /*  */
 
-.titulosForm{
-  display: flex;
-  align-items: center;
+
+.linea_form {
+  width: 100%;
+  height: 2px;
+  margin: 2% 0;
+  background-color: var(--doradoOsc);
+  box-shadow: 0px 2px 2px rgba(222, 201, 163, 0.5);
 }
 
-.titulosForm h3{
+.titulosForm {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Espacio inferior */
+}
+
+.titulosForm h3 {
   width: auto;
+  color: var(--vinoOsc);
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Espacio inferior */
 }
 
 label {
@@ -674,18 +686,27 @@ label {
 }
 
 input[type="text"],
-textarea {
+input[type="number"],
+input[type="email"],
+input[type="file"],
+textarea,
+select {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
+  margin-bottom: 20px; 
+}
+
+.projectDate input[type="text"] {
+  width: 25%;
 }
 
 .file-input-group {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px; 
 }
 
 .file-input-group input[type="file"] {
@@ -693,30 +714,29 @@ textarea {
   margin-right: 10px;
 }
 
-.add-file-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
+.add-file-button,
+.submit-button {
   padding: 10px 15px;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
+  color: #fff;
+}
+
+.add-file-button {
+  background-color: #28a745;
 }
 
 .add-file-button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
 
 .submit-button {
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
+  background-color: #007bff;
 }
 
 .submit-button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .error {
@@ -724,11 +744,6 @@ textarea {
   font-size: 14px;
   margin-top: 5px;
 }
-
-/*  */
-/* TableComponent */
-/*  */
-
 
 /* Botones */
 .formulario-container button {
@@ -741,61 +756,25 @@ textarea {
   cursor: pointer;
 }
 
-/* Espaciado para el botón de agregar archivo */
-.file-input-group {
-  display: flex;
-  align-items: center;
-}
-
 .add-file-button {
   margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
   background-color: #28a745;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
 }
 
-.add-file-button:disabled {
+.add-file-button:disabled,
+.file-input-group button:disabled {
   background-color: #ccc;
 }
 
 .file-input-group button {
   margin-left: 10px;
   padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
   background-color: #dc3545;
   color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.file-input-group button:disabled {
-  background-color: #ccc;
 }
 
 .formulario-container textarea {
   resize: vertical;
-}
-
-.formulario-container .form-group input[type="text"],
-.formulario-container .form-group input[type="number"],
-.formulario-container .form-group input[type="email"],
-.formulario-container .form-group input[type="file"],
-.formulario-container .form-group select,
-.formulario-container .form-group textarea {
-  width: 100%;
-  border-radius: 15px;
-  padding: 10px;
-}
-
-.formulario-container button,
-.formulario-container .add-file-button {
-  width: fit-content;
-  align-self: flex-start;
 }
 
 .formulario-container .form-group label {
@@ -809,10 +788,6 @@ textarea {
   margin-top: 5px;
 }
 
-/*  */
-/*  */
-/*  */
-
 /* Estilos generales para el formulario */
 .formulario-container {
   max-width: 80vw;
@@ -825,27 +800,29 @@ textarea {
 
 .DatosGenerales,
 .FuentesFinanciamiento,
-.DescripcionProyecto{
- display: flex;
- flex-direction: column;
+.DescripcionProyecto {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espacio entre los elementos */
 }
 
-.RENTABILIDAD{
+.RENTABILIDAD {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 20px; /* Espacio entre los elementos */
 }
 
 .formTwo,
-.formFour{
+.formFour {
   display: flex;
   justify-content: space-between;
+  gap: 20px; /* Espacio entre los elementos */
 }
 
 .projectDate,
-.dependencia{
-  width: 100%;
-  height: auto;
+.dependencia {
+  flex: 1 0 100%; /* 100% width */
 }
 
 .projectName,
@@ -859,42 +836,39 @@ textarea {
 .planNacional,
 .planEstatal,
 .ods,
-.planSectorial, 
+.planSectorial,
 .CargaDocumentacion,
-.textAplica{
-  width: 49%;
-  height: auto;
+.textAplica {
+  flex: 1 0 49%; /* 49% width */
+  height: 100%;
 }
 
 .montoFederal,
 .montoEstatal,
 .montoMunicipal,
-.montoOtros{
-  width: 24%;
-  height: auto;
+.montoOtros {
+  flex: 1 0 24%; /* 24% width */
 }
 
-.CargaDocumentacion{
+.CargaDocumentacion {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-
+  flex-grow: 1; /* Permitir que crezca según sea necesario */
 }
 
-.textAplica{
-  width: 100%;
+.textAplica {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.textAplica label:first-child{
+.textAplica label:first-child {
   width: 50%;
 }
 
-.CargaDocumentacion .checkAplica{
+.CargaDocumentacion .checkAplica {
   display: flex;
   justify-content: space-around;
   width: 40%;
 }
-
