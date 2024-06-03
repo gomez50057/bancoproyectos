@@ -1,108 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './styles.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
 
-
-// const projectsInfo = [
-//     {
-//         name: "Ciudadanía",
-//         img: "ciudadania.png",
-//         info: [
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 3", value: "Valor 3" }
-//         ]
-//     },
-//     {
-//         name: "Dependencia",
-//         img: "dependecia.png",
-//         info: [
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 3", value: "Valor 3" }
-//         ]
-//     },
-//     {
-//         name: "Municipio",
-//         img: "municipio.png",
-//         info: [
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 3", value: "Valor 3" }
-//         ]
-//     },
-//     {
-//         name: "Organismo",
-//         img: "organismo.png",
-//         info: [
-//             { key: "Información 1", value: "Valor 1" },
-//             { key: "Información 2", value: "Valor 2" },
-//             { key: "Información 3", value: "Valor 3" }
-//         ]
-//     }
-// ];
-
 const ProjectIndicators = () => {
+  const [citizensCount, setCitizensCount] = useState(0);
+  const [departmentsCount, setDepartmentsCount] = useState(0);
+  const [municipalitiesCount, setMunicipalitiesCount] = useState(0);
+  const [organizationsCount, setOrganizationsCount] = useState(0);
+  const [hasCounted, setHasCounted] = useState(false); // Estado para asegurarnos de contar solo una vez
+  const indicatorsRef = useRef(null);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting && !hasCounted) {
+        setHasCounted(true);
+      }
+    }, { threshold: 1 }); // Cambiado el threshold a 0.25 para 1/4 del elemento
 
-    return (
-        <section id='projects' className="ProjectIndicators-container">
+    if (indicatorsRef.current) {
+      observer.observe(indicatorsRef.current);
+    }
 
-            <h2>INDICADORES DE <span>PROYECTOS</span></h2>
+    return () => {
+      if (indicatorsRef.current) {
+        observer.unobserve(indicatorsRef.current);
+      }
+    };
+  }, [hasCounted]);
 
-            <div className="indicators">
-                <div className="indicators_ind">
-                    <div className="indicators_cont">
-                        <img src={`${imgBasePath}ciudadania.png`} alt="img_representativa" />
-                        <p>120</p>
-                    </div>
-                    <p className="indicators_txt">Ciudadanía</p>
-                </div>
+  useEffect(() => {
+    if (hasCounted) {
+      const totalCitizens = 120;
+      const totalDepartments = 120;
+      const totalMunicipalities = 120;
+      const totalOrganizations = 120;
+      const fastSpeed = 5;
+      const slowSpeed = 50;
 
-                <div className="indicators_ind">
-                    <div className="indicators_cont">
-                        <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
-                        <p>120</p>
-                    </div>
-                    <p className="indicators_txt">Dependencia</p>
-                </div>
+      const animateCounter = (setCounter, total) => {
+        let counter = 0;
+        const timer = setInterval(() => {
+          counter++;
+          setCounter(counter);
+          if (counter === total) clearInterval(timer);
+        }, counter > total - 10 ? slowSpeed : fastSpeed);
+      };
 
-                <div className="indicators_ind">
-                    <div className="indicators_cont">
-                        <img src={`${imgBasePath}municipio.png`} alt="img_representativa" />
-                        <p>120</p>
-                    </div>
-                    <p className="indicators_txt">Municipio</p>
-                </div>
+      animateCounter(setCitizensCount, totalCitizens);
+      animateCounter(setDepartmentsCount, totalDepartments);
+      animateCounter(setMunicipalitiesCount, totalMunicipalities);
+      animateCounter(setOrganizationsCount, totalOrganizations);
+    }
+  }, [hasCounted]);
 
-                <div className="indicators_ind">
-                    <div className="indicators_cont">
-                        <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
-                        <p>120</p>
-                    </div>
-                    <p className="indicators_txt">Organismo</p>
-                </div>
-            </div>
-            
-        </section>
-    );
+  return (
+    <section id='projects' className="ProjectIndicators-container" ref={indicatorsRef}>
+      <div className="indicators">
+        <div className="indicators_ind">
+          <div className="indicators_cont">
+            <img src={`${imgBasePath}ciudadania.png`} alt="img_representativa" />
+            <p>{citizensCount}</p>
+          </div>
+          <p className="indicators_txt">Ciudadanía</p>
+        </div>
+
+        <div className="indicators_ind">
+          <div className="indicators_cont">
+            <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
+            <p>{departmentsCount}</p>
+          </div>
+          <p className="indicators_txt">Dependencia</p>
+        </div>
+
+        <div className="indicators_ind">
+          <div className="indicators_cont">
+            <img src={`${imgBasePath}municipio.png`} alt="img_representativa" />
+            <p>{municipalitiesCount}</p>
+          </div>
+          <p className="indicators_txt">Municipio</p>
+        </div>
+
+        <div className="indicators_ind">
+          <div className="indicators_cont">
+            <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
+            <p>{organizationsCount}</p>
+          </div>
+          <p className="indicators_txt">Organismo</p>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default ProjectIndicators;

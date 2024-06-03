@@ -5,6 +5,8 @@ const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const About = () => {
   const [registeredProjects, setRegisteredProjects] = useState(0);
+  const [projectsInProcess, setProjectsInProcess] = useState(0);
+  const [approvedProjects, setApprovedProjects] = useState(0);
   const [startCounter, setStartCounter] = useState(false);
   const aboutRef = useRef(null);
 
@@ -12,15 +14,11 @@ const About = () => {
     const handleScroll = () => {
       const aboutSection = aboutRef.current;
       if (aboutSection) {
-        const top = aboutSection.offsetTop; // Posición superior de la sección
-        const bottom = top + aboutSection.offsetHeight; // Posición inferior de la sección
+        const sectionTop = aboutSection.offsetTop;
+        const sectionBottom = sectionTop + aboutSection.offsetHeight;
         const scrollPosition = window.scrollY;
 
-        if (scrollPosition >= top && scrollPosition <= bottom) {
-          setStartCounter(true);
-        } else {
-          setStartCounter(false);
-        }
+        setStartCounter(scrollPosition >= sectionTop && scrollPosition <= sectionBottom);
       }
     };
 
@@ -30,18 +28,24 @@ const About = () => {
 
   useEffect(() => {
     if (startCounter) {
-      const totalProjects = 200;
+      const totalRegisteredProjects = 200;
+      const totalProjectsInProcess = 531;
+      const totalApprovedProjects = 125;
       const fastSpeed = 5;
       const slowSpeed = 50;
 
-      let counter = 0;
-      const timer = setInterval(() => {
-        counter++;
-        if (counter === totalProjects) clearInterval(timer);
-        setRegisteredProjects(counter);
-      }, counter > totalProjects - 10 ? slowSpeed : fastSpeed);
+      const animateCounter = (setCounter, total, delay) => {
+        let counter = 0;
+        const timer = setInterval(() => {
+          counter++;
+          setCounter(counter);
+          if (counter === total) clearInterval(timer);
+        }, counter > total - 10 ? slowSpeed : fastSpeed);
+      };
 
-      return () => clearInterval(timer);
+      animateCounter(setRegisteredProjects, totalRegisteredProjects);
+      animateCounter(setProjectsInProcess, totalProjectsInProcess);
+      animateCounter(setApprovedProjects, totalApprovedProjects);
     }
   }, [startCounter]);
 
@@ -50,9 +54,12 @@ const About = () => {
       <div className="content_about">
         <h1>BANCO DE PROYECTOS <span>HIDALGO</span></h1>
         <div className="about_txt">
-          <p>Es el Sistema Gubernamental que permite a los gobiernos municipales, dependencias, organismos y a la ciudadanía organizar de forma sistemática los proyectos propuestos, que servirá de soporte para los procesos de planeación, presupuestación y ejecución de la inversión pública.
+          <p>
+            Es el Sistema Gubernamental que permite a los gobiernos municipales, dependencias, organismos y a la ciudadanía organizar de forma sistemática los proyectos propuestos, que servirá de soporte para los procesos de planeación, presupuestación y ejecución de la inversión pública.
           </p>
-          <p>Brindará asistencia y acompañamiento técnico en el proceso para la integración de los expedientes, el Banco de Proyectos permitirá fortalecer las políticas públicas que contribuyan al logro de los objetivos del Plan Estatal de Desarrollo, los Objetivos de Desarrollo Sostenible  y las metas por regiones y municipios, para asegurar la asignación eficiente de recursos y la mejora continua de la gestión pública en las diferentes regiones del Estado de Hidalgo. </p>
+          <p>
+            Brindará asistencia y acompañamiento técnico en el proceso para la integración de los expedientes, el Banco de Proyectos permitirá fortalecer las políticas públicas que contribuyan al logro de los objetivos del Plan Estatal de Desarrollo, los Objetivos de Desarrollo Sostenible y las metas por regiones y municipios, para asegurar la asignación eficiente de recursos y la mejora continua de la gestión pública en las diferentes regiones del Estado de Hidalgo.
+          </p>
         </div>
       </div>
       <div className="background-about">
@@ -64,10 +71,10 @@ const About = () => {
             <p>{registeredProjects}<span>ANTEPROYECTOS REGISTRADOS</span></p>
           </div>
           <div className="about_numIndi">
-            <p>200<span>PROYECTOS EN PROCESO DE DICTAMEN TÉCNICO</span></p>
+            <p>{projectsInProcess}<span>PROYECTOS EN PROCESO DE DICTAMEN TÉCNICO</span></p>
           </div>
           <div className="about_numIndi">
-            <p>200<span>PROYECTOS CON DICTAMEN TÉCNICO</span></p>
+            <p>{approvedProjects}<span>PROYECTOS CON DICTAMEN TÉCNICO</span></p>
           </div>
         </div>
       </div>

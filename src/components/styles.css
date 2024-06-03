@@ -69,16 +69,15 @@ p {
   transition: top 0.3s;
 } */
 
-.navbar, .NavbarLogin {
+.navbar,
+.NavbarLogin {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0px 0px 10px 0px;
+  padding: 10px 0;
   z-index: 1000;
-  transition: top 0.3s;
-  backdrop-filter: blur(10px); /* Efecto de glass */
-  background-color: rgba(255, 255, 255, 0.2); /* Color de fondo con transparencia */
+  transition: top 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .navbar ul {
@@ -87,10 +86,12 @@ p {
   padding: 0;
   overflow: hidden;
   background-color: transparent;
+  display: flex;
+  justify-content: center;
 }
 
 .navbar li {
-  float: left;
+  margin: 0 10px;
 }
 
 .navbar li a {
@@ -99,90 +100,39 @@ p {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-}
-
-.navbar li a:hover {
-  color: var(--doradoOsc);
-}
-
-.navbar .right {
-  float: right;
-}
-
-/* .NavbarLogin {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 20px;
-}
-
-.NavbarLogin a {
-  color: white;
-  margin-left: 20px;
-  text-decoration: none;
-}
-
-.NavbarLogin a:hover {
-  color: #ddd;
-} */
-
-
-.navbar.hidden,
-.NavbarLogin.hidden {
-  top: -150px;
-}
-
-.navbar img,
-.NavbarLogin img {
-  width: 100vw;
-  height: auto;
-}
-
-.navbar ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.NavbarLogin ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-
-.navbar ul li,
-.NavbarLogin ul li {
-  margin: 0 10px;
-}
-
-.navbar ul li a,
-.NavbarLogin ul li a {
-  color: var(--doradoClr);
-  text-decoration: none;
   font-size: 18px;
   font-weight: 700;
 }
 
-.navbar ul li a:hover,
-.NavbarLogin ul li a:hover {
+.navbar li a:hover {
+  color: var(--doradoOsc);
   text-decoration: underline;
 }
 
-.navbar ul li a.active,
-.NavbarLogin ul li a.active {
-  color: var(--doradoClr);
+.navbar.hidden {
+  top: -150px;
 }
 
-.NavbarLogin_inicio{
+.navbar.scrolled {
+  backdrop-filter: blur(10px);
+  background-color: hsla(345, 3%, 24%, 0.5);
+  /* background: linear-gradient(90deg, rgba(86, 23, 44, 0.6), rgba(160, 34, 65, 0.6)); */
+}
+
+.navbar img,
+.NavbarLogin img {
+  width: auto;
+  height: 40px;
+}
+
+.NavbarLogin ul {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.NavbarLogin_inicio {
   display: flex;
 }
-
 
 /*  */
 /* home */
@@ -190,7 +140,7 @@ p {
 
 .home-container {
   position: relative;
-  height: calc(100vh + 60px);
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,6 +163,7 @@ p {
   background-position: center;
   background-color: #000;
   z-index: -1;
+  transition: transform 0.1s ease-out;
 }
 
 .content_home {
@@ -233,10 +184,14 @@ p {
   left: 31px;
   width: 40vw;
   height: auto;
+  opacity: 0;
+  transition: opacity 1s ease-in;
 }
 
 .content_home .home_img {
   width: 60vw;
+  opacity: 0;
+  transition: opacity 1s ease-in;
 }
 
 
@@ -250,13 +205,12 @@ p {
   height: auto;
 }
 
-
 .content_home .home_img {
   animation: floatingAnimation 2.5s infinite alternate ease-in-out;
 }
 
 .content_home img {
-  margin-top: 120px;
+  margin-top: 90px;
 }
 
 @keyframes floatingAnimation {
@@ -270,6 +224,12 @@ p {
     filter: drop-shadow(0 100px 50px rgbalinear-gradient(180deg, #56172c, #a02242));
   }
 }
+
+/* Clase para activar el fade-in */
+.fade-in {
+  opacity: 1 !important;
+}
+
 
 
 /*  */
@@ -289,7 +249,6 @@ p {
   width: 50vw;
   height: 100vh;
 }
-
 
 .background-about .about_img img {
   width: 100%;
@@ -333,7 +292,6 @@ p {
   display: block;
 }
 
-
 /*  */
 /* ProjectIndicators */
 /*  */
@@ -346,7 +304,7 @@ p {
   flex-direction: column;
 }
 
-.indicators{
+.indicators {
   display: flex;
   text-align-last: center;
   justify-content: space-evenly;
@@ -372,7 +330,6 @@ p {
 .indicators .indicators_cont {
   display: flex;
   align-items: center;
-
 }
 
 .indicators .indicators_cont p {
@@ -465,8 +422,6 @@ p {
   border-image: initial;
 }
 
-
-
 .icon {
   width: 20px;
   height: 20px;
@@ -491,7 +446,6 @@ p {
   max-width: 100vw;
   max-height: 300vh;
 }
-
 
 .how-it-works h2 span {
   display: block;
@@ -566,7 +520,6 @@ p {
   margin: 2% 0;
   background-color: var(--vinoClr);
   box-shadow: 0px 2px 2px rgba(234, 24, 24, 0.5);
-  /* Hier wird der Schatten hinzugefügt */
 }
 
 /*  */
@@ -583,11 +536,9 @@ p {
   color: var(--blanco);
 }
 
-.container_login p{
-
+.container_login p {
   color: var(--blanco);
 }
-
 
 .background-login {
   position: absolute;
@@ -601,10 +552,8 @@ p {
   background-position: center;
   z-index: -1;
   filter: blur(3px);
- opacity: 0.90;
+  opacity: 0.90;
 }
-
-
 
 .login_txt {
   display: flex;
@@ -617,7 +566,6 @@ p {
   border-radius: 40px;
   margin: 0 2vw;
   padding: 3vw;
-  
 }
 
 .login_txt img {
@@ -653,12 +601,9 @@ p {
   font-size: 10px;
 }
 
-
 .input-container {
   position: relative;
 }
-
-
 
 .input-container input {
   width: calc(100% - 80px);
@@ -680,9 +625,6 @@ p {
   transform: translateY(-50%);
   width: 20px;
 }
-
-
-
 
 .input-container img {
   margin-right: 25px;
@@ -712,12 +654,13 @@ p {
 /* FormDependencia */
 /*  */
 
-.project-form-container {
-  max-width: 600px;
-  margin: 80px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.titulosForm{
+  display: flex;
+  align-items: center;
+}
+
+.titulosForm h3{
+  width: auto;
 }
 
 .form-group {
@@ -782,26 +725,176 @@ textarea {
   margin-top: 5px;
 }
 
-
 /*  */
 /* TableComponent */
 /*  */
 
-.table_grid{
-  width: 90vw;
+
+/* Botones */
+.formulario-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Espaciado para el botón de agregar archivo */
+.file-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.add-file-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-file-button:disabled {
+  background-color: #ccc;
+}
+
+.file-input-group button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.file-input-group button:disabled {
+  background-color: #ccc;
+}
+
+.formulario-container textarea {
+  resize: vertical;
+}
+
+.formulario-container .form-group input[type="text"],
+.formulario-container .form-group input[type="number"],
+.formulario-container .form-group input[type="email"],
+.formulario-container .form-group input[type="file"],
+.formulario-container .form-group select,
+.formulario-container .form-group textarea {
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.formulario-container button,
+.formulario-container .add-file-button {
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.formulario-container .form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formulario-container .form-group .error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/*  */
+/*  */
+/*  */
+
+/* Estilos generales para el formulario */
+.formulario-container {
+  max-width: 80vw;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--blanco);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.DatosGenerales,
+.FuentesFinanciamiento,
+.DescripcionProyecto{
+ display: flex;
+ flex-direction: column;
+}
+
+.RENTABILIDAD{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.formTwo,
+.formFour{
+  display: flex;
+  justify-content: space-between;
+}
+
+.projectDate,
+.dependencia{
+  width: 100%;
   height: auto;
-  margin: 20vh 5vw;
 }
 
-
-
-/*  */
-/* TableComponent */
-/*  */
-
-.formulario-container{
-margin-left: 10vw;
-margin-right: 10vw; 
-margin-top: 150px;
-  width: 80vw
+.projectName,
+.tipoProyecto,
+.objetivos,
+.metas,
+.beneficiarios,
+.alineacionNormativa,
+.longitud,
+.latitud,
+.planNacional,
+.planEstatal,
+.ods,
+.planSectorial, 
+.CargaDocumentacion,
+.textAplica{
+  width: 49%;
+  height: auto;
 }
+
+.montoFederal,
+.montoEstatal,
+.montoMunicipal,
+.montoOtros{
+  width: 24%;
+  height: auto;
+}
+
+.CargaDocumentacion{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+}
+
+.textAplica{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textAplica label:first-child{
+  width: 50%;
+}
+
+.CargaDocumentacion .checkAplica{
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+}
+
