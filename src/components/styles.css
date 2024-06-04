@@ -526,16 +526,6 @@ p {
 /* login */
 /*  */
 
-.container_login {
-  position: relative;
-  height: calc(100vh + 60px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  color: var(--blanco);
-}
-
 .container_login p {
   color: var(--blanco);
 }
@@ -661,8 +651,8 @@ p {
   margin-top: 90px;
 }
 
-.formulario-container p{
- margin: 0 0 10px;
+.formulario-container p {
+  margin: 0 0 10px;
 }
 
 
@@ -841,7 +831,7 @@ select {
 
 .formTwo,
 .formThree,
-.formFour{
+.formFour {
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -880,11 +870,18 @@ select {
 .correoInstitucional,
 .telefonoOficina,
 .correoPersonal,
-.telefonoParticular
+.telefonoParticular,
+.entityType,
+.dependencia,
+.organismo,
+.municipioEnd,
+.sectorPrivado,
+.unidadPresupuestal,
+.unidadResponsable,
 .montoFederal,
 .montoEstatal,
 .montoMunicipal,
-.montoOtros{
+.montoOtros {
   flex: 1 0 24%;
 }
 
@@ -918,12 +915,12 @@ select {
   width: 40%;
 }
 
-.entityType{
+/* .entityType{
   flex: 1 0 33.667%;
-}
+} */
 
-.organismo,
+/* .organismo,
 .municipioEnd,
 .sectorPrivado {
   flex: 1 0 64.334%;
-}
+} */

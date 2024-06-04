@@ -3,144 +3,8 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, unidadPresupuestalPorUnidadResponsable } from '../utils';
 const imgBasePath = "/img/";
-
-// const regionesConMunicipios = {
-//   '01.Tula': [
-//     '005 Ajacuba', '010 Atitalaquia', '013 Atotonilco de Tula', '063 Tepeji del Río de Ocampo',
-//     '064 Tepetitlán', '065 Tetepango', '067 Tezontepec de Aldama', '070 Tlahuelilpan', '074 Tlaxcoapan', '076 Tula de Allende'
-//   ],
-//   '02.Tulancingo': [
-//     '001 Acatlán', '002 Acaxochitlán', '004 Agua Blanca de Iturbide', '016 Cuautepec de Hinojosa', '027 Huehuetla',
-//     '035 Metepec', '053 San Bartolo Tutotepec', '056 Santiago Tulantepec de Lugo Guerrero', '057 Singuilucan', '060 Tenango de Doria', '077 Tulancingo de Bravo'
-//   ],
-//   '03.Pachuca': ['048 Pachuca de Soto', '052 San Agustin Tlaxiaca', '082 Zapotlán de Juárez'],
-//   '04.Huejutla': [
-//     '028 Huejutla de Reyes', '011 Atlapexco', '014 Calnali', '025 Huautla', '026 Huazalingo', '032 Jaltocán', '034 Lolotla',
-//     '046 San Felipe Orizatlán', '073 Tlanchinol', '078 Xochiatipan', '080 Yahualica'
-//   ],
-//   '05.Mineral de la Reforma': [
-//     '051 Mineral de la Reforma', '022 Epazoyucan', '024 Huasca de Ocampo', '038 Mineral del Chico', '039 Mineral del Monte', '045 Omitlán de Juárez'
-//   ],
-//   '06.Tizayuca': ['069 Tizayuca', '066 Villa de Tezontepec', '075 Tolcayuca', '083 Zempoala'],
-//   '07.Actopan': [
-//     '003 Actopan', '009 El Arenal', '023 Francisco I. Madero', '041 Mixquiahuala de Juárez', '050 Progreso de Obregón',
-//     '054 San Salvador', '055 Santiago de Anaya'
-//   ],
-//   '08.Ixmiquilpan': [
-//     '030 Ixmiquilpan', '006 Alfajayucan', '015 Cardonal', '019 Chilcuautla', '043 Nicolás Flores', '058 Tasquillo', '084 Zimapán'
-//   ],
-//   '09.Zacualtipán': [
-//     '081 Zacualtipán de Ángeles', '012 Atotonilco el Grande', '020 Eloxochitlán', '033 Juárez Hidalgo',
-//     '036 San Agustín Metzquititlán', '037 Metztitlán', '042 Molango de Escamilla', '062 Tepehuacán de Guerrero',
-//     '068 Tianguistengo', '071 Tlahuiltepa', '079 Xochicoatlán'
-//   ],
-//   '10.Apan': [
-//     '008 Apan', '007 Almoloya', '021 Emiliano Zapata', '061 Tepeapulco', '072 Tlanalapa'
-//   ],
-//   '11.Huichapan': [
-//     '029 Huichapan', '017 Chapantongo', '044 Nopala de Villagrán', '059 Tecozautla'
-//   ],
-//   '12.Jacala': [
-//     '031 Jacala de Ledezma', '018 Chapulhuacán', '040 La Misión', '047 Pacula', '049 Pisaflores'
-//   ]
-// };
-
-
-const municipiosDeHidalgo = [
-  '001 Acatlán', '002 Acaxochitlán', '003 Actopan', '004 Agua Blanca de Iturbide', '005 Ajacuba', '006 Alfajayucan',
-  '007 Almoloya', '008 Apan', '009 El Arenal', '010 Atitalaquia', '011 Atlapexco', '012 Atotonilco el Grande',
-  '013 Atotonilco de Tula', '014 Calnali', '015 Cardonal', '016 Cuautepec de Hinojosa', '017 Chapantongo',
-  '018 Chapulhuacán', '019 Chilcuautla', '020 Eloxochitlán', '021 Emiliano Zapata', '022 Epazoyucan',
-  '023 Francisco I. Madero', '024 Huasca de Ocampo', '025 Huautla', '026 Huazalingo', '027 Huehuetla',
-  '028 Huejutla de Reyes', '029 Huichapan', '030 Ixmiquilpan', '031 Jacala de Ledezma', '032 Jaltocán',
-  '033 Juárez Hidalgo', '034 Lolotla', '035 Metepec', '036 San Agustín Metzquititlán', '037 Metztitlán',
-  '038 Mineral del Chico', '039 Mineral del Monte', '040 La Misión', '041 Mixquiahuala de Juárez',
-  '042 Molango de Escamilla', '043 Nicolás Flores', '044 Nopala de Villagrán', '045 Omitlán de Juárez',
-  '046 San Felipe Orizatlán', '047 Pacula', '048 Pachuca de Soto', '049 Pisaflores', '050 Progreso de Obregón',
-  '051 Mineral de la Reforma', '052 San Agustín Tlaxiaca', '053 San Bartolo Tutotepec', '054 San Salvador',
-  '055 Santiago de Anaya', '056 Santiago Tulantepec de Lugo Guerrero', '057 Singuilucan', '058 Tasquillo',
-  '059 Tecozautla', '060 Tenango de Doria', '061 Tepeapulco', '062 Tepehuacán de Guerrero', '063 Tepeji del Río de Ocampo',
-  '064 Tepetitlán', '065 Tetepango', '066 Villa de Tezontepec', '067 Tezontepec de Aldama', '068 Tianguistengo',
-  '069 Tizayuca', '070 Tlahuelilpan', '071 Tlahuiltepa', '072 Tlanalapa', '073 Tlanchinol', '074 Tlaxcoapan',
-  '075 Tolcayuca', '076 Tula de Allende', '077 Tulancingo de Bravo', '078 Xochiatipan', '079 Xochicoatlán',
-  '080 Yahualica', '081 Zacualtipán de Ángeles', '082 Zapotlán de Juárez', '083 Zempoala', '084 Zimapán'
-];
-
-const unidadesResponsables = [
-  '01.Poder Legislativo',
-  '02.Poder Judicial',
-  '03.Instituto Estatal Electoral',
-  '04.Comisión de Derechos Humanos del Estado',
-  '05.Instituto de Transparencia, Acceso a la Información Pública Gubernamental y Protección de Datos Personales del Estado de Hidalgo',
-  '06.Tribunal Electoral del Estado de Hidalgo',
-  '10.Secretaría del Despacho de la Persona Titular del Poder Ejecutivo del Estado',
-  '11.Secretaría de Gobierno',
-  '12.Secretaría de Hacienda',
-  '13.Secretaría de Bienestar e Inclusión Social',
-  '15.Secretaría de Infraestructura Pública y Desarrollo Urbano Sostenible',
-  '16.Secretaría de Medio Ambiente y Recursos Naturales',
-  '17.Secretaría de Desarrollo Económico',
-  '18.Secretaría de Agricultura y Desarrollo Rural',
-  '19.Secretaría de Turismo',
-  '20.Secretaría de Contraloría',
-  '21.Secretaría de Educación Pública',
-  '22.Secretaría de Salud',
-  '23.Secretaría de Seguridad Pública',
-  '24.Secretaría del Trabajo y Previsión Social',
-  '26.Secretaría de Movilidad y Transporte',
-  '27.Secretaría de Cultura',
-  '28.Unidad de Planeación y Prospectiva',
-  '29.Oficialía Mayor',
-  '30.Procuraduría General de Justicia',
-  '40.Organismos Descentralizados',
-  '50.Organismos Descentralizados no Sectorizados',
-  '60.Municipios'
-];
-
-const dependencias = [
-  'Secretaría del Despacho del Gobernador (SDC)', 'Oficialía Mayor (OFM)', 'Unidad de Planeación y Prospectiva (UPI)',
-  'Secretaría de Gobierno (COB)', 'Secretaría de Hacienda (HAC)', 'Secretaría de Bienestar e Inclusión Social (SBI)',
-  'Secretaría de Infraestructura Pública y Desarrollo Urbano Sostenible (SIP)', 'Secretaría de Desarrollo Económico (SDE)',
-  'Secretaría de Medio Ambiente y Recursos Naturales (SMR)', 'Secretaría de Agricultura y Desarrollo Rural (SAD)',
-  'Secretaría de Turismo (TUR)', 'Secretaría de Contraloría (CON)', 'Secretaría de Educación Pública (SEP)',
-  'Secretaría de Salud (SLD)', 'Secretaría de Seguridad Pública (SEG)', 'Secretaría del Trabajo y Previsión Social (STP)',
-  'Secretaría de Movilidad y Transporte (SMT)', 'Secretaría de Cultura (CUL)', 'Procuraduría de General de Justicia (PGJ)'
-];
-
-const organismos = [
-  'Centro de Justicia para Mujeres del Estado de Hidalgo (CJM)', 'Ciudad de las Mujeres (CMU)', 'Instituto Hidalguense de las Mujeres (IMU)',
-  'Instituto Hidalguense para el Desarrollo Municipal (IND)', 'Instituto Catastral del Estado de Hidalgo (ICA)',
-  'Instituto para Devolver al Pueblo lo Robado (IPR)', 'Centro Estatal de Maquinaria para el Desarrollo (CMD)',
-  'Comisión de Agua y Alcantarillado de Sistemas del Valle del Mezquital (CAV)', 'Comisión de Agua y Alcantarillado de Sistemas Intermunicipales (CAI)',
-  'Comisión Estatal de Agua y Alcantarillado (CEA)', 'Comisión Estatal de Vivienda (CEV)', 'Policía Industrial Bancaria del Estado de Hidalgo (PIB)',
-  'Consejo Estatal para la Cultura y las Artes de Hidalgo (CCA)', 'Escuela de Música del Estado de Hidalgo (EMH)',
-  'Servicios de Salud de Hidalgo (SSH)', 'Agencia de Desarrollo Valle de Plata (AVP)', 'Agencia Estatal de Energía (AEE)',
-  'Corporación de Fomento de Infraestructura Industrial (FII)', 'Corporación Internacional Hidalgo (CIH)',
-  'Instituto Hidalguense de Competitividad (IHC)', 'Comisión Estatal de Biodiversidad de Hidalgo (COE)',
-  'Centro de Conciliación Laboral del Estado de Hidalgo (CLH)', 'Instituto de Capacitación para el Trabajo del Estado de Hidalgo (CTH)',
-  'Operadora de Eventos del Estado de Hidalgo (OEH)', 'Bachillerato del Estado de Hidalgo (BEH)',
-  'Colegio de Bachilleres del Estado de Hidalgo (CBH)', 'Colegio de Educación Profesional Técnica del Estado de Hidalgo (EPT)',
-  'Colegio de Estudios Científicos y del Estado de Hidalgo (ECT)', 'El Colegio del Estado de Hidalgo (CEH)',
-  'Instituto Hidalguense de Educación (IHE)', 'Instituto Hidalguense de Educación para Adultos (IHEA)',
-  'Instituto Hidalguense de Financiamiento a la Educación Superior (IHFES)', 'Instituto Hidalguense de Ia Infraestructura Física Educativa (IFE)',
-  'Instituto Hidalguense del Deporte (IHD)', 'Instituto Tecnológico Superior de Huichapan (ITESHU)',
-  'Instituto Tecnológico Superior del Occidente del Estado de Hidalgo (ITSOEH)', 'Instituto Tecnológico Superior del Oriente del Estado de Hidalgo (ITESA)',
-  'Radio y Televisión de Hidalgo (RTH)', 'Universidad Intercultural del Estado de Hidalgo (UICEH)',
-  'Universidad Politécnica de Francisco l. Madero (UPFIM)', 'Universidad Politécnica de Huejutla (UPHUE)',
-  'Universidad Politécnica de la Energía (UPE)', 'Universidad Politécnica de Pachuca (UPP)',
-  'Universidad Politécnica de Tulancingo (UPT)', 'Universidad Politécnica Metropolitana de Hidalgo (UPMH)',
-  'Universidad Tecnológica de la Huasteca Hidalguense (UTHH)', 'Universidad Tecnológica de la Sierra Hidalguense (UTSH)',
-  'Universidad Tecnológica de la Zona Metropolitana del Valle de México (UTVAM)', 'Universidad Tecnológica de Mineral de la Reforma (UTMIR)',
-  'Universidad Tecnológica de Tulancingo (UTT)', 'Universidad Tecnológica de Tula-Tepejí (UTTT)',
-  'Universidad Tecnológica del Valle del Mezquital (UTVM)', 'Universidad Tecnológica Minera de Zimapán (UTMZ)',
-  'Instituto Hidalguense de la Juventud (IHJ)', 'Instituto para la Atención de las y los Adultos Mayores del Estado de Hidalgo (IAA)',
-  'Sistema de Convencional (STC)', 'Sistema de Masivo (STM)', 'Comisión Estatal para el Desarrollo de los Pueblos Indígenas en el Estado de Hidalgo (CPI)',
-  'Consejo de Ciencia, Tecnología e Innovación de Hidalgo (CCT)', 'Consejo Rector de Pachuca Ciudad del Conocimiento y la Cultura (CCC)',
-  'Museo Interactivo para la Niñez y Juventud Hidalguense El Rehilete (MIR)', 'Secretaría Técnica del Sistema Estatal Anticorrupción de Hidalgo (STSEA)',
-  'Distrito de Educación, Salud, Ciencia, Tecnología e Innovación (DESTI)', 'Sistema para el Desarrollo Integral de la Familia Hidalgo (DIF)',
-  'Universidad Digital del Estado de Hidalgo (UDH)'
-];
 
 const Formulario = () => {
   const [step, setStep] = useState(1);
@@ -215,6 +79,7 @@ const Formulario = () => {
     ods: Yup.string().required('Los objetivos de desarrollo sostenible son obligatorios'),
     planSectorial: Yup.string().required('El plan sectorial institucional es obligatorio'),
     unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
+    unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
   });
 
@@ -246,12 +111,13 @@ const Formulario = () => {
       formData.append('alineacionNormativa', values.alineacionNormativa);
       formData.append('region', values.region);
       formData.append('latitud', values.latitud);
-      formData.append('longitud', values.longitud);
+      formData.append('longitud', values.longitudio);
       formData.append('planNacional', values.planNacional);
       formData.append('planEstatal', values.planEstatal);
       formData.append('ods', values.ods);
       formData.append('planSectorial', values.planSectorial);
       formData.append('unidadResponsable', values.unidadResponsable);
+      formData.append('unidadPresupuestal', values.unidadPresupuestal);
       formData.append('observaciones', values.observaciones);
 
       for (const key in applies) {
@@ -297,7 +163,9 @@ const Formulario = () => {
 
   return (
     <div className="formulario-container">
-      <div className="formTitulo">
+      <div className="
+
+formTitulo">
         <img src={`${imgBasePath}formIco.png`} alt="img_representativa" />
         <h3>REGISTRO DE PROYECTO</h3>
       </div>
@@ -411,6 +279,7 @@ const Formulario = () => {
             ods: '',
             planSectorial: '',
             unidadResponsable: '',
+            unidadPresupuestal: '',
             estudiosProspectivos: [],
             estudiosFactibilidad: [],
             analisisAlternativas: [],
@@ -510,7 +379,7 @@ const Formulario = () => {
                             <option key={mun} value={mun}>{mun}</option>
                           ))}
                         </Field>
-                        <ErrorMessage name="municipio" component="div" className="error" />
+                        <ErrorMessage name="municipioEnd" component="div" className="error" />
                       </div>
                     )}
 
@@ -521,21 +390,39 @@ const Formulario = () => {
                         <ErrorMessage name="sectorPrivado" component="div" className="error" />
                       </div>
                     )}
+                  </div>
+                  <div className="formTwo">
+                    <div className="form-group unidadResponsable">
+                      <label>Unidad Responsable</label>
+                      <Field as="select" name="unidadResponsable" onChange={(e) => {
+                        setFieldValue('unidadResponsable', e.target.value);
+                        setFieldValue('unidadPresupuestal', ''); // Reset unidadPresupuestal when unidadResponsable changes
+                      }}>
+                        <option value="">Seleccione</option>
+                        {unidadesResponsables.map((unidad) => (
+                          <option key={unidad} value={unidad}>{unidad}</option>
+                        ))}
+                      </Field>
+                      <ErrorMessage name="unidadResponsable" component="div" className="error" />
+                    </div>
 
+                    {values.unidadResponsable && (
+                      <div className="form-group unidadPresupuestal">
+                        <label>Unidad Presupuestal</label>
+                        <Field as="select" name="unidadPresupuestal">
+                          <option value="">Seleccione</option>
+                          {unidadPresupuestalPorUnidadResponsable[values.unidadResponsable]?.map((unidad) => (
+                            <option key={unidad} value={unidad}>{unidad}</option>
+                          ))}
+                        </Field>
+                        <ErrorMessage name="unidadPresupuestal" component="div" className="error" />
+                      </div>
+                    )}
                   </div>
-                  <div className="form-group unidadResponsable">
-                    <label>Unidad Responsable</label>
-                    <Field as="select" name="unidadResponsable">
-                      <option value="">Seleccione</option>
-                      {unidadesResponsables.map((unidad) => (
-                        <option key={unidad} value={unidad}>{unidad}</option>
-                      ))}
-                    </Field>
-                    <ErrorMessage name="unidadResponsable" component="div" className="error" />
-                  </div>
+                      {/* agregar el nuevo campo aqui */}
+
                 </div>
 
-                {/* Aquí se agrega el nuevo campo "UNIDAD RESPONSABLE" */}
 
 
                 <div className="titulosForm">
@@ -692,7 +579,9 @@ const Formulario = () => {
                   </div>
                   <div className="form-group longitud">
                     <label>Longitud</label>
-                    <Field type="number" name="longitud" step="any" />
+                    <Field type="number
+
+" name="longitud" step="any" />
                     <ErrorMessage name="longitud" component="div" className="error" />
                   </div>
                 </div>
@@ -841,7 +730,9 @@ const Formulario = () => {
                                   <button type="button" onClick={() => remove(index)}>Eliminar</button>
                                 </div>
                               ))}
-                              <button type="button" onClick={() => push(null)} className="add-file-button">Agregar Archivo</button>
+                              <button type="button" onClick={() => push(null)} className="add-file-button">
+
+                                Agregar Archivo</button>
                             </div>
                           )}
                         </FieldArray>
@@ -877,3 +768,5 @@ const Formulario = () => {
 };
 
 export default Formulario;
+
+
