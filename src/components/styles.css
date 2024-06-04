@@ -653,6 +653,29 @@ p {
 /* FormDependencia */
 /*  */
 
+.formTitulo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 500;
+  margin-top: 90px;
+}
+
+.formulario-container p{
+ margin: 0 0 10px;
+}
+
+
+
+.formTitulo h3 {
+  color: var(--vinoClr);
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.formTitulo img {
+  width: 10%;
+}
 
 .linea_form {
   width: 100%;
@@ -665,7 +688,8 @@ p {
 .titulosForm {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Espacio inferior */
+  margin-bottom: 20px;
+  /* Espacio inferior */
 }
 
 .titulosForm h3 {
@@ -676,7 +700,7 @@ p {
 }
 
 .form-group {
-  margin-bottom: 20px; /* Espacio inferior */
+  margin-bottom: 20px;
 }
 
 label {
@@ -696,7 +720,7 @@ select {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 15px;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 .projectDate input[type="text"] {
@@ -706,7 +730,7 @@ select {
 .file-input-group {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; 
+  margin-bottom: 5px;
 }
 
 .file-input-group input[type="file"] {
@@ -757,7 +781,7 @@ select {
 }
 
 .add-file-button {
-  margin-top: 10px;
+  margin-top: 5px;
   background-color: #28a745;
 }
 
@@ -803,28 +827,36 @@ select {
 .DescripcionProyecto {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espacio entre los elementos */
+  gap: 20px;
+  /* Espacio entre los elementos */
 }
 
 .RENTABILIDAD {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 20px; /* Espacio entre los elementos */
+  gap: 20px;
+  /* Espacio entre los elementos */
 }
 
 .formTwo,
-.formFour {
+.formThree,
+.formFour{
   display: flex;
   justify-content: space-between;
-  gap: 20px; /* Espacio entre los elementos */
+  gap: 20px;
+  align-items: flex-start;
 }
 
-.projectDate,
-.dependencia {
-  flex: 1 0 100%; /* 100% width */
+.projectDate {
+  flex: 1 0 100%;
+  /* 100% width */
 }
 
+
+
+.nombreDependencia,
+.areaAdscripcion,
 .projectName,
 .tipoProyecto,
 .objetivos,
@@ -839,22 +871,35 @@ select {
 .planSectorial,
 .CargaDocumentacion,
 .textAplica {
-  flex: 1 0 49%; /* 49% width */
+  flex: 1 0 49%;
+  /* 49% width */
   height: 100%;
 }
 
+
+.correoInstitucional,
+.telefonoOficina,
+.correoPersonal,
+.telefonoParticular
 .montoFederal,
 .montoEstatal,
 .montoMunicipal,
-.montoOtros {
-  flex: 1 0 24%; /* 24% width */
+.montoOtros{
+  flex: 1 0 24%;
+}
+
+.nombreRegistrante,
+.apellidoPaterno,
+.apellidoMaterno {
+  flex: 1 0 32.333%;
 }
 
 .CargaDocumentacion {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  flex-grow: 1; /* Permitir que crezca según sea necesario */
+  flex-grow: 1;
+  /* Permitir que crezca según sea necesario */
 }
 
 .textAplica {
@@ -871,4 +916,14 @@ select {
   display: flex;
   justify-content: space-around;
   width: 40%;
+}
+
+.entityType{
+  flex: 1 0 33.667%;
+}
+
+.organismo,
+.municipioEnd,
+.sectorPrivado {
+  flex: 1 0 64.334%;
 }

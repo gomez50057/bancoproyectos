@@ -32,11 +32,11 @@ const Footer = () => {
                         <img src={`${imgBasePath}telefono.png`} alt="img_representativa" />
                         <div>
                             <p><span>CONTACTO:</span></p>
-                            <p><span>Tel.: 771 717 6000 ext. 0000</span></p>
+                            <p><span>Tel.: 771 717 6000 ext. 6648</span></p>
                         </div>
                     </div>
 
-                    <p>Coordinación General De Planeación Y Proyectos</p>
+                    <p>Coordinación General de Planeación y Proyectos</p>
                     <p><span>Unidad de Planeación y Prospectiva</span></p>
                     <p>proyectosyprospectiva@hidalgo.gob.mx</p>
                     <div className="linea_footer"></div>
