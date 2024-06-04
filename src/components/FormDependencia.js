@@ -5,24 +5,97 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 const imgBasePath = "/img/";
 
+// const regionesConMunicipios = {
+//   '01.Tula': [
+//     '005 Ajacuba', '010 Atitalaquia', '013 Atotonilco de Tula', '063 Tepeji del Río de Ocampo',
+//     '064 Tepetitlán', '065 Tetepango', '067 Tezontepec de Aldama', '070 Tlahuelilpan', '074 Tlaxcoapan', '076 Tula de Allende'
+//   ],
+//   '02.Tulancingo': [
+//     '001 Acatlán', '002 Acaxochitlán', '004 Agua Blanca de Iturbide', '016 Cuautepec de Hinojosa', '027 Huehuetla',
+//     '035 Metepec', '053 San Bartolo Tutotepec', '056 Santiago Tulantepec de Lugo Guerrero', '057 Singuilucan', '060 Tenango de Doria', '077 Tulancingo de Bravo'
+//   ],
+//   '03.Pachuca': ['048 Pachuca de Soto', '052 San Agustin Tlaxiaca', '082 Zapotlán de Juárez'],
+//   '04.Huejutla': [
+//     '028 Huejutla de Reyes', '011 Atlapexco', '014 Calnali', '025 Huautla', '026 Huazalingo', '032 Jaltocán', '034 Lolotla',
+//     '046 San Felipe Orizatlán', '073 Tlanchinol', '078 Xochiatipan', '080 Yahualica'
+//   ],
+//   '05.Mineral de la Reforma': [
+//     '051 Mineral de la Reforma', '022 Epazoyucan', '024 Huasca de Ocampo', '038 Mineral del Chico', '039 Mineral del Monte', '045 Omitlán de Juárez'
+//   ],
+//   '06.Tizayuca': ['069 Tizayuca', '066 Villa de Tezontepec', '075 Tolcayuca', '083 Zempoala'],
+//   '07.Actopan': [
+//     '003 Actopan', '009 El Arenal', '023 Francisco I. Madero', '041 Mixquiahuala de Juárez', '050 Progreso de Obregón',
+//     '054 San Salvador', '055 Santiago de Anaya'
+//   ],
+//   '08.Ixmiquilpan': [
+//     '030 Ixmiquilpan', '006 Alfajayucan', '015 Cardonal', '019 Chilcuautla', '043 Nicolás Flores', '058 Tasquillo', '084 Zimapán'
+//   ],
+//   '09.Zacualtipán': [
+//     '081 Zacualtipán de Ángeles', '012 Atotonilco el Grande', '020 Eloxochitlán', '033 Juárez Hidalgo',
+//     '036 San Agustín Metzquititlán', '037 Metztitlán', '042 Molango de Escamilla', '062 Tepehuacán de Guerrero',
+//     '068 Tianguistengo', '071 Tlahuiltepa', '079 Xochicoatlán'
+//   ],
+//   '10.Apan': [
+//     '008 Apan', '007 Almoloya', '021 Emiliano Zapata', '061 Tepeapulco', '072 Tlanalapa'
+//   ],
+//   '11.Huichapan': [
+//     '029 Huichapan', '017 Chapantongo', '044 Nopala de Villagrán', '059 Tecozautla'
+//   ],
+//   '12.Jacala': [
+//     '031 Jacala de Ledezma', '018 Chapulhuacán', '040 La Misión', '047 Pacula', '049 Pisaflores'
+//   ]
+// };
+
+
 const municipiosDeHidalgo = [
-  '001 Acatlán','002 Acaxochitlán','003 Actopan','004 Agua Blanca de Iturbide','005 Ajacuba','006 Alfajayucan',
-  '007 Almoloya','008 Apan','009 El Arenal','010 Atitalaquia','011 Atlapexco','012 Atotonilco el Grande',
-  '013 Atotonilco de Tula','014 Calnali','015 Cardonal','016 Cuautepec de Hinojosa','017 Chapantongo',
-  '018 Chapulhuacán','019 Chilcuautla','020 Eloxochitlán','021 Emiliano Zapata','022 Epazoyucan',
-  '023 Francisco I. Madero','024 Huasca de Ocampo','025 Huautla','026 Huazalingo','027 Huehuetla',
-  '028 Huejutla de Reyes','029 Huichapan','030 Ixmiquilpan','031 Jacala de Ledezma','032 Jaltocán',
-  '033 Juárez Hidalgo','034 Lolotla','035 Metepec','036 San Agustín Metzquititlán','037 Metztitlán',
-  '038 Mineral del Chico','039 Mineral del Monte','040 La Misión','041 Mixquiahuala de Juárez',
-  '042 Molango de Escamilla','043 Nicolás Flores','044 Nopala de Villagrán','045 Omitlán de Juárez',
-  '046 San Felipe Orizatlán','047 Pacula','048 Pachuca de Soto','049 Pisaflores','050 Progreso de Obregón',
-  '051 Mineral de la Reforma','052 San Agustín Tlaxiaca','053 San Bartolo Tutotepec','054 San Salvador',
-  '055 Santiago de Anaya','056 Santiago Tulantepec de Lugo Guerrero','057 Singuilucan','058 Tasquillo',
-  '059 Tecozautla','060 Tenango de Doria','061 Tepeapulco','062 Tepehuacán de Guerrero','063 Tepeji del Río de Ocampo',
-  '064 Tepetitlán','065 Tetepango','066 Villa de Tezontepec','067 Tezontepec de Aldama','068 Tianguistengo',
-  '069 Tizayuca','070 Tlahuelilpan','071 Tlahuiltepa','072 Tlanalapa','073 Tlanchinol','074 Tlaxcoapan',
-  '075 Tolcayuca','076 Tula de Allende','077 Tulancingo de Bravo','078 Xochiatipan','079 Xochicoatlán',
-  '080 Yahualica','081 Zacualtipán de Ángeles','082 Zapotlán de Juárez','083 Zempoala','084 Zimapán'
+  '001 Acatlán', '002 Acaxochitlán', '003 Actopan', '004 Agua Blanca de Iturbide', '005 Ajacuba', '006 Alfajayucan',
+  '007 Almoloya', '008 Apan', '009 El Arenal', '010 Atitalaquia', '011 Atlapexco', '012 Atotonilco el Grande',
+  '013 Atotonilco de Tula', '014 Calnali', '015 Cardonal', '016 Cuautepec de Hinojosa', '017 Chapantongo',
+  '018 Chapulhuacán', '019 Chilcuautla', '020 Eloxochitlán', '021 Emiliano Zapata', '022 Epazoyucan',
+  '023 Francisco I. Madero', '024 Huasca de Ocampo', '025 Huautla', '026 Huazalingo', '027 Huehuetla',
+  '028 Huejutla de Reyes', '029 Huichapan', '030 Ixmiquilpan', '031 Jacala de Ledezma', '032 Jaltocán',
+  '033 Juárez Hidalgo', '034 Lolotla', '035 Metepec', '036 San Agustín Metzquititlán', '037 Metztitlán',
+  '038 Mineral del Chico', '039 Mineral del Monte', '040 La Misión', '041 Mixquiahuala de Juárez',
+  '042 Molango de Escamilla', '043 Nicolás Flores', '044 Nopala de Villagrán', '045 Omitlán de Juárez',
+  '046 San Felipe Orizatlán', '047 Pacula', '048 Pachuca de Soto', '049 Pisaflores', '050 Progreso de Obregón',
+  '051 Mineral de la Reforma', '052 San Agustín Tlaxiaca', '053 San Bartolo Tutotepec', '054 San Salvador',
+  '055 Santiago de Anaya', '056 Santiago Tulantepec de Lugo Guerrero', '057 Singuilucan', '058 Tasquillo',
+  '059 Tecozautla', '060 Tenango de Doria', '061 Tepeapulco', '062 Tepehuacán de Guerrero', '063 Tepeji del Río de Ocampo',
+  '064 Tepetitlán', '065 Tetepango', '066 Villa de Tezontepec', '067 Tezontepec de Aldama', '068 Tianguistengo',
+  '069 Tizayuca', '070 Tlahuelilpan', '071 Tlahuiltepa', '072 Tlanalapa', '073 Tlanchinol', '074 Tlaxcoapan',
+  '075 Tolcayuca', '076 Tula de Allende', '077 Tulancingo de Bravo', '078 Xochiatipan', '079 Xochicoatlán',
+  '080 Yahualica', '081 Zacualtipán de Ángeles', '082 Zapotlán de Juárez', '083 Zempoala', '084 Zimapán'
+];
+
+const unidadesResponsables = [
+  '01.Poder Legislativo',
+  '02.Poder Judicial',
+  '03.Instituto Estatal Electoral',
+  '04.Comisión de Derechos Humanos del Estado',
+  '05.Instituto de Transparencia, Acceso a la Información Pública Gubernamental y Protección de Datos Personales del Estado de Hidalgo',
+  '06.Tribunal Electoral del Estado de Hidalgo',
+  '10.Secretaría del Despacho de la Persona Titular del Poder Ejecutivo del Estado',
+  '11.Secretaría de Gobierno',
+  '12.Secretaría de Hacienda',
+  '13.Secretaría de Bienestar e Inclusión Social',
+  '15.Secretaría de Infraestructura Pública y Desarrollo Urbano Sostenible',
+  '16.Secretaría de Medio Ambiente y Recursos Naturales',
+  '17.Secretaría de Desarrollo Económico',
+  '18.Secretaría de Agricultura y Desarrollo Rural',
+  '19.Secretaría de Turismo',
+  '20.Secretaría de Contraloría',
+  '21.Secretaría de Educación Pública',
+  '22.Secretaría de Salud',
+  '23.Secretaría de Seguridad Pública',
+  '24.Secretaría del Trabajo y Previsión Social',
+  '26.Secretaría de Movilidad y Transporte',
+  '27.Secretaría de Cultura',
+  '28.Unidad de Planeación y Prospectiva',
+  '29.Oficialía Mayor',
+  '30.Procuraduría General de Justicia',
+  '40.Organismos Descentralizados',
+  '50.Organismos Descentralizados no Sectorizados',
+  '60.Municipios'
 ];
 
 const dependencias = [
@@ -141,6 +214,7 @@ const Formulario = () => {
     planEstatal: Yup.string().required('El plan estatal de desarrollo es obligatorio'),
     ods: Yup.string().required('Los objetivos de desarrollo sostenible son obligatorios'),
     planSectorial: Yup.string().required('El plan sectorial institucional es obligatorio'),
+    unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
   });
 
@@ -177,6 +251,7 @@ const Formulario = () => {
       formData.append('planEstatal', values.planEstatal);
       formData.append('ods', values.ods);
       formData.append('planSectorial', values.planSectorial);
+      formData.append('unidadResponsable', values.unidadResponsable);
       formData.append('observaciones', values.observaciones);
 
       for (const key in applies) {
@@ -335,6 +410,7 @@ const Formulario = () => {
             planEstatal: '',
             ods: '',
             planSectorial: '',
+            unidadResponsable: '',
             estudiosProspectivos: [],
             estudiosFactibilidad: [],
             analisisAlternativas: [],
@@ -447,7 +523,20 @@ const Formulario = () => {
                     )}
 
                   </div>
+                  <div className="form-group unidadResponsable">
+                    <label>Unidad Responsable</label>
+                    <Field as="select" name="unidadResponsable">
+                      <option value="">Seleccione</option>
+                      {unidadesResponsables.map((unidad) => (
+                        <option key={unidad} value={unidad}>{unidad}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name="unidadResponsable" component="div" className="error" />
+                  </div>
                 </div>
+
+                {/* Aquí se agrega el nuevo campo "UNIDAD RESPONSABLE" */}
+
 
                 <div className="titulosForm">
                   <h3>Fuentes de Financiamiento</h3>
