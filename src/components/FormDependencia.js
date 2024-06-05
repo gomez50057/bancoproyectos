@@ -80,6 +80,7 @@ const Formulario = () => {
     planSectorial: Yup.string().required('El plan sectorial institucional es obligatorio'),
     unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
     unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
+    ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
   });
 
@@ -118,6 +119,7 @@ const Formulario = () => {
       formData.append('planSectorial', values.planSectorial);
       formData.append('unidadResponsable', values.unidadResponsable);
       formData.append('unidadPresupuestal', values.unidadPresupuestal);
+      formData.append('ramoPresupuestal', values.ramoPresupuestal);
       formData.append('observaciones', values.observaciones);
 
       for (const key in applies) {
@@ -163,9 +165,7 @@ const Formulario = () => {
 
   return (
     <div className="formulario-container">
-      <div className="
-
-formTitulo">
+      <div className="formTitulo">
         <img src={`${imgBasePath}formIco.png`} alt="img_representativa" />
         <h3>REGISTRO DE PROYECTO</h3>
       </div>
@@ -280,6 +280,7 @@ formTitulo">
             planSectorial: '',
             unidadResponsable: '',
             unidadPresupuestal: '',
+            ramoPresupuestal: '',
             estudiosProspectivos: [],
             estudiosFactibilidad: [],
             analisisAlternativas: [],
@@ -331,7 +332,6 @@ formTitulo">
                   </div>
 
                   <div className="formTwo">
-
                     <div className="form-group entityType">
                       <label>Tipo de Entidad</label>
                       <Field as="select" name="entityType" onChange={(e) => setEntityType(e.target.value)}>
@@ -391,6 +391,7 @@ formTitulo">
                       </div>
                     )}
                   </div>
+
                   <div className="formTwo">
                     <div className="form-group unidadResponsable">
                       <label>Unidad Responsable</label>
@@ -419,11 +420,56 @@ formTitulo">
                       </div>
                     )}
                   </div>
-                      {/* agregar el nuevo campo aqui */}
 
+                  <div className="form-group ramoPresupuestal">
+                    <label>Ramo Presupuestal</label>
+                    <Field as="select" name="ramoPresupuestal">
+                      <option value="">Seleccione</option>
+                      <optgroup label="Ramos Autónomos">
+                        <option value="Legislativo">Legislativo</option>
+                        <option value="Judicial">Judicial</option>
+                        <option value="Electoral">Electoral</option>
+                        <option value="Derechos Humanos">Derechos Humanos</option>
+                        <option value="Acceso a la Información Pública Gubernamental">Acceso a la Información Pública Gubernamental</option>
+                        <option value="Justicia Electoral">Justicia Electoral</option>
+                      </optgroup>
+                      <optgroup label="Ramos Administrativos">
+                        <option value="Despacho del Poder Ejecutivo">Despacho del Poder Ejecutivo</option>
+                        <option value="Gobierno">Gobierno</option>
+                        <option value="Hacienda Pública">Hacienda Pública</option>
+                        <option value="Bienestar e Inclusión Social">Bienestar e Inclusión Social</option>
+                        <option value="Infraestructura Pública y Desarrollo Urbano Sostenible">Infraestructura Pública y Desarrollo Urbano Sostenible</option>
+                        <option value="Medio Ambiente y Recursos Naturales">Medio Ambiente y Recursos Naturales</option>
+                        <option value="Desarrollo Económico">Desarrollo Económico</option>
+                        <option value="Agricultura y Desarrollo Rural">Agricultura y Desarrollo Rural</option>
+                        <option value="Turismo">Turismo</option>
+                        <option value="Contraloría">Contraloría</option>
+                        <option value="Educación Pública">Educación Pública</option>
+                        <option value="Salud">Salud</option>
+                        <option value="Seguridad Pública">Seguridad Pública</option>
+                        <option value="Trabajo y Previsión Social">Trabajo y Previsión Social</option>
+                        <option value="Movilidad y Transporte">Movilidad y Transporte</option>
+                        <option value="Cultura">Cultura</option>
+                        <option value="Planeación y Prospectiva">Planeación y Prospectiva</option>
+                        <option value="Administración">Administración</option>
+                        <option value="Justicia">Justicia</option>
+                      </optgroup>
+                      <optgroup label="Ramos Generales">
+                        <option value="Transferencias">Transferencias</option>
+                        <option value="Participaciones a Municipios">Participaciones a Municipios</option>
+                        <option value="Contingencias">Contingencias</option>
+                        <option value="Provisiones Salariales">Provisiones Salariales</option>
+                        <option value="Deuda Pública">Deuda Pública</option>
+                        <option value="Adeudos de Ejercicios Fiscales Anteriores">Adeudos de Ejercicios Fiscales Anteriores</option>
+                        <option value="Aportaciones a Municipios">Aportaciones a Municipios</option>
+                        <option value="Erogaciones para las Operaciones y Programas de Saneamiento Financiero">Erogaciones para las Operaciones y Programas de Saneamiento Financiero</option>
+                        <option value="Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca">Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca</option>
+                        <option value="Inversión en Municipios">Inversión en Municipios</option>
+                      </optgroup>
+                    </Field>
+                    <ErrorMessage name="ramoPresupuestal" component="div" className="error" />
+                  </div>
                 </div>
-
-
 
                 <div className="titulosForm">
                   <h3>Fuentes de Financiamiento</h3>
@@ -579,9 +625,7 @@ formTitulo">
                   </div>
                   <div className="form-group longitud">
                     <label>Longitud</label>
-                    <Field type="number
-
-" name="longitud" step="any" />
+                    <Field type="number" name="longitud" step="any" />
                     <ErrorMessage name="longitud" component="div" className="error" />
                   </div>
                 </div>
@@ -613,9 +657,6 @@ formTitulo">
                       <option value="Acuerdo para el Bienestar del Pueblo">Acuerdo para el Bienestar del Pueblo</option>
                       <option value="Acuerdo para el Desarrollo Económico">Acuerdo para el Desarrollo Económico</option>
                       <option value="Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora">Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora</option>
-                      {/* <option value="Transversales Acuerdo por la Ciencia y Tecnología para el Desarrollo">Transversales Acuerdo por la Ciencia y Tecnología para el Desarrollo</option>
-                      <option value="Transversales Acuerdo para Garantizar los Derechos Humanos">Transversales Acuerdo para Garantizar los Derechos Humanos</option>
-                      <option value="Transversales Acuerdo para la Transformación y Rendición de Cuentas">Transversales Acuerdo para la Transformación y Rendición de Cuentas</option> */}
                     </Field>
                     <ErrorMessage name="planEstatal" component="div" className="error" />
                   </div>
@@ -731,8 +772,8 @@ formTitulo">
                                 </div>
                               ))}
                               <button type="button" onClick={() => push(null)} className="add-file-button">
-
-                                Agregar Archivo</button>
+                                Agregar Archivo
+                              </button>
                             </div>
                           )}
                         </FieldArray>
@@ -768,5 +809,3 @@ formTitulo">
 };
 
 export default Formulario;
-
-
