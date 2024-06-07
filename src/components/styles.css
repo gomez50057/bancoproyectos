@@ -853,12 +853,18 @@ select {
 .metas,
 .beneficiarios,
 .alineacionNormativa,
+.gastoProgramable,
+.programaPresupuestario,
 .longitud,
 .latitud,
 .planNacional,
 .planEstatal,
 .ods,
 .planSectorial,
+.indicadoresEstrategicos,
+.indicadoresTacticos,
+.indicadoresDesempeno,
+.indicadoresRentabilidad,
 .CargaDocumentacion,
 .textAplica {
   flex: 1 0 49%;

@@ -3,7 +3,18 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, unidadPresupuestalPorUnidadResponsable } from '../utils';
+import { 
+  municipiosDeHidalgo, 
+  unidadesResponsables, 
+  dependencias, 
+  organismos, 
+  unidadPresupuestalPorUnidadResponsable,
+  gastoProgramableOptions, 
+  programaPresupuestarioOptions,
+  indicadoresEstrategicosOptions,
+  indicadoresTacticosOptions
+} from '../utils';
+
 const imgBasePath = "/img/";
 
 const Formulario = () => {
@@ -82,6 +93,11 @@ const Formulario = () => {
     unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
     ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
+    gastoProgramable: Yup.string().required('El gasto programable es obligatorio'),
+    indicadoresEstrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
+    indicadoresTacticos: Yup.string().required('Los indicadores tácticos son obligatorios'),
+    indicadoresDesempeno: Yup.string().required('Los indicadores de desempeño son obligatorios'),
+    indicadoresRentabilidad: Yup.string().required('Los indicadores de rentabilidad son obligatorios'),
   });
 
   const handleSubmitStep1 = (values, { setSubmitting }) => {
@@ -112,7 +128,7 @@ const Formulario = () => {
       formData.append('alineacionNormativa', values.alineacionNormativa);
       formData.append('region', values.region);
       formData.append('latitud', values.latitud);
-      formData.append('longitud', values.longitudio);
+      formData.append('longitud', values.longitud);
       formData.append('planNacional', values.planNacional);
       formData.append('planEstatal', values.planEstatal);
       formData.append('ods', values.ods);
@@ -121,6 +137,11 @@ const Formulario = () => {
       formData.append('unidadPresupuestal', values.unidadPresupuestal);
       formData.append('ramoPresupuestal', values.ramoPresupuestal);
       formData.append('observaciones', values.observaciones);
+      formData.append('gastoProgramable', values.gastoProgramable);
+      formData.append('indicadoresEstrategicos', values.indicadoresEstrategicos);
+      formData.append('indicadoresTacticos', values.indicadoresTacticos);
+      formData.append('indicadoresDesempeno', values.indicadoresDesempeno);
+      formData.append('indicadoresRentabilidad', values.indicadoresRentabilidad);
 
       for (const key in applies) {
         if (applies[key]) {
@@ -294,6 +315,11 @@ const Formulario = () => {
             manifestacionImpactoAmbiental: [],
             otrosEstudios: [],
             observaciones: '',
+            gastoProgramable: '',
+            indicadoresEstrategicos: '',
+            indicadoresTacticos: '',
+            indicadoresDesempeno: '',
+            indicadoresRentabilidad: '',
           }}
           validationSchema={validationSchemaStep2}
           onSubmit={handleSubmitStep2}
@@ -550,11 +576,30 @@ const Formulario = () => {
                       <div>Máximo 500 caracteres</div>
                     </div>
                   </div>
-                  <div className="form-group programaPresupuestario">
-                    <label>Programa Presupuestario</label>
-                    <Field type="text" name="programaPresupuestario" />
-                    <ErrorMessage name="programaPresupuestario" component="div" className="error" />
+
+                  <div className="formTwo">
+                    <div className="form-group gastoProgramable">
+                      <label>Gasto Programable</label>
+                      <Field as="select" name="gastoProgramable" onChange={(e) => setFieldValue('gastoProgramable', e.target.value)}>
+                        <option value="">Seleccione</option>
+                        {gastoProgramableOptions.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
+                      </Field>
+                      <ErrorMessage name="gastoProgramable" component="div" className="error" />
+                    </div>
+                    <div className="form-group programaPresupuestario">
+                      <label>Programa Presupuestario</label>
+                      <Field as="select" name="programaPresupuestario">
+                        <option value="">Seleccione</option>
+                        {programaPresupuestarioOptions[values.gastoProgramable]?.map((prog) => (
+                          <option key={prog} value={prog}>{prog}</option>
+                        ))}
+                      </Field>
+                      <ErrorMessage name="programaPresupuestario" component="div" className="error" />
+                    </div>
                   </div>
+                  
                   <div className="formTwo">
                     <div className="form-group beneficiarios">
                       <label>Beneficiarios</label>
@@ -718,6 +763,45 @@ const Formulario = () => {
                   <div className="linea_form"></div>
                 </div>
 
+                <div className="formTwo">
+                  <div className="form-group indicadoresEstrategicos">
+                    <label>Indicadores Estratégicos</label>
+                    <Field as="select" name="indicadoresEstrategicos">
+                      <option value="">Seleccione</option>
+                      {indicadoresEstrategicosOptions[values.planEstatal]?.map((ind) => (
+                        <option key={ind} value={ind}>{ind}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
+                  </div>
+                  <div className="form-group indicadoresTacticos">
+                    <label>Indicadores Tácticos</label>
+                    {entityType === 'Dependencia' ? (
+                      <Field as="select" name="indicadoresTacticos">
+                        <option value="">Seleccione</option>
+                        {indicadoresTacticosOptions[values.dependencia]?.map((ind) => (
+                          <option key={ind} value={ind}>{ind}</option>
+                        ))}
+                      </Field>
+                    ) : (
+                      <Field type="text" name="indicadoresTacticos" value="No Aplica" readOnly />
+                    )}
+                    <ErrorMessage name="indicadoresTacticos" component="div" className="error" />
+                  </div>
+                </div>
+
+                <div className="formTwo">
+                  <div className="form-group indicadoresDesempeno">
+                    <label>Indicadores de Desempeño</label>
+                    <Field as="textarea" name="indicadoresDesempeno" maxLength="1000" />
+                    <ErrorMessage name="indicadoresDesempeno" component="div" className="error" />
+                  </div>
+                  <div className="form-group indicadoresRentabilidad">
+                    <label>Indicadores de Rentabilidad</label>
+                    <Field as="textarea" name="indicadoresRentabilidad" maxLength="1000" />
+                    <ErrorMessage name="indicadoresRentabilidad" component="div" className="error" />
+                  </div>
+                </div>
 
                 <div className="titulosForm">
                   <h3>Rentabilidad / Estudios de Viabilidad Carga de Documentación</h3>

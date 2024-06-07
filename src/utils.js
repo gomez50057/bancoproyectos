@@ -136,7 +136,6 @@ export const organismos = [
     'Universidad Digital del Estado de Hidalgo (UDH)'
 ];
 
-
 export const unidadPresupuestalPorUnidadResponsable = {
     '01.Poder Legislativo': [
         '01.Presidencia de la Junta de Gobierno',
@@ -579,40 +578,461 @@ export const unidadPresupuestalPorUnidadResponsable = {
 };
 
 
-export const ramoPresupuestalOptions = [
-    '1.Legislativo',
-    '2.Judicial',
-    '3.Electoral',
-    '4.Derechos Humanos',
-    '5.Acceso a la Información Pública Gubernamental',
-    '6.Justicia Electoral',
-    '7.Despacho del Poder Ejecutivo',
-    '8.Gobierno',
-    '9.Hacienda Pública',
-    '10.Bienestar e Inclusión Social',
-    '11.Infraestructura Pública y Desarrollo Urbano Sostenible',
-    '12.Medio Ambiente y Recursos Naturales',
-    '13.Desarrollo Económico',
-    '14.Agricultura y Desarrollo Rural',
-    '15.Turismo',
-    '16.Contraloría',
-    '17.Educación Pública',
-    '18.Salud',
-    '19.Seguridad Pública',
-    '20.Trabajo y Previsión Social',
-    '22.Movilidad y Transporte',
-    '23.Cultura',
-    '24.Planeación y Prospectiva',
-    '25.Administración',
-    '26.Justicia',
-    '27.Transferencias',
-    '28.Participaciones a Municipios',
-    '29.Contingencias',
-    '30.Provisiones Salariales',
-    '31.Deuda Pública',
-    '32.Adeudos de Ejercicios Fiscales Anteriores',
-    '33.Aportaciones a Municipios',
-    '34.Erogaciones para las Operaciones y Programas de Saneamiento Financiero',
-    '35.Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca',
-    '36.Inversión en Municipios',
+export const gastoProgramableOptions = [
+    { label: '1. Gobierno', value: 'Gobierno' },
+    { label: '2. Hacienda', value: 'Hacienda' },
+    { label: '3. Bienestar e Inclusión Social', value: 'Bienestar e Inclusión Social' },
+    { label: '4. Infraestructura Pública y Desarrollo Urbano Sostenible', value: 'Infraestructura Pública y Desarrollo Urbano Sostenible' },
+    { label: '5. Medio Ambiente y Recursos Naturales', value: 'Medio Ambiente y Recursos Naturales' },
+    { label: '6. Desarrollo Económico', value: 'Desarrollo Económico' },
+    { label: '7. Agricultura y Desarrollo Rural', value: 'Agricultura y Desarrollo Rural' },
+    { label: '8. Turismo Sostenible', value: 'Turismo Sostenible' },
+    { label: '9. Contraloría', value: 'Contraloría' },
+    { label: '10. Educación', value: 'Educación' },
+    { label: '11. Salud', value: 'Salud' },
+    { label: '12. Seguridad Pública', value: 'Seguridad Pública' },
+    { label: '13. Trabajo y Previsión Social', value: 'Trabajo y Previsión Social' },
+    { label: '14. Movilidad y Transporte', value: 'Movilidad y Transporte' },
+    { label: '15. Cultura', value: 'Cultura' },
+    { label: '16. Planeación y Prospectiva', value: 'Planeación y Prospectiva' },
+    { label: '17. Oficialía Mayor', value: 'Oficialía Mayor' },
+    { label: '18. Procuración de Justicia', value: 'Procuración de Justicia' },
+    { label: '19. Organismos No Sectorizados', value: 'Organismos No Sectorizados' },
+    { label: '20. Inversión', value: 'Inversión' },
+    { label: '21. Otros', value: 'Otros' },
+    { label: '22. Gasto No Programable', value: 'Gasto No Programable' }
 ];
+
+export const programaPresupuestarioOptions = {
+    'Gobierno': [
+        '1. Gobernabilidad y Gobernanza',
+        '2. Protección Civil y Gestión de Riesgos',
+        '3. Certeza y Seguridad Jurídica',
+        '4. Desarrollo de Capacidades Institucionales Municipales',
+        '5. Población y Dinámica Demográfica',
+        '6. Acceso de las Mujeres a una Vida Libre de Violencia (Justicia para las mujeres)',
+        '7. Igualdad Sustantiva entre Mujeres y Hombres',
+        '8. Desarrollo y Protección Integral de Niñas, Niños y Adolescentes',
+        '9. Comunicación Gubernamental',
+        '10. Acceso a la Reparación Integral del Daño a Víctimas del Delito y Violación a Derechos Humanos'
+    ],
+    'Hacienda': [
+        '1. Fomento a la Aplicación Eficiente de los Recursos Públicos',
+        '2. Sistema Tributario Moderno y Eficiente',
+        '3. Coordinación Fiscal y Captación Creciente de los Recursos Federales',
+        '4. Evaluación del Desempeño con base en Resultados',
+        '5. Programación Eficiente del Gasto Público'
+    ],
+    'Bienestar e Inclusión Social': [
+        '1. Acciones para Fortalecer el sector Desarrollo Social para el Bienestar',
+        '2. Fomento Artesanal',
+        '3. Atención a Migrantes',
+        '4. Fomento al Desarrollo de la Participación Social',
+        '5. Inclusión para las Personas con Discapacidad',
+        '6. Atención a Adultos Mayores',
+        '7. Atención a la Juventud'
+    ],
+    'Infraestructura Pública y Desarrollo Urbano Sostenible': [
+        '1. Infraestructura Pública',
+        '2. Desarrollo Urbano Sostenible',
+        '3. Vivienda',
+        '4. Agua y Saneamiento'
+    ],
+    'Medio Ambiente y Recursos Naturales': [
+        '1. Planeación y Gestión Ambiental',
+        '2. Preservación y Aprovechamiento Sostenible de la Biodiversidad y los Recursos Naturales',
+        '3. Procuración y Acceso a la Justicia Ambiental',
+        '4. Mitigación y Adaptación al Cambio Climático',
+        '5. Manejo Integrado de Recursos Hídricos'
+    ],
+    'Desarrollo Económico': [
+        '1. Fomento a la Actividad Económica con una Visión Regional',
+        '2. Consolidación de las Unidades Económicas Nacionales e Internacionales',
+        '3. Fomento y Promoción del Desarrollo Energético'
+    ],
+    'Agricultura y Desarrollo Rural': [
+        '1. Infraestructura Agrícola',
+        '2. Ganadería',
+        '3. Silvicultura, Fruticultura y Acuacultura'
+    ],
+    'Turismo Sostenible': [
+        '1. Desarrollo de Productos y Servicios Turísticos',
+        '2. Promoción y Comercialización de la Oferta Turística',
+        '3. Calidad y Competitividad Turística'
+    ],
+    'Contraloría': [
+        '1. Auditoría y Control de Recursos Públicos',
+        '2. Evaluación y Seguimiento del Gasto Público',
+        '3. Transparencia y Rendición de Cuentas'
+    ],
+    'Educación': [
+        '1. Acceso y Permanencia en la Educación Básica',
+        '2. Calidad Educativa',
+        '3. Educación Media Superior y Superior',
+        '4. Infraestructura Educativa',
+        '5. Desarrollo Profesional del Personal Educativo'
+    ],
+    'Salud': [
+        '1. Acceso Universal a Servicios de Salud',
+        '2. Calidad en la Atención Médica',
+        '3. Prevención y Control de Enfermedades',
+        '4. Infraestructura y Equipamiento de Salud',
+        '5. Salud Pública'
+    ],
+    'Seguridad Pública': [
+        '1. Prevención del Delito',
+        '2. Investigación y Persecución de Delitos',
+        '3. Reinserción Social',
+        '4. Coordinación de Seguridad Pública'
+    ],
+    'Trabajo y Previsión Social': [
+        '1. Empleo Digno y Formal',
+        '2. Capacitación y Formación para el Trabajo',
+        '3. Seguridad y Salud en el Trabajo'
+    ],
+    'Movilidad y Transporte': [
+        '1. Infraestructura Vial y de Transporte',
+        '2. Transporte Público de Calidad',
+        '3. Movilidad Urbana Sostenible'
+    ],
+    'Cultura': [
+        '1. Promoción y Difusión Cultural',
+        '2. Conservación del Patrimonio Cultural',
+        '3. Desarrollo Cultural y Artístico',
+        '4. Acceso a la Cultura'
+    ],
+    'Planeación y Prospectiva': [
+        '1. Planeación Estratégica',
+        '2. Evaluación de Políticas Públicas',
+        '3. Análisis y Estudios Prospectivos'
+    ],
+    'Oficialía Mayor': [
+        '1. Administración de Recursos Materiales y Servicios',
+        '2. Gestión de Recursos Humanos',
+        '3. Innovación y Modernización Administrativa'
+    ],
+    'Procuración de Justicia': [
+        '1. Investigación y Persecución de Delitos',
+        '2. Atención a Víctimas del Delito',
+        '3. Procuración de Justicia'
+    ],
+    'Organismos No Sectorizados': [
+        '1. Coordinación Interinstitucional',
+        '2. Gestión de Programas y Proyectos Especiales'
+    ],
+    'Inversión': [
+        '1. Inversión Pública',
+        '2. Proyectos Estratégicos',
+        '3. Infraestructura y Obras'
+    ],
+    'Otros': [
+        '1. Atención Integral de la Oficina del Titular del Ejecutivo Estatal al Pueblo Hidalguense',
+        '2. Trabajos Legislativos',
+        '3. Impartición de Justicia',
+        '4. Organización y Desarrollo de Procesos Electorales',
+        '5. Protección, Defensa, Promoción y Difusión de los Derechos Humanos',
+        '6. Garantías en Transparencia, Acceso a la Información Pública Gubernamental y Protección de Datos',
+        '7. Justicia en los Procesos Electorales',
+        '8. Operaciones Ajenas',
+        '9. Obligaciones de Cumplimiento de Resolución Jurisdiccional',
+        '10. Desastres Naturales',
+        '11. Pensiones y Jubilaciones',
+        '12. Aportaciones a la Seguridad Social',
+        '13. Aportaciones a Fondos de Estabilización',
+        '14. Aportaciones a Fondos de Inversión y Reestructura de Pensiones',
+        '15. Gasto Federalizado'
+    ],
+    'Gasto No Programable': [
+        '1. Municipios',
+        '2. Deuda',
+        '3. Adeudos de Ejercicios Fiscales Anteriores (ADEFAS)'
+    ]
+};
+
+export const indicadoresEstrategicosOptions = {
+    'Acuerdo para un Gobierno Cercano, Justo y Honesto': [
+        'Porcentaje de satisfacción general al realizar trámites, pagos y servicios generales',
+        'Puntaje en la Dimensión de Democracia de los Ciudadanos del Índice de Desarrollo Democrático',
+        'Posición en el Subíndice Gobiernos Eficientes y Eficaces del Índice de Competitividad',
+        'Tasa de prevalencia de corrupción al realizar un trámite personal',
+        'Porcentaje de la población de 18 años y más víctima de corrupción',
+        'Índice de avance de implementación del PbR-SED',
+        'Deuda pública como porcentaje del PIB Estatal',
+        'Índice de Estado de Derecho en México',
+        'Índice de Paz',
+        'Tasa de incidencia delictiva',
+        'Porcentaje de personas de 18 años y más que identifica a la policía estatal y considera algo efectivo o muy efectivo el trabajo de la policía estatal',
+        'Índice Estatal de Desempeño de Procuradurías y Fiscalías'
+    ],
+    'Acuerdo para el Bienestar del Pueblo': [
+        'Carencia por acceso a los servicios de salud',
+        'Índice de Gobierno Abierto',
+        'Porcentaje de población con carencia por acceso a la alimentación',
+        'Índice de progreso social',
+        'Tasa de variación del promedio de carencias sociales presentadas por las personas con discapacidad permanente que forman parte de la población objetivo',
+        'Población de 60 y más años de edad, afiliada a alguna institución que brinda servicios de salud',
+        'Porcentaje de jóvenes ocupados',
+        'Índice de Intensidad Migratoria',
+        'Tarjetas de residente permanente (trp) y tarjetas de residente temporal (trt) emitidas en Hidalgo',
+        'Porcentaje de población indígena en situación de pobreza',
+        'Población indígena con ingreso inferior a la línea de pobreza extrema por ingresos',
+        'Brecha de género en la tasa de participación laboral',
+        'Prevalencia de la violencia por tipo entre las mujeres de 15 años y más a lo largo de su vida',
+        'Porcentaje de la población de 18 y más años de edad activa físicamente en tiempo libre según el nivel de suficiencia para obtener beneficios en la salud, por lugar de práctica físico deportiva.',
+        'Tasa de mortalidad infantil',
+        'Tasa de trabajo infantil'
+    ],
+    'Acuerdo para el Desarrollo Económico': [
+        'Indicador Trimestral de la actividad económica Estatal',
+        'Tasa de desempleo',
+        'Tasa de informalidad',
+        'Índice trimestral de la actividad económica del Estado de Hidalgo - sector primario',
+        'Llegada de turistas (nacionales/internacionales)',
+        'Estadía en el Estado',
+        'Porcentaje de ocupación hotelera en la entidad',
+        'Índice de recursos culturales',
+        'Carencia por rezago educativo',
+        'Eficiencia del Sistema Educativo Estatal',
+        'Grado promedio de escolaridad'
+    ],
+    'Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora': [
+        'Porcentaje de población con carencia por calidad y espacios de vivienda',
+        'Longitud de la Red Nacional de Carreteras según superficie de rodamiento en Hidalgo',
+        'Porcentaje de Instrumentos de Planeación de Ordenamiento Territorial y Desarrollo Urbano.',
+        'Satisfacción con el transporte público',
+        'Máximo de las concentraciones de los promedios móviles de 8 h de ozono',
+        'Subíndice de Medio Ambiente del Índice de Competitividad Estatal'
+    ]
+};
+
+export const indicadoresTacticosOptions = {
+    'Secretaría del Despacho del Gobernador (SDC)': [
+        // Agrega las opciones aquí
+    ],
+    'Oficialía Mayor (OFM)': [
+        'Porcentaje de acciones de fortalecimiento institucional para las y los trabajadores del poder ejecutivo.',
+        'Porcentaje de acciones para la modernización de la administración de los recursos humanos del poder ejecutivo.',
+        'Porcentaje de acciones de cobertura de mantenimiento menor de inmuebles del poder ejecutivo.',
+        'Porcentaje de acciones de regularización del patrimonio inmobiliario propiedad del gobierno del Estado.',
+        'Porcentaje de acciones de capacitación para las y los servidores públicos del poder ejecutivo.',
+        'Porcentaje de procesos de licitación pública transparentados oportunamente.',
+        'Promedio de cumplimiento en materia de archivos en el estado de Hidalgo.',
+        'Porcentaje de acciones de rediseño organizacional aplicadas en las dependencias y organismos de la administración pública.',
+        'Porcentaje de sistemas, apps y portales gestionados.',
+        'Porcentaje de acciones realizadas para la mejora de la gestión pública.'
+    ],
+    'Unidad de Planeación y Prospectiva (UPI)': [
+        'Porcentaje de instrumentos de planeación publicados en el estado de Hidalgo.',
+        'Porcentaje de acuerdos vinculados derivados de las reuniones de gobernanza metropolitana.',
+        'Porcentaje de proyectos con impacto regional que cuentan con análisis de congruencia para vinculación institucional.',
+        'Índice anual de efectividad en el avance y cumplimiento de los objetivos y metas de los instrumentos de planeación.',
+        'Razón entre el número de dictámenes y otros instrumentos de información generados a través de análisis estadísticos y geográficos, sobre el número total de instrumentos solicitados por las dependencias de la administración pública estatal.',
+        'Porcentaje de asesorías jurídicas con respuesta generada.',
+        'Porcentaje de cumplimiento en la implementación del marco regulatorio en las dependencias y entidades de la administración pública estatal y municipal.',
+        'Porcentaje de avance de metas de los indicadores de los programas, proyectos y políticas públicas, de las dependencias y entidades para la toma de decisiones.'
+    ],
+    'Secretaría de Gobierno (COB)': [
+        'Porcentaje sobre los asuntos socio-políticos atendidos que realizan los ciudadanos del estado de Hidalgo a la Subsecretaría de Desarrollo Político.',
+        'Porcentaje de acciones concretadas del programa de trabajo del Secretariado Ejecutivo del Consejo Estatal de Seguridad Pública.',
+        'Porcentaje de la población total mayor de 18 años del estado de Hidalgo atendida en trámites y servicios por la Dirección General de Unidades de Servicios Estatales.',
+        'Esperanza de vida al nacer.',
+        'Porcentaje de registros de nacimiento realizados de manera oportuna de niñas y niños del estado de Hidalgo.',
+        'Porcentaje de asesoría jurídica otorgadas con calidad a personas de escasos recursos económicos.',
+        'Trámites y servicios públicos atendidos por la Coordinación General Jurídica, para garantizar certeza jurídica a la ciudadanía hidalguense.',
+        'Trámites y servicios públicos atendidos por la Coordinación General Jurídica, para garantizar certeza jurídica a la ciudadanía hidalguense.',
+        'Tiempo promedio en la inscripción de escrituras públicas ante el Instituto de la Función Registral del estado de Hidalgo.',
+        'Tiempo de expedición de solicitudes administrativas de trámites recepcionados en la Dirección General de Archivo General de Notarías.',
+        'Porcentaje del avance de la incorporación de la transversalidad de la perspectiva de género.',
+        'Porcentaje de servicios otorgados a mujeres y hombres que contribuyen a la igualdad sustantiva.',
+        'Calificación promedio que las mujeres otorgan a los servicios recibidos en el Centro de Justicia para Mujeres del Estado de Hidalgo.',
+        'Tasa de variación de recomendaciones de derechos humanos dirigidas a autoridades de la Administración Pública Estatal y aceptadas por la persona titular del poder ejecutivo del estado de Hidalgo.',
+        'Porcentaje de unidades municipales de protección civil, con calificación mayor o igual a ochenta puntos para la obtención de constancias de participación en las capacitaciones en materia de protección civil.',
+        'Razón de réplica de los contenidos gubernamentales a través de los diferentes canales de comunicación.',
+        'Porcentaje de municipios que mejoran su desarrollo institucional a través del programa de desempeño municipal.',
+        'Porcentaje de asociaciones religiosas informadas en el marco jurídico de libertad de creencias religiosas y su aplicación en la convivencia social, para abonar en la construcción de paz.',
+        'Porcentaje de víctimas atendidas por delitos y violaciones a derechos humanos.',
+        'Porcentaje de acciones y actividades de difusión para la de búsqueda y/o no localización de personas.',
+        'Porcentaje de niñas, niños y adolescentes a los que les han vulnerado sus derechos, vinculados ante diversas dependencias o entidades para su atención.'
+    ],
+    'Secretaría de Hacienda (HAC)': [
+        'Porcentaje de los ingresos propios respecto al total de ingresos del estado.',
+        'Porcentaje de recursos comprometidos respecto de los recursos federales etiquetados.',
+        'Porcentaje de recursos obtenidos en subsidios y convenios respecto del total del gasto programable.',
+        'Porcentaje de recursos destinados a inversión respecto del total del gasto programable',
+        'Deuda pública Per Cápita.',
+        'Porcentaje del gasto de operación respecto al Presupuesto de Egresos ejercido.',
+        'Índice de acciones realizadas para contribuir a la consolidación del Presupuesto Basado en Resultados y del Sistema Estatal de Evaluación del Desempeño.'
+    ],
+    'Secretaría de Bienestar e Inclusión Social (SBI)': [
+        'Porcentaje de personas adultas mayores atendidas con acciones de atención gerontológica integral y ambulatoria.',
+        'Porcentaje de personas beneficiadas con acciones de fomento para el desarrollo de la participación social para el bienestar.',
+        'Porcentaje de personas en situación de pobreza atendidas con los programas de Pensión para el Bienestar.',
+        'Porcentaje de personas con discapacidad total y permanente beneficiarias del programa que reciben apoyos económicos.',
+        'Porcentaje de personas artesanas atendidas con apoyos gubernamentales.',
+        'Porcentaje de población de 12 a 29 años con participación en el Programa de Atención a la Juventud.',
+        'Porcentaje de atención integral a la población migrante hidalguense y sus familias.'
+    ],
+    'Secretaría de Infraestructura Pública y Desarrollo Urbano Sostenible (SIP)': [
+        'Porcentaje de kilómetros de vías de comunicación en el estado construidas, ampliadas y/o modernizadas',
+        'Porcentaje de kilómetros de carreteras reconstruidas del estado en regulares y malas condiciones.',
+        'Porcentaje de población atendida que presenta bajo y muy bajo grado de accesibilidad a carretera pavimentada, a través del Programa Construye tu Camino.',
+        'Porcentaje de población atendida con infraestructura hidráulica.',
+        'Porcentaje de población atendida con infraestructura de alcantarillado sanitario.',
+        'Porcentaje del caudal tratado de aguas residuales por cada mil habitantes en el Estado.',
+        'Porcentaje de instrumentos normativos actualizados en materia de ordenamiento territorial y desarrollo urbano.',
+        'Porcentaje de población atendida con acciones de vivienda en municipios de alta y muy alta marginación.',
+        'Porcentaje de población beneficiada con el rescate de espacios públicos, que contribuye a generar ciudades inclusivas, resilientes y sostenibles.'
+    ],
+    'Secretaría de Desarrollo Económico (SDE)': [
+        'Porcentaje de regiones del estado cubiertas con personas de 60 años o más que son beneficiadas con una beca económica.',
+        'Porcentaje de jóvenes incorporados al mercado laboral.',
+        'Porcentaje de unidades económicas de impacto significativo concretadas con vinculaciones.',
+        'Empresas industriales capacitadas en la adopción de un modelo de economía circular.',
+        'Porcentaje de empresas consolidadas con compradores internacionales.',
+        'Porcentaje de MiPyMes que lograron contratarse con empresas tractoras.',
+        'Porcentaje de cobertura de municipios apoyados con la implementación de estrategias para el fortalecimiento de la economía local.',
+        'Tasa de crecimiento anual de los financiamientos otorgados a emprendedores, micro, pequeñas y medianas empresas.',
+        'Porcentaje de cobertura de unidades económicas de la industria minera beneficiadas.',
+        'Porcentaje de grupos sociales formalizados.',
+        'Hectáreas con empresas instaladas y en operación en parques y zonas industriales.',
+        'Porcentaje de cobertura de unidades económicas del sector abasto beneficiadas.',
+        'Hectáreas urbanizadas para fortalecer el crecimiento de la industria transformadora y proyectos estratégicos.',
+        'Proporción de energía renovable en el conjunto de fuentes energéticas del Estado de Hidalgo.',
+        'Porcentaje de población beneficiada con conectividad a internet con despliegue de infraestructura en el Estado.'
+    ],
+    'Secretaría de Medio Ambiente y Recursos Naturales (SMR)': [
+        'Grado de presión sobre el recurso hídrico en Hidalgo.',
+        'Porcentaje de convenios implementados para la elaboración de programas de ordenamiento ecológico territorial local.',
+        'Porcentaje de regulación ambiental de unidades económicas de competencia estatal.',
+        'Porcentaje de audiencias públicas atendidas en materia ambiental con nivel satisfactorio.',
+        'Porcentaje de denuncias ciudadanas en materia ambiental por acuerdos de competencia atendidas con nivel satisfactorio.',
+        'Porcentaje de vehículos con verificación vehicular aprobatoria.',
+        'Porcentaje de avance en la implementación del Programa de Gestión para Mejorar la Calidad del Aire del Estado de Hidalgo.',
+        'Porcentaje de residuos sólidos urbanos y de manejo especial manejados integralmente.',
+        'Porcentaje de emisiones de gases de efecto invernadero mitigadas.',
+        'Porcentaje de programas proambientales implementados.',
+        'Porcentaje de superficie protegida por esquemas de conservación y manejo sostenible.',
+        'Promedio de tiempo de respuesta en la atención de incendios forestales.',
+        'Porcentaje de acuerdos/convenios implementados para aprovechar la ciencia e investigación en la atención de problemas ambientales.',
+        'Promedio anual del Índice Estatal de Rendición de Cuentas de la SEMARNATH.',
+        'Porcentaje de cumplimiento de las obligaciones en materia de transparencia y acceso a la información pública.'
+    ],
+    'Secretaría de Agricultura y Desarrollo Rural (SAD)': [
+        'Porcentaje de municipios integrados al Programa de Detección de Necesidades.',
+        'Tasa de cambio anual de productores beneficiados por programas de inversión.',
+        'Tasa de cambio anual de servicios de asistencia técnica.',
+        'Porcentaje de municipios con grado de rezago social alto o medio impactados.',
+        'Tasa de cambio anual de unidades de producción acuícola atendidas.',
+        'Tasa de cambio anual de Unidades de Producción Pecuarias impactadas por programas de la secretaría.',
+        'Cantidad de hectáreas reforestadas de café.',
+        'Cantidad de hectáreas reforestadas de maguey.',
+        'Cantidad de hectáreas reforestadas de árboles frutales.',
+        'Porcentaje del estado cubierto por análisis de fertilidad de suelo.',
+        'Tasa anual de cambio de unidades de producción certificadas en buenas prácticas.'
+    ],
+    'Secretaría de Turismo (TUR)': [
+        'Porcentaje de diagnósticos de potencialidad turística realizados.',
+        'Porcentaje de acuerdos de las sesiones del Consejo Consultivo para el Desarrollo Turístico Sustentable de Hidalgo.',
+        'Índice de diversificación de la oferta turística estatal.',
+        'Porcentaje de cumplimiento de requisitos de la UNESCO para el Geoparque Mundial Comarca Minera.',
+        'Porcentaje de proyectos de infraestructura en las regiones con vocación turística elaborados.',
+        'Porcentaje de acciones para el posicionamiento turístico.',
+        'Tasa de variación de prestadores de servicios turísticos inscritos en el Registro Nacional de Turismo.',
+        'Porcentaje de prestadores de servicios turísticos con carta compromiso del “Código de Conducta Nacional para la Protección de las Niñas, Niños y Adolescentes en el Sector de los Viajes y el Turismo.”'
+    ],
+    'Secretaría de Contraloría (CON)': [
+        'Porcentaje de factores de riesgo detectados en las acciones de supervisión, evaluación, control interno y vigilancia.',
+        'Porcentaje de cumplimiento de reportes de procedimientos de contratación por los municipios.',
+        'Porcentaje de auditorías realizadas con carácter de representatividad.',
+        'Porcentaje de cumplimiento de las obligaciones que en materia de transparencia tiene el Poder Ejecutivo del Estado de Hidalgo.',
+        'Porcentaje de obras públicas con irregularidad física relevante detectada.',
+        'Porcentaje de efectividad en la sensibilización de las personas servidoras públicas a través del mecanismo del usuario simulado.',
+        'Porcentaje de cumplimiento de los programas estatales de trabajo formalizados en materia de contraloría social y vigilancia ciudadana.',
+        'Porcentaje de trámites y servicios que ofrece la Secretaría de Contraloría en línea.'
+    ],
+    'Secretaría de Educación Pública (SEP)': [
+        'Porcentaje de cobertura en Educación Preescolar.',
+        'Eficiencia terminal en Educación Media Superior.',
+        'Porcentaje de cobertura en Educación Superior.',
+        'Porcentaje de absorción en Educación Superior.',
+        'Porcentaje de la población analfabeta de 15 años y más.',
+        'Porcentaje de abandono escolar en Educación Secundaria.',
+        'Porcentaje de abandono en Educación Media Superior.',
+        'Porcentaje de abandono escolar en Educación Superior.',
+        'Eficiencia terminal en Educación Secundaria.',
+        'Porcentaje de planteles educativos construidos, rehabilitados y/o equipados en educación básica, media superior y superior.',
+        'Porcentaje de planteles educativos públicos de sostenimiento federal transferido y estatal con acceso a internet en educación básica, media superior y superior.',
+        'Porcentaje de alumnas y alumnos de educación básica impactados con acciones para disminuir el sedentarismo.',
+        'Porcentaje de Profesoras y Profesores de Tiempo Completo (PTC) que participan en los cuerpos académicos de las Instituciones Públicas de Educación Superior sectorizadas a la Secretaría de Educación Pública de Hidalgo.',
+        'Porcentaje de escuelas públicas intervenidas con acciones para la educación socioemocional, cultura para la paz e igualdad sustantiva, en todos los tipos educativos.',
+        'Promedio de proyectos de investigación realizados por las Instituciones Públicas de Educación Superior sectorizadas a la Secretaría de Educación Pública de Hidalgo.',
+        'Porcentaje de cumplimiento de la guía para la Integración y Rendición de los Informes de Gestión Financiera y Cuenta Pública por ejercicio fiscal.'
+    ],
+    'Secretaría de Salud (SLD)': [
+        'Porcentaje de recetas surtidas en forma completa en las instituciones de salud (IMSS Ordinario, IMSS Bienestar e ISSSTE).',
+        'Índice de insumos para la salud recibidos de la compra consolidada federal.',
+        'Notificación oportuna de brotes de enfermedades de interés epidemiológico.',
+        'Cobertura de vacunación con esquema completo en niñas y niños menores de un año de edad en el estado.',
+        'Promedio diario de consultas otorgadas en las Unidades Médicas Móviles (UMM).',
+        'Médicos generales y familiares por cada 1,000 habitantes.',
+        'Razón de muerte materna.',
+        'Tasa de mortalidad en menores de 5 años.',
+        'Promedio anual de terapias de rehabilitación en el Centro de Rehabilitación e Inclusión Teletón (CRIT) Hidalgo.',
+        'Tasa de variación de quejas atendidas por la Comisión de Arbitraje Médico del Estado de Hidalgo (CAMEH).',
+        'Incremento porcentual de teleconsultas otorgadas por las unidades médicas del sector salud del estado de Hidalgo.',
+        'Porcentaje de cumplimiento de los 48 rubros del artículo 69 de la Ley de Transparencia.'
+    ],
+    'Secretaría de Seguridad Pública (SEG)': [
+        'Porcentaje de acciones realizadas en materia de prevención social de la violencia, la delincuencia y participación ciudadana en las regiones de mayor prevalencia delictiva.',
+        'Porcentaje de expedientes dictaminados correspondiente a las quejas y/o denuncias formuladas por ciudadanos o autoridades en contra de las y los integrantes de las instituciones policiales.',
+        'Porcentaje de integrantes de las instituciones del Estado profesionalizados.',
+        'Porcentaje de evaluaciones de control de confianza realizadas a los integrantes de las instituciones de seguridad pública del Estado.',
+        'Porcentaje de operativos de coordinación interinstitucional, ejecutados en el territorio Hidalguense.',
+        'Porcentaje de acciones que se llevan a cabo al interior de los Centros de Reinserción Social para mejorar las condiciones de habitabilidad.',
+        'Porcentaje de denuncias anónimas atendidas en el servicio 0-89 Hidalgo.',
+        'Porcentaje de acciones para prevenir y combatir el delito en beneficio de la población del estado de Hidalgo.',
+        'Porcentaje de autorizaciones otorgadas para la prestación de servicios de seguridad privada.',
+        'Porcentaje de acciones realizadas para atender la violencia de mujeres, niñas, niños, adolescentes y grupos vulnerables.'
+    ],
+    'Secretaría del Trabajo y Previsión Social (STP)': [
+        'Porcentaje de personas vinculadas a un empleo formal por los programas, estrategias y servicios que opera el SNEH.',
+        'Tasa de variación de personas vinculadas para recibir capacitación laboral.',
+        'Tasa de crecimiento en el número de inspecciones a centros de trabajo de competencia local.',
+        'Porcentaje de expedientes de demandas concluidas del sector público.',
+        'Porcentaje de abatimiento de expedientes de la Junta Local de Conciliación y Arbitraje.',
+        'Tasa de variación de personas con discapacidad apoyadas para su inserción a un empleo formal.',
+        'Tasa de informalidad en adultos mayores.',
+        'Tasa de desocupación de personas de 15 a 29 años.',
+        'Tasa de variación de población indígena atendida con acciones de inserción a un trabajo digno.',
+        'Porcentaje de participación de las mujeres en el empleo formal.',
+        'Porcentaje de acciones realizadas en beneficio de las niñas, niños y adolescentes.'
+    ],
+    'Secretaría de Movilidad y Transporte (SMT)': [
+        'Percepción de la población usuaria sobre la infraestructura ciclista de las Zonas Metropolitanas de Hidalgo.',
+        'Porcentaje de rutas del Sistema de Transporte Convencional de Hidalgo verificadas.',
+        'Porcentaje de quejas recibidas, sobre la percepción del servicio público de transporte masivo.',
+        'Porcentaje de acciones implementadas para promover el respeto a los derechos humanos en la movilidad.'
+    ],
+    'Secretaría de Cultura (CUL)': [
+        'Porcentaje de bienes del patrimonio cultural catalogados.',
+        'Porcentaje de municipios atendidos con bienes y servicios artísticos y culturales.',
+        'Porcentaje de incremento de espacios culturales funcionales.',
+        'Porcentaje de incremento de apoyos sociales otorgados para fortalecer las expresiones artísticas y culturales.',
+        'Porcentaje de incremento de convenios oficializados y con vigencia para fortalecer el desarrollo del sector cultural.',
+        'Porcentaje de bibliotecas atendidas con el programa de lectura, escritura y oralidad.',
+        'Porcentaje de incremento de programas educativos artísticos con certificado y validez oficial.',
+        'Porcentaje de sistemas de información cultural en operación.'
+    ],
+    'Procuraduría General de Justicia del Estado de Hidalgo (PGJ)': [
+        'Porcentaje de carpetas de investigación determinadas por el ministerio público.',
+        'Porcentaje en la resolución de carpetas de investigación por delitos de violencia a niñas, niños, adolescentes y adultos mayores, y de feminicidio.',
+        'Porcentaje en la resolución de carpetas de investigación por delitos de impacto extraordinario e impacto alto.',
+        'Porcentaje de acuerdos reparatorios generados.',
+        'Porcentaje en la resolución de carpetas de investigación por delitos de corrupción.',
+        'Porcentaje de medidas de protección para víctimas del delito otorgadas y solicitadas por el Ministerio Público, y cumplidas por la División de Investigación.',
+        'Porcentaje de cumplimiento de órdenes de aprehensión.',
+        'Porcentaje de intervenciones periciales realizadas.',
+        'Porcentaje de cumplimiento en la producción de análisis de la información.',
+        'Porcentaje de quejas y denuncias por la posible comisión de conductas indebidas en las que incurran las y los servidores públicos concluidas.'
+    ]
+};
