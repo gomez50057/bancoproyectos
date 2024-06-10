@@ -21,9 +21,9 @@ const Footer = () => {
                 </a>
             </div>
 
-            <div className="image-container">
+            {/* <div className="image-container">
                 <img src={`${imgBasePath}logo_footer.png`} alt="img_representativa" />
-            </div>
+            </div> */}
 
             <div className="footer_contacto">
 
@@ -36,8 +36,10 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <p>Coordinación General de Planeación y Proyectos</p>
-                    <p><span>Unidad de Planeación y Prospectiva</span></p>
+                    <p><span>Coordinación General de Planeación y Proyectos</span></p>
+                    <p>Dirección General de Proyectos, Estudios y Prospectiva</p>
+
+                    {/* <p><span>Unidad de Planeación y Prospectiva</span></p> */}
                     <p>proyectosyprospectiva@hidalgo.gob.mx</p>
                     <div className="linea_footer"></div>
                     <p>Gobierno del Estado de Hidalgo</p>

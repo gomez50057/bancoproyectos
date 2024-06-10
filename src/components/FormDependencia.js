@@ -3,16 +3,17 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { 
-  municipiosDeHidalgo, 
-  unidadesResponsables, 
-  dependencias, 
-  organismos, 
+import {
+  municipiosDeHidalgo,
+  unidadesResponsables,
+  dependencias,
+  organismos,
+  municipiosPorRegion,
   unidadPresupuestalPorUnidadResponsable,
-  gastoProgramableOptions, 
+  gastoProgramableOptions,
   programaPresupuestarioOptions,
   indicadoresEstrategicosOptions,
-  indicadoresTacticosOptions
+  indicadoresTacticosOptions,
 } from '../utils';
 
 const imgBasePath = "/img/";
@@ -34,6 +35,7 @@ const Formulario = () => {
     manifestacionImpactoAmbiental: false,
     otrosEstudios: false,
   });
+  const [selectedRegion, setSelectedRegion] = useState('');
 
   const noSpacesValidation = (value) => {
     if (!value) return true;
@@ -67,8 +69,8 @@ const Formulario = () => {
       is: 'Municipio',
       then: Yup.string().required('El municipio es obligatorio'),
     }),
-    sectorPrivado: Yup.string().when('entityType', {
-      is: 'Sector Privado',
+    PeticionPersonal: Yup.string().when('entityType', {
+      is: 'Petición Personal',
       then: Yup.string().required('El sector privado es obligatorio'),
     }),
     montoFederal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
@@ -87,6 +89,10 @@ const Formulario = () => {
     longitud: Yup.number().required('La longitud es obligatoria'),
     planNacional: Yup.string().required('El plan nacional de desarrollo es obligatorio'),
     planEstatal: Yup.string().required('El plan estatal de desarrollo es obligatorio'),
+    planMunicipal: Yup.string().when('entityType', { // Agregado aquí
+      is: 'Municipio',
+      then: Yup.string().max(500, 'Máximo 500 caracteres').required('El plan municipal es obligatorio'),
+    }),
     ods: Yup.string().required('Los objetivos de desarrollo sostenible son obligatorios'),
     planSectorial: Yup.string().required('El plan sectorial institucional es obligatorio'),
     unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
@@ -98,6 +104,8 @@ const Formulario = () => {
     indicadoresTacticos: Yup.string().required('Los indicadores tácticos son obligatorios'),
     indicadoresDesempeno: Yup.string().required('Los indicadores de desempeño son obligatorios'),
     indicadoresRentabilidad: Yup.string().required('Los indicadores de rentabilidad son obligatorios'),
+    estadoInicial: Yup.mixed().required('La foto del estado inicial es obligatoria'),
+    estadoConProyecto: Yup.mixed().required('La foto del estado con proyecto es obligatoria'),
   });
 
   const handleSubmitStep1 = (values, { setSubmitting }) => {
@@ -114,7 +122,7 @@ const Formulario = () => {
       formData.append('dependencia', values.dependencia);
       formData.append('organismo', values.organismo);
       formData.append('municipio', values.municipio);
-      formData.append('sectorPrivado', values.sectorPrivado);
+      formData.append('PeticionPersonal', values.PeticionPersonal);
       formData.append('montoFederal', values.montoFederal || 'N/A');
       formData.append('montoEstatal', values.montoEstatal || 'N/A');
       formData.append('montoMunicipal', values.montoMunicipal || 'N/A');
@@ -131,6 +139,7 @@ const Formulario = () => {
       formData.append('longitud', values.longitud);
       formData.append('planNacional', values.planNacional);
       formData.append('planEstatal', values.planEstatal);
+      formData.append('planMunicipal', values.planMunicipal);
       formData.append('ods', values.ods);
       formData.append('planSectorial', values.planSectorial);
       formData.append('unidadResponsable', values.unidadResponsable);
@@ -142,6 +151,8 @@ const Formulario = () => {
       formData.append('indicadoresTacticos', values.indicadoresTacticos);
       formData.append('indicadoresDesempeno', values.indicadoresDesempeno);
       formData.append('indicadoresRentabilidad', values.indicadoresRentabilidad);
+      formData.append('estadoInicial', values.estadoInicial);
+      formData.append('estadoConProyecto', values.estadoConProyecto);
 
       for (const key in applies) {
         if (applies[key]) {
@@ -242,7 +253,7 @@ const Formulario = () => {
                 <p>Recuerda no dejar espacios en blanco entre los caracteres en el campo de correo y teléfono.</p>
                 <div className="formFour">
                   <div className="form-group correoInstitucional">
-                    <label>Correo Electrónico Institucional</label>
+                    <label>Correo Institucional</label>
                     <Field type="email" name="correoInstitucional" />
                     <ErrorMessage name="correoInstitucional" component="div" className="error" />
                   </div>
@@ -252,7 +263,7 @@ const Formulario = () => {
                     <ErrorMessage name="telefonoOficina" component="div" className="error" />
                   </div>
                   <div className="form-group correoPersonal">
-                    <label>Correo Electrónico Personal</label>
+                    <label>Correo Personal</label>
                     <Field type="email" name="correoPersonal" />
                     <ErrorMessage name="correoPersonal" component="div" className="error" />
                   </div>
@@ -280,7 +291,7 @@ const Formulario = () => {
             dependencia: '',
             organismo: '',
             municipio: '',
-            sectorPrivado: '',
+            PeticionPersonal: '',
             montoFederal: '0',
             montoEstatal: '0',
             montoMunicipal: '0',
@@ -297,6 +308,7 @@ const Formulario = () => {
             longitud: '',
             planNacional: '',
             planEstatal: '',
+            planMunicipal: '',
             ods: '',
             planSectorial: '',
             unidadResponsable: '',
@@ -320,6 +332,8 @@ const Formulario = () => {
             indicadoresTacticos: '',
             indicadoresDesempeno: '',
             indicadoresRentabilidad: '',
+            estadoInicial: null,
+            estadoConProyecto: null,
           }}
           validationSchema={validationSchemaStep2}
           onSubmit={handleSubmitStep2}
@@ -365,7 +379,7 @@ const Formulario = () => {
                         <option value="Dependencia">Dependencia</option>
                         <option value="Organismo">Organismo</option>
                         <option value="Municipio">Municipio</option>
-                        <option value="Sector Privado">Sector Privado</option>
+                        <option value="Petición Personal">Petición Personal</option>
                       </Field>
                       <ErrorMessage name="entityType" component="div" className="error" />
                     </div>
@@ -409,11 +423,11 @@ const Formulario = () => {
                       </div>
                     )}
 
-                    {entityType === 'Sector Privado' && (
-                      <div className="form-group sectorPrivado">
-                        <label>Sector Privado</label>
-                        <Field type="text" name="sectorPrivado" />
-                        <ErrorMessage name="sectorPrivado" component="div" className="error" />
+                    {entityType === 'Petición Personal' && (
+                      <div className="form-group PeticionPersonal">
+                        <label>Petición Personal</label>
+                        <Field type="text" name="PeticionPersonal" />
+                        <ErrorMessage name="PeticionPersonal" component="div" className="error" />
                       </div>
                     )}
                   </div>
@@ -599,7 +613,7 @@ const Formulario = () => {
                       <ErrorMessage name="programaPresupuestario" component="div" className="error" />
                     </div>
                   </div>
-                  
+
                   <div className="formTwo">
                     <div className="form-group beneficiarios">
                       <label>Beneficiarios</label>
@@ -623,20 +637,15 @@ const Formulario = () => {
                 <div className="formFour">
                   <div className="form-group region">
                     <label>Región</label>
-                    <Field as="select" name="region">
+                    <Field as="select" name="region" onChange={(e) => {
+                      setSelectedRegion(e.target.value);
+                      setFieldValue('region', e.target.value);
+                      setFieldValue('municipio', '');
+                    }}>
                       <option value="">Seleccione</option>
-                      <option value="1.Tula">01.Tula</option>
-                      <option value="2.Tulancingo">02.Tulancingo</option>
-                      <option value="4.Pachuca">03.Pachuca</option>
-                      <option value="5.Huejutla">04.Huejutla</option>
-                      <option value="6.Mineral de la Reforma">05.Mineral de la Reforma</option>
-                      <option value="7.Tizayuca">06.Tizayuca</option>
-                      <option value="8.Actopan">07.Actopan</option>
-                      <option value="9.Ixmiquilpan">08.Ixmiquilpan</option>
-                      <option value="10.Zacualtipán">09.Zacualtipán</option>
-                      <option value="11.Apan">10.Apan</option>
-                      <option value="12.Huichapan">11.Huichapan</option>
-                      <option value="13.Jacala">12.Jacala</option>
+                      {Object.keys(municipiosPorRegion).map((region) => (
+                        <option key={region} value={region}>{region}</option>
+                      ))}
                     </Field>
                     <ErrorMessage name="region" component="div" className="error" />
                   </div>
@@ -644,7 +653,7 @@ const Formulario = () => {
                     <label>Municipio</label>
                     <Field as="select" name="municipio">
                       <option value="">Seleccione</option>
-                      {municipiosDeHidalgo.map((mun) => (
+                      {municipiosPorRegion[selectedRegion]?.map((mun) => (
                         <option key={mun} value={mun}>{mun}</option>
                       ))}
                     </Field>
@@ -665,12 +674,12 @@ const Formulario = () => {
                 <div className="formTwo">
                   <div className="form-group latitud">
                     <label>Latitud</label>
-                    <Field type="number" name="latitud" step="any" />
+                    <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" />
                     <ErrorMessage name="latitud" component="div" className="error" />
                   </div>
                   <div className="form-group longitud">
                     <label>Longitud</label>
-                    <Field type="number" name="longitud" step="any" />
+                    <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" />
                     <ErrorMessage name="longitud" component="div" className="error" />
                   </div>
                 </div>
@@ -706,6 +715,18 @@ const Formulario = () => {
                     <ErrorMessage name="planEstatal" component="div" className="error" />
                   </div>
                 </div>
+
+                <div>
+                  {entityType === 'Municipio' && ( // Agregado aquí
+                    <div className="form-group planMunicipal">
+                      <label>Plan Municipal</label>
+                      <Field as="textarea" name="planMunicipal" maxLength="500" />
+                      <ErrorMessage name="planMunicipal" component="div" className="error" />
+                      <div>Máximo 500 caracteres</div>
+                    </div>
+                  )}
+                </div>
+
                 <div className="formTwo">
                   <div className="form-group ods">
                     <label>Objetivos de Desarrollo Sostenible</label>
@@ -732,7 +753,7 @@ const Formulario = () => {
                     <ErrorMessage name="ods" component="div" className="error" />
                   </div>
                   <div className="form-group planSectorial">
-                    <label>Plan Sectorial Institucional</label>
+                    <label>Programa Especial</label>
                     <Field as="select" name="planSectorial">
                       <option value="">Seleccione</option>
                       <option value="Despacho">Despacho</option>
@@ -776,7 +797,7 @@ const Formulario = () => {
                   </div>
                   <div className="form-group indicadoresTacticos">
                     <label>Indicadores Tácticos</label>
-                    {entityType === 'Dependencia' ? (
+                    {(entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador') ? (
                       <Field as="select" name="indicadoresTacticos">
                         <option value="">Seleccione</option>
                         {indicadoresTacticosOptions[values.dependencia]?.map((ind) => (
@@ -800,6 +821,38 @@ const Formulario = () => {
                     <label>Indicadores de Rentabilidad</label>
                     <Field as="textarea" name="indicadoresRentabilidad" maxLength="1000" />
                     <ErrorMessage name="indicadoresRentabilidad" component="div" className="error" />
+                  </div>
+                </div>
+
+                <div className="titulosForm">
+                  <h3>Evolución del Espacio</h3>
+                  <div className="linea_form"></div>
+                </div>
+
+                <div className="formTwo">
+                  <div className="form-group estadoInicial">
+                    <label>Estado Inicial (Fotografía)</label>
+                    <input
+                      type="file"
+                      name="estadoInicial"
+                      onChange={(event) => {
+                        setFieldValue("estadoInicial", event.currentTarget.files[0]);
+                      }}
+                      accept=".jpeg,.jpg,.png"
+                    />
+                    <ErrorMessage name="estadoInicial" component="div" className="error" />
+                  </div>
+                  <div className="form-group estadoConProyecto">
+                    <label>Estado con Proyecto (Proyección)</label>
+                    <input
+                      type="file"
+                      name="estadoConProyecto"
+                      onChange={(event) => {
+                        setFieldValue("estadoConProyecto", event.currentTarget.files[0]);
+                      }}
+                      accept=".jpeg,.jpg,.png"
+                    />
+                    <ErrorMessage name="estadoConProyecto" component="div" className="error" />
                   </div>
                 </div>
 
@@ -893,3 +946,4 @@ const Formulario = () => {
 };
 
 export default Formulario;
+

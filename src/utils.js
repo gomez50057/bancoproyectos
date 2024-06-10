@@ -1,45 +1,43 @@
-// export const regionesConMunicipios = {
-//   '01.Tula': [
-//     '005 Ajacuba', '010 Atitalaquia', '013 Atotonilco de Tula', '063 Tepeji del Río de Ocampo',
-//     '064 Tepetitlán', '065 Tetepango', '067 Tezontepec de Aldama', '070 Tlahuelilpan', '074 Tlaxcoapan', '076 Tula de Allende'
-//   ],
-//   '02.Tulancingo': [
-//     '001 Acatlán', '002 Acaxochitlán', '004 Agua Blanca de Iturbide', '016 Cuautepec de Hinojosa', '027 Huehuetla',
-//     '035 Metepec', '053 San Bartolo Tutotepec', '056 Santiago Tulantepec de Lugo Guerrero', '057 Singuilucan', '060 Tenango de Doria', '077 Tulancingo de Bravo'
-//   ],
-//   '03.Pachuca': ['048 Pachuca de Soto', '052 San Agustin Tlaxiaca', '082 Zapotlán de Juárez'],
-//   '04.Huejutla': [
-//     '028 Huejutla de Reyes', '011 Atlapexco', '014 Calnali', '025 Huautla', '026 Huazalingo', '032 Jaltocán', '034 Lolotla',
-//     '046 San Felipe Orizatlán', '073 Tlanchinol', '078 Xochiatipan', '080 Yahualica'
-//   ],
-//   '05.Mineral de la Reforma': [
-//     '051 Mineral de la Reforma', '022 Epazoyucan', '024 Huasca de Ocampo', '038 Mineral del Chico', '039 Mineral del Monte', '045 Omitlán de Juárez'
-//   ],
-//   '06.Tizayuca': ['069 Tizayuca', '066 Villa de Tezontepec', '075 Tolcayuca', '083 Zempoala'],
-//   '07.Actopan': [
-//     '003 Actopan', '009 El Arenal', '023 Francisco I. Madero', '041 Mixquiahuala de Juárez', '050 Progreso de Obregón',
-//     '054 San Salvador', '055 Santiago de Anaya'
-//   ],
-//   '08.Ixmiquilpan': [
-//     '030 Ixmiquilpan', '006 Alfajayucan', '015 Cardonal', '019 Chilcuautla', '043 Nicolás Flores', '058 Tasquillo', '084 Zimapán'
-//   ],
-//   '09.Zacualtipán': [
-//     '081 Zacualtipán de Ángeles', '012 Atotonilco el Grande', '020 Eloxochitlán', '033 Juárez Hidalgo',
-//     '036 San Agustín Metzquititlán', '037 Metztitlán', '042 Molango de Escamilla', '062 Tepehuacán de Guerrero',
-//     '068 Tianguistengo', '071 Tlahuiltepa', '079 Xochicoatlán'
-//   ],
-//   '10.Apan': [
-//     '008 Apan', '007 Almoloya', '021 Emiliano Zapata', '061 Tepeapulco', '072 Tlanalapa'
-//   ],
-//   '11.Huichapan': [
-//     '029 Huichapan', '017 Chapantongo', '044 Nopala de Villagrán', '059 Tecozautla'
-//   ],
-//   '12.Jacala': [
-//     '031 Jacala de Ledezma', '018 Chapulhuacán', '040 La Misión', '047 Pacula', '049 Pisaflores'
-//   ]
-// };
-
-
+export const municipiosPorRegion = {
+    '01.Tula': [
+        '005 Ajacuba', '010 Atitalaquia', '013 Atotonilco de Tula', '063 Tepeji del Río de Ocampo',
+        '064 Tepetitlán', '065 Tetepango', '067 Tezontepec de Aldama', '070 Tlahuelilpan', '074 Tlaxcoapan', '076 Tula de Allende'
+    ],
+    '02.Tulancingo': [
+        '001 Acatlán', '002 Acaxochitlán', '004 Agua Blanca de Iturbide', '016 Cuautepec de Hinojosa', '027 Huehuetla',
+        '035 Metepec', '053 San Bartolo Tutotepec', '056 Santiago Tulantepec de Lugo Guerrero', '057 Singuilucan', '060 Tenango de Doria', '077 Tulancingo de Bravo'
+    ],
+    '03.Pachuca': ['048 Pachuca de Soto', '052 San Agustin Tlaxiaca', '082 Zapotlán de Juárez'],
+    '04.Huejutla': [
+        '028 Huejutla de Reyes', '011 Atlapexco', '014 Calnali', '025 Huautla', '026 Huazalingo', '032 Jaltocán', '034 Lolotla',
+        '046 San Felipe Orizatlán', '073 Tlanchinol', '078 Xochiatipan', '080 Yahualica'
+    ],
+    '05.Mineral de la Reforma': [
+        '051 Mineral de la Reforma', '022 Epazoyucan', '024 Huasca de Ocampo', '038 Mineral del Chico', '039 Mineral del Monte', '045 Omitlán de Juárez'
+    ],
+    '06.Tizayuca': ['069 Tizayuca', '066 Villa de Tezontepec', '075 Tolcayuca', '083 Zempoala'],
+    '07.Actopan': [
+        '003 Actopan', '009 El Arenal', '023 Francisco I. Madero', '041 Mixquiahuala de Juárez', '050 Progreso de Obregón',
+        '054 San Salvador', '055 Santiago de Anaya'
+    ],
+    '08.Ixmiquilpan': [
+        '030 Ixmiquilpan', '006 Alfajayucan', '015 Cardonal', '019 Chilcuautla', '043 Nicolás Flores', '058 Tasquillo', '084 Zimapán'
+    ],
+    '09.Zacualtipán': [
+        '081 Zacualtipán de Ángeles', '012 Atotonilco el Grande', '020 Eloxochitlán', '033 Juárez Hidalgo',
+        '036 San Agustín Metzquititlán', '037 Metztitlán', '042 Molango de Escamilla', '062 Tepehuacán de Guerrero',
+        '068 Tianguistengo', '071 Tlahuiltepa', '079 Xochicoatlán'
+    ],
+    '10.Apan': [
+        '008 Apan', '007 Almoloya', '021 Emiliano Zapata', '061 Tepeapulco', '072 Tlanalapa'
+    ],
+    '11.Huichapan': [
+        '029 Huichapan', '017 Chapantongo', '044 Nopala de Villagrán', '059 Tecozautla'
+    ],
+    '12.Jacala': [
+        '031 Jacala de Ledezma', '018 Chapulhuacán', '040 La Misión', '047 Pacula', '049 Pisaflores'
+    ]
+};
 
 export const municipiosDeHidalgo = [
     '001 Acatlán', '002 Acaxochitlán', '003 Actopan', '004 Agua Blanca de Iturbide', '005 Ajacuba', '006 Alfajayucan',
@@ -93,47 +91,47 @@ export const unidadesResponsables = [
 ];
 
 export const dependencias = [
-    'Secretaría del Despacho del Gobernador (SDC)', 'Oficialía Mayor (OFM)', 'Unidad de Planeación y Prospectiva (UPI)',
-    'Secretaría de Gobierno (COB)', 'Secretaría de Hacienda (HAC)', 'Secretaría de Bienestar e Inclusión Social (SBI)',
-    'Secretaría de Infraestructura Pública y Desarrollo Urbano Sostenible (SIP)', 'Secretaría de Desarrollo Económico (SDE)',
-    'Secretaría de Medio Ambiente y Recursos Naturales (SMR)', 'Secretaría de Agricultura y Desarrollo Rural (SAD)',
-    'Secretaría de Turismo (TUR)', 'Secretaría de Contraloría (CON)', 'Secretaría de Educación Pública (SEP)',
-    'Secretaría de Salud (SLD)', 'Secretaría de Seguridad Pública (SEG)', 'Secretaría del Trabajo y Previsión Social (STP)',
-    'Secretaría de Movilidad y Transporte (SMT)', 'Secretaría de Cultura (CUL)', 'Procuraduría de General de Justicia (PGJ)'
+    'Secretaría del Despacho del Gobernador', 'Oficialía Mayor', 'Unidad de Planeación y Prospectiva',
+    'Secretaría de Gobierno', 'Secretaría de Hacienda', 'Secretaría de Bienestar e Inclusión Social',
+    'Secretaría de Infraestructura Pública y Desarrollo Urbano Sostenible', 'Secretaría de Desarrollo Económico',
+    'Secretaría de Medio Ambiente y Recursos Naturales', 'Secretaría de Agricultura y Desarrollo Rural',
+    'Secretaría de Turismo', 'Secretaría de Contraloría', 'Secretaría de Educación Pública',
+    'Secretaría de Salud', 'Secretaría de Seguridad Pública', 'Secretaría del Trabajo y Previsión Social',
+    'Secretaría de Movilidad y Transporte', 'Secretaría de Cultura', 'Procuraduría de General de Justicia'
 ];
 
 export const organismos = [
-    'Centro de Justicia para Mujeres del Estado de Hidalgo (CJM)', 'Ciudad de las Mujeres (CMU)', 'Instituto Hidalguense de las Mujeres (IMU)',
-    'Instituto Hidalguense para el Desarrollo Municipal (IND)', 'Instituto Catastral del Estado de Hidalgo (ICA)',
-    'Instituto para Devolver al Pueblo lo Robado (IPR)', 'Centro Estatal de Maquinaria para el Desarrollo (CMD)',
-    'Comisión de Agua y Alcantarillado de Sistemas del Valle del Mezquital (CAV)', 'Comisión de Agua y Alcantarillado de Sistemas Intermunicipales (CAI)',
-    'Comisión Estatal de Agua y Alcantarillado (CEA)', 'Comisión Estatal de Vivienda (CEV)', 'Policía Industrial Bancaria del Estado de Hidalgo (PIB)',
-    'Consejo Estatal para la Cultura y las Artes de Hidalgo (CCA)', 'Escuela de Música del Estado de Hidalgo (EMH)',
-    'Servicios de Salud de Hidalgo (SSH)', 'Agencia de Desarrollo Valle de Plata (AVP)', 'Agencia Estatal de Energía (AEE)',
-    'Corporación de Fomento de Infraestructura Industrial (FII)', 'Corporación Internacional Hidalgo (CIH)',
-    'Instituto Hidalguense de Competitividad (IHC)', 'Comisión Estatal de Biodiversidad de Hidalgo (COE)',
-    'Centro de Conciliación Laboral del Estado de Hidalgo (CLH)', 'Instituto de Capacitación para el Trabajo del Estado de Hidalgo (CTH)',
-    'Operadora de Eventos del Estado de Hidalgo (OEH)', 'Bachillerato del Estado de Hidalgo (BEH)',
-    'Colegio de Bachilleres del Estado de Hidalgo (CBH)', 'Colegio de Educación Profesional Técnica del Estado de Hidalgo (EPT)',
-    'Colegio de Estudios Científicos y del Estado de Hidalgo (ECT)', 'El Colegio del Estado de Hidalgo (CEH)',
-    'Instituto Hidalguense de Educación (IHE)', 'Instituto Hidalguense de Educación para Adultos (IHEA)',
-    'Instituto Hidalguense de Financiamiento a la Educación Superior (IHFES)', 'Instituto Hidalguense de Ia Infraestructura Física Educativa (IFE)',
-    'Instituto Hidalguense del Deporte (IHD)', 'Instituto Tecnológico Superior de Huichapan (ITESHU)',
-    'Instituto Tecnológico Superior del Occidente del Estado de Hidalgo (ITSOEH)', 'Instituto Tecnológico Superior del Oriente del Estado de Hidalgo (ITESA)',
-    'Radio y Televisión de Hidalgo (RTH)', 'Universidad Intercultural del Estado de Hidalgo (UICEH)',
-    'Universidad Politécnica de Francisco l. Madero (UPFIM)', 'Universidad Politécnica de Huejutla (UPHUE)',
-    'Universidad Politécnica de la Energía (UPE)', 'Universidad Politécnica de Pachuca (UPP)',
-    'Universidad Politécnica de Tulancingo (UPT)', 'Universidad Politécnica Metropolitana de Hidalgo (UPMH)',
-    'Universidad Tecnológica de la Huasteca Hidalguense (UTHH)', 'Universidad Tecnológica de la Sierra Hidalguense (UTSH)',
-    'Universidad Tecnológica de la Zona Metropolitana del Valle de México (UTVAM)', 'Universidad Tecnológica de Mineral de la Reforma (UTMIR)',
-    'Universidad Tecnológica de Tulancingo (UTT)', 'Universidad Tecnológica de Tula-Tepejí (UTTT)',
-    'Universidad Tecnológica del Valle del Mezquital (UTVM)', 'Universidad Tecnológica Minera de Zimapán (UTMZ)',
-    'Instituto Hidalguense de la Juventud (IHJ)', 'Instituto para la Atención de las y los Adultos Mayores del Estado de Hidalgo (IAA)',
-    'Sistema de Convencional (STC)', 'Sistema de Masivo (STM)', 'Comisión Estatal para el Desarrollo de los Pueblos Indígenas en el Estado de Hidalgo (CPI)',
-    'Consejo de Ciencia, Tecnología e Innovación de Hidalgo (CCT)', 'Consejo Rector de Pachuca Ciudad del Conocimiento y la Cultura (CCC)',
-    'Museo Interactivo para la Niñez y Juventud Hidalguense El Rehilete (MIR)', 'Secretaría Técnica del Sistema Estatal Anticorrupción de Hidalgo (STSEA)',
-    'Distrito de Educación, Salud, Ciencia, Tecnología e Innovación (DESTI)', 'Sistema para el Desarrollo Integral de la Familia Hidalgo (DIF)',
-    'Universidad Digital del Estado de Hidalgo (UDH)'
+    'Centro de Justicia para Mujeres del Estado de Hidalgo', 'Ciudad de las Mujeres', 'Instituto Hidalguense de las Mujeres',
+    'Instituto Hidalguense para el Desarrollo Municipal', 'Instituto Catastral del Estado de Hidalgo',
+    'Instituto para Devolver al Pueblo lo Robado', 'Centro Estatal de Maquinaria para el Desarrollo',
+    'Comisión de Agua y Alcantarillado de Sistemas del Valle del Mezquital', 'Comisión de Agua y Alcantarillado de Sistemas Intermunicipales',
+    'Comisión Estatal de Agua y Alcantarillado', 'Comisión Estatal de Vivienda', 'Policía Industrial Bancaria del Estado de Hidalgo',
+    'Consejo Estatal para la Cultura y las Artes de Hidalgo', 'Escuela de Música del Estado de Hidalgo',
+    'Servicios de Salud de Hidalgo', 'Agencia de Desarrollo Valle de Plata', 'Agencia Estatal de Energía',
+    'Corporación de Fomento de Infraestructura Industrial', 'Corporación Internacional Hidalgo',
+    'Instituto Hidalguense de Competitividad', 'Comisión Estatal de Biodiversidad de Hidalgo',
+    'Centro de Conciliación Laboral del Estado de Hidalgo', 'Instituto de Capacitación para el Trabajo del Estado de Hidalgo',
+    'Operadora de Eventos del Estado de Hidalgo', 'Bachillerato del Estado de Hidalgo',
+    'Colegio de Bachilleres del Estado de Hidalgo', 'Colegio de Educación Profesional Técnica del Estado de Hidalgo',
+    'Colegio de Estudios Científicos y del Estado de Hidalgo', 'El Colegio del Estado de Hidalgo',
+    'Instituto Hidalguense de Educación', 'Instituto Hidalguense de Educación para Adultos',
+    'Instituto Hidalguense de Financiamiento a la Educación Superior', 'Instituto Hidalguense de Ia Infraestructura Física Educativa',
+    'Instituto Hidalguense del Deporte', 'Instituto Tecnológico Superior de Huichapan',
+    'Instituto Tecnológico Superior del Occidente del Estado de Hidalgo', 'Instituto Tecnológico Superior del Oriente del Estado de Hidalgo',
+    'Radio y Televisión de Hidalgo', 'Universidad Intercultural del Estado de Hidalgo',
+    'Universidad Politécnica de Francisco l. Madero', 'Universidad Politécnica de Huejutla',
+    'Universidad Politécnica de la Energía', 'Universidad Politécnica de Pachuca',
+    'Universidad Politécnica de Tulancingo', 'Universidad Politécnica Metropolitana de Hidalgo',
+    'Universidad Tecnológica de la Huasteca Hidalguense', 'Universidad Tecnológica de la Sierra Hidalguense',
+    'Universidad Tecnológica de la Zona Metropolitana del Valle de México', 'Universidad Tecnológica de Mineral de la Reforma',
+    'Universidad Tecnológica de Tulancingo', 'Universidad Tecnológica de Tula-Tepejí',
+    'Universidad Tecnológica del Valle del Mezquital', 'Universidad Tecnológica Minera de Zimapán',
+    'Instituto Hidalguense de la Juventud', 'Instituto para la Atención de las y los Adultos Mayores del Estado de Hidalgo',
+    'Sistema de Convencional', 'Sistema de Masivo', 'Comisión Estatal para el Desarrollo de los Pueblos Indígenas en el Estado de Hidalgo',
+    'Consejo de Ciencia, Tecnología e Innovación de Hidalgo', 'Consejo Rector de Pachuca Ciudad del Conocimiento y la Cultura',
+    'Museo Interactivo para la Niñez y Juventud Hidalguense El Rehilete', 'Secretaría Técnica del Sistema Estatal Anticorrupción de Hidalgo',
+    'Distrito de Educación, Salud, Ciencia, Tecnología e Innovación', 'Sistema para el Desarrollo Integral de la Familia Hidalgo',
+    'Universidad Digital del Estado de Hidalgo'
 ];
 
 export const unidadPresupuestalPorUnidadResponsable = {
@@ -577,7 +575,6 @@ export const unidadPresupuestalPorUnidadResponsable = {
     ]
 };
 
-
 export const gastoProgramableOptions = [
     { label: '1. Gobierno', value: 'Gobierno' },
     { label: '2. Hacienda', value: 'Hacienda' },
@@ -806,10 +803,10 @@ export const indicadoresEstrategicosOptions = {
 };
 
 export const indicadoresTacticosOptions = {
-    'Secretaría del Despacho del Gobernador (SDC)': [
+    'Secretaría del Despacho del Gobernador': [
         // Agrega las opciones aquí
     ],
-    'Oficialía Mayor (OFM)': [
+    'Oficialía Mayor': [
         'Porcentaje de acciones de fortalecimiento institucional para las y los trabajadores del poder ejecutivo.',
         'Porcentaje de acciones para la modernización de la administración de los recursos humanos del poder ejecutivo.',
         'Porcentaje de acciones de cobertura de mantenimiento menor de inmuebles del poder ejecutivo.',
@@ -821,7 +818,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de sistemas, apps y portales gestionados.',
         'Porcentaje de acciones realizadas para la mejora de la gestión pública.'
     ],
-    'Unidad de Planeación y Prospectiva (UPI)': [
+    'Unidad de Planeación y Prospectiva': [
         'Porcentaje de instrumentos de planeación publicados en el estado de Hidalgo.',
         'Porcentaje de acuerdos vinculados derivados de las reuniones de gobernanza metropolitana.',
         'Porcentaje de proyectos con impacto regional que cuentan con análisis de congruencia para vinculación institucional.',
