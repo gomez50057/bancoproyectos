@@ -840,7 +840,7 @@ select {
 }
 
 .projectDate,
-.planMunicipal{
+.planMunicipal {
   flex: 1 0 100%;
   /* 100% width */
 }
@@ -868,8 +868,7 @@ select {
 .indicadoresDesempeno,
 .indicadoresRentabilidad,
 .CargaDocumentacion,
-.textAplica
-.estadoInicial,
+.textAplica .estadoInicial,
 .estadoConProyecto {
   flex: 1 0 49%;
   /* 49% width */
@@ -893,9 +892,9 @@ select {
 .montoMunicipal,
 .montoOtros,
 .region,
-.municipio, 
+.municipio,
 .localidad,
-.barrioColoniaEjido{
+.barrioColoniaEjido {
   flex: 1 0 24%;
 }
 
@@ -915,13 +914,13 @@ select {
   /* Permitir que crezca según sea necesario */
 }
 
-.CargaDocumentacion:nth-child(2n+1){
+.CargaDocumentacion:nth-child(2n+1) {
   background-color: #98989a4f;
-  
+
 }
 
 
-.CargaDocumentacion:nth-child(2n){
+.CargaDocumentacion:nth-child(2n) {
   background-color: #7072716f;
 
 }

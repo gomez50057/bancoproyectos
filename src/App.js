@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 
 import Login from './components/Login';
 import NavbarLogin from './components/NavbarLogin';
-import FormDependencia from './components/FormDependencia';
+import Form from './components/Form';
 import TableComponent from './components/TableComponent'; // Importa el nuevo componente de tabla
 
 const MainContent = () => {
@@ -55,7 +55,7 @@ const DependenciaLayout = () => {
             <Navbar />
             {/* Renderiza el contenido dentro de la ruta de dependencia */}
             <Routes>
-                <Route path="/" element={<FormDependencia />} />
+                <Route path="/" element={<Form />} />
             </Routes>
         </div>
     );

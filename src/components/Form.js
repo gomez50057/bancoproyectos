@@ -828,7 +828,7 @@ const Formulario = () => {
                   <h3>Evolución del Espacio</h3>
                   <div className="linea_form"></div>
                 </div>
-
+                <p>Tienen que estar en una medida de 500X600 pixeles</p>
                 <div className="formTwo">
                   <div className="form-group estadoInicial">
                     <label>Estado Inicial (Fotografía)</label>
