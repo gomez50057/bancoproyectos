@@ -119,33 +119,33 @@ const Formulario = () => {
       formData.append('projectName', values.projectName);
       formData.append('tipoProyecto', values.tipoProyecto);
       formData.append('entityType', entityType);
-      formData.append('dependencia', values.dependencia);
-      formData.append('organismo', values.organismo);
-      formData.append('municipio', values.municipio);
-      formData.append('PeticionPersonal', values.PeticionPersonal);
-      formData.append('montoFederal', values.montoFederal || 'N/A');
-      formData.append('montoEstatal', values.montoEstatal || 'N/A');
-      formData.append('montoMunicipal', values.montoMunicipal || 'N/A');
-      formData.append('montoOtros', values.montoOtros || 'N/A');
+      formData.append('dependencia', values.dependencia || 'No Aplica');
+      formData.append('organismo', values.organismo || 'No Aplica');
+      formData.append('municipio', values.municipio || 'No Aplica');
+      formData.append('PeticionPersonal', values.PeticionPersonal || 'No Aplica');
+      formData.append('montoFederal', values.montoFederal || 'No Aplica');
+      formData.append('montoEstatal', values.montoEstatal || 'No Aplica');
+      formData.append('montoMunicipal', values.montoMunicipal || 'No Aplica');
+      formData.append('montoOtros', values.montoOtros || 'No Aplica');
       formData.append('descripcion', values.descripcion);
       formData.append('situacionSinProyecto', values.situacionSinProyecto);
       formData.append('objetivos', values.objetivos);
       formData.append('metas', values.metas);
       formData.append('programaPresupuestario', values.programaPresupuestario);
-      formData.append('beneficiarios', values.beneficiarios);
+      formData.append('beneficiarios', values.beneficiarios || 'No Aplica');
       formData.append('alineacionNormativa', values.alineacionNormativa);
       formData.append('region', values.region);
       formData.append('latitud', values.latitud);
       formData.append('longitud', values.longitud);
       formData.append('planNacional', values.planNacional);
       formData.append('planEstatal', values.planEstatal);
-      formData.append('planMunicipal', values.planMunicipal);
+      formData.append('planMunicipal', values.planMunicipal || 'No Aplica');
       formData.append('ods', values.ods);
       formData.append('planSectorial', values.planSectorial);
       formData.append('unidadResponsable', values.unidadResponsable);
       formData.append('unidadPresupuestal', values.unidadPresupuestal);
       formData.append('ramoPresupuestal', values.ramoPresupuestal);
-      formData.append('observaciones', values.observaciones);
+      formData.append('observaciones', values.observaciones || 'No Aplica');
       formData.append('gastoProgramable', values.gastoProgramable);
       formData.append('indicadoresEstrategicos', values.indicadoresEstrategicos);
       formData.append('indicadoresTacticos', values.indicadoresTacticos);
@@ -828,7 +828,7 @@ const Formulario = () => {
                   <h3>Evolución del Espacio</h3>
                   <div className="linea_form"></div>
                 </div>
-                <p>Tienen que estar en una medida de 500X600 pixeles</p>
+
                 <div className="formTwo">
                   <div className="form-group estadoInicial">
                     <label>Estado Inicial (Fotografía)</label>
@@ -946,4 +946,3 @@ const Formulario = () => {
 };
 
 export default Formulario;
-

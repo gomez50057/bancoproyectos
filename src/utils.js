@@ -828,7 +828,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de cumplimiento en la implementación del marco regulatorio en las dependencias y entidades de la administración pública estatal y municipal.',
         'Porcentaje de avance de metas de los indicadores de los programas, proyectos y políticas públicas, de las dependencias y entidades para la toma de decisiones.'
     ],
-    'Secretaría de Gobierno (COB)': [
+    'Secretaría de Gobierno': [
         'Porcentaje sobre los asuntos socio-políticos atendidos que realizan los ciudadanos del estado de Hidalgo a la Subsecretaría de Desarrollo Político.',
         'Porcentaje de acciones concretadas del programa de trabajo del Secretariado Ejecutivo del Consejo Estatal de Seguridad Pública.',
         'Porcentaje de la población total mayor de 18 años del estado de Hidalgo atendida en trámites y servicios por la Dirección General de Unidades de Servicios Estatales.',
@@ -851,7 +851,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de acciones y actividades de difusión para la de búsqueda y/o no localización de personas.',
         'Porcentaje de niñas, niños y adolescentes a los que les han vulnerado sus derechos, vinculados ante diversas dependencias o entidades para su atención.'
     ],
-    'Secretaría de Hacienda (HAC)': [
+    'Secretaría de Hacienda': [
         'Porcentaje de los ingresos propios respecto al total de ingresos del estado.',
         'Porcentaje de recursos comprometidos respecto de los recursos federales etiquetados.',
         'Porcentaje de recursos obtenidos en subsidios y convenios respecto del total del gasto programable.',
@@ -860,7 +860,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje del gasto de operación respecto al Presupuesto de Egresos ejercido.',
         'Índice de acciones realizadas para contribuir a la consolidación del Presupuesto Basado en Resultados y del Sistema Estatal de Evaluación del Desempeño.'
     ],
-    'Secretaría de Bienestar e Inclusión Social (SBI)': [
+    'Secretaría de Bienestar e Inclusión Social': [
         'Porcentaje de personas adultas mayores atendidas con acciones de atención gerontológica integral y ambulatoria.',
         'Porcentaje de personas beneficiadas con acciones de fomento para el desarrollo de la participación social para el bienestar.',
         'Porcentaje de personas en situación de pobreza atendidas con los programas de Pensión para el Bienestar.',
@@ -880,7 +880,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de población atendida con acciones de vivienda en municipios de alta y muy alta marginación.',
         'Porcentaje de población beneficiada con el rescate de espacios públicos, que contribuye a generar ciudades inclusivas, resilientes y sostenibles.'
     ],
-    'Secretaría de Desarrollo Económico (SDE)': [
+    'Secretaría de Desarrollo Económico': [
         'Porcentaje de regiones del estado cubiertas con personas de 60 años o más que son beneficiadas con una beca económica.',
         'Porcentaje de jóvenes incorporados al mercado laboral.',
         'Porcentaje de unidades económicas de impacto significativo concretadas con vinculaciones.',
@@ -897,7 +897,7 @@ export const indicadoresTacticosOptions = {
         'Proporción de energía renovable en el conjunto de fuentes energéticas del Estado de Hidalgo.',
         'Porcentaje de población beneficiada con conectividad a internet con despliegue de infraestructura en el Estado.'
     ],
-    'Secretaría de Medio Ambiente y Recursos Naturales (SMR)': [
+    'Secretaría de Medio Ambiente y Recursos Naturales': [
         'Grado de presión sobre el recurso hídrico en Hidalgo.',
         'Porcentaje de convenios implementados para la elaboración de programas de ordenamiento ecológico territorial local.',
         'Porcentaje de regulación ambiental de unidades económicas de competencia estatal.',
@@ -914,7 +914,7 @@ export const indicadoresTacticosOptions = {
         'Promedio anual del Índice Estatal de Rendición de Cuentas de la SEMARNATH.',
         'Porcentaje de cumplimiento de las obligaciones en materia de transparencia y acceso a la información pública.'
     ],
-    'Secretaría de Agricultura y Desarrollo Rural (SAD)': [
+    'Secretaría de Agricultura y Desarrollo Rural': [
         'Porcentaje de municipios integrados al Programa de Detección de Necesidades.',
         'Tasa de cambio anual de productores beneficiados por programas de inversión.',
         'Tasa de cambio anual de servicios de asistencia técnica.',
@@ -927,7 +927,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje del estado cubierto por análisis de fertilidad de suelo.',
         'Tasa anual de cambio de unidades de producción certificadas en buenas prácticas.'
     ],
-    'Secretaría de Turismo (TUR)': [
+    'Secretaría de Turismo': [
         'Porcentaje de diagnósticos de potencialidad turística realizados.',
         'Porcentaje de acuerdos de las sesiones del Consejo Consultivo para el Desarrollo Turístico Sustentable de Hidalgo.',
         'Índice de diversificación de la oferta turística estatal.',
@@ -937,7 +937,7 @@ export const indicadoresTacticosOptions = {
         'Tasa de variación de prestadores de servicios turísticos inscritos en el Registro Nacional de Turismo.',
         'Porcentaje de prestadores de servicios turísticos con carta compromiso del “Código de Conducta Nacional para la Protección de las Niñas, Niños y Adolescentes en el Sector de los Viajes y el Turismo.”'
     ],
-    'Secretaría de Contraloría (CON)': [
+    'Secretaría de Contraloría': [
         'Porcentaje de factores de riesgo detectados en las acciones de supervisión, evaluación, control interno y vigilancia.',
         'Porcentaje de cumplimiento de reportes de procedimientos de contratación por los municipios.',
         'Porcentaje de auditorías realizadas con carácter de representatividad.',
@@ -947,7 +947,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de cumplimiento de los programas estatales de trabajo formalizados en materia de contraloría social y vigilancia ciudadana.',
         'Porcentaje de trámites y servicios que ofrece la Secretaría de Contraloría en línea.'
     ],
-    'Secretaría de Educación Pública (SEP)': [
+    'Secretaría de Educación Pública': [
         'Porcentaje de cobertura en Educación Preescolar.',
         'Eficiencia terminal en Educación Media Superior.',
         'Porcentaje de cobertura en Educación Superior.',
@@ -965,7 +965,7 @@ export const indicadoresTacticosOptions = {
         'Promedio de proyectos de investigación realizados por las Instituciones Públicas de Educación Superior sectorizadas a la Secretaría de Educación Pública de Hidalgo.',
         'Porcentaje de cumplimiento de la guía para la Integración y Rendición de los Informes de Gestión Financiera y Cuenta Pública por ejercicio fiscal.'
     ],
-    'Secretaría de Salud (SLD)': [
+    'Secretaría de Salud': [
         'Porcentaje de recetas surtidas en forma completa en las instituciones de salud (IMSS Ordinario, IMSS Bienestar e ISSSTE).',
         'Índice de insumos para la salud recibidos de la compra consolidada federal.',
         'Notificación oportuna de brotes de enfermedades de interés epidemiológico.',
@@ -979,7 +979,7 @@ export const indicadoresTacticosOptions = {
         'Incremento porcentual de teleconsultas otorgadas por las unidades médicas del sector salud del estado de Hidalgo.',
         'Porcentaje de cumplimiento de los 48 rubros del artículo 69 de la Ley de Transparencia.'
     ],
-    'Secretaría de Seguridad Pública (SEG)': [
+    'Secretaría de Seguridad Pública': [
         'Porcentaje de acciones realizadas en materia de prevención social de la violencia, la delincuencia y participación ciudadana en las regiones de mayor prevalencia delictiva.',
         'Porcentaje de expedientes dictaminados correspondiente a las quejas y/o denuncias formuladas por ciudadanos o autoridades en contra de las y los integrantes de las instituciones policiales.',
         'Porcentaje de integrantes de las instituciones del Estado profesionalizados.',
@@ -991,7 +991,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de autorizaciones otorgadas para la prestación de servicios de seguridad privada.',
         'Porcentaje de acciones realizadas para atender la violencia de mujeres, niñas, niños, adolescentes y grupos vulnerables.'
     ],
-    'Secretaría del Trabajo y Previsión Social (STP)': [
+    'Secretaría del Trabajo y Previsión Social': [
         'Porcentaje de personas vinculadas a un empleo formal por los programas, estrategias y servicios que opera el SNEH.',
         'Tasa de variación de personas vinculadas para recibir capacitación laboral.',
         'Tasa de crecimiento en el número de inspecciones a centros de trabajo de competencia local.',
@@ -1004,13 +1004,13 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de participación de las mujeres en el empleo formal.',
         'Porcentaje de acciones realizadas en beneficio de las niñas, niños y adolescentes.'
     ],
-    'Secretaría de Movilidad y Transporte (SMT)': [
+    'Secretaría de Movilidad y Transporte': [
         'Percepción de la población usuaria sobre la infraestructura ciclista de las Zonas Metropolitanas de Hidalgo.',
         'Porcentaje de rutas del Sistema de Transporte Convencional de Hidalgo verificadas.',
         'Porcentaje de quejas recibidas, sobre la percepción del servicio público de transporte masivo.',
         'Porcentaje de acciones implementadas para promover el respeto a los derechos humanos en la movilidad.'
     ],
-    'Secretaría de Cultura (CUL)': [
+    'Secretaría de Cultura': [
         'Porcentaje de bienes del patrimonio cultural catalogados.',
         'Porcentaje de municipios atendidos con bienes y servicios artísticos y culturales.',
         'Porcentaje de incremento de espacios culturales funcionales.',
@@ -1020,7 +1020,7 @@ export const indicadoresTacticosOptions = {
         'Porcentaje de incremento de programas educativos artísticos con certificado y validez oficial.',
         'Porcentaje de sistemas de información cultural en operación.'
     ],
-    'Procuraduría General de Justicia del Estado de Hidalgo (PGJ)': [
+    'Procuraduría General de Justicia del Estado de Hidalgo': [
         'Porcentaje de carpetas de investigación determinadas por el ministerio público.',
         'Porcentaje en la resolución de carpetas de investigación por delitos de violencia a niñas, niños, adolescentes y adultos mayores, y de feminicidio.',
         'Porcentaje en la resolución de carpetas de investigación por delitos de impacto extraordinario e impacto alto.',
