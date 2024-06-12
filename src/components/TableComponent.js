@@ -54,7 +54,7 @@ const TableComponent = () => {
     fetchProjects();
   }, []); // Se ejecuta solo una vez al cargar el componente
 
-  const columns = ["Project Name", "Description", "File"];
+  const columns = ["Nombre del Proyecto", "Descripción", "Tipo de Proyecto", "Municipio", "Beneficiarios"];
 
    const options = {
     selectableRows: false,

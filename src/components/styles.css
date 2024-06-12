@@ -58,6 +58,10 @@ p {
 /* Navbar */
 /*  */
 
+.table_grid{
+margin-top: 80px;
+}
+
 .navbar,
 .NavbarLogin {
   position: fixed;

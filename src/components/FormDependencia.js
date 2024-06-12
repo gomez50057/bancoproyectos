@@ -18,7 +18,7 @@ import {
 
 const imgBasePath = "/img/";
 
-const Formulario = () => {
+const FormDependencia = () => {
   const [step, setStep] = useState(1);
   const [entityType, setEntityType] = useState('');
   const [applies, setApplies] = useState({
@@ -164,7 +164,7 @@ const Formulario = () => {
 
       const csrfToken = Cookies.get('csrftoken');
 
-      await axios.post('/guardar-proyecto/', formData, {
+      await axios.post('guardar-proyecto/', formData, {
         headers: {
           'X-CSRFToken': csrfToken,
           'Content-Type': 'multipart/form-data'
@@ -437,7 +437,7 @@ const Formulario = () => {
                       <label>Unidad Responsable</label>
                       <Field as="select" name="unidadResponsable" onChange={(e) => {
                         setFieldValue('unidadResponsable', e.target.value);
-                        setFieldValue('unidadPresupuestal', ''); // Reset unidadPresupuestal when unidadResponsable changes
+                        setFieldValue('unidadPresupuestal', ''); // Reset unidadPresupuestal cuando unidadResponsable changes
                       }}>
                         <option value="">Seleccione</option>
                         {unidadesResponsables.map((unidad) => (
@@ -796,7 +796,6 @@ const Formulario = () => {
                     <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
                   </div>
                   <div className="form-group indicadoresTacticos">
-                    <label>Indicadores Tácticos</label>
                     {(entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador') ? (
                       <Field as="select" name="indicadoresTacticos">
                         <option value="">Seleccione</option>
@@ -945,4 +944,4 @@ const Formulario = () => {
   );
 };
 
-export default Formulario;
+export default FormDependencia;
