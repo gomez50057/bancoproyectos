@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Select from 'react-select';
 import {
   municipiosDeHidalgo,
   unidadesResponsables,
@@ -89,7 +90,7 @@ const FormDependencia = () => {
     longitud: Yup.number().required('La longitud es obligatoria'),
     planNacional: Yup.string().required('El plan nacional de desarrollo es obligatorio'),
     planEstatal: Yup.string().required('El plan estatal de desarrollo es obligatorio'),
-    planMunicipal: Yup.string().when('entityType', { // Agregado aquí
+    planMunicipal: Yup.string().when('entityType', {
       is: 'Municipio',
       then: Yup.string().max(500, 'Máximo 500 caracteres').required('El plan municipal es obligatorio'),
     }),
@@ -98,6 +99,7 @@ const FormDependencia = () => {
     unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
     unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
     ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
+    municipiosImpacto: Yup.array().min(1, 'Selecciona al menos un municipio').required('Los municipios de impacto son obligatorios'),
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
     gastoProgramable: Yup.string().required('El gasto programable es obligatorio'),
     indicadoresEstrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
@@ -145,6 +147,7 @@ const FormDependencia = () => {
       formData.append('unidadResponsable', values.unidadResponsable);
       formData.append('unidadPresupuestal', values.unidadPresupuestal);
       formData.append('ramoPresupuestal', values.ramoPresupuestal);
+      formData.append('municipiosImpacto', values.municipiosImpacto.map(mun => mun.value));
       formData.append('observaciones', values.observaciones || 'No Aplica');
       formData.append('gastoProgramable', values.gastoProgramable);
       formData.append('indicadoresEstrategicos', values.indicadoresEstrategicos);
@@ -194,6 +197,8 @@ const FormDependencia = () => {
   const handleApplyChange = (field) => {
     setApplies((prev) => ({ ...prev, [field]: !prev[field] }));
   };
+
+  const municipiosOptions = municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }));
 
   return (
     <div className="formulario-container">
@@ -326,6 +331,7 @@ const FormDependencia = () => {
             proyectoEjecutivo: [],
             manifestacionImpactoAmbiental: [],
             otrosEstudios: [],
+            municipiosImpacto: [],
             observaciones: '',
             gastoProgramable: '',
             indicadoresEstrategicos: '',
@@ -684,6 +690,19 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
+                <div className="form-group municipiosImpacto">
+                  <label>Municipios de Impacto</label>
+                  <p>Por favor, selecciona los municipios en los que se localiza el proyecto. Es importante que indiques todas las áreas de impacto para asegurarnos de que la información esté completa y precisa.</p>
+                  <Select
+                    name="municipiosImpacto"
+                    options={municipiosOptions}
+                    isMulti
+                    onChange={(selectedOptions) => setFieldValue('municipiosImpacto', selectedOptions)}
+                    placeholder="Municipios"
+                  />
+                  <ErrorMessage name="municipiosImpacto" component="div" className="error" />
+                </div>
+
                 <div className="titulosForm">
                   <h3>Alineación Estratégica</h3>
                   <div className="linea_form"></div>
@@ -717,7 +736,7 @@ const FormDependencia = () => {
                 </div>
 
                 <div>
-                  {entityType === 'Municipio' && ( // Agregado aquí
+                  {entityType === 'Municipio' && (
                     <div className="form-group planMunicipal">
                       <label>Plan Municipal</label>
                       <Field as="textarea" name="planMunicipal" maxLength="500" />
@@ -753,7 +772,7 @@ const FormDependencia = () => {
                     <ErrorMessage name="ods" component="div" className="error" />
                   </div>
                   <div className="form-group planSectorial">
-                    <label>Programa Especial</label>
+                    <label>Programa Sectorial/Institucional/Especial</label>
                     <Field as="select" name="planSectorial">
                       <option value="">Seleccione</option>
                       <option value="Despacho">Despacho</option>
@@ -796,6 +815,7 @@ const FormDependencia = () => {
                     <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
                   </div>
                   <div className="form-group indicadoresTacticos">
+                    <label>Indicadores Tácticos</label>
                     {(entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador') ? (
                       <Field as="select" name="indicadoresTacticos">
                         <option value="">Seleccione</option>
@@ -824,7 +844,9 @@ const FormDependencia = () => {
                 </div>
 
                 <div className="titulosForm">
-                  <h3>Evolución del Espacio</h3>
+                  {/* <h3>Evolución del Espacio</h3> */}
+                  <h3>Prospectiva del Programa</h3>
+
                   <div className="linea_form"></div>
                 </div>
 
