@@ -204,7 +204,7 @@ const FormDependencia = () => {
   return (
     <div className="formulario-container">
       <div className="formTitulo">
-        <img src={`${imgBasePath}formIco.png`} alt="img_representativa" />
+        <img src={`${imgBasePath}formIco.webp`} alt="img_representativa" />
         <h3>REGISTRO DE PROYECTO</h3>
       </div>
       <Formik
