@@ -67,7 +67,7 @@ const Login = () => {
                         />
                         <img
                             className="input-img"
-                            src={showPassword ? `${imgBasePath}password_visible.png` : `${imgBasePath}password.png`}
+                            src={showPassword ? `${imgBasePath}password_visible.webp` : `${imgBasePath}password.webp`}
                             alt="img_representativa"
                             onClick={togglePassword}
                         />
