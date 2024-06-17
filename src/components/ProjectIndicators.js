@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './styles.css';
-// const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
-const imgBasePath = "img/indicadores/";
+
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
 
 const ProjectIndicators = () => {
   const [counts, setCounts] = useState({

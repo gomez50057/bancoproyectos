@@ -56,7 +56,7 @@ const Home = () => {
             <div className="background-svg" />
             <div className="content_home">
                 <div className="home_txt fade-in-target" ref={homeTxtRef}>
-                    <img src={`${imgBasePath}hometxt.png`} alt="img_representativa" />
+                    <img src={`${imgBasePath}hometxt.webp`} alt="img_representativa" />
                 </div>
                 <div className="home_img fade-in-target">
                     <img src={`${imgBasePath}homeimg.png`} alt="img_representativa" className="floating-img" />

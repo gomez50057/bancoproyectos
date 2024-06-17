@@ -73,7 +73,7 @@ const About = () => {
       </div>
       <div className="background-about">
         <div className="about_img">
-          <img src={`${imgBasePath}backAbout.jpg`} alt="img_representativa" />
+          <img src={`${imgBasePath}backAbout.webp`} alt="img_representativa" />
         </div>
         <div className="about_num">
           <div className="about_numIndi">

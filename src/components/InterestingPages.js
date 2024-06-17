@@ -14,14 +14,14 @@ const InterestingPages = () => {
                 <div className="rectangle">
                     <p>Conoce los proyectos de tu localidad</p>
                     <Link to="/table" className="rectangle-button">
-                        <img src={`${imgBasePath}botton.png`} alt="Icono" className="icon" />
+                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
                         <p>Descubre mas...</p>
                     </Link>
                 </div>
                 <div className="rectangle">
                     <p>Carga tu proyecto</p>
                     <Link to="/login" className="rectangle-button">
-                        <img src={`${imgBasePath}botton.png`} alt="Icono" className="icon" />
+                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
                         <p>Se parte del futuro</p>
                     </Link>
                 </div>

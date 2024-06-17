@@ -47,7 +47,7 @@ const Login = () => {
         <section id='login' className="container_login">
             <div className="background-login" />
             <div className="login_txt">
-                <img src={`${imgBasePath}estrella.png`} alt="img_representativa" />
+                <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
                 <p>Inicia sesión y crea un proyecto</p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">

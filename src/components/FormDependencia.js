@@ -17,7 +17,8 @@ import {
   indicadoresTacticosOptions,
 } from '../utils';
 
-const imgBasePath = "/img/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
+
 
 const FormDependencia = () => {
   const [step, setStep] = useState(1);
