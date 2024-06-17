@@ -267,6 +267,10 @@ margin-top: 80px;
   margin: 0px 80px;
 }
 
+.content_about h1{
+  font-size: 35px;
+}
+
 .content_about .about_txt p {
   text-align: justify;
   text-align-last: center;
@@ -421,6 +425,19 @@ margin-top: 80px;
   border-style: outset;
   border-color: buttonborder;
   border-image: initial;
+  text-decoration: none;
+}
+
+.rectangle-button p{
+  color: var(--blanco);
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.rectangle-button p:hover{
+  color: var(--doradoOsc);
+  font-weight: 500;
 }
 
 .icon {

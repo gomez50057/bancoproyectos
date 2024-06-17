@@ -1,97 +1,87 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './styles.css';
-
-const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
+// const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
+const imgBasePath = "img/indicadores/";
 
 const ProjectIndicators = () => {
-  const [citizensCount, setCitizensCount] = useState(0);
-  const [departmentsCount, setDepartmentsCount] = useState(0);
-  const [municipalitiesCount, setMunicipalitiesCount] = useState(0);
-  const [organizationsCount, setOrganizationsCount] = useState(0);
-  const [hasCounted, setHasCounted] = useState(false); // Estado para asegurarnos de contar solo una vez
+  const [counts, setCounts] = useState({
+    citizens: 0,
+    departments: 0,
+    municipalities: 0,
+    organizations: 0,
+  });
+  const [hasCounted, setHasCounted] = useState(false);
   const indicatorsRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
+  const observer = useMemo(() => new IntersectionObserver(
+    (entries) => {
       const entry = entries[0];
       if (entry.isIntersecting && !hasCounted) {
         setHasCounted(true);
       }
-    }, { threshold: 1 }); // Cambiado el threshold a 0.25 para 1/4 del elemento
+    },
+    { threshold: 1 }
+  ), [hasCounted]);
 
-    if (indicatorsRef.current) {
-      observer.observe(indicatorsRef.current);
+  useEffect(() => {
+    const currentRef = indicatorsRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (indicatorsRef.current) {
-        observer.unobserve(indicatorsRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, [hasCounted]);
+  }, [observer]);
 
   useEffect(() => {
     if (hasCounted) {
-      const totalCitizens = 120;
-      const totalDepartments = 120;
-      const totalMunicipalities = 120;
-      const totalOrganizations = 120;
-      const fastSpeed = 5;
-      const slowSpeed = 50;
+      const totalValues = {
+        citizens: 120,
+        departments: 120,
+        municipalities: 120,
+        organizations: 120,
+      };
+      const fastSpeed = 10;
+      const mediumSpeed = 50;
+      const slowSpeed = 200;
 
-      const animateCounter = (setCounter, total) => {
+      Object.keys(totalValues).forEach((key) => {
         let counter = 0;
         const timer = setInterval(() => {
           counter++;
-          setCounter(counter);
-          if (counter === total) clearInterval(timer);
-        }, counter > total - 10 ? slowSpeed : fastSpeed);
-      };
-
-      animateCounter(setCitizensCount, totalCitizens);
-      animateCounter(setDepartmentsCount, totalDepartments);
-      animateCounter(setMunicipalitiesCount, totalMunicipalities);
-      animateCounter(setOrganizationsCount, totalOrganizations);
+          setCounts((prevCounts) => ({
+            ...prevCounts,
+            [key]: counter,
+          }));
+          if (counter === totalValues[key]) clearInterval(timer);
+        }, counter > totalValues[key] - 10 ? slowSpeed : (counter > totalValues[key] - 20 ? mediumSpeed : fastSpeed));
+      });
     }
   }, [hasCounted]);
 
   return (
     <section id='projects' className="ProjectIndicators-container" ref={indicatorsRef}>
       <div className="indicators">
-        <div className="indicators_ind">
-          <div className="indicators_cont">
-            <img src={`${imgBasePath}ciudadania.png`} alt="img_representativa" />
-            <p>{citizensCount}</p>
-          </div>
-          <p className="indicators_txt">Ciudadanía</p>
-        </div>
-
-        <div className="indicators_ind">
-          <div className="indicators_cont">
-            <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
-            <p>{departmentsCount}</p>
-          </div>
-          <p className="indicators_txt">Dependencia</p>
-        </div>
-
-        <div className="indicators_ind">
-          <div className="indicators_cont">
-            <img src={`${imgBasePath}municipio.png`} alt="img_representativa" />
-            <p>{municipalitiesCount}</p>
-          </div>
-          <p className="indicators_txt">Municipio</p>
-        </div>
-
-        <div className="indicators_ind">
-          <div className="indicators_cont">
-            <img src={`${imgBasePath}dependencias.png`} alt="img_representativa" />
-            <p>{organizationsCount}</p>
-          </div>
-          <p className="indicators_txt">Organismo</p>
-        </div>
+        <Indicator count={counts.citizens} imgSrc={`${imgBasePath}Ciudadania.webp`} label="Ciudadanía" />
+        <Indicator count={counts.departments} imgSrc={`${imgBasePath}Dependencia.webp`} label="Dependencia" />
+        <Indicator count={counts.municipalities} imgSrc={`${imgBasePath}Municipio.webp`} label="Municipio" />
+        <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`} label="Organismo" />
       </div>
     </section>
   );
-}
+};
+
+const Indicator = ({ count, imgSrc, label }) => (
+  <div className="indicators_ind">
+    <div className="indicators_cont">
+      <img src={imgSrc} alt={`img_${label}`} />
+      <p>{count}</p>
+    </div>
+    <p className="indicators_txt">{label}</p>
+  </div>
+);
 
 export default ProjectIndicators;
