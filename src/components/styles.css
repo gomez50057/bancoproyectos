@@ -551,6 +551,7 @@ margin-top: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--blanco);
 }
 
 .container_login p {
@@ -579,7 +580,7 @@ margin-top: 80px;
   justify-content: center;
   background-color: hsla(0, 0%, 18%, 0.6);
   width: 30vw;
-  height: 60%;
+  height: auto;
   border-radius: 40px;
   margin: 0 2vw;
   padding: 3vw;
@@ -637,8 +638,8 @@ margin-top: 80px;
 
 .input-container .input-img {
   position: absolute;
-  top: 50%;
-  right: 10px;
+  top: calc(50% - 10px);
+  right: 0;
   transform: translateY(-50%);
   width: 20px;
 }
@@ -723,14 +724,23 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="file"],
+.formulario-container input[type="text"],
+.formulario-container input[type="number"],
+.formulario-container input[type="email"],
+.formulario-container input[type="file"],
 textarea,
 select {
   width: 100%;
   padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.container_login input[type="text"],
+.container_login input[type="password"] {
+  width: 100%;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 15px;
@@ -825,6 +835,8 @@ select {
   font-size: 12px;
   margin-top: 5px;
 }
+
+
 
 /* Estilos generales para el formulario */
 .formulario-container {
