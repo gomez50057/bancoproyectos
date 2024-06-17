@@ -8,6 +8,7 @@ const About = () => {
   const [projectsInProcess, setProjectsInProcess] = useState(0);
   const [approvedProjects, setApprovedProjects] = useState(0);
   const [startCounter, setStartCounter] = useState(false);
+  const [hasCounted, setHasCounted] = useState(false);
   const aboutRef = useRef(null);
 
   useEffect(() => {
@@ -15,19 +16,22 @@ const About = () => {
       const aboutSection = aboutRef.current;
       if (aboutSection) {
         const sectionTop = aboutSection.offsetTop;
-        const sectionBottom = sectionTop + aboutSection.offsetHeight;
-        const scrollPosition = window.scrollY;
+        const sectionHeight = aboutSection.offsetHeight;
+        const sectionTriggerPoint = sectionTop + sectionHeight / 3;
+        const scrollPosition = window.scrollY + window.innerHeight;
 
-        setStartCounter(scrollPosition >= sectionTop && scrollPosition <= sectionBottom);
+        if (scrollPosition >= sectionTriggerPoint && !hasCounted) {
+          setStartCounter(true);
+        }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [hasCounted]);
 
   useEffect(() => {
-    if (startCounter) {
+    if (startCounter && !hasCounted) {
       const totalRegisteredProjects = 200;
       const totalProjectsInProcess = 531;
       const totalApprovedProjects = 125;
@@ -39,7 +43,12 @@ const About = () => {
         const timer = setInterval(() => {
           counter++;
           setCounter(counter);
-          if (counter === total) clearInterval(timer);
+          if (counter === total) {
+            clearInterval(timer);
+            if (total === totalApprovedProjects) {
+              setHasCounted(true); // Update the flag once all counters are done
+            }
+          }
         }, counter > total - 10 ? slowSpeed : fastSpeed);
       };
 
@@ -47,7 +56,7 @@ const About = () => {
       animateCounter(setProjectsInProcess, totalProjectsInProcess);
       animateCounter(setApprovedProjects, totalApprovedProjects);
     }
-  }, [startCounter]);
+  }, [startCounter, hasCounted]);
 
   return (
     <section id='about' className="about-container" ref={aboutRef}>

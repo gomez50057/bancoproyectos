@@ -627,8 +627,8 @@ const FormDependencia = () => {
                       <ErrorMessage name="beneficiarios" component="div" className="error" />
                     </div>
                     <div className="form-group alineacionNormativa">
-                      <label>Alineación Normativa Vigente</label>
-                      <Field as="textarea" name="alineacionNormativa" maxLength="200" />
+                      <label>Leyes Aplicables Vigentes</label>
+                      <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos."/>
                       <ErrorMessage name="alineacionNormativa" component="div" className="error" />
                       <div>Máximo 200 caracteres</div>
                     </div>
