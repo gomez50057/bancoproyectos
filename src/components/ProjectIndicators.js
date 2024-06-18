@@ -39,9 +39,9 @@ const ProjectIndicators = () => {
   useEffect(() => {
     if (hasCounted) {
       const totalValues = {
-        citizens: 120,
-        departments: 120,
-        municipalities: 120,
+        citizens: 90,
+        departments: 100,
+        municipalities: 110,
         organizations: 120,
       };
       const fastSpeed = 10;

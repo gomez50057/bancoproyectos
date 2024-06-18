@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import './styles.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
@@ -9,26 +11,31 @@ const About = () => {
   const [approvedProjects, setApprovedProjects] = useState(0);
   const [startCounter, setStartCounter] = useState(false);
   const [hasCounted, setHasCounted] = useState(false);
-  const aboutRef = useRef(null);
+
+  const controls = useAnimation();
+  const { ref: aboutRef, inView } = useInView({ threshold: 0.5 });
 
   useEffect(() => {
-    const handleScroll = () => {
-      const aboutSection = aboutRef.current;
-      if (aboutSection) {
-        const sectionTop = aboutSection.offsetTop;
-        const sectionHeight = aboutSection.offsetHeight;
-        const sectionTriggerPoint = sectionTop + sectionHeight / 3;
-        const scrollPosition = window.scrollY + window.innerHeight;
+    if (inView) {
+      controls.start({
+        x: 0,
+        opacity: 1,
+        transition: { type: 'spring', stiffness: 100 }
+      });
+    } else {
+      controls.start({
+        x: -100,
+        opacity: 0,
+        transition: { type: 'spring', stiffness: 100 }
+      });
+    }
+  }, [inView, controls]);
 
-        if (scrollPosition >= sectionTriggerPoint && !hasCounted) {
-          setStartCounter(true);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasCounted]);
+  useEffect(() => {
+    if (inView && !hasCounted) {
+      setStartCounter(true);
+    }
+  }, [inView, hasCounted]);
 
   useEffect(() => {
     if (startCounter && !hasCounted) {
@@ -59,17 +66,21 @@ const About = () => {
   }, [startCounter, hasCounted]);
 
   return (
-    <section id='about' className="about-container" ref={aboutRef}>
-      <div className="content_about">
+    <section id='about' className="about-container">
+      <div className="content_about" ref={aboutRef}>
         <h1>BANCO DE PROYECTOS <span>HIDALGO</span></h1>
-        <div className="about_txt">
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={controls}
+          className="about_txt"
+        >
           <p>
             Es el Sistema Gubernamental que permite a los gobiernos municipales, dependencias, organismos y a la ciudadanía organizar de forma sistemática los proyectos propuestos, que servirá de soporte para los procesos de planeación, presupuestación y ejecución de la inversión pública.
           </p>
           <p>
             Brindará asistencia y acompañamiento técnico en el proceso para la integración de los expedientes, el Banco de Proyectos permitirá fortalecer las políticas públicas que contribuyan al logro de los objetivos del Plan Estatal de Desarrollo, los Objetivos de Desarrollo Sostenible y las metas por regiones y municipios, para asegurar la asignación eficiente de recursos y la mejora continua de la gestión pública en las diferentes regiones del Estado de Hidalgo.
           </p>
-        </div>
+        </motion.div>
       </div>
       <div className="background-about">
         <div className="about_img">
