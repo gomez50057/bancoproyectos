@@ -203,7 +203,15 @@ const FormDependencia = () => {
     setApplies((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const municipiosOptions = municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }));
+  const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))];
+
+  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
+    if (selectedOptions.some(option => option.value === 'No Aplica')) {
+      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
+    } else {
+      setFieldValue('municipiosImpacto', selectedOptions);
+    }
+  };
 
   return (
     <div className="formulario-container">
@@ -714,12 +722,13 @@ const FormDependencia = () => {
 
                 <div className="form-group municipiosImpacto">
                   <label>Municipios de Impacto</label>
-                  <p>Por favor, selecciona los municipios en los que se localiza el proyecto. Es importante que indiques todas las áreas de impacto para asegurarnos de que la información esté completa y precisa.</p>
+                  <p>Por favor, selecciona los municipios en los que se localiza el proyecto. Es importante que indiques todas las áreas de impacto para asegurarnos de que la información esté completa y precisa. En caso de que no fuera el caso seleccionar "No Aplica".</p>
                   <Select
                     name="municipiosImpacto"
                     options={municipiosOptions}
                     isMulti
-                    onChange={(selectedOptions) => setFieldValue('municipiosImpacto', selectedOptions)}
+                    onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
+                    value={values.municipiosImpacto}
                     placeholder="Municipios"
                   />
                   <ErrorMessage name="municipiosImpacto" component="div" className="error" />
