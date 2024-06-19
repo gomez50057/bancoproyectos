@@ -148,7 +148,7 @@ const FormDependencia = () => {
       formData.append('planEstatal', values.planEstatal);
       formData.append('planMunicipal', values.planMunicipal || 'No Aplica');
       formData.append('ods', values.ods);
-      formData.append('planSectorial', values.planSectorial);
+      formData.append('planSectorial', values.planSectorial || 'No Aplica');
       formData.append('unidadResponsable', values.unidadResponsable);
       formData.append('unidadPresupuestal', values.unidadPresupuestal);
       formData.append('ramoPresupuestal', values.ramoPresupuestal);
@@ -424,7 +424,11 @@ const FormDependencia = () => {
                     {entityType === 'Organismo' && (
                       <div className="form-group organismo">
                         <label>Organismo</label>
-                        <Field as="select" name="organismo">
+                        <Field as="select" name="organismo" onChange={(e) => {
+                          setFieldValue('organismo', e.target.value);
+                          const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
+                          setFieldValue('planSectorial', programaSectorial);
+                        }}>
                           <option value="">Seleccione</option>
                           {organismos.map((org) => (
                             <option key={org} value={org}>{org}</option>
@@ -963,4 +967,3 @@ const FormDependencia = () => {
 };
 
 export default FormDependencia;
-
