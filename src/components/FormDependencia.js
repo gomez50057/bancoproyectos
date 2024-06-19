@@ -19,6 +19,49 @@ import {
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
+const sectorOptions = [
+  { value: 'Agua', label: 'Agua' },
+  { value: 'Comunicaciones y transportes', label: 'Comunicaciones y transportes' },
+  { value: 'Electricidad', label: 'Electricidad' },
+  { value: 'Hidrocarburos', label: 'Hidrocarburos' },
+  { value: 'Turismo', label: 'Turismo' },
+  { value: 'Educación', label: 'Educación' },
+  { value: 'Ciencia y tecnología', label: 'Ciencia y tecnología' },
+  { value: 'Cultura', label: 'Cultura' },
+  { value: 'Deportes', label: 'Deportes' },
+  { value: 'Salud', label: 'Salud' },
+  { value: 'Seguridad social', label: 'Seguridad social' },
+  { value: 'Urbanización y vivienda', label: 'Urbanización y vivienda' },
+  { value: 'Asistencia social', label: 'Asistencia social' },
+  { value: 'Seguridad nacional', label: 'Seguridad nacional' },
+  { value: 'Seguridad pública', label: 'Seguridad pública' },
+  { value: 'Procuración de justicia', label: 'Procuración de justicia' },
+  { value: 'Otros relacionados con el desarrollo económico y social', label: 'Otros relacionados con el desarrollo económico y social' },
+  { value: 'Gubernamental, Oficinas administrativas', label: 'Gubernamental, Oficinas administrativas' },
+  { value: 'No identificados en las clasificaciones anteriores', label: 'No identificados en las clasificaciones anteriores' },
+];
+
+const tipoProyectoOptions = {
+  'Agua': 'Infraestructura Económica',
+  'Comunicaciones y transportes': 'Infraestructura Económica',
+  'Electricidad': 'Infraestructura Económica',
+  'Hidrocarburos': 'Infraestructura Económica',
+  'Turismo': 'Infraestructura Económica',
+  'Educación': 'Infraestructura Social',
+  'Ciencia y tecnología': 'Infraestructura Social',
+  'Cultura': 'Infraestructura Social',
+  'Deportes': 'Infraestructura Social',
+  'Salud': 'Infraestructura Social',
+  'Seguridad social': 'Infraestructura Social',
+  'Urbanización y vivienda': 'Infraestructura Social',
+  'Asistencia social': 'Infraestructura Social',
+  'Seguridad nacional': 'Infraestructura Gubernamental',
+  'Seguridad pública': 'Infraestructura Gubernamental',
+  'Procuración de justicia': 'Infraestructura Gubernamental',
+  'Otros relacionados con el desarrollo económico y social': 'Infraestructura Gubernamental',
+  'Gubernamental, Oficinas administrativas': 'Inmuebles',
+  'No identificados en las clasificaciones anteriores': 'Otros Proyectos de Inversión',
+};
 
 const FormDependencia = () => {
   const [step, setStep] = useState(1);
@@ -58,6 +101,7 @@ const FormDependencia = () => {
 
   const validationSchemaStep2 = Yup.object().shape({
     projectName: Yup.string().required('El nombre del proyecto es obligatorio'),
+    sector: Yup.string().required('El sector es obligatorio'),
     tipoProyecto: Yup.string().required('El tipo de proyecto es obligatorio'),
     dependencia: Yup.string().when('entityType', {
       is: 'Dependencia',
@@ -120,6 +164,7 @@ const FormDependencia = () => {
     try {
       const formData = new FormData();
       formData.append('projectName', values.projectName);
+      formData.append('sector', values.sector);
       formData.append('tipoProyecto', values.tipoProyecto);
       formData.append('entityType', entityType);
       formData.append('dependencia', values.dependencia || 'No Aplica');
@@ -293,6 +338,7 @@ const FormDependencia = () => {
         <Formik
           initialValues={{
             projectName: '',
+            sector: '',
             tipoProyecto: '',
             dependencia: '',
             organismo: '',
@@ -358,22 +404,30 @@ const FormDependencia = () => {
                     <label>Fecha de Registro</label>
                     <Field type="text" name="fechaRegistro" value={new Date().toISOString().split('T')[0]} readOnly />
                   </div>
-                  <div className="formTwo">
+                  
+                  <div className="formThree">
                     <div className="form-group projectName">
                       <label>Nombre del Proyecto</label>
                       <Field type="text" name="projectName" />
                       <ErrorMessage name="projectName" component="div" className="error" />
                     </div>
+                    <div className="form-group sector">
+                      <label>Sector</label>
+                      <Field as="select" name="sector" onChange={(e) => {
+                        setFieldValue('sector', e.target.value);
+                        const tipoProyecto = tipoProyectoOptions[e.target.value] || '';
+                        setFieldValue('tipoProyecto', tipoProyecto);
+                      }}>
+                        <option value="">Seleccione</option>
+                        {sectorOptions.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
+                      </Field>
+                      <ErrorMessage name="sector" component="div" className="error" />
+                    </div>
                     <div className="form-group tipoProyecto">
                       <label>Tipo de Proyecto</label>
-                      <Field as="select" name="tipoProyecto">
-                        <option value="">Seleccione</option>
-                        <option value="Infraestructura Económica">Infraestructura Económica</option>
-                        <option value="Infraestructura Social">Infraestructura Social</option>
-                        <option value="Infraestructura Gubernamental">Infraestructura Gubernamental</option>
-                        <option value="Inmuebles">Inmuebles</option>
-                        <option value="Otros Proyectos de Inversión">Otros Proyectos de Inversión</option>
-                      </Field>
+                      <Field type="text" name="tipoProyecto" readOnly />
                       <ErrorMessage name="tipoProyecto" component="div" className="error" />
                     </div>
                   </div>

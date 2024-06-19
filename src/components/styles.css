@@ -882,8 +882,6 @@ select {
 
 .nombreDependencia,
 .areaAdscripcion,
-.projectName,
-.tipoProyecto,
 .objetivos,
 .metas,
 .beneficiarios,
@@ -909,6 +907,9 @@ select {
 }
 
 .correoInstitucional,
+.projectName,
+.tipoProyecto,
+.sector,
 .telefonoOficina,
 .correoPersonal,
 .telefonoParticular,
