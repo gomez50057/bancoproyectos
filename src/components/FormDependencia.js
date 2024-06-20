@@ -103,7 +103,9 @@ const FormDependencia = () => {
     unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
     unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
     ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
-    municipiosImpacto: Yup.array().min(1, 'Selecciona al menos un municipio').required('Los municipios de impacto son obligatorios'),
+    // municipiosImpacto: Yup.array().min(1, 'Selecciona al menos un municipio').required('Los municipios de impacto son obligatorios'),
+    municipiosImpacto: Yup.array().nullable(),
+
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
     gastoProgramable: Yup.string().required('El gasto programable es obligatorio'),
     indicadoresEstrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
@@ -119,49 +121,62 @@ const FormDependencia = () => {
     setSubmitting(false);
   };
 
+ 
   const handleSubmitStep2 = async (values, { setSubmitting, resetForm }) => {
     try {
       const formData = new FormData();
-      formData.append('projectName', values.projectName);
+      formData.append('project_name', values.projectName);
       formData.append('sector', values.sector);
-      formData.append('tipoProyecto', values.tipoProyecto);
-      formData.append('entityType', entityType);
+      formData.append('tipo_proyecto', values.tipoProyecto);
+      formData.append('tipo_entidad', entityType);
       formData.append('dependencia', values.dependencia || 'No Aplica');
       formData.append('organismo', values.organismo || 'No Aplica');
       formData.append('municipio', values.municipio || 'No Aplica');
-      formData.append('PeticionPersonal', values.PeticionPersonal || 'No Aplica');
-      formData.append('montoFederal', values.montoFederal || 'No Aplica');
-      formData.append('montoEstatal', values.montoEstatal || 'No Aplica');
-      formData.append('montoMunicipal', values.montoMunicipal || 'No Aplica');
-      formData.append('montoOtros', values.montoOtros || 'No Aplica');
+      formData.append('municipioEnd', values.municipioEnd || 'No Aplica');
+      formData.append('peticion_personal', values.peticionPersonal || 'No Aplica');
+      formData.append('monto_federal', parseFloat(values.montoFederal) || 0);
+      formData.append('monto_estatal', parseFloat(values.montoEstatal) || 0);
+      formData.append('monto_municipal', parseFloat(values.montoMunicipal) || 0);
+      formData.append('monto_otros', parseFloat(values.montoOtros) || 0);
+      formData.append('inversion_estimada', parseFloat(values.inversionEstimada) || 0);
       formData.append('descripcion', values.descripcion);
-      formData.append('situacionSinProyecto', values.situacionSinProyecto);
+      formData.append('situacion_sin_proyecto', values.situacionSinProyecto);
       formData.append('objetivos', values.objetivos);
       formData.append('metas', values.metas);
-      formData.append('programaPresupuestario', values.programaPresupuestario);
-      formData.append('beneficiarios', values.beneficiarios || 'No Aplica');
-      formData.append('alineacionNormativa', values.alineacionNormativa);
+      formData.append('programa_presupuestario', values.programaPresupuestario);
+      formData.append('beneficiarios', values.beneficiarios || 0);
+      formData.append('alineacion_normativa', values.alineacionNormativa);
       formData.append('region', values.region);
-      formData.append('latitud', values.latitud);
-      formData.append('longitud', values.longitud);
-      formData.append('planNacional', values.planNacional);
-      formData.append('planEstatal', values.planEstatal);
-      formData.append('planMunicipal', values.planMunicipal || 'No Aplica');
+      formData.append('latitud', parseFloat(values.latitud));
+      formData.append('longitud', parseFloat(values.longitud));
+      formData.append('plan_nacional', values.planNacional);
+      formData.append('plan_estatal', values.planEstatal);
+      formData.append('plan_municipal', values.planMunicipal || 'No Aplica');
       formData.append('ods', values.ods);
-      formData.append('planSectorial', values.planSectorial || 'No Aplica');
-      formData.append('unidadResponsable', values.unidadResponsable);
-      formData.append('unidadPresupuestal', values.unidadPresupuestal);
-      formData.append('ramoPresupuestal', values.ramoPresupuestal);
-      formData.append('municipiosImpacto', values.municipiosImpacto.map(mun => mun.value));
+      formData.append('plan_sectorial', values.planSectorial || 'No Aplica');
+      formData.append('unidad_responsable', values.unidadResponsable);
+      formData.append('unidad_presupuestal', values.unidadPresupuestal);
+      formData.append('ramo_presupuestal', values.ramoPresupuestal);
+  
+      // Verifica si municipiosImpacto está vacío y maneja en consecuencia
+      if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
+        const municipiosImpactoJson = JSON.stringify(values.municipiosImpacto.map(mun => mun.value));
+        formData.append('municipios_impacto', municipiosImpactoJson);
+      } else {
+        formData.append('municipios_impacto', '[]'); // Envía un JSON vacío si no hay municipios
+      }
+  
+      formData.append('localidad', values.localidad || 'No Aplica');
+      formData.append('barrio_colonia_ejido', values.barrioColoniaEjido || 'No Aplica');
       formData.append('observaciones', values.observaciones || 'No Aplica');
-      formData.append('gastoProgramable', values.gastoProgramable);
-      formData.append('indicadoresEstrategicos', values.indicadoresEstrategicos);
-      formData.append('indicadoresTacticos', values.indicadoresTacticos);
-      formData.append('indicadoresDesempeno', values.indicadoresDesempeno);
-      formData.append('indicadoresRentabilidad', values.indicadoresRentabilidad);
-      formData.append('estadoInicial', values.estadoInicial);
-      formData.append('estadoConProyecto', values.estadoConProyecto);
-
+      formData.append('gasto_programable', values.gastoProgramable);
+      formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
+      formData.append('indicadores_tacticos', values.indicadoresTacticos || 'No Aplica');
+      formData.append('indicadores_desempeno', values.indicadoresDesempeno || 'No Aplica');
+      formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
+      formData.append('estado_inicial', values.estadoInicial);
+      formData.append('estado_con_proyecto', values.estadoConProyecto);
+  
       for (const key in applies) {
         if (applies[key]) {
           for (const file of values[key]) {
@@ -169,25 +184,28 @@ const FormDependencia = () => {
           }
         }
       }
-
+  
       const csrfToken = Cookies.get('csrftoken');
-
+  
       await axios.post('guardar-proyecto/', formData, {
         headers: {
           'X-CSRFToken': csrfToken,
           'Content-Type': 'multipart/form-data'
         }
       });
-
+  
       resetForm();
       setSubmitting(false);
       alert('Proyecto creado exitosamente');
     } catch (error) {
-      console.error('Error al crear el proyecto:', error);
-      alert('Ocurrió un error al crear el proyecto. Por favor, inténtalo de nuevo.');
+      console.error('Error al crear el proyecto:', error.response ? error.response.data : error);
+      alert(`Ocurrió un error al crear el proyecto: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
       setSubmitting(false);
     }
   };
+  
+     
+  
 
   const formatCurrency = (value) => {
     return value ? `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` : '';
