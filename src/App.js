@@ -1,3 +1,5 @@
+// App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -14,6 +16,7 @@ import Login from './components/Login';
 import NavbarLogin from './components/NavbarLogin';
 import FormDependencia from './components/FormDependencia';
 import TableComponent from './components/TableComponent'; // Importa el nuevo componente de tabla
+import CRUDTable from './components/CRUDTable'; // Importa el componente CRUDTable
 
 const MainContent = () => {
     return (
@@ -41,6 +44,8 @@ const App = () => {
                 <Route path="/login/*" element={<LoginLayout />} />
                 {/* Ruta para la página de tabla */}
                 <Route path="/table" element={<TableLayout />} />
+                {/* Ruta para la página CRUD */}
+                <Route path="/crud" element={<CRUDLayout />} />
                 {/* Ruta de página no encontrada */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
@@ -80,6 +85,18 @@ const TableLayout = () => {
             {/* Renderiza el contenido dentro de la ruta de tabla */}
             <Routes>
                 <Route path="/" element={<TableComponent />} />
+            </Routes>
+        </div>
+    );
+}
+
+const CRUDLayout = () => {
+    return (
+        <div>
+            <Navbar />
+            {/* Renderiza el contenido dentro de la ruta de CRUD */}
+            <Routes>
+                <Route path="/" element={<CRUDTable />} />
             </Routes>
         </div>
     );

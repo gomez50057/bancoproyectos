@@ -1,3 +1,20 @@
+// utils.js
+
+export const getCsrfToken = () => {
+    let csrfToken = null;
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        if (cookie.trim().startsWith('csrftoken=')) {
+            csrfToken = cookie.split('=')[1];
+            break;
+        }
+    }
+    return csrfToken;
+};
+
+
+
+
 export const municipiosPorRegion = {
     '01.Tula': [
         '005 Ajacuba', '010 Atitalaquia', '013 Atotonilco de Tula', '063 Tepeji del Río de Ocampo',
