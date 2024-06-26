@@ -62,7 +62,7 @@ const InterestingPages = () => {
                     ref={rect1Ref}
                 >
                     <p>Conoce los proyectos de tu localidad</p>
-                    <Link to="/crud" className="rectangle-button">
+                    <Link to="/table" className="rectangle-button">
                         <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
                         <p>Descubre más...</p>
                     </Link>
