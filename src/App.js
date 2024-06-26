@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -13,8 +14,9 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import NavbarLogin from './components/NavbarLogin';
 import FormDependencia from './components/FormDependencia';
-import TableComponent from './components/TableComponent'; // Importa el nuevo componente de tabla
-import CRUDTable from './components/CRUDTable'; // Importa el componente CRUDTable
+import TableComponent from './components/TableComponent';
+import CRUDTable from './components/CRUDTable';
+import PrivateRoute from './components/PrivateRoute'; // Importa el componente de ruta privada
 
 const MainContent = () => {
     return (
@@ -28,76 +30,55 @@ const MainContent = () => {
             <InteractiveMap />
         </div>
     );
-}
+};
 
 const App = () => {
     return (
         <Router>
             <Routes>
-                {/* Ruta para la página principal */}
                 <Route path="/" element={<MainContent />} />
-                {/* Ruta para la página de dependencia */}
                 <Route path="/dependencia/*" element={<DependenciaLayout />} />
-                {/* Ruta para la página de login */}
                 <Route path="/login/*" element={<LoginLayout />} />
-                {/* Ruta para la página de tabla */}
-                <Route path="/table" element={<TableLayout />} />
-                {/* Ruta para la página CRUD */}
-                <Route path="/crud" element={<CRUDLayout />} />
-                {/* Ruta de página no encontrada */}
+                <Route path="/table" element={<PrivateRoute><TableLayout /></PrivateRoute>} />
+                <Route path="/crud" element={<PrivateRoute><CRUDTable /></PrivateRoute>} /> {/* Usa la ruta privada */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Footer />
         </Router>
     );
-}
+};
 
 const DependenciaLayout = () => {
     return (
         <div>
             <Navbar />
-            {/* Renderiza el contenido dentro de la ruta de dependencia */}
             <Routes>
                 <Route path="/" element={<FormDependencia />} />
             </Routes>
         </div>
     );
-}
+};
 
 const LoginLayout = () => {
     return (
         <div>
             <NavbarLogin />
-            {/* Renderiza el contenido dentro de la ruta de login */}
             <Routes>
                 <Route path="/" element={<Login />} />
             </Routes>
         </div>
     );
-}
+};
 
 const TableLayout = () => {
     return (
         <div>
             <Navbar />
-            {/* Renderiza el contenido dentro de la ruta de tabla */}
             <Routes>
                 <Route path="/" element={<TableComponent />} />
             </Routes>
         </div>
     );
-}
-
-const CRUDLayout = () => {
-    return (
-        <div>
-            <Navbar />
-            {/* Renderiza el contenido dentro de la ruta de CRUD */}
-            <Routes>
-                <Route path="/" element={<CRUDTable />} />
-            </Routes>
-        </div>
-    );
-}
+};
 
 export default App;

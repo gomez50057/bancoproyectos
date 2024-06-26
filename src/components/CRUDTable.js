@@ -1,11 +1,10 @@
-// CRUDTable.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip } from '@mui/material';
 import { getCsrfToken } from '../utils'; // Importa la función desde utils.js
+import './CRUDTable.css'; // Importa el archivo CSS
 
 const CRUDTable = () => {
   const [projects, setProjects] = useState([]);
@@ -80,63 +79,69 @@ const CRUDTable = () => {
     }
   };
 
+  const renderTruncatedText = (value) => (
+    <Tooltip title={value} placement="top">
+      <span className="truncate-text">{value}</span>
+    </Tooltip>
+  );
+
   const columns = [
-    { name: "Fecha Registro", options: { display: true } },
-    { name: "Nombre del Proyecto", options: { display: true } },
-    { name: "Sector", options: { display: true } },
-    { name: "Tipo de Proyecto", options: { display: true } },
-    { name: "Tipo de Entidad", options: { display: true } },
-    { name: "Dependencia", options: { display: true } },
-    { name: "Organismo", options: { display: true } },
-    { name: "Municipio End", options: { display: true } },
-    { name: "Petición Personal", options: { display: true } },
-    { name: "Unidad Responsable", options: { display: true } },
-    { name: "Unidad Presupuestal", options: { display: true } },
-    { name: "Ramo Presupuestal", options: { display: true } },
-    { name: "Monto Federal", options: { display: true } },
-    { name: "Monto Estatal", options: { display: true } },
-    { name: "Monto Municipal", options: { display: true } },
-    { name: "Monto Otros", options: { display: true } },
-    { name: "Inversión Estimada", options: { display: true } },
-    { name: "Descripción", options: { display: true } },
-    { name: "Situación Sin Proyecto", options: { display: true } },
-    { name: "Objetivos", options: { display: true } },
-    { name: "Metas", options: { display: true } },
-    { name: "Gasto Programable", options: { display: true } },
-    { name: "Programa Presupuestario", options: { display: true } },
-    { name: "Beneficiarios", options: { display: true } },
-    { name: "Alineación Normativa", options: { display: true } },
-    { name: "Región", options: { display: true } },
-    { name: "Municipio", options: { display: true } },
-    { name: "Municipio Impacto", options: { display: true } },
-    { name: "Localidad", options: { display: true } },
-    { name: "Barrio/Colonia/Ejido", options: { display: true } },
-    { name: "Latitud", options: { display: true } },
-    { name: "Longitud", options: { display: true } },
-    { name: "Plan Nacional", options: { display: true } },
-    { name: "Plan Estatal", options: { display: true } },
-    { name: "Plan Municipal", options: { display: true } },
-    { name: "ODS", options: { display: true } },
-    { name: "Plan Sectorial", options: { display: true } },
-    { name: "Indicadores Estratégicos", options: { display: true } },
-    { name: "Indicadores Tácticos", options: { display: true } },
-    { name: "Indicadores de Desempeño", options: { display: true } },
-    { name: "Indicadores de Rentabilidad", options: { display: true } },
-    { name: "Estado Inicial", options: { display: true } },
-    { name: "Estado con Proyecto", options: { display: true } },
-    { name: "Estudios Prospectivos", options: { display: false } },
-    { name: "Estudios de Factibilidad", options: { display: false } },
-    { name: "Análisis de Alternativas", options: { display: false } },
-    { name: "Validación Normativa", options: { display: false } },
-    { name: "Liberación de Derecho de Vía", options: { display: false } },
-    { name: "Situación sin Proyecto Fotográfico", options: { display: false } },
-    { name: "Situación con Proyecto Proyección", options: { display: false } },
-    { name: "Análisis Costo Beneficio", options: { display: false } },
-    { name: "Expediente Técnico", options: { display: false } },
-    { name: "Proyecto Ejecutivo", options: { display: false } },
-    { name: "Manifestación de Impacto Ambiental", options: { display: false } },
-    { name: "Otros Estudios", options: { display: false } },
-    { name: "Observaciones", options: { display: true } },
+    { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Tipo de Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Tipo de Entidad", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Dependencia", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Organismo", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Municipio End", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Petición Personal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Unidad Responsable", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Unidad Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Ramo Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Federal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Otros", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversión Estimada", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Descripción", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Situación Sin Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Objetivos", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Metas", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Gasto Programable", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Programa Presupuestario", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Beneficiarios", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Alineación Normativa", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Región", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Municipio", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Municipio Impacto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Localidad", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Barrio/Colonia/Ejido", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Latitud", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Longitud", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Nacional", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "ODS", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Sectorial", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores Estratégicos", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores Tácticos", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores de Desempeño", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores de Rentabilidad", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Estudios Prospectivos", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Estudios de Factibilidad", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Análisis de Alternativas", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Validación Normativa", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Liberación de Derecho de Vía", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Situación sin Proyecto Fotográfico", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Situación con Proyecto Proyección", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Análisis Costo Beneficio", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Expediente Técnico", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Proyecto Ejecutivo", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Manifestación de Impacto Ambiental", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Otros Estudios", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
     {
       name: "Acciones",
       options: {
@@ -156,17 +161,8 @@ const CRUDTable = () => {
   const options = {
     selectableRows: false,
     setRowProps: (row, dataIndex) => ({
-      style: {
-        backgroundColor: dataIndex % 2 === 0 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(240, 240, 240, 0.8)',
-        backdropFilter: 'blur(5px)',
-        margin: '5px 0',
-        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          backgroundColor: dataIndex % 2 === 0 ? 'rgba(230, 230, 230, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-        },
-      },
+      className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
+      classNameHover: 'table_row_hover'
     }),
     textLabels: {
       body: {
@@ -345,6 +341,7 @@ const CRUDTable = () => {
               name={key}
               value={currentProject[key] || ''}
               onChange={handleChange}
+              className="truncate-text"
             />
           ))}
         </DialogContent>

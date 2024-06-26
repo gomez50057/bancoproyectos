@@ -1,0 +1,99 @@
+/* Estilos globales para la cuadrícula de la tabla */
+.table_grid {
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    border-radius: 40px;
+    padding: 1px;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation4.tss-q7ywoh-MUIDataTable-paper.tss-17ud2kq-MUIDataTable-root.css-ao8rxk{
+    margin: 20px;
+    /* background-color: rgba(184, 20, 20, 0.7); */
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    border-radius: 40px;
+}
+
+/* Estilos para el componente Paper de Material-UI */
+.MuiPaper-root {
+    margin: 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 40px;
+}
+
+/* Estilos para las filas de la tabla: filas pares e impares */
+.table_row_even {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.table_row_odd {
+    background-color: rgba(240, 240, 240, 0.8);
+}
+
+/* Efecto hover para las filas de la tabla */
+.table_row_hover {
+    transition: all 0.3s ease;
+}
+
+/* .table_row_hover:hover {
+    background-color: rgba(234, 21, 21, 0.8);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+} */
+
+/* Ajuste del margen para la barra de herramientas de la tabla */
+.mui_table_toolbar {
+    margin-bottom: 10px;
+}
+
+/* Estilos para las celdas del encabezado de la tabla */
+.mui_table_head_cell {
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Estilos para las celdas del cuerpo de la tabla */
+.mui_table_body_cell {
+    padding: 8px 16px;
+}
+
+.mui_table_body_cell_first {
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Truncar texto para celdas con desbordamiento */
+.truncate-text {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+/* Estilos adicionales para celdas del encabezado */
+.tss-1akey0g-MUIDataTableHeadCell-data {
+    color: #A02142;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.tss-bd2lw8-MUIDataTableHeadCell-sort .Active {
+    color: #bc955b;
+}
+
+.css-1xvinid {
+    margin: 20px;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 2.125rem;
+    line-height: 1.235;
+    letter-spacing: 0.00735em;
+    color: #A02142;
+
+}
+.css-ao8rxk {
+    border-radius: 30px;
+}

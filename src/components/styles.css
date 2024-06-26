@@ -983,3 +983,19 @@ select {
 
 
 
+/* Archivo: src/styles.css */
+
+/* .table_grid .MuiTable-root {
+  position: relative;
+}
+
+.table_grid .MuiTableCell-stickyHeader {
+  background: white;
+  position: sticky;
+  right: 0;
+  z-index: 1000;
+}
+
+.table_grid .MuiTableCell-stickyHeader + .MuiTableCell-stickyHeader {
+  z-index: 1001;
+} */
