@@ -2,16 +2,18 @@
 
 export const getCsrfToken = () => {
     let csrfToken = null;
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        if (cookie.trim().startsWith('csrftoken=')) {
-            csrfToken = cookie.split('=')[1];
-            break;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, 10) === 'csrftoken=') {
+                csrfToken = decodeURIComponent(cookie.substring(10));
+                break;
+            }
         }
     }
     return csrfToken;
 };
-
 
 
 
@@ -1051,7 +1053,6 @@ export const indicadoresTacticosOptions = {
     ]
 };
 
-
 export const sectorOptions = [
     { value: 'Agua', label: 'Agua' },
     { value: 'Comunicaciones y transportes', label: 'Comunicaciones y transportes' },
@@ -1095,7 +1096,6 @@ export const tipoProyectoOptions = {
     'Gubernamental, Oficinas administrativas': 'Inmuebles',
     'No identificados en las clasificaciones anteriores': 'Otros Proyectos de Inversión',
 };
-
 
 export const programasSectorialesOptions = {
     'Secretaría de Contraloría': 'Programa Sectorial de Desarrollo de Contraloría',

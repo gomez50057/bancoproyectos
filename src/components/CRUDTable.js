@@ -1,5 +1,3 @@
-// CRUDTable.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
@@ -83,11 +81,63 @@ const CRUDTable = () => {
   };
 
   const columns = [
-    { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
-    { name: "Descripción", options: { setCellProps: () => ({ style: { textAlign: 'justify' } }) } },
-    "Tipo de Proyecto",
-    { name: "Municipio", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
-    { name: "Beneficiarios", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
+    { name: "id", options: { display: false } },
+    { name: "fecha_registro", options: { display: true } },
+    { name: "project_name", options: { display: true } },
+    { name: "sector", options: { display: true } },
+    { name: "tipo_proyecto", options: { display: true } },
+    { name: "tipo_entidad", options: { display: true } },
+    { name: "dependencia", options: { display: true } },
+    { name: "organismo", options: { display: true } },
+    { name: "municipioEnd", options: { display: true } },
+    { name: "peticion_personal", options: { display: true } },
+    { name: "unidad_responsable", options: { display: true } },
+    { name: "unidad_presupuestal", options: { display: true } },
+    { name: "ramo_presupuestal", options: { display: true } },
+    { name: "monto_federal", options: { display: true } },
+    { name: "monto_estatal", options: { display: true } },
+    { name: "monto_municipal", options: { display: true } },
+    { name: "monto_otros", options: { display: true } },
+    { name: "inversion_estimada", options: { display: true } },
+    { name: "descripcion", options: { display: true } },
+    { name: "situacion_sin_proyecto", options: { display: true } },
+    { name: "objetivos", options: { display: true } },
+    { name: "metas", options: { display: true } },
+    { name: "gasto_programable", options: { display: true } },
+    { name: "programa_presupuestario", options: { display: true } },
+    { name: "beneficiarios", options: { display: true } },
+    { name: "alineacion_normativa", options: { display: true } },
+    { name: "region", options: { display: true } },
+    { name: "municipio", options: { display: true } },
+    { name: "municipio_impacto", options: { display: true } },
+    { name: "localidad", options: { display: true } },
+    { name: "barrio_colonia_ejido", options: { display: true } },
+    { name: "latitud", options: { display: true } },
+    { name: "longitud", options: { display: true } },
+    { name: "plan_nacional", options: { display: true } },
+    { name: "plan_estatal", options: { display: true } },
+    { name: "plan_municipal", options: { display: true } },
+    { name: "ods", options: { display: true } },
+    { name: "plan_sectorial", options: { display: true } },
+    { name: "indicadores_estrategicos", options: { display: true } },
+    { name: "indicadores_tacticos", options: { display: true } },
+    { name: "indicadores_desempeno", options: { display: true } },
+    { name: "indicadores_rentabilidad", options: { display: true } },
+    { name: "estado_inicial", options: { display: true } },
+    { name: "estado_con_proyecto", options: { display: true } },
+    { name: "estudios_prospectivos", options: { display: false } },
+    { name: "estudios_factibilidad", options: { display: false } },
+    { name: "analisis_alternativas", options: { display: false } },
+    { name: "validacion_normativa", options: { display: false } },
+    { name: "liberacion_derecho_via", options: { display: false } },
+    { name: "situacion_sin_proyecto_fotografico", options: { display: false } },
+    { name: "situacion_con_proyecto_proyeccion", options: { display: false } },
+    { name: "analisis_costo_beneficio", options: { display: false } },
+    { name: "expediente_tecnico", options: { display: false } },
+    { name: "proyecto_ejecutivo", options: { display: false } },
+    { name: "manifestacion_impacto_ambiental", options: { display: false } },
+    { name: "otros_estudios", options: { display: false } },
+    { name: "observaciones", options: { display: true } },
     {
       name: "Acciones",
       options: {
@@ -221,11 +271,62 @@ const CRUDTable = () => {
           title={"Lista de proyectos"}
           data={projects.map(project => [
             project.id,
+            project.fecha_registro,
             project.project_name,
-            project.descripcion,
+            project.sector,
             project.tipo_proyecto,
+            project.tipo_entidad,
+            project.dependencia,
+            project.organismo,
+            project.municipioEnd,
+            project.peticion_personal,
+            project.unidad_responsable,
+            project.unidad_presupuestal,
+            project.ramo_presupuestal,
+            project.monto_federal,
+            project.monto_estatal,
+            project.monto_municipal,
+            project.monto_otros,
+            project.inversion_estimada,
+            project.descripcion,
+            project.situacion_sin_proyecto,
+            project.objetivos,
+            project.metas,
+            project.gasto_programable,
+            project.programa_presupuestario,
+            project.beneficiarios,
+            project.alineacion_normativa,
+            project.region,
             project.municipio,
-            project.beneficiarios
+            project.municipio_impacto,
+            project.localidad,
+            project.barrio_colonia_ejido,
+            project.latitud,
+            project.longitud,
+            project.plan_nacional,
+            project.plan_estatal,
+            project.plan_municipal,
+            project.ods,
+            project.plan_sectorial,
+            project.indicadores_estrategicos,
+            project.indicadores_tacticos,
+            project.indicadores_desempeno,
+            project.indicadores_rentabilidad,
+            project.estado_inicial,
+            project.estado_con_proyecto,
+            project.estudios_prospectivos,
+            project.estudios_factibilidad,
+            project.analisis_alternativas,
+            project.validacion_normativa,
+            project.liberacion_derecho_via,
+            project.situacion_sin_proyecto_fotografico,
+            project.situacion_con_proyecto_proyeccion,
+            project.analisis_costo_beneficio,
+            project.expediente_tecnico,
+            project.proyecto_ejecutivo,
+            project.manifestacion_impacto_ambiental,
+            project.otros_estudios,
+            project.observaciones,
           ])}
           columns={columns}
           options={options}
@@ -278,6 +379,474 @@ const CRUDTable = () => {
             fullWidth
             name="beneficiarios"
             value={currentProject.beneficiarios || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Fecha de Registro"
+            type="text"
+            fullWidth
+            name="fecha_registro"
+            value={currentProject.fecha_registro || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Sector"
+            type="text"
+            fullWidth
+            name="sector"
+            value={currentProject.sector || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Tipo de Entidad"
+            type="text"
+            fullWidth
+            name="tipo_entidad"
+            value={currentProject.tipo_entidad || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Dependencia"
+            type="text"
+            fullWidth
+            name="dependencia"
+            value={currentProject.dependencia || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Organismo"
+            type="text"
+            fullWidth
+            name="organismo"
+            value={currentProject.organismo || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Municipio End"
+            type="text"
+            fullWidth
+            name="municipioEnd"
+            value={currentProject.municipioEnd || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Petición Personal"
+            type="text"
+            fullWidth
+            name="peticion_personal"
+            value={currentProject.peticion_personal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Unidad Responsable"
+            type="text"
+            fullWidth
+            name="unidad_responsable"
+            value={currentProject.unidad_responsable || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Unidad Presupuestal"
+            type="text"
+            fullWidth
+            name="unidad_presupuestal"
+            value={currentProject.unidad_presupuestal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Ramo Presupuestal"
+            type="text"
+            fullWidth
+            name="ramo_presupuestal"
+            value={currentProject.ramo_presupuestal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Monto Federal"
+            type="text"
+            fullWidth
+            name="monto_federal"
+            value={currentProject.monto_federal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Monto Estatal"
+            type="text"
+            fullWidth
+            name="monto_estatal"
+            value={currentProject.monto_estatal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Monto Municipal"
+            type="text"
+            fullWidth
+            name="monto_municipal"
+            value={currentProject.monto_municipal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Monto Otros"
+            type="text"
+            fullWidth
+            name="monto_otros"
+            value={currentProject.monto_otros || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Inversión Estimada"
+            type="text"
+            fullWidth
+            name="inversion_estimada"
+            value={currentProject.inversion_estimada || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Situación Sin Proyecto"
+            type="text"
+            fullWidth
+            name="situacion_sin_proyecto"
+            value={currentProject.situacion_sin_proyecto || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Objetivos"
+            type="text"
+            fullWidth
+            name="objetivos"
+            value={currentProject.objetivos || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Metas"
+            type="text"
+            fullWidth
+            name="metas"
+            value={currentProject.metas || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Gasto Programable"
+            type="text"
+            fullWidth
+            name="gasto_programable"
+            value={currentProject.gasto_programable || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Programa Presupuestario"
+            type="text"
+            fullWidth
+            name="programa_presupuestario"
+            value={currentProject.programa_presupuestario || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Alineación Normativa"
+            type="text"
+            fullWidth
+            name="alineacion_normativa"
+            value={currentProject.alineacion_normativa || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Región"
+            type="text"
+            fullWidth
+            name="region"
+            value={currentProject.region || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Municipio"
+            type="text"
+            fullWidth
+            name="municipio"
+            value={currentProject.municipio || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Municipio Impacto"
+            type="text"
+            fullWidth
+            name="municipio_impacto"
+            value={currentProject.municipio_impacto || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Localidad"
+            type="text"
+            fullWidth
+            name="localidad"
+            value={currentProject.localidad || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Barrio/Colonia/Ejido"
+            type="text"
+            fullWidth
+            name="barrio_colonia_ejido"
+            value={currentProject.barrio_colonia_ejido || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Latitud"
+            type="text"
+            fullWidth
+            name="latitud"
+            value={currentProject.latitud || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Longitud"
+            type="text"
+            fullWidth
+            name="longitud"
+            value={currentProject.longitud || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Plan Nacional"
+            type="text"
+            fullWidth
+            name="plan_nacional"
+            value={currentProject.plan_nacional || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Plan Estatal"
+            type="text"
+            fullWidth
+            name="plan_estatal"
+            value={currentProject.plan_estatal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Plan Municipal"
+            type="text"
+            fullWidth
+            name="plan_municipal"
+            value={currentProject.plan_municipal || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="ODS"
+            type="text"
+            fullWidth
+            name="ods"
+            value={currentProject.ods || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Plan Sectorial"
+            type="text"
+            fullWidth
+            name="plan_sectorial"
+            value={currentProject.plan_sectorial || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Indicadores Estratégicos"
+            type="text"
+            fullWidth
+            name="indicadores_estrategicos"
+            value={currentProject.indicadores_estrategicos || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Indicadores Tácticos"
+            type="text"
+            fullWidth
+            name="indicadores_tacticos"
+            value={currentProject.indicadores_tacticos || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Indicadores de Desempeño"
+            type="text"
+            fullWidth
+            name="indicadores_desempeno"
+            value={currentProject.indicadores_desempeno || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Indicadores de Rentabilidad"
+            type="text"
+            fullWidth
+            name="indicadores_rentabilidad"
+            value={currentProject.indicadores_rentabilidad || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Estado Inicial"
+            type="text"
+            fullWidth
+            name="estado_inicial"
+            value={currentProject.estado_inicial || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Estado con Proyecto"
+            type="text"
+            fullWidth
+            name="estado_con_proyecto"
+            value={currentProject.estado_con_proyecto || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Estudios Prospectivos"
+            type="text"
+            fullWidth
+            name="estudios_prospectivos"
+            value={currentProject.estudios_prospectivos || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Estudios de Factibilidad"
+            type="text"
+            fullWidth
+            name="estudios_factibilidad"
+            value={currentProject.estudios_factibilidad || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Análisis de Alternativas"
+            type="text"
+            fullWidth
+            name="analisis_alternativas"
+            value={currentProject.analisis_alternativas || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Validación Normativa"
+            type="text"
+            fullWidth
+            name="validacion_normativa"
+            value={currentProject.validacion_normativa || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Liberación de Derecho de Vía"
+            type="text"
+            fullWidth
+            name="liberacion_derecho_via"
+            value={currentProject.liberacion_derecho_via || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Situación sin Proyecto Fotográfico"
+            type="text"
+            fullWidth
+            name="situacion_sin_proyecto_fotografico"
+            value={currentProject.situacion_sin_proyecto_fotografico || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Situación con Proyecto Proyección"
+            type="text"
+            fullWidth
+            name="situacion_con_proyecto_proyeccion"
+            value={currentProject.situacion_con_proyecto_proyeccion || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Análisis Costo Beneficio"
+            type="text"
+            fullWidth
+            name="analisis_costo_beneficio"
+            value={currentProject.analisis_costo_beneficio || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Expediente Técnico"
+            type="text"
+            fullWidth
+            name="expediente_tecnico"
+            value={currentProject.expediente_tecnico || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Proyecto Ejecutivo"
+            type="text"
+            fullWidth
+            name="proyecto_ejecutivo"
+            value={currentProject.proyecto_ejecutivo || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Manifestación de Impacto Ambiental"
+            type="text"
+            fullWidth
+            name="manifestacion_impacto_ambiental"
+            value={currentProject.manifestacion_impacto_ambiental || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Otros Estudios"
+            type="text"
+            fullWidth
+            name="otros_estudios"
+            value={currentProject.otros_estudios || ''}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="Observaciones"
+            type="text"
+            fullWidth
+            name="observaciones"
+            value={currentProject.observaciones || ''}
             onChange={handleChange}
           />
         </DialogContent>
