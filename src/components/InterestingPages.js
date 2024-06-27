@@ -66,10 +66,10 @@ const InterestingPages = () => {
                         <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
                         <p>Descubre más...</p>
                     </Link>
-                    <Link to="/crud" className="rectangle-button">
+                    {/* <Link to="/crud" className="rectangle-button">
                         <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
                         <p>2Descubre más...</p>
-                    </Link>
+                    </Link> */}
                 </motion.div>
                 <motion.div 
                     className="rectangle"
