@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip } from '@mui/material';
+import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip, Typography } from '@mui/material';
 import { getCsrfToken } from '../utils'; // Importa la función desde utils.js
 import './CRUDTable.css'; // Importa el archivo CSS
 
@@ -217,7 +217,7 @@ const CRUDTable = () => {
           styleOverrides: {
             root: {
               fontWeight: 600,
-              backgroundColor: '#f2f2f2',
+              backgroundColor: 'none',
               textAlign: 'center',
             },
           },
@@ -226,6 +226,8 @@ const CRUDTable = () => {
           styleOverrides: {
             root: {
               marginBottom: '10px',
+              borderRadius: '40px',
+              backgroundColor: '#DEC9A3',
             },
           },
         },
@@ -252,6 +254,15 @@ const CRUDTable = () => {
             },
           },
         },
+        MuiTypography: {
+          styleOverrides: {
+            h3: {
+              fontWeight: 800,
+              fontSize: '3.25rem',
+              color: '#A02142',
+            },
+          },
+        },
       },
     });
 
@@ -259,11 +270,8 @@ const CRUDTable = () => {
     <ThemeProvider theme={getMuiTheme()}>
       <CssBaseline />
       <div className="table_grid">
-        <Button variant="contained" color="primary" onClick={() => handleOpen()}>
-          Agregar Proyecto
-        </Button>
         <MUIDataTable
-          title={"Lista de proyectos"}
+          title={<Typography variant="h3">Proyectos Registrados</Typography>}
           data={projects.map(project => [
             project.id,
             project.fecha_registro,
