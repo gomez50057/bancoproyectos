@@ -24,8 +24,22 @@ const Login = () => {
                 password: password
             });
             
-            if (response.status === 200) {
-                navigate('/dependencia');
+            if (response.data.status === 'ok') {
+                const { group } = response.data; 
+
+                switch (group) {
+                    case 'responsable':
+                        navigate('/crud');
+                        break;
+                    case 'visualizador':
+                        navigate('/table');
+                        break;
+                    case 'cliente':
+                        navigate('/dependencia');
+                        break;
+                    default:
+                        setError('Grupo de usuario desconocido');
+                }
             } else {
                 setError('Credenciales inválidas');
             }
