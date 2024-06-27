@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, Typography} from '@mui/material';
 import axios from 'axios';
 
 const TableComponent = () => {
@@ -103,7 +103,7 @@ const TableComponent = () => {
           styleOverrides: {
             root: {
               fontWeight: 600,
-              backgroundColor: '#f2f2f2',
+              backgroundColor: 'none',
               textAlign: 'center',
             },
           },
@@ -138,15 +138,26 @@ const TableComponent = () => {
             },
           },
         },
+        MuiTypography: {
+          styleOverrides: {
+            h3: {
+              fontWeight: 600,
+              fontSize: '2.25rem',
+              color: '#DEC9A3',
+              fontFamily: "Montserrat",
+              padding: '10px'
+            },
+          },
+        },
       },
     });
 
   return (
     <ThemeProvider theme={getMuiTheme()}>
       <CssBaseline />
-      <div className="table_grid">
+      <div className="table_grid_pro">
         <MUIDataTable
-          title={"Lista de proyectos"}
+          title={<Typography variant="h3">Proyectos Registrados</Typography>}
           data={projects}
           columns={columns}
           options={options}
