@@ -231,6 +231,9 @@ const CRUDTable = () => {
               borderRadius: '40px',
               background: 'linear-gradient(to left, #691B32, #A02142)',
             },
+            icon: {
+              color: '#DEC9A3',
+            },
           },
         },
         MUIDataTable: {
@@ -252,6 +255,10 @@ const CRUDTable = () => {
               '&:hover': {
                 backgroundColor: 'rgba(230, 230, 230) !important',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.9)',
+              },
+              '& .MUIDataTableBodyCell-root:last-child:hover': {
+                backgroundColor: 'transparent',
+                boxShadow: 'none',
               },
             },
           },
