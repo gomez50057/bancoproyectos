@@ -86,6 +86,7 @@ const CRUDTable = () => {
   );
 
   const columns = [
+    { name: "id", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -226,8 +227,9 @@ const CRUDTable = () => {
           styleOverrides: {
             root: {
               marginBottom: '10px',
+              padding: '10px',
               borderRadius: '40px',
-              backgroundColor: '#DEC9A3',
+              background: 'linear-gradient(to left, #691B32, #A02142)',
             },
           },
         },
@@ -249,7 +251,7 @@ const CRUDTable = () => {
             root: {
               '&:hover': {
                 backgroundColor: 'rgba(230, 230, 230) !important',
-                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.9)',
               },
             },
           },
@@ -257,9 +259,11 @@ const CRUDTable = () => {
         MuiTypography: {
           styleOverrides: {
             h3: {
-              fontWeight: 800,
+              fontWeight: 600,
               fontSize: '3.25rem',
-              color: '#A02142',
+              color: '#DEC9A3',
+              fontFamily: "Montserrat",
+              padding: '10px'
             },
           },
         },
