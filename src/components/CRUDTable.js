@@ -3,20 +3,22 @@ import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip, Typography } from '@mui/material';
-import { getCsrfToken } from '../utils'; // Importa la función desde utils.js
-import './CRUDTable.css'; // Importa el archivo CSS
+import { getCsrfToken } from '../utils'; 
+import './CRUDTable.css'; 
 
+// Componente principal CRUDTable
 const CRUDTable = () => {
-  const [projects, setProjects] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [currentProject, setCurrentProject] = useState({});
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [projects, setProjects] = useState([]); // Estado para almacenar los proyectos
+  const [open, setOpen] = useState(false); // Estado para controlar el diálogo de agregar/editar proyecto
+  const [currentProject, setCurrentProject] = useState({}); // Estado para almacenar el proyecto actual
+  const [isEditMode, setIsEditMode] = useState(false); // Estado para determinar si estamos en modo edición
 
+  // useEffect para cargar los proyectos al montar el componente
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/ver-proyectos-tabla/');
-        setProjects(response.data);
+        setProjects(response.data); // Actualiza el estado con los proyectos obtenidos
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
@@ -24,22 +26,26 @@ const CRUDTable = () => {
     fetchProjects();
   }, []);
 
+  // Función para abrir el diálogo de agregar/editar proyecto
   const handleOpen = (project = {}) => {
-    setCurrentProject(project);
-    setIsEditMode(Boolean(project.id));
-    setOpen(true);
+    setCurrentProject(project); // Establece el proyecto actual
+    setIsEditMode(Boolean(project.id)); // Determina el modo (agregar o editar)
+    setOpen(true); // Abre el diálogo
   };
 
+  // Función para cerrar el diálogo de agregar/editar proyecto
   const handleClose = () => {
-    setOpen(false);
-    setCurrentProject({});
+    setOpen(false); // Cierra el diálogo
+    setCurrentProject({}); // Limpia el proyecto actual
   };
 
+  // Función para manejar los cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCurrentProject({ ...currentProject, [name]: value });
+    setCurrentProject({ ...currentProject, [name]: value }); // Actualiza el estado del proyecto actual
   };
 
+  // Función para enviar los datos del formulario (agregar o editar proyecto)
   const handleSubmit = async () => {
     const csrfToken = getCsrfToken();
     try {
@@ -57,13 +63,14 @@ const CRUDTable = () => {
         });
       }
       const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data);
-      handleClose();
+      setProjects(response.data); // Actualiza los proyectos después de agregar/editar
+      handleClose(); // Cierra el diálogo
     } catch (error) {
       console.error('Error submitting project:', error);
     }
   };
 
+  // Función para eliminar un proyecto
   const handleDelete = async (id) => {
     const csrfToken = getCsrfToken();
     try {
@@ -73,20 +80,23 @@ const CRUDTable = () => {
         },
       });
       const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data);
+      setProjects(response.data); // Actualiza los proyectos después de eliminar
     } catch (error) {
       console.error('Error deleting project:', error);
     }
   };
 
+  // Función para renderizar texto truncado con tooltip
   const renderTruncatedText = (value) => (
     <Tooltip title={value} placement="top">
       <span className="truncate-text">{value}</span>
     </Tooltip>
   );
 
+  // Definición de las columnas de la tabla
   const columns = [
     { name: "id", options: { display: true, customBodyRender: renderTruncatedText } },
+    // Se define una columna para cada campo del proyecto
     { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -144,7 +154,7 @@ const CRUDTable = () => {
     { name: "Otros Estudios", options: { display: false, customBodyRender: renderTruncatedText } },
     { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
     {
-      name: "Acciones",
+      name: "Acciones", // Columna para las acciones (Editar, Eliminar)
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           const projectId = tableMeta.rowData[0];
@@ -159,13 +169,14 @@ const CRUDTable = () => {
     }
   ];
 
+  // Opciones de configuración para MUIDataTable
   const options = {
-    selectableRows: false,
+    selectableRows: false, // Deshabilita la selección de filas
     setRowProps: (row, dataIndex) => ({
       className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
       classNameHover: 'table_row_hover'
     }),
-    textLabels: {
+    textLabels: { // Traducciones y etiquetas personalizadas para la tabla
       body: {
         noMatch: "No se encontraron registros",
         toolTip: "Ordenar",
@@ -200,6 +211,7 @@ const CRUDTable = () => {
     }
   };
 
+  // Definición del tema personalizado para MUI
   const getMuiTheme = () =>
     createTheme({
       components: {
