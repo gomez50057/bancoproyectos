@@ -241,7 +241,7 @@ const CRUDTable = () => {
               marginBottom: '10px',
               padding: '10px',
               borderRadius: '40px',
-              background: 'linear-gradient(to left, #691B32, #A02142)',
+              background: 'linear-gradient(to left, #A02142, #691B32)',
             },
             icon: {
               color: '#DEC9A3',
