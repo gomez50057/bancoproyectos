@@ -1,3 +1,4 @@
+// FormDependencia.js
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
@@ -19,6 +20,7 @@ import {
   tipoProyectoOptions,
   programasSectorialesOptions
 } from '../utils';
+import Modal from 'react-modal';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
@@ -40,6 +42,8 @@ const FormDependencia = () => {
     otrosEstudios: false,
   });
   const [selectedRegion, setSelectedRegion] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [generatedId, setGeneratedId] = useState('');
 
   const noSpacesValidation = (value) => {
     if (!value) return true;
@@ -103,7 +107,6 @@ const FormDependencia = () => {
     unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
     unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
     ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
-    // municipiosImpacto: Yup.array().min(1, 'Selecciona al menos un municipio').required('Los municipios de impacto son obligatorios'),
     municipiosImpacto: Yup.array().nullable(),
 
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
@@ -121,7 +124,6 @@ const FormDependencia = () => {
     setSubmitting(false);
   };
 
- 
   const handleSubmitStep2 = async (values, { setSubmitting, resetForm }) => {
     try {
       const formData = new FormData();
@@ -157,15 +159,14 @@ const FormDependencia = () => {
       formData.append('unidad_responsable', values.unidadResponsable);
       formData.append('unidad_presupuestal', values.unidadPresupuestal);
       formData.append('ramo_presupuestal', values.ramoPresupuestal);
-  
-      // Verifica si municipiosImpacto está vacío y maneja en consecuencia
+
       if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
         const municipiosImpactoJson = JSON.stringify(values.municipiosImpacto.map(mun => mun.value));
         formData.append('municipios_impacto', municipiosImpactoJson);
       } else {
-        formData.append('municipios_impacto', '[]'); // Envía un JSON vacío si no hay municipios
+        formData.append('municipios_impacto', '[]');
       }
-  
+
       formData.append('localidad', values.localidad || 'No Aplica');
       formData.append('barrio_colonia_ejido', values.barrioColoniaEjido || 'No Aplica');
       formData.append('observaciones', values.observaciones || 'No Aplica');
@@ -176,7 +177,7 @@ const FormDependencia = () => {
       formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
       formData.append('estado_inicial', values.estadoInicial);
       formData.append('estado_con_proyecto', values.estadoConProyecto);
-  
+
       for (const key in applies) {
         if (applies[key]) {
           for (const file of values[key]) {
@@ -184,28 +185,33 @@ const FormDependencia = () => {
           }
         }
       }
-  
+
       const csrfToken = Cookies.get('csrftoken');
-  
-      await axios.post('guardar-proyecto/', formData, {
+
+      const response = await axios.post('guardar-proyecto/', formData, {
         headers: {
           'X-CSRFToken': csrfToken,
           'Content-Type': 'multipart/form-data'
         }
       });
-  
+     
+      const projectId =  response.data.project_name;
+      setGeneratedId(projectId);
+      setModalIsOpen(true);
+
       resetForm();
       setSubmitting(false);
-      alert('Proyecto creado exitosamente');
     } catch (error) {
       console.error('Error al crear el proyecto:', error.response ? error.response.data : error);
       alert(`Ocurrió un error al crear el proyecto: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
       setSubmitting(false);
     }
   };
-  
-     
-  
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    window.location.href = '/';
+  };
 
   const formatCurrency = (value) => {
     return value ? `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` : '';
@@ -389,7 +395,7 @@ const FormDependencia = () => {
                     <label>Fecha de Registro</label>
                     <Field type="text" name="fechaRegistro" value={new Date().toISOString().split('T')[0]} readOnly />
                   </div>
-                  
+
                   <div className="formThree">
                     <div className="form-group projectName">
                       <label>Nombre del Proyecto</label>
@@ -676,7 +682,7 @@ const FormDependencia = () => {
                     </div>
                     <div className="form-group alineacionNormativa">
                       <label>Leyes Aplicables Vigentes</label>
-                      <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos."/>
+                      <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." />
                       <ErrorMessage name="alineacionNormativa" component="div" className="error" />
                       <div>Máximo 200 caracteres</div>
                     </div>
@@ -844,7 +850,6 @@ const FormDependencia = () => {
                     <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
                   </div>
                   <div className="form-group indicadoresTacticos">
-                    <label>Indicadores Tácticos</label>
                     {(entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador') ? (
                       <Field as="select" name="indicadoresTacticos">
                         <option value="">Seleccione</option>
@@ -989,8 +994,19 @@ const FormDependencia = () => {
           )}
         </Formik>
       )}
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Proyecto Creado"
+      >
+        <h2>Proyecto Creado Exitosamente</h2>
+        <p>ID del Proyecto: {generatedId}</p>
+        <button onClick={closeModal}>He finalizado</button>
+      </Modal>
     </div>
   );
 };
 
 export default FormDependencia;
+

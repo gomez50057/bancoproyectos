@@ -38,7 +38,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<MainContent />} />
                 <Route path="/dependencia/*" element={<DependenciaLayout />} />
-                <Route path="/login/*" element={<LoginLayout />} />
+                <Route path="/login*" element={<LoginLayout />} />
                 <Route path="/table" element={<TableLayout />} />
                 <Route path="/crud" element={<PrivateRoute><CRUDTable /></PrivateRoute>} /> {/* Usa la ruta privada */}
                 <Route path="*" element={<Navigate to="/" />} />
