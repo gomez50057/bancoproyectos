@@ -5,24 +5,56 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
-import {
-  municipiosDeHidalgo,
-  unidadesResponsables,
-  dependencias,
-  organismos,
-  municipiosPorRegion,
-  unidadPresupuestalPorUnidadResponsable,
-  gastoProgramableOptions,
-  programaPresupuestarioOptions,
-  indicadoresEstrategicosOptions,
-  indicadoresTacticosOptions,
-  sectorOptions,
-  tipoProyectoOptions,
-  programasSectorialesOptions
-} from '../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../utils';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import Modal from 'react-modal';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
+
+const StyledModal = styled(Modal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  border-radius: 35px;
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+`;
+
+const globalModalStyles = css`
+  .ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+`;
 
 const FormDependencia = () => {
   const [step, setStep] = useState(1);
@@ -194,8 +226,8 @@ const FormDependencia = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-     
-      const projectId =  response.data.project_name;
+
+      const projectId = response.data.project_name;
       setGeneratedId(projectId);
       setModalIsOpen(true);
 
@@ -995,15 +1027,19 @@ const FormDependencia = () => {
         </Formik>
       )}
 
-      <Modal
+      <StyledModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
+        shouldCloseOnOverlayClick={false}
+        shouldCloseOnEsc={false}
         contentLabel="Proyecto Creado"
+        css={globalModalStyles}
       >
-        <h2>Proyecto Creado Exitosamente</h2>
+        <h2>Proyecto creado Exitosamente</h2>
         <p>ID del Proyecto: {generatedId}</p>
         <button onClick={closeModal}>He finalizado</button>
-      </Modal>
+      </StyledModal>
+
     </div>
   );
 };
