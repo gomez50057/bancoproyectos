@@ -227,7 +227,8 @@ const FormDependencia = () => {
         }
       });
 
-      const projectId = response.data.project_name;
+      const projectId = response.data.project_id; // Ensure response contains project_id
+      // const projectId = response.data.project_name;
       setGeneratedId(projectId);
       setModalIsOpen(true);
 
@@ -1035,7 +1036,7 @@ const FormDependencia = () => {
         contentLabel="Proyecto Creado"
         css={globalModalStyles}
       >
-        <h2>Proyecto creado Exitosamente</h2>
+        <h2>Proyecto creado exitosamente</h2>
         <p>ID del Proyecto: {generatedId}</p>
         <button onClick={closeModal}>He finalizado</button>
       </StyledModal>
