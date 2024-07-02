@@ -140,11 +140,16 @@ const FormDependencia = () => {
     unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
     ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
     municipiosImpacto: Yup.array().nullable(),
-
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
     gastoProgramable: Yup.string().required('El gasto programable es obligatorio'),
     indicadoresEstrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
-    indicadoresTacticos: Yup.string().required('Los indicadores tácticos son obligatorios'),
+    indicadoresTacticos: Yup.string().test('indicadoresTacticos', 'Los indicadores tácticos son obligatorios', function(value) {
+      const { entityType, dependencia } = this.parent;
+      if (entityType === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
+        return value === 'No Aplica' || Boolean(value);
+      }
+      return true;
+    }),
     indicadoresDesempeno: Yup.string().required('Los indicadores de desempeño son obligatorios'),
     indicadoresRentabilidad: Yup.string().required('Los indicadores de rentabilidad son obligatorios'),
     estadoInicial: Yup.mixed().required('La foto del estado inicial es obligatoria'),
@@ -883,12 +888,14 @@ const FormDependencia = () => {
                     <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
                   </div>
                   <div className="form-group indicadoresTacticos">
-                    {(entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador') ? (
+                  <label>Indicadores Tácticos</label>
+                    {entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador' ? (
                       <Field as="select" name="indicadoresTacticos">
                         <option value="">Seleccione</option>
                         {indicadoresTacticosOptions[values.dependencia]?.map((ind) => (
                           <option key={ind} value={ind}>{ind}</option>
                         ))}
+                        <option value="No Aplica">No Aplica</option> {/* Añadir la opción "No Aplica" */}
                       </Field>
                     ) : (
                       <Field type="text" name="indicadoresTacticos" value="No Aplica" readOnly />
