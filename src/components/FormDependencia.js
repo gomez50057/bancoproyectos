@@ -1,4 +1,3 @@
-// FormDependencia.js
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
@@ -464,7 +463,13 @@ const FormDependencia = () => {
                   <div className="formTwo">
                     <div className="form-group entityType">
                       <label>Tipo de Entidad</label>
-                      <Field as="select" name="entityType" onChange={(e) => setEntityType(e.target.value)}>
+                      <Field as="select" name="entityType" onChange={(e) => {
+                        const newEntityType = e.target.value;
+                        setEntityType(newEntityType);
+                        if (newEntityType === 'Municipio') {
+                          setFieldValue('planSectorial', 'No Aplica');
+                        }
+                      }}>
                         <option value="">Seleccione</option>
                         <option value="Dependencia">Dependencia</option>
                         <option value="Organismo">Organismo</option>
@@ -1053,4 +1058,3 @@ const FormDependencia = () => {
 };
 
 export default FormDependencia;
-
