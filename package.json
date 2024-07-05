@@ -28,7 +28,7 @@
     "react-select": "^5.8.0",
     "yup": "^1.4.0"
   },
-  "homepage": ".",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
