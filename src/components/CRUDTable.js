@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { getCsrfToken } from '../utils'; 
 import './CRUDTable.css'; 
 
 const CRUDTable = () => {
-  const [projects, setProjects] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [currentProject, setCurrentProject] = useState({});
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [projects, setProjects] = useState([]); 
+  const [open, setOpen] = useState(false); 
+  const [currentProject, setCurrentProject] = useState({}); 
+  const [isEditMode, setIsEditMode] = useState(false); 
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/ver-proyectos-tabla/');
-        setProjects(response.data);
+        setProjects(response.data); 
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
@@ -25,19 +25,19 @@ const CRUDTable = () => {
   }, []);
 
   const handleOpen = (project = {}) => {
-    setCurrentProject(project);
-    setIsEditMode(Boolean(project.id));
-    setOpen(true);
+    setCurrentProject(project); 
+    setIsEditMode(Boolean(project.id)); 
+    setOpen(true); 
   };
 
   const handleClose = () => {
-    setOpen(false);
-    setCurrentProject({});
+    setOpen(false); 
+    setCurrentProject({}); 
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCurrentProject({ ...currentProject, [name]: value });
+    setCurrentProject({ ...currentProject, [name]: value }); 
   };
 
   const handleSubmit = async () => {
@@ -57,8 +57,8 @@ const CRUDTable = () => {
         });
       }
       const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data);
-      handleClose();
+      setProjects(response.data); 
+      handleClose(); 
     } catch (error) {
       console.error('Error submitting project:', error);
     }
@@ -73,7 +73,7 @@ const CRUDTable = () => {
         },
       });
       const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data);
+      setProjects(response.data); 
     } catch (error) {
       console.error('Error deleting project:', error);
     }
@@ -86,69 +86,55 @@ const CRUDTable = () => {
   );
 
   const columns = [
-    { name: "id", label: "ID", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "fecha_registro", label: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "project_name", label: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "sector", label: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "tipo_proyecto", label: "Tipo de Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "tipo_entidad", label: "Tipo de Entidad", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "dependencia", label: "Dependencia", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "organismo", label: "Organismo", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "municipioEnd", label: "Municipio End", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "peticion_personal", label: "Petición Personal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "unidad_responsable", label: "Unidad Responsable", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "unidad_presupuestal", label: "Unidad Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "ramo_presupuestal", label: "Ramo Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "monto_federal", label: "Monto Federal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "monto_estatal", label: "Monto Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "monto_municipal", label: "Monto Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "monto_otros", label: "Monto Otros", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "inversion_estimada", label: "Inversión Estimada", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "descripcion", label: "Descripción", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "situacion_sin_proyecto", label: "Situación Sin Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "objetivos", label: "Objetivos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "metas", label: "Metas", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "gasto_programable", label: "Gasto Programable", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "programa_presupuestario", label: "Programa Presupuestario", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "beneficiarios", label: "Beneficiarios", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "alineacion_normativa", label: "Alineación Normativa", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "region", label: "Región", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "municipio", label: "Municipio", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "municipio_impacto", label: "Municipio Impacto", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "localidad", label: "Localidad", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "barrio_colonia_ejido", label: "Barrio/Colonia/Ejido", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "latitud", label: "Latitud", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "longitud", label: "Longitud", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "plan_nacional", label: "Plan Nacional", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "plan_estatal", label: "Plan Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "plan_municipal", label: "Plan Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "ods", label: "ODS", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "plan_sectorial", label: "Plan Sectorial", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "indicadores_estrategicos", label: "Indicadores Estratégicos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "indicadores_tacticos", label: "Indicadores Tácticos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "indicadores_desempeno", label: "Indicadores de Desempeño", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "indicadores_rentabilidad", label: "Indicadores de Rentabilidad", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "estado_inicial", label: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "estado_con_proyecto", label: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "estudios_prospectivos", label: "Estudios Prospectivos", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "estudios_factibilidad", label: "Estudios de Factibilidad", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "analisis_alternativas", label: "Análisis de Alternativas", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "validacion_normativa", label: "Validación Normativa", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "liberacion_derecho_via", label: "Liberación de Derecho de Vía", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "situacion_sin_proyecto_fotografico", label: "Situación sin Proyecto Fotográfico", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "situacion_con_proyecto_proyeccion", label: "Situación con Proyecto Proyección", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "analisis_costo_beneficio", label: "Análisis Costo Beneficio", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "expediente_tecnico", label: "Expediente Técnico", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "proyecto_ejecutivo", label: "Proyecto Ejecutivo", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "manifestacion_impacto_ambiental", label: "Manifestación de Impacto Ambiental", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "otros_estudios", label: "Otros Estudios", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "observaciones", label: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "porcentaje_avance", label: "Porcentaje Avance", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "estatus", label: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "situacion", label: "Situación", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "id", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Tipo de Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Tipo de Entidad", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Dependencia", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Organismo", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Municipio End", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Petición Personal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Unidad Responsable", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Unidad Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Ramo Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Federal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Monto Otros", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversión Estimada", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Descripción", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Situación Sin Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Objetivos", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Metas", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Gasto Programable", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Programa Presupuestario", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Beneficiarios", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Alineación Normativa", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Región", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Municipio", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Municipio Impacto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Localidad", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Barrio/Colonia/Ejido", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Latitud", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Longitud", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Nacional", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "ODS", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Plan Sectorial", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores Estratégicos", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores Tácticos", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores de Desempeño", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Indicadores de Rentabilidad", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Porcentaje Avance", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Situación", options: { display: true, customBodyRender: renderTruncatedText } },
     {
-      name: "acciones",
-      label: "Acciones",
+      name: "Acciones",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           const projectId = tableMeta.rowData[0];
@@ -164,7 +150,7 @@ const CRUDTable = () => {
   ];
 
   const options = {
-    selectableRows: false,
+    selectableRows: false, 
     setRowProps: (row, dataIndex) => ({
       className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
       classNameHover: 'table_row_hover'
@@ -332,19 +318,6 @@ const CRUDTable = () => {
             project.indicadores_rentabilidad,
             project.estado_inicial,
             project.estado_con_proyecto,
-            project.estudios_prospectivos,
-            project.estudios_factibilidad,
-            project.analisis_alternativas,
-            project.validacion_normativa,
-            project.liberacion_derecho_via,
-            project.situacion_sin_proyecto_fotografico,
-            project.situacion_con_proyecto_proyeccion,
-            project.analisis_costo_beneficio,
-            project.expediente_tecnico,
-            project.proyecto_ejecutivo,
-            project.manifestacion_impacto_ambiental,
-            project.otros_estudios,
-            project.observaciones,
             project.porcentaje_avance,
             project.estatus,
             project.situacion,
@@ -358,30 +331,7 @@ const CRUDTable = () => {
         <DialogTitle>{isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}</DialogTitle>
         <DialogContent>
           {Object.keys(currentProject).map(key => (
-            key === "estatus" || key === "situacion" ? (
-              <FormControl key={key} margin="dense" fullWidth>
-                <InputLabel>{key.replace('_', ' ')}</InputLabel>
-                <Select
-                  name={key}
-                  value={currentProject[key] || ''}
-                  onChange={handleChange}
-                >
-                  {key === "estatus" ? (
-                    <>
-                      <MenuItem value="Atendido">Atendido</MenuItem>
-                      <MenuItem value="En Proceso">En Proceso</MenuItem>
-                      <MenuItem value="Sin Avance">Sin Avance</MenuItem>
-                    </>
-                  ) : (
-                    <>
-                      <MenuItem value="Vigente">Vigente</MenuItem>
-                      <MenuItem value="Antecedente">Antecedente</MenuItem>
-                      <MenuItem value="Cancelado">Cancelado</MenuItem>
-                    </>
-                  )}
-                </Select>
-              </FormControl>
-            ) : (
+            key !== 'estatus' && key !== 'situacion' ? (
               <TextField
                 key={key}
                 margin="dense"
@@ -393,6 +343,34 @@ const CRUDTable = () => {
                 onChange={handleChange}
                 className="truncate-text"
               />
+            ) : (
+              key === 'estatus' ? (
+                <FormControl key={key} fullWidth margin="dense">
+                  <InputLabel>Estatus</InputLabel>
+                  <Select
+                    name="estatus"
+                    value={currentProject.estatus || ''}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Atendido">Atendido</MenuItem>
+                    <MenuItem value="En Proceso">En Proceso</MenuItem>
+                    <MenuItem value="Sin Avance">Sin Avance</MenuItem>
+                  </Select>
+                </FormControl>
+              ) : (
+                <FormControl key={key} fullWidth margin="dense">
+                  <InputLabel>Situación</InputLabel>
+                  <Select
+                    name="situacion"
+                    value={currentProject.situacion || ''}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Vigente">Vigente</MenuItem>
+                    <MenuItem value="Antecedente">Antecedente</MenuItem>
+                    <MenuItem value="Cancelado">Cancelado</MenuItem>
+                  </Select>
+                </FormControl>
+              )
             )
           ))}
         </DialogContent>
