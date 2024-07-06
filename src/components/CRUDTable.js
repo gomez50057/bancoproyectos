@@ -329,7 +329,7 @@ const CRUDTable = () => {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}</DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '20px' }}>
           {Object.keys(currentProject).map(key => (
             key !== 'estatus' && key !== 'situacion' ? (
               <TextField
@@ -341,7 +341,7 @@ const CRUDTable = () => {
                 name={key}
                 value={currentProject[key] || ''}
                 onChange={handleChange}
-                className="truncate-text"
+                className={key}
               />
             ) : (
               key === 'estatus' ? (
