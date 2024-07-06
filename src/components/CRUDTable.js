@@ -87,6 +87,7 @@ const CRUDTable = () => {
 
   const columns = [
     { name: "id", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "project_id", label: "Project ID", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -275,6 +276,7 @@ const CRUDTable = () => {
           title={<Typography variant="h3">Proyectos Registrados</Typography>}
           data={projects.map(project => [
             project.id,
+            project.project_id, // Añadido project_id
             project.fecha_registro,
             project.project_name,
             project.sector,
