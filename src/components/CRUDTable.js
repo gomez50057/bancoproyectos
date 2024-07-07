@@ -86,9 +86,9 @@ const CRUDTable = () => {
   );
 
   const columns = [
-    { name: "id", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "project_id", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "id", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Id del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Fecha del Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Tipo de Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -131,12 +131,13 @@ const CRUDTable = () => {
     { name: "Indicadores de Rentabilidad", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } }, // Cambiado a true para mostrarlo
     { name: "Porcentaje Avance", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Situación", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Retroalimentación", options: { display: true, customBodyRender: renderTruncatedText } }, // Nueva columna
+    { name: "Retroalimentación", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estudios Prospectivos", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Estudios de Factibilidad", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Estudios de Factibilidad", options: { display: false, customBodyRender: renderTruncatedText } }, // Cambiado a true para mostrarlo
     { name: "Análisis de Alternativas", options: { display: false, customBodyRender: renderTruncatedText } },
     { name: "Validación Normativa", options: { display: false, customBodyRender: renderTruncatedText } },
     { name: "Liberación de Derecho de Vía", options: { display: false, customBodyRender: renderTruncatedText } },
@@ -147,7 +148,6 @@ const CRUDTable = () => {
     { name: "Proyecto Ejecutivo", options: { display: false, customBodyRender: renderTruncatedText } },
     { name: "Manifestación de Impacto Ambiental", options: { display: false, customBodyRender: renderTruncatedText } },
     { name: "Otros Estudios", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
     {
       name: "Acciones",
       options: {
@@ -334,10 +334,23 @@ const CRUDTable = () => {
             project.indicadores_rentabilidad,
             project.estado_inicial,
             project.estado_con_proyecto,
+            project.observaciones,
             project.porcentaje_avance,
             project.estatus,
             project.situacion,
-            project.retroalimentacion, // Campo añadido
+            project.retroalimentacion,
+            project.estudios_prospectivos,
+            project.estudios_factibilidad,
+            project.analisis_alternativas,
+            project.validacion_normativa,
+            project.liberacion_derecho_via,
+            project.situacion_sin_proyecto_fotografico,
+            project.situacion_con_proyecto_proyeccion,
+            project.analisis_costo_beneficio,
+            project.expediente_tecnico,
+            project.proyecto_ejecutivo,
+            project.manifestacion_impacto_ambiental,
+            project.otros_estudios,
           ])}
           columns={columns}
           options={options}
@@ -346,7 +359,7 @@ const CRUDTable = () => {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}</DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '20px' }}>
           {Object.keys(currentProject).map(key => (
             key !== 'estatus' && key !== 'situacion' ? (
               <TextField
