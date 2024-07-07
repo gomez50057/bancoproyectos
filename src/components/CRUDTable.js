@@ -131,23 +131,12 @@ const CRUDTable = () => {
     { name: "Indicadores de Rentabilidad", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } }, // Cambiado a true para mostrarlo
+    { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Porcentaje Avance", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Situación", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Retroalimentación", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Estudios Prospectivos", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Estudios de Factibilidad", options: { display: false, customBodyRender: renderTruncatedText } }, // Cambiado a true para mostrarlo
-    { name: "Análisis de Alternativas", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Validación Normativa", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Liberación de Derecho de Vía", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Situación sin Proyecto Fotográfico", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Situación con Proyecto Proyección", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Análisis Costo Beneficio", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Expediente Técnico", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Proyecto Ejecutivo", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Manifestación de Impacto Ambiental", options: { display: false, customBodyRender: renderTruncatedText } },
-    { name: "Otros Estudios", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Usuario", options: { display: true, customBodyRender: renderTruncatedText } }, // Nueva columna para el usuario
     {
       name: "Acciones",
       options: {
@@ -339,6 +328,7 @@ const CRUDTable = () => {
             project.estatus,
             project.situacion,
             project.retroalimentacion,
+            project.user__username, // Mostrar el nombre de usuario
             project.estudios_prospectivos,
             project.estudios_factibilidad,
             project.analisis_alternativas,
