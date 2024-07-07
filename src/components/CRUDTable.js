@@ -87,7 +87,7 @@ const CRUDTable = () => {
 
   const columns = [
     { name: "id", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "project_id", label: "Project ID", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "project_id", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Fecha Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Sector", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -134,6 +134,20 @@ const CRUDTable = () => {
     { name: "Porcentaje Avance", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Situación", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Retroalimentación", options: { display: true, customBodyRender: renderTruncatedText } }, // Nueva columna
+    { name: "Estudios Prospectivos", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Estudios de Factibilidad", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Análisis de Alternativas", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Validación Normativa", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Liberación de Derecho de Vía", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Situación sin Proyecto Fotográfico", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Situación con Proyecto Proyección", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Análisis Costo Beneficio", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Expediente Técnico", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Proyecto Ejecutivo", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Manifestación de Impacto Ambiental", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Otros Estudios", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
     {
       name: "Acciones",
       options: {
@@ -276,7 +290,7 @@ const CRUDTable = () => {
           title={<Typography variant="h3">Proyectos Registrados</Typography>}
           data={projects.map(project => [
             project.id,
-            project.project_id, // Añadido project_id
+            project.project_id,
             project.fecha_registro,
             project.project_name,
             project.sector,
@@ -323,6 +337,7 @@ const CRUDTable = () => {
             project.porcentaje_avance,
             project.estatus,
             project.situacion,
+            project.retroalimentacion, // Campo añadido
           ])}
           columns={columns}
           options={options}
@@ -331,7 +346,7 @@ const CRUDTable = () => {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}</DialogTitle>
-        <DialogContent style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '20px' }}>
+        <DialogContent>
           {Object.keys(currentProject).map(key => (
             key !== 'estatus' && key !== 'situacion' ? (
               <TextField
@@ -343,7 +358,7 @@ const CRUDTable = () => {
                 name={key}
                 value={currentProject[key] || ''}
                 onChange={handleChange}
-                className={key}
+                className="truncate-text"
               />
             ) : (
               key === 'estatus' ? (
@@ -375,6 +390,16 @@ const CRUDTable = () => {
               )
             )
           ))}
+          <TextField
+            margin="dense"
+            label="Retroalimentación"
+            type="text"
+            fullWidth
+            name="retroalimentacion"
+            value={currentProject.retroalimentacion || ''}
+            onChange={handleChange}
+            className="truncate-text"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
