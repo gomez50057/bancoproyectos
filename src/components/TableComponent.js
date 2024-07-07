@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Typography} from '@mui/material';
+import { CssBaseline, Typography } from '@mui/material';
 import axios from 'axios';
 
 const TableComponent = () => {
@@ -11,12 +11,14 @@ const TableComponent = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/ver-proyectos-tabla/');
-        const data = response.data.map(project => [
+        const filteredData = response.data.filter(project => ['Atendido', 'En Proceso'].includes(project.estatus));
+        const data = filteredData.map(project => [
           project.project_name,
           project.descripcion,
           project.tipo_proyecto,
           project.municipio,
-          project.beneficiarios
+          project.beneficiarios,
+          project.estatus
         ]);
         setProjects(data);
       } catch (error) {
@@ -31,11 +33,14 @@ const TableComponent = () => {
     { name: "Descripción", options: { setCellProps: () => ({ style: { textAlign: 'justify' } }) } },
     "Tipo de Proyecto",
     { name: "Municipio", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
-    { name: "Beneficiarios", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } }
+    { name: "Beneficiarios", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
+    { name: "Estatus", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } }
   ];
 
   const options = {
     selectableRows: false,
+    download: false,
+    print: false,
     setRowProps: (row, dataIndex) => ({
       style: {
         backgroundColor: dataIndex % 2 === 0 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(240, 240, 240, 0.8)',
@@ -62,8 +67,6 @@ const TableComponent = () => {
       },
       toolbar: {
         search: "Buscar",
-        downloadCsv: "Descargar CSV",
-        print: "Imprimir",
         viewColumns: "Ver columnas",
         filterTable: "Filtrar tabla",
       },
@@ -95,7 +98,6 @@ const TableComponent = () => {
                 fontWeight: 600,
                 textAlign: 'left',
               },
-              
             },
           },
         },
