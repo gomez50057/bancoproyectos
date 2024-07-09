@@ -2,21 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { getCsrfToken } from '../../utils'; 
-import './CRUDTable.css'; 
+import { CssBaseline, Typography } from '@mui/material';
+import { getCsrfToken } from '../../utils';
+import ProjectDialog from './ProjectDialog';
+import './CRUDTable.css';
 
 const CRUDTable = () => {
-  const [projects, setProjects] = useState([]); 
-  const [open, setOpen] = useState(false); 
-  const [currentProject, setCurrentProject] = useState({}); 
-  const [isEditMode, setIsEditMode] = useState(false); 
+  const [projects, setProjects] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [currentProject, setCurrentProject] = useState({});
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/ver-proyectos-tabla/');
-        setProjects(response.data); 
+        setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
@@ -25,19 +26,19 @@ const CRUDTable = () => {
   }, []);
 
   const handleOpen = (project = {}) => {
-    setCurrentProject(project); 
-    setIsEditMode(Boolean(project.id)); 
-    setOpen(true); 
+    setCurrentProject(project);
+    setIsEditMode(Boolean(project.id));
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false); 
-    setCurrentProject({}); 
+    setOpen(false);
+    setCurrentProject({});
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCurrentProject({ ...currentProject, [name]: value }); 
+    setCurrentProject({ ...currentProject, [name]: value });
   };
 
   const handleSubmit = async () => {
@@ -57,8 +58,8 @@ const CRUDTable = () => {
         });
       }
       const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data); 
-      handleClose(); 
+      setProjects(response.data);
+      handleClose();
     } catch (error) {
       console.error('Error submitting project:', error);
     }
@@ -73,16 +74,14 @@ const CRUDTable = () => {
         },
       });
       const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data); 
+      setProjects(response.data);
     } catch (error) {
       console.error('Error deleting project:', error);
     }
   };
 
   const renderTruncatedText = (value) => (
-    <Tooltip title={value} placement="top">
-      <span className="truncate-text">{value}</span>
-    </Tooltip>
+    <div className="truncate-text" title={value}>{value}</div>
   );
 
   const columns = [
@@ -136,7 +135,7 @@ const CRUDTable = () => {
     { name: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Situación", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Retroalimentación", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Usuario", options: { display: true, customBodyRender: renderTruncatedText } }, // Nueva columna para el usuario
+    { name: "Usuario", options: { display: true, customBodyRender: renderTruncatedText } },
     {
       name: "Acciones",
       options: {
@@ -144,8 +143,8 @@ const CRUDTable = () => {
           const projectId = tableMeta.rowData[0];
           return (
             <>
-              <Button onClick={() => handleOpen(projects.find(p => p.id === projectId))}>Editar</Button>
-              <Button onClick={() => handleDelete(projectId)}>Eliminar</Button>
+              <button className="crud-button" onClick={() => handleOpen(projects.find(p => p.id === projectId))}>Editar</button>
+              <button className="crud-button" onClick={() => handleDelete(projectId)}>Eliminar</button>
             </>
           );
         }
@@ -154,7 +153,7 @@ const CRUDTable = () => {
   ];
 
   const options = {
-    selectableRows: false, 
+    selectableRows: false,
     setRowProps: (row, dataIndex) => ({
       className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
       classNameHover: 'table_row_hover'
@@ -328,7 +327,7 @@ const CRUDTable = () => {
             project.estatus,
             project.situacion,
             project.retroalimentacion,
-            project.user__username, // Mostrar el nombre de usuario
+            project.user__username,
             project.estudios_prospectivos,
             project.estudios_factibilidad,
             project.analisis_alternativas,
@@ -346,73 +345,14 @@ const CRUDTable = () => {
           options={options}
         />
       </div>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}</DialogTitle>
-        <DialogContent style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '20px' }}>
-          {Object.keys(currentProject).map(key => (
-            key !== 'estatus' && key !== 'situacion' ? (
-              <TextField
-                key={key}
-                margin="dense"
-                label={key.replace('_', ' ')}
-                type="text"
-                fullWidth
-                name={key}
-                value={currentProject[key] || ''}
-                onChange={handleChange}
-                className="truncate-text"
-              />
-            ) : (
-              key === 'estatus' ? (
-                <FormControl key={key} fullWidth margin="dense">
-                  <InputLabel>Estatus</InputLabel>
-                  <Select
-                    name="estatus"
-                    value={currentProject.estatus || ''}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="Atendido">Atendido</MenuItem>
-                    <MenuItem value="En Proceso">En Proceso</MenuItem>
-                    <MenuItem value="Sin Avance">Sin Avance</MenuItem>
-                  </Select>
-                </FormControl>
-              ) : (
-                <FormControl key={key} fullWidth margin="dense">
-                  <InputLabel>Situación</InputLabel>
-                  <Select
-                    name="situacion"
-                    value={currentProject.situacion || ''}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="Vigente">Vigente</MenuItem>
-                    <MenuItem value="Antecedente">Antecedente</MenuItem>
-                    <MenuItem value="Cancelado">Cancelado</MenuItem>
-                  </Select>
-                </FormControl>
-              )
-            )
-          ))}
-          <TextField
-            margin="dense"
-            label="Retroalimentación"
-            type="text"
-            fullWidth
-            name="retroalimentacion"
-            value={currentProject.retroalimentacion || ''}
-            onChange={handleChange}
-            className="truncate-text"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            {isEditMode ? 'Actualizar' : 'Agregar'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ProjectDialog
+        open={open}
+        onClose={handleClose}
+        project={currentProject}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        isEditMode={isEditMode}
+      />
     </ThemeProvider>
   );
 };
