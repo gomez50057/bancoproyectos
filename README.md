@@ -1,3 +1,45 @@
+# Arquitectura
+
+/src
+|-- /components
+|   |-- Footer.js
+|   |-- Login.js
+|   |-- Navbar.js
+|   |-- NavbarLogin.js
+|   |-- styles.css
+|-- /config
+|   |-- axiosConfig.js
+|-- /context
+|   |-- AuthContext.js
+|-- /hooks
+|   |-- useAuth.js
+|-- /pages
+|   |-- /Client
+|   |   |-- Dashboard.js
+|   |   |-- FormDependencia.js
+|   |-- /FrontPage
+|   |   |-- About.js
+|   |   |-- Home.js
+|   |   |-- HowItWorks.js
+|   |   |-- InteractiveMap.js
+|   |   |-- InterestingPages.js
+|   |   |-- ProjectIndicators.js
+|   |   |-- TableComponent.js
+|   |-- /Responsible
+|       |-- CRUDTable.css
+|       |-- CRUDTable.js
+|-- /routes
+|   |-- PrivateRoute.js
+|   |-- PublicRoute.js
+|   |-- Routes.js
+|-- App.js
+|-- index.js
+|-- utils.js
+|-- .gitignore
+|-- package-lock.json
+|-- package.json
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
