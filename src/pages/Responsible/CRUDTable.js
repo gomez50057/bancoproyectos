@@ -3,7 +3,7 @@ import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Tooltip, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { getCsrfToken } from '../utils'; 
+import { getCsrfToken } from '../../utils'; 
 import './CRUDTable.css'; 
 
 const CRUDTable = () => {

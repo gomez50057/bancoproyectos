@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles.css';
+import '../../components/styles.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 

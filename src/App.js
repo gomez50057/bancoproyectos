@@ -3,20 +3,20 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
-import Home from './components/Home';
-import About from './components/About';
-import ProjectIndicators from './components/ProjectIndicators';
-import InterestingPages from './components/InterestingPages';
-import HowItWorks from './components/HowItWorks';
-import InteractiveMap from './components/InteractiveMap';
+import Home from './pages/FrontPage/Home';
+import About from './pages/FrontPage/About';
+import ProjectIndicators from './pages/FrontPage/ProjectIndicators';
+import InterestingPages from './pages/FrontPage/InterestingPages';
+import HowItWorks from './pages/FrontPage/HowItWorks';
+import InteractiveMap from './pages/FrontPage/InteractiveMap';
 import Footer from './components/Footer';
 
 import Login from './components/Login';
 import NavbarLogin from './components/NavbarLogin';
-import FormDependencia from './components/FormDependencia';
-import TableComponent from './components/TableComponent';
-import CRUDTable from './components/CRUDTable';
-import PrivateRoute from './components/PrivateRoute'; // Importa el componente de ruta privada
+import FormDependencia from './pages/Client/FormDependencia';
+import TableComponent from './pages/FrontPage/TableComponent';
+import CRUDTable from './pages/Responsible/CRUDTable';
+import PrivateRoute from './routes/PrivateRoute'; // Importa el componente de ruta privada
 
 const MainContent = () => {
     return (

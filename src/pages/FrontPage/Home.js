@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import './styles.css'; 
+import '../../components/styles.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const Home = () => {
