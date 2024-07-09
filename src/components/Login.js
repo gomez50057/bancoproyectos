@@ -35,7 +35,7 @@ const Login = () => {
                         navigate('/table');
                         break;
                     case 'cliente':
-                        navigate('/dependencia');
+                        navigate('/panel-usuario');
                         break;
                     default:
                         setError('Grupo de usuario desconocido');
