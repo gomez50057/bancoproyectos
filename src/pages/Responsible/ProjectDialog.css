@@ -10,74 +10,76 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-  }
-  
-  .dialog {
+}
+
+.dialog {
     background: #fff;
     border-radius: 10px;
     width: 90%;
     max-width: 500px;
-    max-height: 90vh; /* Añadir max-height */
-    overflow-y: auto; /* Añadir scroll */
+    max-height: 90vh;
+    /* Añadir max-height */
+    overflow-y: auto;
+    /* Añadir scroll */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.3s;
-  }
-  
-  .dialog-title {
+}
+
+.dialog-title {
     background: #f5f5f5;
     padding: 15px;
     border-bottom: 1px solid #ddd;
     font-size: 20px;
     text-align: center;
     border-radius: 10px 10px 0 0;
-  }
-  
-  .dialog-content {
+}
+
+.dialog-content {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-  
-  .dialog-input-container {
+}
+
+.dialog-input-container {
     display: flex;
     flex-direction: column;
     gap: 5px;
-  }
-  
-  .dialog-input {
+}
+
+.dialog-input {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
     width: 100%;
-  }
-  
-  .dialog-select-container {
+}
+
+.dialog-select-container {
     display: flex;
     flex-direction: column;
     gap: 5px;
-  }
-  
-  .dialog-select {
+}
+
+.dialog-select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  .dialog-label {
+}
+
+.dialog-label {
     font-size: 14px;
-  }
-  
-  .dialog-actions {
+}
+
+.dialog-actions {
     display: flex;
     justify-content: flex-end;
     padding: 10px 20px;
     border-top: 1px solid #ddd;
-  }
-  
-  .dialog-button {
+}
+
+.dialog-button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -87,18 +89,18 @@
     font-size: 16px;
     transition: background 0.3s;
     margin-left: 10px;
-  }
-  
-  .dialog-button:hover {
+}
+
+.dialog-button:hover {
     background-color: #0056b3;
-  }
-  
-  @keyframes fadeIn {
+}
+
+@keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
-  }
-  
+}
