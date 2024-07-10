@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from '../config/axiosConfig'; 
+import axios from '../config/axiosConfig';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
@@ -23,9 +23,9 @@ const Login = () => {
                 username: username,
                 password: password
             });
-            
+
             if (response.data.status === 'ok') {
-                const { group } = response.data; 
+                const { group } = response.data;
 
                 switch (group) {
                     case 'responsable':
@@ -70,6 +70,7 @@ const Login = () => {
                             placeholder="Usuario"
                             value={username}
                             onChange={handleUsernameChange}
+                            autocomplete="username"
                         />
                     </div>
                     <div className="input-container">
@@ -78,6 +79,7 @@ const Login = () => {
                             placeholder="Contraseña"
                             value={password}
                             onChange={handlePasswordChange}
+                            autocomplete="current-password"
                         />
                         <img
                             className="input-img"

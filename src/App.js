@@ -17,7 +17,6 @@ import FormDependencia from './pages/Client/FormDependencia';
 import TableComponent from './pages/FrontPage/TableComponent';
 import CRUDTable from './pages/Responsible/CRUDTable';
 import ClientPanel from './pages/Client/ClientPanel';
-import Consulta from './pages/Client/Consult';
 
 // Importa el componente de ruta privada
 import PrivateRoute from './routes/PrivateRoute'; 
@@ -41,9 +40,8 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<MainContent />} />
-                <Route path="/login*" element={<LoginLayout />} />
+                <Route path="/login/*" element={<LoginLayout />} />
                 <Route path="/table" element={<TableLayout />} />
-                <Route path="/consulta" element={<Consulta />} />
                 {/* Usa la ruta privada */}
                 <Route path="/dependencia/*" element={<PrivateRoute><DependenciaLayout /></PrivateRoute>} />
                 <Route path="/panel-usuario" element={<PrivateRoute><ClientPanel /></PrivateRoute>} /> 

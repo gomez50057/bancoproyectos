@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -25,23 +25,23 @@ const CRUDTable = () => {
     fetchProjects();
   }, []);
 
-  const handleOpen = (project = {}) => {
+  const handleOpen = useCallback((project = {}) => {
     setCurrentProject(project);
     setIsEditMode(Boolean(project.id));
     setOpen(true);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     setCurrentProject({});
-  };
+  }, []);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setCurrentProject({ ...currentProject, [name]: value });
-  };
+    setCurrentProject((prevProject) => ({ ...prevProject, [name]: value }));
+  }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const csrfToken = getCsrfToken();
     try {
       if (isEditMode) {
@@ -63,9 +63,9 @@ const CRUDTable = () => {
     } catch (error) {
       console.error('Error submitting project:', error);
     }
-  };
+  }, [isEditMode, currentProject, handleClose]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = useCallback(async (id) => {
     const csrfToken = getCsrfToken();
     try {
       await axios.delete(`/proyecto/${id}/`, {
@@ -78,7 +78,7 @@ const CRUDTable = () => {
     } catch (error) {
       console.error('Error deleting project:', error);
     }
-  };
+  }, []);
 
   const renderTruncatedText = (value) => (
     <div className="truncate-text" title={value}>{value}</div>
@@ -153,7 +153,7 @@ const CRUDTable = () => {
   ];
 
   const options = {
-    selectableRows: false,
+    selectableRows: 'none', // Updated to use string option
     setRowProps: (row, dataIndex) => ({
       className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
       classNameHover: 'table_row_hover'
