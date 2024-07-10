@@ -7,16 +7,21 @@
 |   |-- Navbar.js
 |   |-- NavbarLogin.js
 |   |-- styles.css
+|
 |-- /config
 |   |-- axiosConfig.js
+|
 |-- /context
 |   |-- AuthContext.js
+|
 |-- /hooks
 |   |-- useAuth.js
+|
 |-- /pages
 |   |-- /Client
 |   |   |-- Dashboard.js
 |   |   |-- FormDependencia.js
+|   |   |-- Consult.js
 |   |-- /FrontPage
 |   |   |-- About.js
 |   |   |-- Home.js
@@ -28,16 +33,21 @@
 |   |-- /Responsible
 |       |-- CRUDTable.css
 |       |-- CRUDTable.js
+|       |-- ProjectDialog.js
+|       |-- ProjectDialog.css
+|
 |-- /routes
 |   |-- PrivateRoute.js
 |   |-- PublicRoute.js
 |   |-- Routes.js
+|
 |-- App.js
 |-- index.js
 |-- utils.js
 |-- .gitignore
 |-- package-lock.json
 |-- package.json
+
 
 
 # Getting Started with Create React App
