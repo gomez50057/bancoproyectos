@@ -11,7 +11,10 @@ const TableComponent = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/ver-proyectos-tabla/');
-        const filteredData = response.data.filter(project => ['Atendido', 'En Proceso'].includes(project.estatus));
+        const filteredData = response.data.filter(project => {
+          const estatus = project.estatus;
+          return estatus === 'Atendido' || estatus === 'En Proceso';
+        });
         const data = filteredData.map(project => [
           project.project_name,
           project.descripcion,
@@ -38,7 +41,7 @@ const TableComponent = () => {
   ];
 
   const options = {
-    selectableRows: false,
+    selectableRows: 'none', // Updated to use string 'none'
     download: false,
     print: false,
     setRowProps: (row, dataIndex) => ({

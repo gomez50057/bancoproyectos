@@ -44,7 +44,7 @@ const App = () => {
                 <Route path="/table" element={<TableLayout />} />
                 {/* Usa la ruta privada */}
                 <Route path="/dependencia/*" element={<PrivateRoute><DependenciaLayout /></PrivateRoute>} />
-                <Route path="/panel-usuario" element={<PrivateRoute><ClientPanel /></PrivateRoute>} /> 
+                <Route path="/panel-usuario/*" element={<PrivateRoute><ClientPanel /></PrivateRoute>} /> 
                 <Route path="/crud" element={<PrivateRoute><CRUDTable /></PrivateRoute>} /> 
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
