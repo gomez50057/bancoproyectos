@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import './ClientPanel.css';
-const imgBasePath = "../../img/";
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 
 const Card = ({ onClick, title, imgSrc }) => (
@@ -50,12 +50,12 @@ const ClientPanel = () => {
           <Card 
             onClick={() => navigate('/dependencia')} 
             title="Agregar Proyecto" 
-            imgSrc={`${imgBasePath}consultar.png`} 
+            imgSrc={`${imgBasePath}consultar.webp`} 
           />
           <Card 
             onClick={() => navigate('/consulta')} 
             title="Consultar Proyecto" 
-            imgSrc={`${imgBasePath}agregar.png`} 
+            imgSrc={`${imgBasePath}agregar.webp`} 
           />
         </div>
       </div>

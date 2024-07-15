@@ -13,21 +13,37 @@ import TableComponent from '../pages/FrontPage/TableComponent';
 import CRUDTable from '../pages/Responsible/CRUDTable';
 import ClientPanel from '../pages/Client/ClientPanel';
 import PrivateRoute from './PrivateRoute'; 
+import Navbar from '../components/Navbar';
+import NavbarLogin from '../components/NavbarLogin';
+
+const MainLayout = ({ children }) => (
+    <div>
+        <Navbar />
+        {children}
+    </div>
+);
+
+const LoginLayout = ({ children }) => (
+    <div>
+        <NavbarLogin />
+        {children}
+    </div>
+);
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/project-indicators" element={<ProjectIndicators />} />
-            <Route path="/interesting-pages" element={<InterestingPages />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/interactive-map" element={<InteractiveMap />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/table" element={<TableComponent />} />
-            <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><FormDependencia /></PrivateRoute>} />
-            <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><ClientPanel /></PrivateRoute>} />
-            <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><CRUDTable /></PrivateRoute>} />
+            <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+            <Route path="/about" element={<MainLayout><About /></MainLayout>} />
+            <Route path="/project-indicators" element={<MainLayout><ProjectIndicators /></MainLayout>} />
+            <Route path="/interesting-pages" element={<MainLayout><InterestingPages /></MainLayout>} />
+            <Route path="/how-it-works" element={<MainLayout><HowItWorks /></MainLayout>} />
+            <Route path="/interactive-map" element={<MainLayout><InteractiveMap /></MainLayout>} />
+            <Route path="/login" element={<LoginLayout><Login /></LoginLayout>} />
+            <Route path="/table" element={<MainLayout><TableComponent /></MainLayout>} />
+            <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><FormDependencia /></MainLayout></PrivateRoute>} />
+            <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><ClientPanel /></MainLayout></PrivateRoute>} />
+            <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><MainLayout><CRUDTable /></MainLayout></PrivateRoute>} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
     );
