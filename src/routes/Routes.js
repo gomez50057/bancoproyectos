@@ -1,12 +1,7 @@
 // Archivo: src/routes/Routes.js
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from '../pages/FrontPage/Home';
-import About from '../pages/FrontPage/About';
-import ProjectIndicators from '../pages/FrontPage/ProjectIndicators';
-import InterestingPages from '../pages/FrontPage/InterestingPages';
-import HowItWorks from '../pages/FrontPage/HowItWorks';
-import InteractiveMap from '../pages/FrontPage/InteractiveMap';
+import MainContent from '../pages/FrontPage/MainContent'; // Importa el nuevo componente
 import Login from '../components/Login';
 import FormDependencia from '../pages/Client/FormDependencia';
 import TableComponent from '../pages/FrontPage/TableComponent';
@@ -33,12 +28,7 @@ const LoginLayout = ({ children }) => (
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-            <Route path="/about" element={<MainLayout><About /></MainLayout>} />
-            <Route path="/project-indicators" element={<MainLayout><ProjectIndicators /></MainLayout>} />
-            <Route path="/interesting-pages" element={<MainLayout><InterestingPages /></MainLayout>} />
-            <Route path="/how-it-works" element={<MainLayout><HowItWorks /></MainLayout>} />
-            <Route path="/interactive-map" element={<MainLayout><InteractiveMap /></MainLayout>} />
+            <Route path="/" element={<MainLayout><MainContent /></MainLayout>} /> 
             <Route path="/login" element={<LoginLayout><Login /></LoginLayout>} />
             <Route path="/table" element={<MainLayout><TableComponent /></MainLayout>} />
             <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><FormDependencia /></MainLayout></PrivateRoute>} />
