@@ -13,6 +13,15 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
     }));
   };
 
+  const handleToggleBlockField = (key) => {
+    onChange({
+      target: {
+        name: `isBlocked_${key}`,
+        value: !project[`isBlocked_${key}`],
+      },
+    });
+  };
+
   return (
     <div className="dialog-overlay">
       <div className="dialog">
@@ -30,7 +39,11 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
                   name={key}
                   value={project[key] || ''}
                   onChange={onChange}
+                  disabled={project[`isBlocked_${key}`]} // Bloquear el campo si está marcado como bloqueado
                 />
+                <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
+                  {project[`isBlocked_${key}`] ? 'Desbloquear' : 'Bloquear'}
+                </span>
                 {showObservationFields[key] ? (
                   <div className="dialog-observation-container">
                     <input
@@ -60,11 +73,15 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
                     value={project.estatus || ''}
                     onChange={onChange}
                     className="dialog-select"
+                    disabled={project[`isBlocked_estatus`]} // Bloquear el campo si está marcado como bloqueado
                   >
                     <option value="Atendido">Atendido</option>
                     <option value="En Proceso">En Proceso</option>
                     <option value="Sin Avance">Sin Avance</option>
                   </select>
+                  <span className="toggle-text" onClick={() => handleToggleBlockField('estatus')}>
+                    {project[`isBlocked_estatus`] ? 'Desbloquear' : 'Bloquear'}
+                  </span>
                 </div>
               ) : (
                 <div key={key} className="dialog-select-container">
@@ -74,11 +91,15 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
                     value={project.situacion || ''}
                     onChange={onChange}
                     className="dialog-select"
+                    disabled={project[`isBlocked_situacion`]} // Bloquear el campo si está marcado como bloqueado
                   >
                     <option value="Vigente">Vigente</option>
                     <option value="Antecedente">Antecedente</option>
                     <option value="Cancelado">Cancelado</option>
                   </select>
+                  <span className="toggle-text" onClick={() => handleToggleBlockField('situacion')}>
+                    {project[`isBlocked_situacion`] ? 'Desbloquear' : 'Bloquear'}
+                  </span>
                 </div>
               )
             )
