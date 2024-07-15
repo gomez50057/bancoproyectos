@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import AppRoutes from './routes/Routes';
-import { AuthProvider } from './context/AuthContext'; // Asegúrate de que AuthProvider está importado correctamente
+import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
     return (
