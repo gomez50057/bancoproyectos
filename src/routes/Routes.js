@@ -1,13 +1,13 @@
 // Archivo: src/routes/Routes.js
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import MainContent from '../pages/FrontPage/MainContent'; // Importa el nuevo componente
+import MainContent from '../pages/FrontPage/MainContent'; 
 import Login from '../components/Login';
 import FormDependencia from '../pages/Client/FormDependencia';
 import TableComponent from '../pages/FrontPage/TableComponent';
 import CRUDTable from '../pages/Responsible/CRUDTable';
 import ClientPanel from '../pages/Client/ClientPanel';
-import ClientProjects from '../pages/Client/ClientProjects'; // Importa el nuevo componente
+import ClientProjects from '../pages/Client/ClientProjects'; 
 import PrivateRoute from './PrivateRoute'; 
 import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
