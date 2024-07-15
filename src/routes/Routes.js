@@ -12,7 +12,7 @@ import FormDependencia from '../pages/Client/FormDependencia';
 import TableComponent from '../pages/FrontPage/TableComponent';
 import CRUDTable from '../pages/Responsible/CRUDTable';
 import ClientPanel from '../pages/Client/ClientPanel';
-import PrivateRoute from './PrivateRoute'; // Ajustar la ruta aquí
+import PrivateRoute from './PrivateRoute'; 
 
 const AppRoutes = () => {
     return (
