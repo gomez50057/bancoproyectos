@@ -26,11 +26,31 @@ const ClientProjects = () => {
     fetchProjects();
   }, []);
 
+  const handleEditClick = (projectId) => {
+    // Lógica para manejar el evento de clic en el botón "Editar"
+    // Aquí puedes redirigir a una página de edición o abrir un modal de edición
+    console.log(`Edit project with ID: ${projectId}`);
+  };
+
   const columns = [
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Estatus", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
-    { name: "Porcentaje de Avance", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } }
+    { name: "Porcentaje de Avance", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
+    { 
+      name: "Acciones", 
+      options: { 
+        setCellProps: () => ({ style: { textAlign: 'center' } }),
+        customBodyRender: (value, tableMeta) => {
+          const projectId = projects[tableMeta.rowIndex][0]; // Asegúrate de que el índice sea correcto
+          return (
+            <button onClick={() => handleEditClick(projectId)}>
+              Editar
+            </button>
+          );
+        }
+      } 
+    }
   ];
 
   const options = {
