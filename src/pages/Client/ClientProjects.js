@@ -11,12 +11,8 @@ const ClientProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/ver-proyectos-tabla/');
-        const filteredData = response.data.filter(project => {
-          const estatus = project.estatus;
-          return estatus === 'Atendido' || estatus === 'En Proceso';
-        });
-        const data = filteredData.map(project => [
+        const response = await axios.get('/ver-proyectos-usuario/');
+        const data = response.data.map(project => [
           project.project_id,
           project.project_name,
           project.estatus,
