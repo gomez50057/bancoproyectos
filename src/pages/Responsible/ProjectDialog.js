@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './ProjectDialog.css';
 
 const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode }) => {
@@ -20,6 +21,19 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
         value: !project[`isBlocked_${key}`],
       },
     });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (isEditMode) {
+        await axios.put(`/proyecto/${project.id}/`, project);
+      } else {
+        await axios.post('/proyecto/', project);
+      }
+      onSubmit();
+    } catch (error) {
+      console.error('Error saving project:', error);
+    }
   };
 
   return (
@@ -117,7 +131,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
         </div>
         <div className="dialog-actions">
           <button className="dialog-button" onClick={onClose}>Cancelar</button>
-          <button className="dialog-button" onClick={onSubmit}>{isEditMode ? 'Actualizar' : 'Agregar'}</button>
+          <button className="dialog-button" onClick={handleSubmit}>{isEditMode ? 'Actualizar' : 'Agregar'}</button>
         </div>
       </div>
     </div>

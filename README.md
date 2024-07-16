@@ -1,4 +1,4 @@
-# Arquitectura
+# Arquitectura Fronend
 
 /src
 |-- /components
@@ -50,6 +50,34 @@
 
 
 
+
+# Arquitectura backend
+
+
+/banco_pro
+|-- /__pycache__
+|   |-- Arcvhivos terminacion .pyc
+|
+|-- /migrations
+|-- |--/__pycache__
+|   |   |-- El cache
+|   |-- Todas las Migraciones
+|
+|-- /templates
+|   |-- index.html
+|
+|
+|-- __init__.py
+|-- admin.py
+|-- asgi.py
+|-- middleware.py
+|-- models.py
+|-- serializers.py
+|-- settings.py
+|-- urls.py
+|-- utils.py
+|-- views.py
+|-- wsgi.py
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
