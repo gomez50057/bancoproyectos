@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   municipiosDeHidalgo,
   unidadesResponsables,
@@ -148,19 +148,21 @@ const EditProject = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
-  const { id } = useParams();
+  const { projectId  } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`/proyecto/${id}/`);
+        const response = await axios.get(`/proyecto/${projectId}/`);
         setProject(response.data);
+        setSelectedRegion(response.data.region);
       } catch (error) {
         console.error('Error fetching project:', error);
       }
     };
     fetchProject();
-  }, [id]);
+  }, [projectId]);
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -168,12 +170,12 @@ const EditProject = () => {
       formData.append('project_name', values.projectName);
       formData.append('sector', values.sector);
       formData.append('tipo_proyecto', values.tipoProyecto);
-      formData.append('tipo_entidad', project.tipo_entidad);
+      formData.append('tipo_entidad', values.entityType);
       formData.append('dependencia', values.dependencia || 'No Aplica');
       formData.append('organismo', values.organismo || 'No Aplica');
       formData.append('municipio', values.municipio || 'No Aplica');
       formData.append('municipioEnd', values.municipioEnd || 'No Aplica');
-      formData.append('peticion_personal', values.peticionPersonal || 'No Aplica');
+      formData.append('peticion_personal', values.PeticionPersonal || 'No Aplica');
       formData.append('monto_federal', parseFloat(values.montoFederal) || 0);
       formData.append('monto_estatal', parseFloat(values.montoEstatal) || 0);
       formData.append('monto_municipal', parseFloat(values.montoMunicipal) || 0);
@@ -206,7 +208,7 @@ const EditProject = () => {
       }
 
       formData.append('localidad', values.localidad || 'No Aplica');
-      formData.append('barrio_colonia_ejido', values.barrioColoniaEjido || 'No Aplica');
+      formData.append('barrio_colonia_ejido', values.barrio_colonia_ejido || 'No Aplica');
       formData.append('observaciones', values.observaciones || 'No Aplica');
       formData.append('gasto_programable', values.gastoProgramable);
       formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
@@ -226,7 +228,7 @@ const EditProject = () => {
 
       const csrfToken = Cookies.get('csrftoken');
 
-      await axios.put(`/proyecto/${id}/`, formData, {
+      await axios.put(`/proyecto/${projectId}/`, formData, {
         headers: {
           'X-CSRFToken': csrfToken,
           'Content-Type': 'multipart/form-data'
@@ -247,7 +249,7 @@ const EditProject = () => {
 
   const closeModal = () => {
     setModalIsOpen(false);
-    window.location.href = '/';
+    navigate('/panel-usuario'); // Redirigir a otra página después de cerrar el modal
   };
 
   const formatCurrency = (value) => {
@@ -286,6 +288,7 @@ const EditProject = () => {
             projectName: project.project_name || '',
             sector: project.sector || '',
             tipoProyecto: project.tipo_proyecto || '',
+            entityType: project.tipo_entidad || '',
             dependencia: project.dependencia || '',
             organismo: project.organismo || '',
             municipio: project.municipio || '',
@@ -302,6 +305,8 @@ const EditProject = () => {
             beneficiarios: project.beneficiarios || '',
             alineacionNormativa: project.alineacion_normativa || '',
             region: project.region || '',
+            localidad: project.localidad || '',
+            barrio_colonia_ejido: project.barrio_colonia_ejido || '',
             latitud: project.latitud || '',
             longitud: project.longitud || '',
             planNacional: project.plan_nacional || '',
@@ -381,7 +386,7 @@ const EditProject = () => {
                   <div className="formTwo">
                     <div className="form-group entityType">
                       <label>Tipo de Entidad</label>
-                      <Field as="select" name="entityType" disabled>
+                      <Field as="select" name="entityType" disabled={project.isBlocked_tipo_entidad}>
                         <option value="">Seleccione</option>
                         <option value="Dependencia">Dependencia</option>
                         <option value="Organismo">Organismo</option>
@@ -391,10 +396,10 @@ const EditProject = () => {
                       <ErrorMessage name="entityType" component="div" className="error" />
                     </div>
 
-                    {project.tipo_entidad === 'Dependencia' && (
+                    {values.entityType === 'Dependencia' && (
                       <div className="form-group dependencia">
                         <label>Dependencia</label>
-                        <Field as="select" name="dependencia" onChange={(e) => {
+                        <Field as="select" name="dependencia" disabled={project.isBlocked_dependencia} onChange={(e) => {
                           setFieldValue('dependencia', e.target.value);
                           const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
                           setFieldValue('planSectorial', programaSectorial);
@@ -408,10 +413,10 @@ const EditProject = () => {
                       </div>
                     )}
 
-                    {project.tipo_entidad === 'Organismo' && (
+                    {values.entityType === 'Organismo' && (
                       <div className="form-group organismo">
                         <label>Organismo</label>
-                        <Field as="select" name="organismo" onChange={(e) => {
+                        <Field as="select" name="organismo" disabled={project.isBlocked_organismo} onChange={(e) => {
                           setFieldValue('organismo', e.target.value);
                           const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
                           setFieldValue('planSectorial', programaSectorial);
@@ -425,10 +430,10 @@ const EditProject = () => {
                       </div>
                     )}
 
-                    {project.tipo_entidad === 'Municipio' && (
+                    {values.entityType === 'Municipio' && (
                       <div className="form-group municipioEnd">
                         <label>Municipio</label>
-                        <Field as="select" name="municipioEnd">
+                        <Field as="select" name="municipioEnd" disabled={project.isBlocked_municipioEnd}>
                           <option value="">Seleccione</option>
                           {municipiosDeHidalgo.map((mun) => (
                             <option key={mun} value={mun}>{mun}</option>
@@ -438,10 +443,10 @@ const EditProject = () => {
                       </div>
                     )}
 
-                    {project.tipo_entidad === 'Petición Personal' && (
+                    {values.entityType === 'Petición Personal' && (
                       <div className="form-group PeticionPersonal">
                         <label>Petición Personal</label>
-                        <Field type="text" name="PeticionPersonal" />
+                        <Field type="text" name="PeticionPersonal" disabled={project.isBlocked_peticion_personal} />
                         <ErrorMessage name="PeticionPersonal" component="div" className="error" />
                       </div>
                     )}
@@ -450,7 +455,7 @@ const EditProject = () => {
                   <div className="formTwo">
                     <div className="form-group unidadResponsable">
                       <label>Unidad Responsable</label>
-                      <Field as="select" name="unidadResponsable" onChange={(e) => {
+                      <Field as="select" name="unidadResponsable" disabled={project.isBlocked_unidad_responsable} onChange={(e) => {
                         setFieldValue('unidadResponsable', e.target.value);
                         setFieldValue('unidadPresupuestal', ''); // Reset unidadPresupuestal cuando unidadResponsable changes
                       }}>
@@ -465,7 +470,7 @@ const EditProject = () => {
                     {values.unidadResponsable && (
                       <div className="form-group unidadPresupuestal">
                         <label>Unidad Presupuestal</label>
-                        <Field as="select" name="unidadPresupuestal">
+                        <Field as="select" name="unidadPresupuestal" disabled={project.isBlocked_unidad_presupuestal}>
                           <option value="">Seleccione</option>
                           {unidadPresupuestalPorUnidadResponsable[values.unidadResponsable]?.map((unidad) => (
                             <option key={unidad} value={unidad}>{unidad}</option>
@@ -478,7 +483,7 @@ const EditProject = () => {
 
                   <div className="form-group ramoPresupuestal">
                     <label>Ramo Presupuestal</label>
-                    <Field as="select" name="ramoPresupuestal">
+                    <Field as="select" name="ramoPresupuestal" disabled={project.isBlocked_ramo_presupuestal}>
                       <option value="">Seleccione</option>
                       <optgroup label="Ramos Autónomos">
                         <option value="Legislativo">Legislativo</option>
@@ -535,7 +540,7 @@ const EditProject = () => {
                   <div className="formFour">
                     <div className="form-group montoFederal">
                       <label>Monto Federal</label>
-                      <Field type="number" name="montoFederal" min="0" onChange={(e) => {
+                      <Field type="number" name="montoFederal" min="0"  disabled={project.isBlocked_monto_federal} onChange={(e) => {
                         setFieldValue('montoFederal', e.target.value);
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
@@ -543,7 +548,7 @@ const EditProject = () => {
                     </div>
                     <div className="form-group montoEstatal">
                       <label>Monto Estatal</label>
-                      <Field type="number" name="montoEstatal" min="0" onChange={(e) => {
+                      <Field type="number" name="montoEstatal" min="0" disabled={project.isBlocked_monto_estatal} onChange={(e) => {
                         setFieldValue('montoEstatal', e.target.value);
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
@@ -551,7 +556,7 @@ const EditProject = () => {
                     </div>
                     <div className="form-group montoMunicipal">
                       <label>Monto Municipal</label>
-                      <Field type="number" name="montoMunicipal" min="0" onChange={(e) => {
+                      <Field type="number" name="montoMunicipal" min="0" disabled={project.isBlocked_monto_municipal} onChange={(e) => {
                         setFieldValue('montoMunicipal', e.target.value);
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
@@ -559,7 +564,7 @@ const EditProject = () => {
                     </div>
                     <div className="form-group montoOtros">
                       <label>Otros</label>
-                      <Field type="number" name="montoOtros" min="0" defaultValue="N/A" onChange={(e) => {
+                      <Field type="number" name="montoOtros" min="0" defaultValue="N/A" disabled={project.isBlocked_monto_otros} onChange={(e) => {
                         setFieldValue('montoOtros', e.target.value);
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
@@ -569,7 +574,7 @@ const EditProject = () => {
 
                   <div className="form-group inversionEstimada">
                     <label>Inversión Estimada</label>
-                    <Field type="text" name="inversionEstimada" readOnly value={calculateTotal(values)} />
+                    <Field type="text" name="inversionEstimada" readOnly disabled={project.isBlocked_inversion_estimada} value={calculateTotal(values)} />
                   </div>
                 </div>
 
@@ -581,26 +586,26 @@ const EditProject = () => {
                 <div className="DescripcionProyecto">
                   <div className="form-group descripcion">
                     <label>Descripción</label>
-                    <Field as="textarea" name="descripcion" maxLength="1000" />
+                    <Field as="textarea" name="descripcion" maxLength="1000" disabled={project.isBlocked_descripcion}/>
                     <ErrorMessage name="descripcion" component="div" className="error" />
                     <div>Máximo 1000 caracteres</div>
                   </div>
                   <div className="form-group situacionSinProyecto">
                     <label>Situación sin el Programa o Proyecto de Inversión</label>
-                    <Field as="textarea" name="situacionSinProyecto" maxLength="1000" />
+                    <Field as="textarea" name="situacionSinProyecto" maxLength="1000" disabled={project.isBlocked_situacion_sin_proyecto}/>
                     <ErrorMessage name="situacionSinProyecto" component="div" className="error" />
                     <div>Máximo 1000 caracteres</div>
                   </div>
                   <div className="formTwo">
                     <div className="form-group objetivos">
                       <label>Objetivos</label>
-                      <Field as="textarea" name="objetivos" maxLength="500" />
+                      <Field as="textarea" name="objetivos" maxLength="500" disabled={project.isBlocked_objetivos}/>
                       <ErrorMessage name="objetivos" component="div" className="error" />
                       <div>Máximo 500 caracteres</div>
                     </div>
                     <div className="form-group metas">
                       <label>Metas</label>
-                      <Field as="textarea" name="metas" maxLength="500" />
+                      <Field as="textarea" name="metas" maxLength="500" disabled={project.isBlocked_metas}/>
                       <ErrorMessage name="metas" component="div" className="error" />
                       <div>Máximo 500 caracteres</div>
                     </div>
@@ -609,7 +614,7 @@ const EditProject = () => {
                   <div className="formTwo">
                     <div className="form-group gastoProgramable">
                       <label>Gasto Programable</label>
-                      <Field as="select" name="gastoProgramable" onChange={(e) => setFieldValue('gastoProgramable', e.target.value)}>
+                      <Field as="select" name="gastoProgramable" disabled={project.isBlocked_gasto_programable} onChange={(e) => setFieldValue('gastoProgramable', e.target.value)}>
                         <option value="">Seleccione</option>
                         {gastoProgramableOptions.map((opt) => (
                           <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -619,7 +624,7 @@ const EditProject = () => {
                     </div>
                     <div className="form-group programaPresupuestario">
                       <label>Programa Presupuestario</label>
-                      <Field as="select" name="programaPresupuestario">
+                      <Field as="select" name="programaPresupuestario" disabled={project.isBlocked_programa_presupuestario}>
                         <option value="">Seleccione</option>
                         {programaPresupuestarioOptions[values.gastoProgramable]?.map((prog) => (
                           <option key={prog} value={prog}>{prog}</option>
@@ -632,12 +637,12 @@ const EditProject = () => {
                   <div className="formTwo">
                     <div className="form-group beneficiarios">
                       <label>Beneficiarios</label>
-                      <Field type="number" name="beneficiarios" min="1" />
+                      <Field type="number" name="beneficiarios" min="1" disabled={project.isBlocked_beneficiarios}/>
                       <ErrorMessage name="beneficiarios" component="div" className="error" />
                     </div>
                     <div className="form-group alineacionNormativa">
                       <label>Leyes Aplicables Vigentes</label>
-                      <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." />
+                      <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." disabled={project.isBlocked_alineacion_normativa} />
                       <ErrorMessage name="alineacionNormativa" component="div" className="error" />
                       <div>Máximo 200 caracteres</div>
                     </div>
@@ -652,7 +657,7 @@ const EditProject = () => {
                 <div className="formFour">
                   <div className="form-group region">
                     <label>Región</label>
-                    <Field as="select" name="region" onChange={(e) => {
+                    <Field as="select" name="region" disabled={project.isBlocked_region} onChange={(e) => {
                       setSelectedRegion(e.target.value);
                       setFieldValue('region', e.target.value);
                       setFieldValue('municipio', '');
@@ -666,7 +671,7 @@ const EditProject = () => {
                   </div>
                   <div className="form-group municipio">
                     <label>Municipio</label>
-                    <Field as="select" name="municipio">
+                    <Field as="select" name="municipio" disabled={project.isBlocked_municipio}>
                       <option value="">Seleccione</option>
                       {municipiosPorRegion[selectedRegion]?.map((mun) => (
                         <option key={mun} value={mun}>{mun}</option>
@@ -676,25 +681,25 @@ const EditProject = () => {
                   </div>
                   <div className="form-group localidad">
                     <label>Localidad</label>
-                    <Field type="text" name="localidad" />
+                    <Field type="text" name="localidad" disabled={project.isBlocked_localidad}/>
                     <ErrorMessage name="localidad" component="div" className="error" />
                   </div>
-                  <div className="form-group barrioColoniaEjido">
+                  <div className="form-group barrio_colonia_ejido">
                     <label>Barrio/Colonia/Ejido</label>
-                    <Field type="text" name="barrioColoniaEjido" />
-                    <ErrorMessage name="barrioColoniaEjido" component="div" className="error" />
+                    <Field type="text" name="barrio_colonia_ejido" disabled={project.isBlocked_barrio_colonia_ejido}/>
+                    <ErrorMessage name="barrio_colonia_ejido" component="div" className="error" />
                   </div>
                 </div>
                 <p>COORDENADAS GEOGRÁFICAS:</p>
                 <div className="formTwo">
                   <div className="form-group latitud">
                     <label>Latitud</label>
-                    <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" />
+                    <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" disabled={project.isBlocked_latitud}/>
                     <ErrorMessage name="latitud" component="div" className="error" />
                   </div>
                   <div className="form-group longitud">
                     <label>Longitud</label>
-                    <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" />
+                    <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" disabled={project.isBlocked_longitud}/>
                     <ErrorMessage name="longitud" component="div" className="error" />
                   </div>
                 </div>
@@ -721,7 +726,7 @@ const EditProject = () => {
                 <div className="formTwo">
                   <div className="form-group planNacional">
                     <label>Plan Nacional de Desarrollo</label>
-                    <Field as="select" name="planNacional">
+                    <Field as="select" name="planNacional" disabled={project.isBlocked_plan_nacional}>
                       <option value="">Seleccione</option>
                       <option value="Justicia y Estado de derecho">Justicia y Estado de derecho</option>
                       <option value="Bienestar">Bienestar</option>
@@ -734,7 +739,7 @@ const EditProject = () => {
                   </div>
                   <div className="form-group planEstatal">
                     <label>Plan Estatal de Desarrollo</label>
-                    <Field as="select" name="planEstatal">
+                    <Field as="select" name="planEstatal" disabled={project.isBlocked_plan_estatal}>
                       <option value="">Seleccione</option>
                       <option value="Acuerdo para un Gobierno Cercano, Justo y Honesto">Acuerdo para un Gobierno Cercano, Justo y Honesto</option>
                       <option value="Acuerdo para el Bienestar del Pueblo">Acuerdo para el Bienestar del Pueblo</option>
@@ -746,10 +751,10 @@ const EditProject = () => {
                 </div>
 
                 <div>
-                  {project.tipo_entidad === 'Municipio' && (
+                  {values.entityType === 'Municipio' && (
                     <div className="form-group planMunicipal">
                       <label>Plan Municipal</label>
-                      <Field as="textarea" name="planMunicipal" maxLength="500" />
+                      <Field as="textarea" name="planMunicipal" maxLength="500" disabled={project.isBlocked_plan_municipal}/>
                       <ErrorMessage name="planMunicipal" component="div" className="error" />
                       <div>Máximo 500 caracteres</div>
                     </div>
@@ -759,7 +764,7 @@ const EditProject = () => {
                 <div className="formTwo">
                   <div className="form-group ods">
                     <label>Objetivos de Desarrollo Sostenible</label>
-                    <Field as="select" name="ods">
+                    <Field as="select" name="ods" disabled={project.isBlocked_ods}>
                       <option value="">Seleccione</option>
                       <option value="Fin de la pobreza">Fin de la pobreza</option>
                       <option value="Hambre cero">Hambre cero</option>
@@ -796,7 +801,7 @@ const EditProject = () => {
                 <div className="formTwo">
                   <div className="form-group indicadoresEstrategicos">
                     <label>Indicadores Estratégicos</label>
-                    <Field as="select" name="indicadoresEstrategicos">
+                    <Field as="select" name="indicadoresEstrategicos" disabled={project.isBlocked_indicadores_estrategicos}>
                       <option value="">Seleccione</option>
                       {indicadoresEstrategicosOptions[values.planEstatal]?.map((ind) => (
                         <option key={ind} value={ind}>{ind}</option>
@@ -806,13 +811,13 @@ const EditProject = () => {
                   </div>
                   <div className="form-group indicadoresTacticos">
                     <label>Indicadores Tácticos</label>
-                    {project.tipo_entidad === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador' ? (
-                      <Field as="select" name="indicadoresTacticos">
+                    {values.entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador' ? (
+                      <Field as="select" name="indicadoresTacticos" disabled={project.isBlocked_indicadores_tacticos}>
                         <option value="">Seleccione</option>
                         {indicadoresTacticosOptions[values.dependencia]?.map((ind) => (
                           <option key={ind} value={ind}>{ind}</option>
                         ))}
-                        <option value="No Aplica">No Aplica</option> {/* Añadir la opción "No Aplica" */}
+                        <option value="No Aplica">No Aplica</option> 
                       </Field>
                     ) : (
                       <Field type="text" name="indicadoresTacticos" value="No Aplica" readOnly />
@@ -824,12 +829,12 @@ const EditProject = () => {
                 <div className="formTwo">
                   <div className="form-group indicadoresDesempeno">
                     <label>Indicadores de Desempeño</label>
-                    <Field as="textarea" name="indicadoresDesempeno" maxLength="1000" />
+                    <Field as="textarea" name="indicadoresDesempeno" maxLength="1000" disabled={project.isBlocked_indicadores_desempeno}/>
                     <ErrorMessage name="indicadoresDesempeno" component="div" className="error" />
                   </div>
                   <div className="form-group indicadoresRentabilidad">
                     <label>Indicadores de Rentabilidad</label>
-                    <Field as="textarea" name="indicadoresRentabilidad" maxLength="1000" />
+                    <Field as="textarea" name="indicadoresRentabilidad" maxLength="1000" disabled={project.isBlocked_indicadores_rentabilidad}/>
                     <ErrorMessage name="indicadoresRentabilidad" component="div" className="error" />
                   </div>
                 </div>
@@ -937,7 +942,7 @@ const EditProject = () => {
 
                 <div className="form-group observaciones">
                   <label>Observaciones</label>
-                  <Field as="textarea" name="observaciones" maxLength="1000" />
+                  <Field as="textarea" name="observaciones" maxLength="1000" disabled={project.isBlocked_observaciones}/>
                   <ErrorMessage name="observaciones" component="div" className="error" />
                   <div>Máximo 1000 caracteres</div>
                 </div>

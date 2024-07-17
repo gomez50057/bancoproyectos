@@ -4,9 +4,11 @@ import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Typography } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ClientProjects = () => {
   const [projects, setProjects] = useState([]);
+  const navigate = useNavigate(); // useNavigate hook
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -27,9 +29,7 @@ const ClientProjects = () => {
   }, []);
 
   const handleEditClick = (projectId) => {
-    // Lógica para manejar el evento de clic en el botón "Editar"
-    // Aquí puedes redirigir a una página de edición o abrir un modal de edición
-    console.log(`Edit project with ID: ${projectId}`);
+    navigate(`/editar-proyecto/${projectId}`); // Redirection to edit page
   };
 
   const columns = [
