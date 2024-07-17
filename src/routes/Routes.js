@@ -8,6 +8,7 @@ import TableComponent from '../pages/FrontPage/TableComponent';
 import CRUDTable from '../pages/Responsible/CRUDTable';
 import ClientPanel from '../pages/Client/ClientPanel';
 import ClientProjects from '../pages/Client/ClientProjects'; 
+import EditProject from '../pages/Client/EditProject'; // Asegúrate de importar el nuevo componente
 import PrivateRoute from './PrivateRoute'; 
 import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
@@ -35,6 +36,7 @@ const AppRoutes = () => {
             <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><FormDependencia /></MainLayout></PrivateRoute>} />
             <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><ClientPanel /></MainLayout></PrivateRoute>} />
             <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><ClientProjects /></MainLayout></PrivateRoute>} />
+            <Route path="/edit-project/:id" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><EditProject /></MainLayout></PrivateRoute>} /> {/* Nueva ruta */}
             <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><MainLayout><CRUDTable /></MainLayout></PrivateRoute>} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>

@@ -27,7 +27,7 @@ const CRUDTable = () => {
 
   const handleOpen = useCallback((project = {}) => {
     setCurrentProject(project);
-    setIsEditMode(Boolean(project.id));
+    setIsEditMode(Boolean(project.project_id)); 
     setOpen(true);
   }, []);
 
@@ -45,7 +45,7 @@ const CRUDTable = () => {
     const csrfToken = getCsrfToken();
     try {
       if (isEditMode) {
-        await axios.put(`/proyecto/${currentProject.id}/`, currentProject, {
+        await axios.put(`/proyecto/${currentProject.project_id}/`, currentProject, { 
           headers: {
             'X-CSRFToken': csrfToken,
           },
@@ -65,10 +65,10 @@ const CRUDTable = () => {
     }
   }, [isEditMode, currentProject, handleClose]);
 
-  const handleDelete = useCallback(async (id) => {
+  const handleDelete = useCallback(async (project_id) => {
     const csrfToken = getCsrfToken();
     try {
-      await axios.delete(`/proyecto/${id}/`, {
+      await axios.delete(`/proyecto/${project_id}/`, { // Usar project_id en lugar de id
         headers: {
           'X-CSRFToken': csrfToken,
         },
@@ -85,7 +85,7 @@ const CRUDTable = () => {
   );
 
   const columns = [
-    { name: "id", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "project_id", options: { display: false, customBodyRender: renderTruncatedText } },
     { name: "Id del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Fecha del Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -140,10 +140,10 @@ const CRUDTable = () => {
       name: "Acciones",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          const projectId = tableMeta.rowData[0];
+          const projectId = tableMeta.rowData[1]; // Cambiar el índice para obtener project_id
           return (
             <>
-              <button className="crud-button" onClick={() => handleOpen(projects.find(p => p.id === projectId))}>Editar</button>
+              <button className="crud-button" onClick={() => handleOpen(projects.find(p => p.project_id === projectId))}>Editar</button>
               <button className="crud-button" onClick={() => handleDelete(projectId)}>Eliminar</button>
             </>
           );
@@ -153,7 +153,7 @@ const CRUDTable = () => {
   ];
 
   const options = {
-    selectableRows: 'none', // Updated to use string option
+    selectableRows: 'none',
     setRowProps: (row, dataIndex) => ({
       className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
       classNameHover: 'table_row_hover'

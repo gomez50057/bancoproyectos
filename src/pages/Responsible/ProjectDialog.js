@@ -26,7 +26,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
   const handleSubmit = async () => {
     try {
       if (isEditMode) {
-        await axios.put(`/proyecto/${project.id}/`, project);
+        await axios.put(`/proyecto/${project.project_id}/`, project); 
       } else {
         await axios.post('/proyecto/', project);
       }
