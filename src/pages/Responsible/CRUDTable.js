@@ -80,6 +80,11 @@ const CRUDTable = () => {
     }
   }, []);
 
+  const handleGenerateReport = useCallback((project_id) => {
+    const reportUrl = `/proyecto/reporte/${project_id}/`;
+    window.open(reportUrl, '_blank');
+  }, []);
+
   const renderTruncatedText = (value) => (
     <div className="truncate-text" title={value}>{value}</div>
   );
@@ -145,6 +150,7 @@ const CRUDTable = () => {
             <>
               <button className="crud-button" onClick={() => handleOpen(projects.find(p => p.project_id === projectId))}>Editar</button>
               <button className="crud-button" onClick={() => handleDelete(projectId)}>Eliminar</button>
+              <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
             </>
           );
         }
