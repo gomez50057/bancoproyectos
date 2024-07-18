@@ -13,7 +13,8 @@ const TableComponent = () => {
         const response = await axios.get('/ver-proyectos-tabla/');
         const filteredData = response.data.filter(project => {
           const estatus = project.estatus;
-          return estatus === 'Atendido' || estatus === 'En Proceso';
+          // return estatus === 'Atendido' || estatus === 'En Proceso';
+          return estatus === 'Atendido';
         });
         const data = filteredData.map(project => [
           project.project_name,
