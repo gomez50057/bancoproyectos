@@ -15,6 +15,10 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
   };
 
   const handleToggleBlockField = (key) => {
+    // Si el campo es 'project_id', 'fecha_registro' o 'user__username', no hacer nada
+    if (key === 'project_id' || key === 'fecha_registro' || key === 'user__username') {
+      return;
+    }
     onChange({
       target: {
         name: `isBlocked_${key}`,
@@ -44,7 +48,12 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
         </div>
         <div className="dialog-content">
           {Object.keys(project).map((key) => (
-            key !== 'estatus' && key !== 'situacion' && !key.startsWith('isBlocked_') && !key.startsWith('observacion_') && key !== 'retroalimentacion' ? (
+            key !== 'id' && // No mostrar el campo 'id'
+            key !== 'estatus' &&
+            key !== 'situacion' &&
+            !key.startsWith('isBlocked_') &&
+            !key.startsWith('observacion_') &&
+            key !== 'retroalimentacion' ? (
               <div key={key} className="dialog-input-container">
                 <label className="dialog-label">{key.replace('_', ' ')}</label>
                 <input
@@ -53,11 +62,13 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
                   name={key}
                   value={project[key] || ''}
                   onChange={onChange}
-                  disabled={project[`isBlocked_${key}`]} // Bloquear el campo si está marcado como bloqueado
+                  disabled={project[`isBlocked_${key}`] || key === 'project_id' || key === 'fecha_registro' || key === 'user__username'} // Bloquear el campo si está marcado como bloqueado o es uno de los campos inmutables
                 />
-                <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
-                  {project[`isBlocked_${key}`] ? 'Desbloquear' : 'Bloquear'}
-                </span>
+                {!(key === 'project_id' || key === 'fecha_registro' || key === 'user__username') && (
+                  <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
+                    {project[`isBlocked_${key}`] ? 'Desbloquear' : 'Bloquear'}
+                  </span>
+                )}
                 {showObservationFields[key] ? (
                   <div className="dialog-observation-container">
                     <input
