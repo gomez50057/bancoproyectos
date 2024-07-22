@@ -65,21 +65,6 @@ const CRUDTable = () => {
     }
   }, [isEditMode, currentProject, handleClose]);
 
-  const handleDelete = useCallback(async (project_id) => {
-    const csrfToken = getCsrfToken();
-    try {
-      await axios.delete(`/proyecto/${project_id}/`, { // Usar project_id en lugar de id
-        headers: {
-          'X-CSRFToken': csrfToken,
-        },
-      });
-      const response = await axios.get('/ver-proyectos-tabla/');
-      setProjects(response.data);
-    } catch (error) {
-      console.error('Error deleting project:', error);
-    }
-  }, []);
-
   const handleGenerateReport = useCallback((project_id) => {
     const reportUrl = `/proyecto/reporte/${project_id}/`;
     window.open(reportUrl, '_blank');
@@ -149,7 +134,6 @@ const CRUDTable = () => {
           return (
             <>
               <button className="crud-button" onClick={() => handleOpen(projects.find(p => p.project_id === projectId))}>Editar</button>
-              <button className="crud-button" onClick={() => handleDelete(projectId)}>Eliminar</button>
               <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
             </>
           );
