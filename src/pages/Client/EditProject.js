@@ -1,3 +1,4 @@
+// EditProject.js
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
@@ -5,6 +6,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import { useParams, useNavigate } from 'react-router-dom';
+import CustomTooltip from './Tooltip'; // Asegúrate de importar tu nuevo Tooltip
 import {
   municipiosDeHidalgo,
   unidadesResponsables,
@@ -361,6 +363,9 @@ const EditProject = () => {
                       <label>Nombre del Proyecto</label>
                       <Field type="text" name="projectName" disabled={project.isBlocked_project_name} />
                       <ErrorMessage name="projectName" component="div" className="error" />
+                      {project.observacion_project_name && (
+                        <CustomTooltip id="observacion_project_name" text={project.observacion_project_name} />
+                      )}
                     </div>
                     <div className="form-group sector">
                       <label>Sector</label>
@@ -375,11 +380,17 @@ const EditProject = () => {
                         ))}
                       </Field>
                       <ErrorMessage name="sector" component="div" className="error" />
+                      {project.observacion_sector && (
+                        <CustomTooltip id="observacion_sector" text={project.observacion_sector} />
+                      )}
                     </div>
                     <div className="form-group tipoProyecto">
                       <label>Tipo de Proyecto</label>
                       <Field type="text" name="tipoProyecto" readOnly />
                       <ErrorMessage name="tipoProyecto" component="div" className="error" />
+                      {project.observacion_tipo_proyecto && (
+                        <CustomTooltip id="observacion_tipo_proyecto" text={project.observacion_tipo_proyecto} />
+                      )}
                     </div>
                   </div>
 
@@ -394,6 +405,9 @@ const EditProject = () => {
                         <option value="Petición Personal">Petición Personal</option>
                       </Field>
                       <ErrorMessage name="entityType" component="div" className="error" />
+                      {project.observacion_tipo_entidad && (
+                        <CustomTooltip id="observacion_tipo_entidad" text={project.observacion_tipo_entidad} />
+                      )}
                     </div>
 
                     {values.entityType === 'Dependencia' && (
@@ -410,6 +424,9 @@ const EditProject = () => {
                           ))}
                         </Field>
                         <ErrorMessage name="dependencia" component="div" className="error" />
+                        {project.observacion_dependencia && (
+                          <CustomTooltip id="observacion_dependencia" text={project.observacion_dependencia} />
+                        )}
                       </div>
                     )}
 
@@ -427,6 +444,9 @@ const EditProject = () => {
                           ))}
                         </Field>
                         <ErrorMessage name="organismo" component="div" className="error" />
+                        {project.observacion_organismo && (
+                          <CustomTooltip id="observacion_organismo" text={project.observacion_organismo} />
+                        )}
                       </div>
                     )}
 
@@ -440,6 +460,9 @@ const EditProject = () => {
                           ))}
                         </Field>
                         <ErrorMessage name="municipioEnd" component="div" className="error" />
+                        {project.observacion_municipioEnd && (
+                          <CustomTooltip id="observacion_municipioEnd" text={project.observacion_municipioEnd} />
+                        )}
                       </div>
                     )}
 
@@ -448,6 +471,9 @@ const EditProject = () => {
                         <label>Petición Personal</label>
                         <Field type="text" name="PeticionPersonal" disabled={project.isBlocked_peticion_personal} />
                         <ErrorMessage name="PeticionPersonal" component="div" className="error" />
+                        {project.observacion_peticion_personal && (
+                          <CustomTooltip id="observacion_peticion_personal" text={project.observacion_peticion_personal} />
+                        )}
                       </div>
                     )}
                   </div>
@@ -465,6 +491,9 @@ const EditProject = () => {
                         ))}
                       </Field>
                       <ErrorMessage name="unidadResponsable" component="div" className="error" />
+                      {project.observacion_unidad_responsable && (
+                        <CustomTooltip id="observacion_unidad_responsable" text={project.observacion_unidad_responsable} />
+                      )}
                     </div>
 
                     {values.unidadResponsable && (
@@ -477,6 +506,9 @@ const EditProject = () => {
                           ))}
                         </Field>
                         <ErrorMessage name="unidadPresupuestal" component="div" className="error" />
+                        {project.observacion_unidad_presupuestal && (
+                          <CustomTooltip id="observacion_unidad_presupuestal" text={project.observacion_unidad_presupuestal} />
+                        )}
                       </div>
                     )}
                   </div>
@@ -528,6 +560,9 @@ const EditProject = () => {
                       </optgroup>
                     </Field>
                     <ErrorMessage name="ramoPresupuestal" component="div" className="error" />
+                    {project.observacion_ramo_presupuestal && (
+                      <CustomTooltip id="observacion_ramo_presupuestal" text={project.observacion_ramo_presupuestal} />
+                    )}
                   </div>
                 </div>
 
@@ -545,6 +580,9 @@ const EditProject = () => {
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
                       <ErrorMessage name="montoFederal" component="div" className="error" />
+                      {project.observacion_monto_federal && (
+                        <CustomTooltip id="observacion_monto_federal" text={project.observacion_monto_federal} />
+                      )}
                     </div>
                     <div className="form-group montoEstatal">
                       <label>Monto Estatal</label>
@@ -553,6 +591,9 @@ const EditProject = () => {
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
                       <ErrorMessage name="montoEstatal" component="div" className="error" />
+                      {project.observacion_monto_estatal && (
+                        <CustomTooltip id="observacion_monto_estatal" text={project.observacion_monto_estatal} />
+                      )}
                     </div>
                     <div className="form-group montoMunicipal">
                       <label>Monto Municipal</label>
@@ -561,6 +602,9 @@ const EditProject = () => {
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
                       <ErrorMessage name="montoMunicipal" component="div" className="error" />
+                      {project.observacion_monto_municipal && (
+                        <CustomTooltip id="observacion_monto_municipal" text={project.observacion_monto_municipal} />
+                      )}
                     </div>
                     <div className="form-group montoOtros">
                       <label>Otros</label>
@@ -569,12 +613,18 @@ const EditProject = () => {
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
                       <ErrorMessage name="montoOtros" component="div" className="error" />
+                      {project.observacion_monto_otros && (
+                        <CustomTooltip id="observacion_monto_otros" text={project.observacion_monto_otros} />
+                      )}
                     </div>
                   </div>
 
                   <div className="form-group inversionEstimada">
                     <label>Inversión Estimada</label>
                     <Field type="text" name="inversionEstimada" readOnly disabled={project.isBlocked_inversion_estimada} value={calculateTotal(values)} />
+                    {project.observacion_inversion_estimada && (
+                      <CustomTooltip id="observacion_inversion_estimada" text={project.observacion_inversion_estimada} />
+                    )}
                   </div>
                 </div>
 
@@ -589,12 +639,18 @@ const EditProject = () => {
                     <Field as="textarea" name="descripcion" maxLength="1000" disabled={project.isBlocked_descripcion}/>
                     <ErrorMessage name="descripcion" component="div" className="error" />
                     <div>Máximo 1000 caracteres</div>
+                    {project.observacion_descripcion && (
+                      <CustomTooltip id="observacion_descripcion" text={project.observacion_descripcion} />
+                    )}
                   </div>
                   <div className="form-group situacionSinProyecto">
                     <label>Situación sin el Programa o Proyecto de Inversión</label>
                     <Field as="textarea" name="situacionSinProyecto" maxLength="1000" disabled={project.isBlocked_situacion_sin_proyecto}/>
                     <ErrorMessage name="situacionSinProyecto" component="div" className="error" />
                     <div>Máximo 1000 caracteres</div>
+                    {project.observacion_situacion_sin_proyecto && (
+                      <CustomTooltip id="observacion_situacion_sin_proyecto" text={project.observacion_situacion_sin_proyecto} />
+                    )}
                   </div>
                   <div className="formTwo">
                     <div className="form-group objetivos">
@@ -602,12 +658,18 @@ const EditProject = () => {
                       <Field as="textarea" name="objetivos" maxLength="500" disabled={project.isBlocked_objetivos}/>
                       <ErrorMessage name="objetivos" component="div" className="error" />
                       <div>Máximo 500 caracteres</div>
+                      {project.observacion_objetivos && (
+                        <CustomTooltip id="observacion_objetivos" text={project.observacion_objetivos} />
+                      )}
                     </div>
                     <div className="form-group metas">
                       <label>Metas</label>
                       <Field as="textarea" name="metas" maxLength="500" disabled={project.isBlocked_metas}/>
                       <ErrorMessage name="metas" component="div" className="error" />
                       <div>Máximo 500 caracteres</div>
+                      {project.observacion_metas && (
+                        <CustomTooltip id="observacion_metas" text={project.observacion_metas} />
+                      )}
                     </div>
                   </div>
 
@@ -621,6 +683,9 @@ const EditProject = () => {
                         ))}
                       </Field>
                       <ErrorMessage name="gastoProgramable" component="div" className="error" />
+                      {project.observacion_gasto_programable && (
+                        <CustomTooltip id="observacion_gasto_programable" text={project.observacion_gasto_programable} />
+                      )}
                     </div>
                     <div className="form-group programaPresupuestario">
                       <label>Programa Presupuestario</label>
@@ -631,6 +696,9 @@ const EditProject = () => {
                         ))}
                       </Field>
                       <ErrorMessage name="programaPresupuestario" component="div" className="error" />
+                      {project.observacion_programa_presupuestario && (
+                        <CustomTooltip id="observacion_programa_presupuestario" text={project.observacion_programa_presupuestario} />
+                      )}
                     </div>
                   </div>
 
@@ -639,12 +707,18 @@ const EditProject = () => {
                       <label>Beneficiarios</label>
                       <Field type="number" name="beneficiarios" min="1" disabled={project.isBlocked_beneficiarios}/>
                       <ErrorMessage name="beneficiarios" component="div" className="error" />
+                      {project.observacion_beneficiarios && (
+                        <CustomTooltip id="observacion_beneficiarios" text={project.observacion_beneficiarios} />
+                      )}
                     </div>
                     <div className="form-group alineacionNormativa">
                       <label>Leyes Aplicables Vigentes</label>
                       <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." disabled={project.isBlocked_alineacion_normativa} />
                       <ErrorMessage name="alineacionNormativa" component="div" className="error" />
                       <div>Máximo 200 caracteres</div>
+                      {project.observacion_alineacion_normativa && (
+                        <CustomTooltip id="observacion_alineacion_normativa" text={project.observacion_alineacion_normativa} />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -668,6 +742,9 @@ const EditProject = () => {
                       ))}
                     </Field>
                     <ErrorMessage name="region" component="div" className="error" />
+                    {project.observacion_region && (
+                      <CustomTooltip id="observacion_region" text={project.observacion_region} />
+                    )}
                   </div>
                   <div className="form-group municipio">
                     <label>Municipio</label>
@@ -678,16 +755,25 @@ const EditProject = () => {
                       ))}
                     </Field>
                     <ErrorMessage name="municipio" component="div" className="error" />
+                    {project.observacion_municipio && (
+                      <CustomTooltip id="observacion_municipio" text={project.observacion_municipio} />
+                    )}
                   </div>
                   <div className="form-group localidad">
                     <label>Localidad</label>
                     <Field type="text" name="localidad" disabled={project.isBlocked_localidad}/>
                     <ErrorMessage name="localidad" component="div" className="error" />
+                    {project.observacion_localidad && (
+                      <CustomTooltip id="observacion_localidad" text={project.observacion_localidad} />
+                    )}
                   </div>
                   <div className="form-group barrio_colonia_ejido">
                     <label>Barrio/Colonia/Ejido</label>
                     <Field type="text" name="barrio_colonia_ejido" disabled={project.isBlocked_barrio_colonia_ejido}/>
                     <ErrorMessage name="barrio_colonia_ejido" component="div" className="error" />
+                    {project.observacion_barrio_colonia_ejido && (
+                      <CustomTooltip id="observacion_barrio_colonia_ejido" text={project.observacion_barrio_colonia_ejido} />
+                    )}
                   </div>
                 </div>
                 <p>COORDENADAS GEOGRÁFICAS:</p>
@@ -696,11 +782,17 @@ const EditProject = () => {
                     <label>Latitud</label>
                     <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" disabled={project.isBlocked_latitud}/>
                     <ErrorMessage name="latitud" component="div" className="error" />
+                    {project.observacion_latitud && (
+                      <CustomTooltip id="observacion_latitud" text={project.observacion_latitud} />
+                    )}
                   </div>
                   <div className="form-group longitud">
                     <label>Longitud</label>
                     <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" disabled={project.isBlocked_longitud}/>
                     <ErrorMessage name="longitud" component="div" className="error" />
+                    {project.observacion_longitud && (
+                      <CustomTooltip id="observacion_longitud" text={project.observacion_longitud} />
+                    )}
                   </div>
                 </div>
 
@@ -716,6 +808,9 @@ const EditProject = () => {
                     placeholder="Municipios"
                   />
                   <ErrorMessage name="municipiosImpacto" component="div" className="error" />
+                  {project.observacion_municipiosImpacto && (
+                    <CustomTooltip id="observacion_municipiosImpacto" text={project.observacion_municipiosImpacto} />
+                  )}
                 </div>
 
                 <div className="titulosForm">
@@ -736,6 +831,9 @@ const EditProject = () => {
                       <option value="Territorio y desarrollo sostenible">Territorio y desarrollo sostenible</option>
                     </Field>
                     <ErrorMessage name="planNacional" component="div" className="error" />
+                    {project.observacion_plan_nacional && (
+                      <CustomTooltip id="observacion_plan_nacional" text={project.observacion_plan_nacional} />
+                    )}
                   </div>
                   <div className="form-group planEstatal">
                     <label>Plan Estatal de Desarrollo</label>
@@ -747,6 +845,9 @@ const EditProject = () => {
                       <option value="Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora">Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora</option>
                     </Field>
                     <ErrorMessage name="planEstatal" component="div" className="error" />
+                    {project.observacion_plan_estatal && (
+                      <CustomTooltip id="observacion_plan_estatal" text={project.observacion_plan_estatal} />
+                    )}
                   </div>
                 </div>
 
@@ -757,6 +858,9 @@ const EditProject = () => {
                       <Field as="textarea" name="planMunicipal" maxLength="500" disabled={project.isBlocked_plan_municipal}/>
                       <ErrorMessage name="planMunicipal" component="div" className="error" />
                       <div>Máximo 500 caracteres</div>
+                      {project.observacion_plan_municipal && (
+                        <CustomTooltip id="observacion_plan_municipal" text={project.observacion_plan_municipal} />
+                      )}
                     </div>
                   )}
                 </div>
@@ -785,11 +889,17 @@ const EditProject = () => {
                       <option value="Alianzas para lograr los objetivos">Alianzas para lograr los objetivos</option>
                     </Field>
                     <ErrorMessage name="ods" component="div" className="error" />
+                    {project.observacion_ods && (
+                      <CustomTooltip id="observacion_ods" text={project.observacion_ods} />
+                    )}
                   </div>
                   <div className="form-group planSectorial">
                     <label>Programa Sectorial/Institucional/Especial</label>
                     <Field type="text" name="planSectorial" readOnly />
                     <ErrorMessage name="planSectorial" component="div" className="error" />
+                    {project.observacion_plan_sectorial && (
+                      <CustomTooltip id="observacion_plan_sectorial" text={project.observacion_plan_sectorial} />
+                    )}
                   </div>
                 </div>
 
@@ -808,6 +918,9 @@ const EditProject = () => {
                       ))}
                     </Field>
                     <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
+                    {project.observacion_indicadores_estrategicos && (
+                      <CustomTooltip id="observacion_indicadores_estrategicos" text={project.observacion_indicadores_estrategicos} />
+                    )}
                   </div>
                   <div className="form-group indicadoresTacticos">
                     <label>Indicadores Tácticos</label>
@@ -817,12 +930,15 @@ const EditProject = () => {
                         {indicadoresTacticosOptions[values.dependencia]?.map((ind) => (
                           <option key={ind} value={ind}>{ind}</option>
                         ))}
-                        <option value="No Aplica">No Aplica</option> 
+                        <option value="No Aplica">No Aplica</option>
                       </Field>
                     ) : (
                       <Field type="text" name="indicadoresTacticos" value="No Aplica" readOnly />
                     )}
                     <ErrorMessage name="indicadoresTacticos" component="div" className="error" />
+                    {project.observacion_indicadores_tacticos && (
+                      <CustomTooltip id="observacion_indicadores_tacticos" text={project.observacion_indicadores_tacticos} />
+                    )}
                   </div>
                 </div>
 
@@ -831,11 +947,17 @@ const EditProject = () => {
                     <label>Indicadores de Desempeño</label>
                     <Field as="textarea" name="indicadoresDesempeno" maxLength="1000" disabled={project.isBlocked_indicadores_desempeno}/>
                     <ErrorMessage name="indicadoresDesempeno" component="div" className="error" />
+                    {project.observacion_indicadores_desempeno && (
+                      <CustomTooltip id="observacion_indicadores_desempeno" text={project.observacion_indicadores_desempeno} />
+                    )}
                   </div>
                   <div className="form-group indicadoresRentabilidad">
                     <label>Indicadores de Rentabilidad</label>
                     <Field as="textarea" name="indicadoresRentabilidad" maxLength="1000" disabled={project.isBlocked_indicadores_rentabilidad}/>
                     <ErrorMessage name="indicadoresRentabilidad" component="div" className="error" />
+                    {project.observacion_indicadores_rentabilidad && (
+                      <CustomTooltip id="observacion_indicadores_rentabilidad" text={project.observacion_indicadores_rentabilidad} />
+                    )}
                   </div>
                 </div>
 
@@ -856,6 +978,9 @@ const EditProject = () => {
                       accept=".jpeg,.jpg,.png"
                     />
                     <ErrorMessage name="estadoInicial" component="div" className="error" />
+                    {project.observacion_estado_inicial && (
+                      <CustomTooltip id="observacion_estado_inicial" text={project.observacion_estado_inicial} />
+                    )}
                   </div>
                   <div className="form-group estadoConProyecto">
                     <label>Estado con Proyecto (Proyección)</label>
@@ -868,6 +993,9 @@ const EditProject = () => {
                       accept=".jpeg,.jpg,.png"
                     />
                     <ErrorMessage name="estadoConProyecto" component="div" className="error" />
+                    {project.observacion_estado_con_proyecto && (
+                      <CustomTooltip id="observacion_estado_con_proyecto" text={project.observacion_estado_con_proyecto} />
+                    )}
                   </div>
                 </div>
 
@@ -931,6 +1059,9 @@ const EditProject = () => {
                         </FieldArray>
                       )}
                       <ErrorMessage name={field} component="div" className="error" />
+                      {project[`observacion_${field}`] && (
+                        <CustomTooltip id={`observacion_${field}`} text={project[`observacion_${field}`]} />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -945,6 +1076,9 @@ const EditProject = () => {
                   <Field as="textarea" name="observaciones" maxLength="1000" disabled={project.isBlocked_observaciones}/>
                   <ErrorMessage name="observaciones" component="div" className="error" />
                   <div>Máximo 1000 caracteres</div>
+                  {project.observacion_observaciones && (
+                    <CustomTooltip id="observacion_observaciones" text={project.observacion_observaciones} />
+                  )}
                 </div>
 
                 <button type="submit" disabled={isSubmitting}>

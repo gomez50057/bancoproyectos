@@ -126,3 +126,26 @@
     transform: rotate(360deg);
   }
 }
+
+/*  */
+/* Tooltip. */
+/*  */
+
+.tooltip-icon {
+  cursor: pointer;
+  color: red;
+  margin-left: 8px;
+}
+
+.tooltip-content {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  max-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip-arrow {
+  fill: white;
+}
