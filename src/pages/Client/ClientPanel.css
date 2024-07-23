@@ -78,14 +78,6 @@
   margin-right: auto;
 }
 
-.name {
-  font-size: 14px;
-  font-weight: 100;
-  position: relative;
-  top: 1em;
-  text-transform: lowercase;
-}
-
 .wave:nth-child(2),
 .wave:nth-child(3) {
   top: 210px;

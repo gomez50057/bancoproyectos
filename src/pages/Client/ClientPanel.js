@@ -15,7 +15,6 @@ const Card = ({ onClick, title, imgSrc }) => (
       <br />
       {title}
       <br />
-      <div className="name">Nombre del Usuario</div>
     </div>
   </div>
 );
