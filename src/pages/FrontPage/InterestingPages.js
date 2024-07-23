@@ -63,13 +63,9 @@ const InterestingPages = () => {
                 >
                     <p>Conoce los proyectos de tu localidad</p>
                     <Link to="/table" className="rectangle-button">
-                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
+                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon_landig" />
                         <p>Descubre más...</p>
                     </Link>
-                    {/* <Link to="/crud" className="rectangle-button">
-                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
-                        <p>2Descubre más...</p>
-                    </Link> */}
                 </motion.div>
                 <motion.div 
                     className="rectangle"
@@ -80,7 +76,7 @@ const InterestingPages = () => {
                 >
                     <p>Carga tu proyecto</p>
                     <Link to="/login" className="rectangle-button">
-                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon" />
+                        <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon_landig" />
                         <p>Se parte del futuro</p>
                     </Link>
                 </motion.div>
