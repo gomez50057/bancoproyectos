@@ -1,5 +1,5 @@
 import React from 'react';
-import './ClientPanel.css'; // Crear archivo de estilo para el tooltip
+import './ClientPanel.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 

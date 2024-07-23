@@ -131,25 +131,6 @@
 /* Tooltip. */
 /*  */
 
-/* .tooltip-icon {
-  cursor: pointer;
-  color: red;
-  margin-left: 8px;
-}
-
-.tooltip-content {
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-  max-width: 200px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tooltip-arrow {
-  fill: white;
-} */
-
 .tooltip-icon {
   position: relative;
   cursor: pointer;
@@ -157,8 +138,8 @@
 }
 
 .tooltip-image {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .tooltip-text {
@@ -171,7 +152,7 @@
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Posición del tooltip arriba del icono */
+  bottom: 125%; 
   left: 50%;
   margin-left: -100px;
   opacity: 0;
