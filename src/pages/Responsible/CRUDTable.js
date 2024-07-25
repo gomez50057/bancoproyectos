@@ -6,6 +6,8 @@ import { CssBaseline, Typography } from '@mui/material';
 import { getCsrfToken } from '../../utils';
 import ProjectDialog from './ProjectDialog';
 import './CRUDTable.css';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import ProjectReport from './ProjectReport';
 
 const CRUDTable = () => {
   const [projects, setProjects] = useState([]);
@@ -27,7 +29,7 @@ const CRUDTable = () => {
 
   const handleOpen = useCallback((project = {}) => {
     setCurrentProject(project);
-    setIsEditMode(Boolean(project.project_id)); 
+    setIsEditMode(Boolean(project.project_id));
     setOpen(true);
   }, []);
 
@@ -131,10 +133,18 @@ const CRUDTable = () => {
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           const projectId = tableMeta.rowData[1]; // Cambiar el índice para obtener project_id
+          const project = projects.find(p => p.project_id === projectId);
           return (
             <>
-              <button className="crud-button" onClick={() => handleOpen(projects.find(p => p.project_id === projectId))}>Editar</button>
+              <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
               <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
+              <PDFDownloadLink
+                document={<ProjectReport project={project} />}
+                fileName={`${projectId}.pdf`}
+                className="crud-button"
+              >
+                {({ blob, url, loading, error }) => (loading ? 'Cargando...' : 'Ficha')}
+              </PDFDownloadLink>
             </>
           );
         }
