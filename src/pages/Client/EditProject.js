@@ -151,7 +151,7 @@ const EditProject = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
-  const { projectId  } = useParams();
+  const { projectId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -160,6 +160,23 @@ const EditProject = () => {
         const response = await axios.get(`/proyecto/${projectId}/`);
         setProject(response.data);
         setSelectedRegion(response.data.region);
+
+        // Actualizar el estado de applies según los valores recibidos del servidor
+        setApplies({
+          estudiosProspectivos: response.data.applies_estudiosProspectivos,
+          estudiosFactibilidad: response.data.applies_estudiosFactibilidad,
+          analisisAlternativas: response.data.applies_analisisAlternativas,
+          validacionNormativa: response.data.applies_validacionNormativa,
+          liberacionDerechoVia: response.data.applies_liberacionDerechoVia,
+          situacionSinProyectoFotografico: response.data.applies_situacionSinProyectoFotografico,
+          situacionConProyectoProyeccion: response.data.applies_situacionConProyectoProyeccion,
+          analisisCostoBeneficio: response.data.applies_analisisCostoBeneficio,
+          expedienteTecnico: response.data.applies_expedienteTecnico,
+          proyectoEjecutivo: response.data.applies_proyectoEjecutivo,
+          manifestacionImpactoAmbiental: response.data.applies_manifestacionImpactoAmbiental,
+          otrosEstudios: response.data.applies_otrosEstudios,
+        });
+
       } catch (error) {
         console.error('Error fetching project:', error);
       }
@@ -939,6 +956,7 @@ const EditProject = () => {
                         setFieldValue("estadoInicial", event.currentTarget.files[0]);
                       }}
                       accept=".jpeg,.jpg,.png"
+                      disabled={project.isBlocked_estado_inicial} // Deshabilitar si está bloqueado
                     />
                     <ErrorMessage name="estadoInicial" component="div" className="error" />
                   </div>
@@ -953,6 +971,7 @@ const EditProject = () => {
                         setFieldValue("estadoConProyecto", event.currentTarget.files[0]);
                       }}
                       accept=".jpeg,.jpg,.png"
+                      disabled={project.isBlocked_estado_con_proyecto} // Deshabilitar si está bloqueado
                     />
                     <ErrorMessage name="estadoConProyecto" component="div" className="error" />
                   </div>
@@ -985,11 +1004,11 @@ const EditProject = () => {
                         )}</label>
                         <div className="checkAplica">
                           <label>
-                            <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} />
+                            <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} disabled={project[`isBlocked_${field}`]} /> {/* Deshabilitar si está bloqueado */}
                             Aplica
                           </label>
                           <label>
-                            <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} />
+                            <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} disabled={project[`isBlocked_${field}`]} /> {/* Deshabilitar si está bloqueado */}
                             No Aplica
                           </label>
                         </div>
@@ -1008,11 +1027,12 @@ const EditProject = () => {
                                       files.forEach(file => setFieldValue(`${field}.${index}`, file));
                                     }}
                                     accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
+                                    disabled={project[`isBlocked_${field}`]} // Deshabilitar si está bloqueado
                                   />
-                                  <button type="button" onClick={() => remove(index)}>Eliminar</button>
+                                  <button type="button" onClick={() => remove(index)} disabled={project[`isBlocked_${field}`]}>Eliminar</button> {/* Deshabilitar si está bloqueado */}
                                 </div>
                               ))}
-                              <button type="button" onClick={() => push(null)} className="add-file-button">
+                              <button type="button" onClick={() => push(null)} className="add-file-button" disabled={project[`isBlocked_${field}`]}> {/* Deshabilitar si está bloqueado */}
                                 Agregar Archivo
                               </button>
                             </div>
