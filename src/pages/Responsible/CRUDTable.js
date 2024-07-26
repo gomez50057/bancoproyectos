@@ -6,7 +6,7 @@ import { CssBaseline, Typography } from '@mui/material';
 import { getCsrfToken } from '../../utils';
 import ProjectDialog from './ProjectDialog';
 import './CRUDTable.css';
-import { PDFDownloadLink } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 import ProjectReport from './ProjectReport';
 
 const CRUDTable = () => {
@@ -70,6 +70,17 @@ const CRUDTable = () => {
   const handleGenerateReport = useCallback((project_id) => {
     const reportUrl = `/proyecto/reporte/${project_id}/`;
     window.open(reportUrl, '_blank');
+  }, []);
+
+  const handleOpenPDF = useCallback(async (project) => {
+    const blob = await pdf(<ProjectReport project={project} />).toBlob();
+    const url = URL.createObjectURL(blob);
+    const newWindow = window.open(url, '_blank');
+    if (newWindow) {
+      newWindow.onload = () => {
+        newWindow.document.title = `${project.project_id}.pdf`;
+      };
+    }
   }, []);
 
   const renderTruncatedText = (value) => (
@@ -138,13 +149,7 @@ const CRUDTable = () => {
             <>
               <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
               <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
-              <PDFDownloadLink
-                document={<ProjectReport project={project} />}
-                fileName={`${projectId}.pdf`}
-                className="crud-button"
-              >
-                {({ blob, url, loading, error }) => (loading ? 'Cargando...' : 'Ficha')}
-              </PDFDownloadLink>
+              <button className="crud-button" onClick={() => handleOpenPDF(project)}>Ficha</button>
             </>
           );
         }
