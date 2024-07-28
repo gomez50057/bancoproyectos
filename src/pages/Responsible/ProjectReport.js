@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     color: '#98989a',
     textAlign: 'justify',
   },
+  valueInversion_estimada: {
+    fontSize: 20,
+    color: '#98989a',
+    fontWeight: '500',
+  },
   valueProject_name: {
     width: '70%',
     fontSize: 16,
@@ -142,6 +147,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 100,
   },
+  inlineSection: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
 });
 
 const ProjectReport = ({ project }) => (
@@ -151,21 +160,21 @@ const ProjectReport = ({ project }) => (
         <View style={styles.rectangleContent}>
           <View style={styles.section}>
             <Text style={styles.label}>Inversión Estimada:</Text>
-            <Text style={styles.value}>{project.inversion_estimada}</Text>
+            <Text style={styles.valueInversion_estimada}>{project.inversion_estimada}</Text>
           </View>
-          <View style={styles.section}>
+          <View style={styles.inlineSection}>
             <Text style={styles.label}>Región:</Text>
             <Text style={styles.value}>{project.region}</Text>
           </View>
-          <View style={styles.section}>
+          <View style={styles.inlineSection}>
             <Text style={styles.label}>Municipio:</Text>
             <Text style={styles.value}>{project.municipio}</Text>
           </View>
-          <View style={styles.section}>
+          <View style={styles.inlineSection}>
             <Text style={styles.label}>Beneficiarios:</Text>
             <Text style={styles.value}>{project.beneficiarios}</Text>
           </View>
-          <View style={styles.section}>
+          <View style={styles.inlineSection}>
             <Text style={styles.label}>Sector:</Text>
             <Text style={styles.value}>{project.sector}</Text>
           </View>
