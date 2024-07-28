@@ -29,12 +29,16 @@ const styles = StyleSheet.create({
   labelContainer: {
     fontSize: 18,
     fontWeight: 'bold',
-    labelContainer: 'justify',
     color: '#bc955b',
   },
   value: {
     fontSize: 10,
     color: '#98989a',
+  },
+  valueContainer: {
+    fontSize: 10,
+    color: '#98989a',
+    textAlign: 'justify',
   },
   valueProject_name: {
     width: '70%',
@@ -75,8 +79,9 @@ const styles = StyleSheet.create({
   },
   projectName: {
     width: '80%',
+    backgroundColor: '#691B32',
     borderBottomRightRadius: 40,
-    borderTopWidth: 7,
+    borderTopWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 7,
     borderRightWidth: 7,
@@ -117,7 +122,6 @@ const styles = StyleSheet.create({
   projectContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#f116161a',
   },
   textContainer: {
     width: 400,
@@ -176,11 +180,11 @@ const ProjectReport = ({ project }) => (
           <View style={styles.textContainer}>
             <View style={styles.section}>
               <Text style={styles.labelContainer}>Descripción del Proyecto</Text>
-              <Text style={styles.value}>{project.descripcion}</Text>
+              <Text style={styles.valueContainer}>{project.descripcion}</Text>
             </View>
             <View style={styles.section}>
               <Text style={styles.labelContainer}>Situación Actual</Text>
-              <Text style={styles.value}>{project.situacion_sin_proyecto}</Text>
+              <Text style={styles.valueContainer}>{project.situacion_sin_proyecto}</Text>
             </View>
           </View>
           <View style={styles.imageContainer}>
