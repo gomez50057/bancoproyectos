@@ -5,9 +5,10 @@ import footerImage from '../../assets/images/pdf/footer_pdf.png';
 // Estilos para el PDF
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
+    flexDirection: 'row', // Cambiado a 'row' para alinear elementos horizontalmente
     backgroundColor: '#FFFFFF',
     padding: 0,
+    margin: 0,
   },
   header: {
     textAlign: 'center',
@@ -17,9 +18,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
   },
+  sectionContainer: {
+    flexDirection: 'column',
+    marginLeft: 250, // Espacio para alinear las secciones a la derecha del rectángulo
+    padding: 30,
+    flexGrow: 1, // Para ocupar el espacio disponible a la derecha del rectángulo
+  },
   section: {
     marginBottom: 10,
-    paddingHorizontal: 30,
   },
   label: {
     fontSize: 12,
@@ -30,11 +36,14 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: -10,
     left: 0,
     right: 0,
     height: 100,
     width: '100%',
+    backgroundColor: 'pink',
+    margin: 0,
+    padding: 0,
   },
   footerImage: {
     width: '100%',
@@ -66,26 +75,28 @@ const ProjectReport = ({ project }) => (
   <Document>
     <Page size="A4" style={styles.page} orientation="landscape">
       <View style={styles.rectangle}></View>
-      <View style={styles.header}>
-        <Text style={styles.title}>Ficha del Proyecto</Text>
+      <View style={styles.sectionContainer}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Ficha del Proyecto</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.label}>ID del Proyecto:</Text>
+          <Text style={styles.value}>{project.project_id}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.label}>Descripción:</Text>
+          <Text style={styles.value}>{project.descripcion}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.label}>Situación Sin Proyecto:</Text>
+          <Text style={styles.value}>{project.situacion_sin_proyecto}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.label}>Objetivos:</Text>
+          <Text style={styles.value}>{project.objetivos}</Text>
+        </View>
+        {/* Añade más campos según sea necesario */}
       </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>ID del Proyecto:</Text>
-        <Text style={styles.value}>{project.project_id}</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Descripción:</Text>
-        <Text style={styles.value}>{project.descripcion}</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Situación Sin Proyecto:</Text>
-        <Text style={styles.value}>{project.situacion_sin_proyecto}</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.label}>Objetivos:</Text>
-        <Text style={styles.value}>{project.objetivos}</Text>
-      </View>
-      {/* Añade más campos según sea necesario */}
       <View style={styles.footer}>
         <Image src={footerImage} style={styles.footerImage} />
       </View>
