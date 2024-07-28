@@ -7,21 +7,19 @@ import proyectoImage from '../../assets/images/pdf/foto_proyecto.png';
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
     padding: 0,
     margin: 0,
   },
-  header: {
-    textAlign: 'center',
-    marginBottom: 20,
-  },
+  // header: {
+  //   textAlign: 'center',
+  //   marginBottom: 20,
+  // },
   title: {
     fontSize: 16,
     marginBottom: 20,
   },
   mainContainer: {
     flexDirection: 'column',
-    padding: 30,
     flexGrow: 1,
   },
   section: {
@@ -30,13 +28,21 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     fontWeight: 'bold',
+    color: '#bc955b'
+  },
+  labelContainer: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#bc955b'
   },
   value: {
     fontSize: 10,
+    color: '#98989a'
+
   },
   footer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: -20,
     left: 0,
     right: 0,
     height: 100,
@@ -62,10 +68,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
     shadowColor: '#000',
     shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.8,
     shadowRadius: 15,
     elevation: 10,
-    marginRight: 30,
   },
   projectName: {
     marginBottom: 20,
@@ -75,10 +80,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-  },
-  projectDescription: {
-    flexGrow: 1,
-    marginRight: 20,
   },
   projectImageContainer: {
     width: 220,
@@ -105,16 +106,16 @@ const styles = StyleSheet.create({
   projectContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    backgroundColor: 'pink'
+    backgroundColor: '#f116161a',
   },
   textContainer: {
-    backgroundColor: 'blue',
-    width: '100%',
+    width: 400,
+    paddingHorizontal: 9,
   },
   imageContainer: {
     width: 220,
     height: 367,
+    marginTop: -30,
     borderRadius: 10,
     overflow: 'hidden',
     shadowColor: '#000',
@@ -162,13 +163,13 @@ const ProjectReport = ({ project }) => (
         <View style={styles.projectContainer}>
           <View style={styles.textContainer}>
             <View style={styles.section}>
-              <Text style={styles.label}>Descripción:</Text>
+              <Text style={styles.labelContainer}>Descripción del Proyecto</Text>
               <Text style={styles.value}>{project.descripcion}</Text>
             </View>
-            {/* <View style={styles.section}>
-              <Text style={styles.label}>Situación Sin Proyecto:</Text>
+            <View style={styles.section}>
+              <Text style={styles.labelContainer}>Situación Actual</Text>
               <Text style={styles.value}>{project.situacion_sin_proyecto}</Text>
-            </View> */}
+            </View>
           </View>
           <View style={styles.imageContainer}>
             <Image src={proyectoImage} style={styles.projectImage} />
