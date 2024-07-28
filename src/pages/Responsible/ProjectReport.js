@@ -2,6 +2,8 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import footerImage from '../../assets/images/pdf/footer_pdf.png';
 import proyectoImage from '../../assets/images/pdf/foto_proyecto.png';
+import beneficiariosImg from '../../assets/images/pdf/benificiarios.png';
+
 
 // Estilos para el PDF
 const styles = StyleSheet.create({
@@ -21,6 +23,9 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 10,
   },
+  beneficiariosNum: {
+    flexDirection: 'column',
+  },
   label: {
     fontSize: 12,
     fontWeight: 'bold',
@@ -30,6 +35,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#bc955b',
+  },
+  labelNumBe: {
+    fontSize: 12,
+    color: '#98989a',
   },
   value: {
     fontSize: 10,
@@ -49,6 +58,11 @@ const styles = StyleSheet.create({
     width: '70%',
     fontSize: 16,
     color: '#bc955b',
+  },
+  valueNumBe: {
+    fontSize: 20,
+    color: '#98989a',
+    fontWeight: '600',
   },
   footer: {
     position: 'absolute',
@@ -147,6 +161,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 100,
   },
+  imagebeneficiarios: {
+    width: 57,
+    height: 'auto',
+  },
   inlineSection: {
     flexDirection: 'row',
     marginBottom: 10,
@@ -171,9 +189,20 @@ const ProjectReport = ({ project }) => (
             <Text style={styles.label}>Municipio:</Text>
             <Text style={styles.value}>{project.municipio}</Text>
           </View>
-          <View style={styles.inlineSection}>
-            <Text style={styles.label}>Beneficiarios:</Text>
-            <Text style={styles.value}>{project.beneficiarios}</Text>
+          <View style={styles.beneficiariosSection}>
+            <View style={styles.inlineSection}>
+
+              <View style={styles.imagebeneficiarios}>
+                <Image src={beneficiariosImg} />
+              </View>
+              <View style={styles.beneficiariosNum}>
+                <Text style={styles.valueNumBe}>{project.beneficiarios}</Text>
+                <Text style={styles.labelNumBe}>Personas</Text>
+              </View>
+            </View>
+            <Text style={styles.label}>Beneficiarios</Text>
+
+
           </View>
           <View style={styles.inlineSection}>
             <Text style={styles.label}>Sector:</Text>
