@@ -105,11 +105,12 @@ const styles = StyleSheet.create({
   projectContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
+    backgroundColor: 'pink'
   },
   textContainer: {
-    flex: 1,
-    paddingRight: 20,
+    backgroundColor: 'blue',
+    width: '100%',
   },
   imageContainer: {
     width: 220,
@@ -164,10 +165,10 @@ const ProjectReport = ({ project }) => (
               <Text style={styles.label}>Descripción:</Text>
               <Text style={styles.value}>{project.descripcion}</Text>
             </View>
-            <View style={styles.section}>
+            {/* <View style={styles.section}>
               <Text style={styles.label}>Situación Sin Proyecto:</Text>
               <Text style={styles.value}>{project.situacion_sin_proyecto}</Text>
-            </View>
+            </View> */}
           </View>
           <View style={styles.imageContainer}>
             <Image src={proyectoImage} style={styles.projectImage} />
