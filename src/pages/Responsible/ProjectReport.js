@@ -33,12 +33,17 @@ const styles = StyleSheet.create({
   labelContainer: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#bc955b'
+    labelContainer: 'justify',
+    color: '#bc955b',
   },
   value: {
     fontSize: 10,
     color: '#98989a'
-
+  },
+  valueProject_name: {
+    width: '70%',
+    fontSize: 16,
+    color: '#bc955b'
   },
   footer: {
     position: 'absolute',
@@ -73,7 +78,17 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   projectName: {
-    marginBottom: 20,
+    width: '80%',
+    borderBottomRightRadius: 40,
+    borderTopWidth: 7,
+    borderLeftWidth: 0,
+    borderBottomWidth: 7,
+    borderRightWidth: 7,
+    borderColor: '#98989a',
+    borderStyle: 'solid',
+    padding: 9,
+    marginVertical: 10,
+    zIndex: 200, 
   },
   projectDetails: {
     flexDirection: 'row',
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 220,
     height: 367,
-    marginTop: -30,
+    marginTop: -40,
     borderRadius: 10,
     overflow: 'hidden',
     shadowColor: '#000',
@@ -125,6 +140,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 100, 
   },
 });
 
@@ -158,7 +174,7 @@ const ProjectReport = ({ project }) => (
 
       <View style={styles.mainContainer}>
         <View style={styles.projectName}>
-          <Text style={styles.value}>{project.project_name}</Text>
+          <Text style={styles.valueProject_name}>{project.project_name}</Text>
         </View>
         <View style={styles.projectContainer}>
           <View style={styles.textContainer}>
