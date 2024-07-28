@@ -10,10 +10,6 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
   },
-  // header: {
-  //   textAlign: 'center',
-  //   marginBottom: 20,
-  // },
   title: {
     fontSize: 16,
     marginBottom: 20,
@@ -28,7 +24,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: '#bc955b'
+    color: '#bc955b',
   },
   labelContainer: {
     fontSize: 18,
@@ -38,12 +34,12 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 10,
-    color: '#98989a'
+    color: '#98989a',
   },
   valueProject_name: {
     width: '70%',
     fontSize: 16,
-    color: '#bc955b'
+    color: '#bc955b',
   },
   footer: {
     position: 'absolute',
@@ -88,7 +84,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     padding: 9,
     marginVertical: 10,
-    zIndex: 200, 
+    zIndex: 200,
   },
   projectDetails: {
     flexDirection: 'row',
@@ -140,7 +136,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 100, 
+    zIndex: 100,
   },
 });
 
