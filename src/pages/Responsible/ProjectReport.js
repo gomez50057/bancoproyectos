@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   inlineSection: {
     flexDirection: 'row',
     marginBottom: 10,
+    alignItems: 'center'
   },
 });
 
