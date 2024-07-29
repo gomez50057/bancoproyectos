@@ -28,6 +28,7 @@ const ProjectReportReact = () => {
   return (
     <div className="project-report">
       <div className="report-container">
+        <img src={`${imgBasePath}estrella_pdf.png`} alt="Decorative Star" className="side-image" />
         <div className="rectangle_pdf">
           <div className="rectangle-content">
             <div className="section">
@@ -91,6 +92,7 @@ const ProjectReportReact = () => {
         <div className="footer_pdf">
           <img src={`${imgBasePath}footer_pdf.png`} alt="Footer" className="footer-image" />
         </div>
+        <img src={`${imgBasePath}pajaro.png`} alt="Decorative pajaro" className="side-imagepajaro" />
       </div>
     </div>
   );

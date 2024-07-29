@@ -18,6 +18,26 @@
   background-color: #fff;
 }
 
+.project-report .side-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: auto;
+  opacity: 0.9; 
+  z-index: 1; 
+}
+
+.project-report .side-imagepajaro {
+  height: 200px;
+  opacity: .9;
+  position: absolute;
+  right: 0;
+  width: auto;
+  z-index: 1;
+  bottom: 10px;
+}
+
 .project-report .rectangle_pdf {
   position: absolute;
   top: 0;
@@ -130,6 +150,7 @@
   right: 0;
   height: 100px;
   width: 100%;
+  z-index: 2;
 }
 
 .project-report .footer-image {
