@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import AppRoutes from './routes/Routes';
@@ -10,12 +10,25 @@ const App = () => {
     return (
         <AuthProvider>
             <Router>
-                <div>
-                    <AppRoutes />
-                    <Footer />
-                </div>
+                <AppContent />
             </Router>
         </AuthProvider>
+    );
+};
+
+const AppContent = () => {
+    const location = useLocation();
+    const hideFooterRoutes = ['/project-report-react/:projectId'];
+
+    const shouldHideFooter = hideFooterRoutes.some(route =>
+        new RegExp(route.replace(':projectId', '[^/]+')).test(location.pathname)
+    );
+
+    return (
+        <div>
+            <AppRoutes />
+            {!shouldHideFooter && <Footer />}
+        </div>
     );
 };
 
