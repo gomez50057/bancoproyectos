@@ -12,6 +12,7 @@ import EditProject from '../pages/Client/EditProject';
 import PrivateRoute from './PrivateRoute';
 import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
+import ProjectReportReact from '../pages/Responsible/ProjectReportReact'; 
 
 const MainLayout = ({ children }) => (
     <div>
@@ -38,6 +39,7 @@ const AppRoutes = () => {
             <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><ClientProjects /></MainLayout></PrivateRoute>} />
             <Route path="/editar-proyecto/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><EditProject /></MainLayout></PrivateRoute>} />
             <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><MainLayout><CRUDTable /></MainLayout></PrivateRoute>} />
+            <Route path="/project-report-react/:projectId" element={<ProjectReportReact />} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
     );

@@ -1,3 +1,4 @@
+// Archivo: src/pages/Responsible/CRUDTable.js
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
@@ -8,12 +9,14 @@ import ProjectDialog from './ProjectDialog';
 import './CRUDTable.css';
 import { pdf } from '@react-pdf/renderer';
 import ProjectReport from './ProjectReport';
+import { useNavigate } from 'react-router-dom';
 
 const CRUDTable = () => {
   const [projects, setProjects] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -83,6 +86,10 @@ const CRUDTable = () => {
     }
   }, []);
 
+  const handleViewReactReport = useCallback((projectId) => {
+    navigate(`/project-report-react/${projectId}`);
+  }, [navigate]);
+
   const renderTruncatedText = (value) => (
     <div className="truncate-text" title={value}>{value}</div>
   );
@@ -150,6 +157,7 @@ const CRUDTable = () => {
               <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
               <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
               <button className="crud-button" onClick={() => handleOpenPDF(project)}>Ficha</button>
+              <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Vista React</button>
             </>
           );
         }

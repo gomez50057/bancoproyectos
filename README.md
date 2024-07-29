@@ -1,6 +1,12 @@
 # Arquitectura Fronend
 
 /src
+|-- /assets
+|   |-- /imagenes
+|   |   |-- /pdf
+|   |   |   |-- las imagenes
+|   |   |   |-- ....
+
 |-- /components
 |   |-- Footer.js
 |   |-- Login.js
@@ -19,26 +25,30 @@
 |
 |-- /pages
 |   |-- /Client
-|   |   |-- Dashboard.js
+|   |   |-- ClientPanel.css
+|   |   |-- ClientPanel.js
+|   |   |-- ClientProjects.js
+|   |   |-- EditProject.js.js
 |   |   |-- FormDependencia.js
-|   |   |-- Consult.js
+|   |   |-- Tooltip.js
 |   |-- /FrontPage
 |   |   |-- About.js
 |   |   |-- Home.js
 |   |   |-- HowItWorks.js
 |   |   |-- InteractiveMap.js
 |   |   |-- InterestingPages.js
+|   |   |-- MainContent.js
 |   |   |-- ProjectIndicators.js
 |   |   |-- TableComponent.js
 |   |-- /Responsible
 |       |-- CRUDTable.css
 |       |-- CRUDTable.js
-|       |-- ProjectDialog.js
 |       |-- ProjectDialog.css
+|       |-- ProjectDialog.js
+|       |-- ProjectReport.js
 |
 |-- /routes
 |   |-- PrivateRoute.js
-|   |-- PublicRoute.js
 |   |-- Routes.js
 |
 |-- App.js
