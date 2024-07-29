@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: 800,
   },
   labelSector: {
-    fontSize: 12,
+    fontSize: 18,
     color: '#bc955b',
     fontWeight: '800',
   },
