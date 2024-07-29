@@ -3,8 +3,8 @@ import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/render
 import footerImage from '../../assets/images/pdf/footer_pdf.png';
 import proyectoImage from '../../assets/images/pdf/foto_proyecto.png';
 import beneficiariosImg from '../../assets/images/pdf/benificiarios.png';
+import sectorImg from '../../assets/images/pdf/electricidad.png';
 
-// Estilos para el PDF
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
@@ -38,12 +38,18 @@ const styles = StyleSheet.create({
   labelNumBe: {
     fontSize: 12,
     color: '#98989a',
+    fontWeight: 800,
+  },
+  labelSector: {
+    fontSize: 12,
+    color: '#bc955b',
+    fontWeight: '800',
   },
   labeltxtbene: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#bc955b',
-    alignItems: 'center',
+    marginTop: -8,
   },
   value: {
     fontSize: 10,
@@ -68,6 +74,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#98989a',
     fontWeight: '600',
+  },
+  valueSector: {
+    fontSize: 15,
+    color: '#98989a',
+    fontWeight: '500',
   },
   footer: {
     position: 'absolute',
@@ -209,9 +220,17 @@ const ProjectReport = ({ project }) => (
               <Text style={styles.labeltxtbene}>Beneficiarios</Text>
             </View>
           </View>
-          <View style={styles.inlineSection}>
-            <Text style={styles.label}>Sector:</Text>
-            <Text style={styles.value}>{project.sector}</Text>
+
+          <View style={styles.beneficiariosSection}>
+            <View style={styles.inlineSection}>
+              <View style={styles.imagebeneficiarios}>
+                <Image src={sectorImg} />
+              </View>
+              <View style={styles.beneficiariosNum}>
+                <Text style={styles.labelSector}>Sector</Text>
+                <Text style={styles.valueSector}>{project.sector}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
