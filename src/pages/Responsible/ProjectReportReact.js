@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './ProjectReportReact.css';
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pdf/";
 
 const ProjectReportReact = () => {
   const { projectId } = useParams();
@@ -31,7 +32,7 @@ const ProjectReportReact = () => {
           <div className="rectangle-content">
             <div className="section">
               <span className="label">Inversión Estimada: </span>
-              <span className="value">${project.inversion_estimada}</span>
+              <span className="value-inversion-estimada">${project.inversion_estimada}</span>
             </div>
             <div className="inline-section">
               <span className="label">Región: </span>
@@ -43,20 +44,20 @@ const ProjectReportReact = () => {
             </div>
             <div className="beneficiarios-section">
               <div className="inline-section">
-                <img src="/assets/images/pdf/beneficiarios.png" alt="Beneficiarios" className="imagebeneficiarios" />
+                <img src={`${imgBasePath}benificiarios.png`} alt="Beneficiarios" className="image-beneficiarios" />
                 <div className="beneficiarios-num">
-                  <span className="value-num">{project.beneficiarios}</span>
-                  <span className="label-num">Personas</span>
+                  <span className="value-num-be">{project.beneficiarios}</span>
+                  <span className="label-num-be">Personas</span>
                 </div>
               </div>
               <div className="section">
-                <span className="labeltxtbene">Beneficiarios</span>
+                <span className="label-txt-bene">Beneficiarios</span>
               </div>
             </div>
 
             <div className="beneficiarios-section">
               <div className="inline-section">
-                <img src="/assets/images/pdf/electricidad.png" alt="Sector" className="imagebeneficiarios" />
+                <img src={`${imgBasePath}electricidad.png`} alt="Sector" className="image-beneficiarios" />
                 <div className="beneficiarios-num">
                   <span className="label-sector">Sector</span>
                   <span className="value-sector">{project.sector}</span>
@@ -82,13 +83,13 @@ const ProjectReportReact = () => {
               </div>
             </div>
             <div className="image-container">
-              <img src="/assets/images/pdf/foto_proyecto.png" alt="Proyecto" className="project-image" />
+              <img src={`${imgBasePath}foto_proyecto.png`} alt="Proyecto" className="project-image" />
             </div>
           </div>
         </div>
 
         <div className="footer">
-          <img src="/assets/images/pdf/footer_pdf.png" alt="Footer" className="footer-image" />
+          <img src={`${imgBasePath}footer_pdf.png`} alt="Footer" className="footer-image" />
         </div>
       </div>
     </div>
