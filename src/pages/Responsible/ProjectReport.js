@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#98989a',
   },
+  labeltxtbene: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#bc955b',
+    alignItems: 'center'
+  },
   value: {
     fontSize: 10,
     color: '#98989a',
@@ -60,7 +66,7 @@ const styles = StyleSheet.create({
     color: '#bc955b',
   },
   valueNumBe: {
-    fontSize: 20,
+    fontSize: 30,
     color: '#98989a',
     fontWeight: '600',
   },
@@ -81,7 +87,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: 0,
     left: 0,
-    width: 232,
+    width: 180,
     height: 551,
     borderTopWidth: 0,
     borderLeftWidth: 0,
@@ -162,8 +168,10 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   imagebeneficiarios: {
-    width: 57,
+    width: 50,
     height: 'auto',
+    marginRight: 7,
+
   },
   inlineSection: {
     flexDirection: 'row',
@@ -200,8 +208,9 @@ const ProjectReport = ({ project }) => (
                 <Text style={styles.labelNumBe}>Personas</Text>
               </View>
             </View>
-            <Text style={styles.label}>Beneficiarios</Text>
-
+            <View style={styles.section}>
+              <Text style={styles.labeltxtbene}>Beneficiarios</Text>
+            </View>
 
           </View>
           <View style={styles.inlineSection}>
