@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
 
 const ProjectReport = ({ project }) => (
   <Document>
-    <Page size="A4" style={styles.page} orientation="landscape">
+    <Page size="letter" style={styles.page} orientation="landscape">
       <View style={styles.rectangle}>
         <View style={styles.rectangleContent}>
           <View style={styles.section}>
