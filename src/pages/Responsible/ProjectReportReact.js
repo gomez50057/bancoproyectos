@@ -28,7 +28,7 @@ const ProjectReportReact = () => {
   return (
     <div className="project-report">
       <div className="report-container">
-        <div className="rectangle">
+        <div className="rectangle_pdf">
           <div className="rectangle-content">
             <div className="section">
               <span className="label">Inversión Estimada: </span>
@@ -88,7 +88,7 @@ const ProjectReportReact = () => {
           </div>
         </div>
 
-        <div className="footer">
+        <div className="footer_pdf">
           <img src={`${imgBasePath}footer_pdf.png`} alt="Footer" className="footer-image" />
         </div>
       </div>
