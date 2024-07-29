@@ -4,7 +4,6 @@ import footerImage from '../../assets/images/pdf/footer_pdf.png';
 import proyectoImage from '../../assets/images/pdf/foto_proyecto.png';
 import beneficiariosImg from '../../assets/images/pdf/benificiarios.png';
 
-
 // Estilos para el PDF
 const styles = StyleSheet.create({
   page: {
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#bc955b',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   value: {
     fontSize: 10,
@@ -171,12 +170,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 'auto',
     marginRight: 7,
-
   },
   inlineSection: {
     flexDirection: 'row',
     marginBottom: 10,
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 
@@ -186,20 +184,19 @@ const ProjectReport = ({ project }) => (
       <View style={styles.rectangle}>
         <View style={styles.rectangleContent}>
           <View style={styles.section}>
-            <Text style={styles.label}>Inversión Estimada:</Text>
-            <Text style={styles.valueInversion_estimada}>{project.inversion_estimada}</Text>
+            <Text style={styles.label}>Inversión Estimada</Text>
+            <Text style={styles.valueInversion_estimada}>$ {project.inversion_estimada}</Text>
           </View>
           <View style={styles.inlineSection}>
-            <Text style={styles.label}>Región:</Text>
+            <Text style={styles.label}>Región: </Text>
             <Text style={styles.value}>{project.region}</Text>
           </View>
           <View style={styles.inlineSection}>
-            <Text style={styles.label}>Municipio:</Text>
+            <Text style={styles.label}>Municipio: </Text>
             <Text style={styles.value}>{project.municipio}</Text>
           </View>
           <View style={styles.beneficiariosSection}>
             <View style={styles.inlineSection}>
-
               <View style={styles.imagebeneficiarios}>
                 <Image src={beneficiariosImg} />
               </View>
@@ -211,7 +208,6 @@ const ProjectReport = ({ project }) => (
             <View style={styles.section}>
               <Text style={styles.labeltxtbene}>Beneficiarios</Text>
             </View>
-
           </View>
           <View style={styles.inlineSection}>
             <Text style={styles.label}>Sector:</Text>
