@@ -1,5 +1,5 @@
 // Archivo: src/pages/Responsible/ProjectReportReact.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -19,6 +19,7 @@ L.Icon.Default.mergeOptions({
 const ProjectReportReact = () => {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
+  const mapRef = useRef();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -31,6 +32,15 @@ const ProjectReportReact = () => {
     };
     fetchProject();
   }, [projectId]);
+
+  useEffect(() => {
+    if (mapRef.current) {
+      const attributionControl = mapRef.current.querySelector('.leaflet-control-attribution');
+      if (attributionControl) {
+        attributionControl.style.display = 'none';
+      }
+    }
+  }, [mapRef]);
 
   if (!project) {
     return <div>Loading...</div>;
@@ -79,8 +89,8 @@ const ProjectReportReact = () => {
               </div>
             </div>
 
-            <div className="map-container">
-              <MapContainer center={position} zoom={30} style={{ height: "220px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
+            <div className="map-container" ref={mapRef}>
+              <MapContainer center={position} zoom={16} style={{ height: "220px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
                 <TileLayer
                   url="http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
                   subdomains={['mt0', 'mt1', 'mt2', 'mt3']}

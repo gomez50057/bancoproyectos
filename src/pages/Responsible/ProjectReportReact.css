@@ -226,7 +226,12 @@
 .project-report .map-container {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 220px;
   margin-top: 20px;
   z-index: 200;
+  border-radius: 0px 0px 40px 0px;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  opacity: 0;
 }
