@@ -2,8 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import './ProjectReportReact.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pdf/";
+
+// Corrección del ícono de marcador de Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
+});
 
 const ProjectReportReact = () => {
   const { projectId } = useParams();
@@ -24,6 +35,8 @@ const ProjectReportReact = () => {
   if (!project) {
     return <div>Loading...</div>;
   }
+
+  const position = [project.latitud, project.longitud];
 
   return (
     <div className="project-report">
@@ -65,6 +78,21 @@ const ProjectReportReact = () => {
                 </div>
               </div>
             </div>
+
+            <div className="map-container">
+              <MapContainer center={position} zoom={30} style={{ height: "220px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
+                <TileLayer
+                  url="http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+                  subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+                />
+                <Marker position={position}>
+                  <Popup>
+                    {project.project_name}
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </div>
+
           </div>
         </div>
 
