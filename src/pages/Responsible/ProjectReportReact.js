@@ -49,6 +49,12 @@ const ProjectReportReact = () => {
   const position = [project.latitud, project.longitud];
 
   const handlePrint = () => {
+    alert(
+      "Por favor, configure las siguientes opciones en el panel de impresión:\n\n" +
+      "Destino: Guardar como PDF\n" +
+      "Tamaño del papel: Letter\n" +
+      "Escala: Personalizado (118)"
+    );
     window.print();
   };
 
