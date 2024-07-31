@@ -48,9 +48,14 @@ const ProjectReportReact = () => {
 
   const position = [project.latitud, project.longitud];
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="project-report">
       <div className="report-container">
+        <button className="print-button" onClick={handlePrint}>Descarga</button>
         <img src={`${imgBasePath}estrella_pdf.png`} alt="Decorative Star" className="side-image" />
         <div className="rectangle_pdf">
           <div className="rectangle-content">
@@ -90,7 +95,7 @@ const ProjectReportReact = () => {
             </div>
 
             <div className="map-container" ref={mapRef}>
-              <MapContainer center={position} zoom={16} style={{ height: "220px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
+              <MapContainer center={position} zoom={30} style={{ height: "220px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
                 <TileLayer
                   url="http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
                   subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
