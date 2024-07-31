@@ -12,20 +12,19 @@
     z-index: 1000;
 }
 
-.dialog {
-    background: #fff;
+.dialog-overlay .dialog {
+    background: var(--blanco);
     border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
+    width: 90vw;
+    max-width: 90vw;
+    height: 90vh;
     max-height: 90vh;
-    /* Añadir max-height */
     overflow-y: auto;
-    /* Añadir scroll */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.3s;
 }
 
-.dialog-title {
+.dialog-overlay .dialog-title {
     background: #f5f5f5;
     padding: 15px;
     border-bottom: 1px solid #ddd;
@@ -34,52 +33,55 @@
     border-radius: 10px 10px 0 0;
 }
 
-.dialog-content {
+.dialog-overlay .dialog-content {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.dialog-input-container {
+.dialog-overlay .dialog-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dialog-overlay .dialog-input-container,
+.dialog-overlay .dialog-select-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.dialog-input {
+.dialog-overlay  .dialog-input {
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 15px;
     font-size: 16px;
     width: 100%;
 }
 
-.dialog-select-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.dialog-select {
+.dialog-overlay .dialog-select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
 }
 
-.dialog-label {
-    font-size: 14px;
+.dialog-overlay .dialog-label {
+    font-size: 16px;
+    text-transform: capitalize;
 }
 
-.dialog-actions {
+.dialog-overlay .dialog-actions {
     display: flex;
     justify-content: flex-end;
     padding: 10px 20px;
     border-top: 1px solid #ddd;
 }
 
-.toggle-text {
+.dialog-overlay .toggle-text {
     display: block;
     color: #691B32;
     cursor: pointer;
@@ -87,12 +89,11 @@
     transition: color 0.3s ease;
 }
 
-.toggle-text:hover {
+.dialog-overlay .toggle-text:hover {
     color: #A02142;
-    /* Cambia el color al hacer hover */
 }
 
-.dialog-button {
+.dialog-overlay .dialog-button {
     background: #691B32;
     color: white;
     border: none;
@@ -102,7 +103,7 @@
     border-radius: 5px;
 }
 
-.dialog-button:hover {
+.dialog-overlay .dialog-button:hover {
     background: #A02142;
 }
 
