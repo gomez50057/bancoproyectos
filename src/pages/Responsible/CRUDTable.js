@@ -136,8 +136,9 @@ const CRUDTable = () => {
     {
       name: "Acciones",
       options: {
+        setCellProps: () => ({ className: 'sticky-column' }),
         customBodyRender: (value, tableMeta, updateValue) => {
-          const projectId = tableMeta.rowData[1]; // Cambiar el índice para obtener project_id
+          const projectId = tableMeta.rowData[1];
           const project = projects.find(p => p.project_id === projectId);
           return (
             <>
@@ -153,6 +154,7 @@ const CRUDTable = () => {
 
   const options = {
     selectableRows: 'none',
+    stickyHeader: true,  // Habilitar stickyHeader
     setRowProps: (row, dataIndex) => ({
       className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
       classNameHover: 'table_row_hover'
@@ -212,6 +214,12 @@ const CRUDTable = () => {
               fontWeight: 600,
               backgroundColor: 'none',
               textAlign: 'center',
+              '&.sticky-column': { // Fijar la cabecera de la columna de acciones
+                position: 'sticky',
+                right: 0,
+                backgroundColor: 'inherit',
+                zIndex: 1,
+              },
             },
           },
         },
@@ -251,6 +259,12 @@ const CRUDTable = () => {
               '& .MUIDataTableBodyCell-root:last-child:hover': {
                 backgroundColor: 'transparent',
                 boxShadow: 'none',
+              },
+              '& .sticky-column': { // Fijar la columna de acciones
+                position: 'sticky',
+                right: 0,
+                backgroundColor: 'inherit',
+                zIndex: 1,
               },
             },
           },
