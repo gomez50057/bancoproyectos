@@ -141,11 +141,11 @@ const CRUDTable = () => {
           const projectId = tableMeta.rowData[1];
           const project = projects.find(p => p.project_id === projectId);
           return (
-            <>
+            <div className="Acciones-con">
               <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
               <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
               <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Ficha</button>
-            </>
+            </div>
           );
         }
       }
@@ -217,7 +217,6 @@ const CRUDTable = () => {
               '&.sticky-column': { // Fijar la cabecera de la columna de acciones
                 position: 'sticky',
                 right: 0,
-                backgroundColor: 'inherit',
                 zIndex: 1,
               },
             },
@@ -230,6 +229,7 @@ const CRUDTable = () => {
               padding: '10px',
               borderRadius: '40px',
               background: 'linear-gradient(to left, #A02142, #691B32)',
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.7)',
             },
             icon: {
               color: '#DEC9A3',
@@ -263,7 +263,6 @@ const CRUDTable = () => {
               '& .sticky-column': { // Fijar la columna de acciones
                 position: 'sticky',
                 right: 0,
-                backgroundColor: 'inherit',
                 zIndex: 1,
               },
             },
