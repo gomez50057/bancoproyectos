@@ -7,8 +7,6 @@ import { CssBaseline, Typography } from '@mui/material';
 import { getCsrfToken } from '../../utils';
 import ProjectDialog from './ProjectDialog';
 import './CRUDTable.css';
-import { pdf } from '@react-pdf/renderer';
-import ProjectReport from './ProjectReport';
 import { useNavigate } from 'react-router-dom';
 
 const CRUDTable = () => {
@@ -73,17 +71,6 @@ const CRUDTable = () => {
   const handleGenerateReport = useCallback((project_id) => {
     const reportUrl = `/proyecto/reporte/${project_id}/`;
     window.open(reportUrl, '_blank');
-  }, []);
-
-  const handleOpenPDF = useCallback(async (project) => {
-    const blob = await pdf(<ProjectReport project={project} />).toBlob();
-    const url = URL.createObjectURL(blob);
-    const newWindow = window.open(url, '_blank');
-    if (newWindow) {
-      newWindow.onload = () => {
-        newWindow.document.title = `${project.project_id}.pdf`;
-      };
-    }
   }, []);
 
   const handleViewReactReport = useCallback((projectId) => {
@@ -156,8 +143,7 @@ const CRUDTable = () => {
             <>
               <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
               <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
-              <button className="crud-button" onClick={() => handleOpenPDF(project)}>Ficha</button>
-              <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Vista React</button>
+              <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Ficha</button>
             </>
           );
         }
