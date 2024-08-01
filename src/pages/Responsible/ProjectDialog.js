@@ -42,20 +42,27 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
   const renderInputField = (key) => (
     <div key={key} className="dialog-input-container">
       <label className="dialog-label">{key.replace('_', ' ')}</label>
-      <input
-        className="dialog-input"
-        type="text"
-        name={key}
-        value={project[key] || ''}
-        onChange={onChange}
-        disabled={project[`isBlocked_${key}`] || key === 'project_id' || key === 'fecha_registro' || key === 'user__username'}
-      />
-      {!(key === 'project_id' || key === 'fecha_registro' || key === 'user__username') && (
-        <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
-          {project[`isBlocked_${key}`] ? 'Desbloquear' : 'Bloquear'}
-        </span>
-      )}
-      {showObservationFields[key] ? (
+      <div className="input-actions-container">
+        <input
+          className="dialog-input"
+          type="text"
+          name={key}
+          value={project[key] || ''}
+          onChange={onChange}
+          disabled={project[`isBlocked_${key}`] || key === 'project_id' || key === 'fecha_registro' || key === 'user__username'}
+        />
+        <div className="input-actions">
+          {!(key === 'project_id' || key === 'fecha_registro' || key === 'user__username') && (
+            <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
+              {project[`isBlocked_${key}`] ? 'Corrección' : 'Validado'}
+            </span>
+          )}
+          <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
+            Agregar observación
+          </span>
+        </div>
+      </div>
+      {showObservationFields[key] && (
         <div className="dialog-observation-container">
           <input
             className="dialog-input"
@@ -69,10 +76,6 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
             Quitar comentario
           </span>
         </div>
-      ) : (
-        <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
-          Agregar observación
-        </span>
       )}
     </div>
   );
@@ -94,7 +97,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
         ))}
       </select>
       <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
-        {project[`isBlocked_${key}`] ? 'Desbloquear' : 'Bloquear'}
+        {project[`isBlocked_${key}`] ? 'Corrección' : 'Validado'}
       </span>
     </div>
   );
