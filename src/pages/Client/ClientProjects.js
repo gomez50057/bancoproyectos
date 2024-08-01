@@ -44,7 +44,7 @@ const ClientProjects = () => {
         customBodyRender: (value, tableMeta) => {
           const projectId = projects[tableMeta.rowIndex][0]; // Asegúrate de que el índice sea correcto
           return (
-            <button onClick={() => handleEditClick(projectId)}>
+            <button className="crud-button" onClick={() => handleEditClick(projectId)}>
               Editar
             </button>
           );
