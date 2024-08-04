@@ -157,10 +157,23 @@ const EditProject = () => {
     const fetchProject = async () => {
       try {
         const response = await axios.get(`/proyecto/${projectId}/`);
-        setProject(response.data);
+        setProject({
+          ...response.data,
+          estudiosProspectivos: [],
+          estudiosFactibilidad: [],
+          analisisAlternativas: [],
+          validacionNormativa: [],
+          liberacionDerechoVia: [],
+          situacionSinProyectoFotografico: [],
+          situacionConProyectoProyeccion: [],
+          analisisCostoBeneficio: [],
+          expedienteTecnico: [],
+          proyectoEjecutivo: [],
+          manifestacionImpactoAmbiental: [],
+          otrosEstudios: [],
+        });
         setSelectedRegion(response.data.region);
 
-        // Actualizar el estado de applies según los valores recibidos del servidor
         setApplies({
           estudiosProspectivos: response.data.applies_estudiosProspectivos,
           estudiosFactibilidad: response.data.applies_estudiosFactibilidad,
