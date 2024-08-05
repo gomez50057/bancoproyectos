@@ -93,7 +93,7 @@ const validationSchemaStep2 = Yup.object().shape({
   montoFederal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
   montoEstatal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
   montoMunicipal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
-  montoOtros: Yup.number().min(0, 'El monto no puede ser negativo').nullable().default('N/A'),
+  montoOtros: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
   descripcion: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La descripción es obligatoria'),
   situacionSinProyecto: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La situación sin el proyecto es obligatoria'),
   objetivos: Yup.string().max(500, 'Máximo 500 caracteres').required('Los objetivos son obligatorios'),
@@ -625,7 +625,7 @@ const EditProject = () => {
                       <label>Otros {project.observacion_monto_otros && (
                         <CustomTooltip id="observacion_monto_otros" text={project.observacion_monto_otros} />
                       )}</label>
-                      <Field type="number" name="montoOtros" min="0" defaultValue="N/A" disabled={project.isBlocked_monto_otros} onChange={(e) => {
+                      <Field type="number" name="montoOtros" min="0" disabled={project.isBlocked_monto_otros} onChange={(e) => {
                         setFieldValue('montoOtros', e.target.value);
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
