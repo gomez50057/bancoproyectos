@@ -1,9 +1,7 @@
-// Archivo: src/pages/Responsible/EditProject.js
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import Select from 'react-select';
 import { useParams, useNavigate } from 'react-router-dom';
 import CustomTooltip from './Tooltip'; 
@@ -93,7 +91,7 @@ const validationSchemaStep2 = Yup.object().shape({
   montoFederal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
   montoEstatal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
   montoMunicipal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
-  montoOtros: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
+  montoOtros: Yup.number().min(0, 'El monto no puede ser negativo').nullable().default('N/A'),
   descripcion: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La descripción es obligatoria'),
   situacionSinProyecto: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La situación sin el proyecto es obligatoria'),
   objetivos: Yup.string().max(500, 'Máximo 500 caracteres').required('Los objetivos son obligatorios'),
@@ -196,88 +194,6 @@ const EditProject = () => {
     fetchProject();
   }, [projectId]);
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    try {
-      const formData = new FormData();
-      formData.append('project_name', values.projectName);
-      formData.append('sector', values.sector);
-      formData.append('tipo_proyecto', values.tipoProyecto);
-      formData.append('tipo_entidad', values.entityType);
-      formData.append('dependencia', values.dependencia || 'No Aplica');
-      formData.append('organismo', values.organismo || 'No Aplica');
-      formData.append('municipio', values.municipio || 'No Aplica');
-      formData.append('municipioEnd', values.municipioEnd || 'No Aplica');
-      formData.append('peticion_personal', values.PeticionPersonal || 'No Aplica');
-      formData.append('monto_federal', parseFloat(values.montoFederal) || 0);
-      formData.append('monto_estatal', parseFloat(values.montoEstatal) || 0);
-      formData.append('monto_municipal', parseFloat(values.montoMunicipal) || 0);
-      formData.append('monto_otros', parseFloat(values.montoOtros) || 0);
-      formData.append('inversion_estimada', parseFloat(values.inversionEstimada) || 0);
-      formData.append('descripcion', values.descripcion);
-      formData.append('situacion_sin_proyecto', values.situacionSinProyecto);
-      formData.append('objetivos', values.objetivos);
-      formData.append('metas', values.metas);
-      formData.append('programa_presupuestario', values.programaPresupuestario);
-      formData.append('beneficiarios', values.beneficiarios || 0);
-      formData.append('alineacion_normativa', values.alineacionNormativa);
-      formData.append('region', values.region);
-      formData.append('latitud', parseFloat(values.latitud));
-      formData.append('longitud', parseFloat(values.longitud));
-      formData.append('plan_nacional', values.planNacional);
-      formData.append('plan_estatal', values.planEstatal);
-      formData.append('plan_municipal', values.planMunicipal || 'No Aplica');
-      formData.append('ods', values.ods);
-      formData.append('plan_sectorial', values.planSectorial || 'No Aplica');
-      formData.append('unidad_responsable', values.unidadResponsable);
-      formData.append('unidad_presupuestal', values.unidadPresupuestal);
-      formData.append('ramo_presupuestal', values.ramoPresupuestal);
-
-      if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
-        const municipiosImpactoJson = JSON.stringify(values.municipiosImpacto.map(mun => mun.value));
-        formData.append('municipios_impacto', municipiosImpactoJson);
-      } else {
-        formData.append('municipios_impacto', '[]');
-      }
-
-      formData.append('localidad', values.localidad || 'No Aplica');
-      formData.append('barrio_colonia_ejido', values.barrio_colonia_ejido || 'No Aplica');
-      formData.append('observaciones', values.observaciones || 'No Aplica');
-      formData.append('gasto_programable', values.gastoProgramable);
-      formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
-      formData.append('indicadores_tacticos', values.indicadoresTacticos || 'No Aplica');
-      formData.append('indicadores_desempeno', values.indicadoresDesempeno || 'No Aplica');
-      formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
-      formData.append('estado_inicial', values.estadoInicial);
-      formData.append('estado_con_proyecto', values.estadoConProyecto);
-
-      for (const key in applies) {
-        if (applies[key]) {
-          for (const file of values[key]) {
-            formData.append(key, file);
-          }
-        }
-      }
-
-      const csrfToken = Cookies.get('csrftoken');
-
-      await axios.put(`/proyecto/${projectId}/`, formData, {
-        headers: {
-          'X-CSRFToken': csrfToken,
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-
-      setModalIsOpen(true);
-
-      resetForm();
-      setSubmitting(false);
-    } catch (error) {
-      console.error('Error al actualizar el proyecto:', error.response ? error.response.data : error);
-      alert(`Ocurrió un error al actualizar el proyecto: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
-      setSubmitting(false);
-    }
-  };
-
   const closeModal = () => {
     setModalIsOpen(false);
     navigate('/panel-usuario'); // Redirigir a otra página después de cerrar el modal
@@ -371,9 +287,8 @@ const EditProject = () => {
             estadoConProyecto: null,
           }}
           validationSchema={validationSchemaStep2}
-          onSubmit={handleSubmit}
         >
-          {({ isSubmitting, setFieldValue, values }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <div>
                 <div className="titulosForm">
@@ -625,7 +540,7 @@ const EditProject = () => {
                       <label>Otros {project.observacion_monto_otros && (
                         <CustomTooltip id="observacion_monto_otros" text={project.observacion_monto_otros} />
                       )}</label>
-                      <Field type="number" name="montoOtros" min="0" disabled={project.isBlocked_monto_otros} onChange={(e) => {
+                      <Field type="number" name="montoOtros" min="0" defaultValue="N/A" disabled={project.isBlocked_monto_otros} onChange={(e) => {
                         setFieldValue('montoOtros', e.target.value);
                         setFieldValue('inversionEstimada', calculateTotal(values));
                       }} />
@@ -1068,10 +983,6 @@ const EditProject = () => {
                   <ErrorMessage name="observaciones" component="div" className="error" />
                   <div>Máximo 1000 caracteres</div>
                 </div>
-
-                <button type="submit" disabled={isSubmitting}>
-                  Enviar
-                </button>
 
               </div>
             </Form>
