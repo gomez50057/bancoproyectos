@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ClientProjects = () => {
   const [projects, setProjects] = useState([]);
-  const navigate = useNavigate(); // useNavigate hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -29,7 +29,7 @@ const ClientProjects = () => {
   }, []);
 
   const handleEditClick = (projectId) => {
-    navigate(`/editar-proyecto/${projectId}`); // Redirection to edit page
+    navigate(`/editar-proyecto/${projectId}`);
   };
 
   const columns = [
@@ -42,7 +42,7 @@ const ClientProjects = () => {
       options: { 
         setCellProps: () => ({ style: { textAlign: 'center' } }),
         customBodyRender: (value, tableMeta) => {
-          const projectId = projects[tableMeta.rowIndex][0]; // Asegúrate de que el índice sea correcto
+          const projectId = projects[tableMeta.rowIndex][0];
           return (
             <button className="crud-button" onClick={() => handleEditClick(projectId)}>
               Editar
