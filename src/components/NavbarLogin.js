@@ -20,24 +20,8 @@ const NavbarLogin = () => {
         fetchUsername();
     }, []);
 
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [visible, setVisible] = useState(true);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollPos = window.pageYOffset;
-            setVisible(currentScrollPos < scrollPosition || currentScrollPos < 10);
-            setScrollPosition(currentScrollPos);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [scrollPosition]);
-
-
     return (
-        <nav className={`NavbarLogin ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
-
+        <nav className="NavbarLogin">
             <ul>
                 <div className="NavbarLogin_img">
                     <img src={`${imgBasePath}Logotipo.webp`} alt="img_representativa" />
