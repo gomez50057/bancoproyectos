@@ -177,6 +177,21 @@ p {
   visibility: visible;
 }
 
+.NavbarLogin.active {
+  top: 0;
+  transition: top 0.3s;
+}
+
+.NavbarLogin.hidden {
+  top: -60px; /* Ajusta según la altura de tu navbar */
+  transition: top 0.3s;
+}
+
+.NavbarLogin.scrolled {
+  background-color: rgba(0, 0, 0, 0.8); /* Ajusta según tu diseño */
+  transition: background-color 0.3s;
+}
+
 .NavbarLogin_inicio,
 .NavbarLogin_img {
   display: flex;
