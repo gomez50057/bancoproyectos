@@ -1,4 +1,3 @@
-// EditProject.js
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import axios from 'axios';
@@ -24,7 +23,7 @@ import {
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
-import './ClientPanel.css'; // Importar estilos
+import './ClientPanel.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
@@ -135,7 +134,7 @@ const EditProject = () => {
 
   const closeModal = () => {
     setModalIsOpen(false);
-    navigate('/panel-usuario'); // Redirigir a otra página después de cerrar el modal
+    navigate('/panel-usuario');
   };
 
   const formatCurrency = (value) => {
@@ -228,7 +227,6 @@ const EditProject = () => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               const formData = new FormData();
-              formData.append('project_id', project.project_id); // Asegúrate de enviar project_id
               formData.append('project_name', values.projectName);
               formData.append('sector', values.sector);
               formData.append('tipo_proyecto', values.tipoProyecto);
@@ -290,7 +288,7 @@ const EditProject = () => {
 
               const csrfToken = Cookies.get('csrftoken');
 
-              await axios.put(`/proyecto/${projectId}/`, formData, {
+              await axios.put(`/update-project/${projectId}/`, formData, {
                 headers: {
                   'X-CSRFToken': csrfToken,
                   'Content-Type': 'multipart/form-data'
@@ -521,7 +519,7 @@ const EditProject = () => {
                 <h3>Fuentes de Financiamiento</h3>
                 <div className="linea_form"></div>
               </div>
-              
+
               <div className="FuentesFinanciamiento">
                 <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
                 <div className="formFour">
@@ -960,57 +958,67 @@ const EditProject = () => {
 
                     {applies[field] && (
                       <FieldArray name={field}>
-                        {({ push, remove, form }) => (
+                        {({ push, remove }) => (
                           <div>
-                            {form.values[field].map((file, index) => (
-                              <div key={index}>
+                            {values[field].map((file, index) => (
+                              <div key={index} className="file-input-group">
                                 <input
                                   type="file"
-                                  name={`${field}.${index}`}
                                   onChange={(event) => {
-                                    const filesArray = Array.from(event.currentTarget.files);
-                                    const updatedFiles = [...form.values[field]];
-                                    updatedFiles[index] = filesArray[0];
-                                    form.setFieldValue(field, updatedFiles);
+                                    const files = Array.from(event.currentTarget.files);
+                                    files.forEach(file => setFieldValue(`${field}.${index}`, file));
                                   }}
-                                  accept=".pdf,.jpeg,.jpg,.png,.doc,.docx,.xls,.xlsx"
+                                  accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
+                                  disabled={project[`isBlocked_${field}`]} // Deshabilitar si está bloqueado
                                 />
-                                <button type="button" onClick={() => remove(index)}>Remove</button>
+                                <button type="button" onClick={() => remove(index)} disabled={project[`isBlocked_${field}`]}>Eliminar</button> {/* Deshabilitar si está bloqueado */}
                               </div>
                             ))}
-                            <button type="button" onClick={() => push('')}>Add File</button>
+                            <button type="button" onClick={() => push(null)} className="add-file-button" disabled={project[`isBlocked_${field}`]}> {/* Deshabilitar si está bloqueado */}
+                              Agregar Archivo
+                            </button>
                           </div>
                         )}
                       </FieldArray>
                     )}
+                    <ErrorMessage name={field} component="div" className="error" />
                   </div>
                 ))}
               </div>
 
               <div className="titulosForm">
-                <h3>Observaciones</h3>
+                <h3>Observaciones y Comentarios</h3>
                 <div className="linea_form"></div>
               </div>
+
               <div className="form-group observaciones">
                 <label>Observaciones {project.observacion_observaciones && (
                   <CustomTooltip id="observacion_observaciones" text={project.observacion_observaciones} />
                 )}</label>
-                <Field as="textarea" name="observaciones" maxLength="500" disabled={project.isBlocked_observaciones} />
+                <Field as="textarea" name="observaciones" maxLength="1000" disabled={project.isBlocked_observaciones} />
                 <ErrorMessage name="observaciones" component="div" className="error" />
-                <div>Máximo 500 caracteres</div>
+                <div>Máximo 1000 caracteres</div>
               </div>
 
-              <div className="form-group submit">
-                <button type="submit" disabled={isSubmitting}>Guardar Proyecto</button>
-              </div>
+              <button type="submit" disabled={isSubmitting}>
+                Actualizar Proyecto
+              </button>
+
             </Form>
           )}
         </Formik>
       )}
-      <StyledModal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Modal" style={globalModalStyles}>
-        <h2>Proyecto Actualizado</h2>
-        <p>El proyecto ha sido actualizado exitosamente.</p>
-        <button onClick={closeModal}>Cerrar</button>
+
+      <StyledModal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        shouldCloseOnOverlayClick={false}
+        shouldCloseOnEsc={false}
+        contentLabel="Proyecto Actualizado"
+        css={globalModalStyles}
+      >
+        <h2>Proyecto actualizado exitosamente</h2>
+        <button onClick={closeModal}>He finalizado</button>
       </StyledModal>
     </div>
   );
