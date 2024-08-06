@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './styles.css';
-
+const img = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img/";
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const NavbarLogin = () => {
@@ -37,7 +37,7 @@ const NavbarLogin = () => {
     <nav className={`NavbarLogin ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
       <ul>
         <div className="NavbarLogin_img">
-          <img src={`${imgBasePath}Logotipo.webp`} alt="img_representativa" />
+          <img src={`${img}Logotipo.webp`} alt="img_representativa" />
           <li><Link to="/" className=""> Banco de Proyectos </Link></li>
         </div>
         <div className="NavbarLogin_inicio">

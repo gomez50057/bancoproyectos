@@ -82,9 +82,7 @@ p {
 }
 
 .navbar ul,
-.NavbarLogin ul,
 .navbar_opc {
-  list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -101,7 +99,6 @@ p {
 .navbar li a,
 .NavbarLogin li a {
   display: block;
-  color: var(--doradoClr);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -111,25 +108,46 @@ p {
 
 .navbar li a:hover,
 .NavbarLogin li a:hover {
-  color: var(--doradoOsc);
   text-decoration: underline;
 }
 
-.Navbar.active, .NavbarLogin.active {
+.navbar li a{
+  color: var(--doradoClr);
+}
+
+.navbar li a:hover{
+  color: var(--doradoOsc);
+}
+
+.NavbarLogin li a {
+  color: var(--vinoOsc);
+}
+
+.NavbarLogin li a:hover {
+  color: var(--vinoClr);
+}
+
+.Navbar.active,
+.NavbarLogin.active {
   top: 0;
   transition: top 0.3s;
 }
 
-.navbar.hidden,  .NavbarLogin.hidden {
+.navbar.hidden,
+.NavbarLogin.hidden {
   top: -150px;
   transition: top 0.3s;
 }
 
-.navbar.scrolled, .NavbarLogin.scrolled {
+.navbar.scrolled {
   backdrop-filter: blur(10px);
   background-color: hsla(345, 3%, 24%, 0.5);
   /* background: linear-gradient(90deg, rgba(86, 23, 44, 0.6), rgba(160, 34, 65, 0.6)); */
 }
+
+/* .NavbarLogin.scrolled {
+  backdrop-filter: blur(10px);
+} */
 
 .navbar img {
   width: auto;
@@ -141,15 +159,25 @@ p {
   height: 30px;
 }
 
-.NavbarLogin ul {
+.NavbarLogin {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.NavbarLogin ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 90vw;
   height: auto;
-  padding: 15px;
-  margin: 0;
+  padding: 5px 10px;
+  margin: 10px 0;
   text-decoration: none;
+  background-color: hsla(240, 33%, 96%, 0.81);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(3px);
+  border-radius: 100vw;
 }
 
 .Navbar_circulo {
@@ -160,8 +188,8 @@ p {
   align-items: center;
   justify-content: center;
   background: var(--blanco);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 
-              0 6px 20px rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+    0 6px 20px rgba(0, 0, 0, 0.19);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -171,8 +199,8 @@ p {
 
 .NavbarLogin .Navbar_circulo:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 
-              0 14px 28px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+    0 14px 28px rgba(0, 0, 0, 0.25);
 }
 
 .Navbar_circulo::after {
@@ -644,7 +672,7 @@ p {
   width: 30vw;
   height: auto;
   border-radius: 40px;
-  margin: 0 2vw;
+  margin-top: 2vh;
   padding: 3vw;
 }
 
