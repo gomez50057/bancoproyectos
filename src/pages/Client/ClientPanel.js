@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ClientPanel.css';
+
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 
@@ -37,8 +38,11 @@ const ClientPanel = () => {
           />
         </div>
       </div>
+      <img src={`${imgBasePath}galaxiaBlanca1-2.png`} alt="Decorative Star" className="background-image-left" />
+      <img src={`${imgBasePath}pajaroBlanco.png`} alt="Decorative Pajaro" className="background-image-right" />
     </div>
   );
 };
+
 
 export default ClientPanel;
