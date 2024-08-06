@@ -12,12 +12,13 @@ const NavbarLogin = () => {
         <nav className="NavbarLogin">
             <ul>
                 <div className="NavbarLogin_img">
-                    <li><Link to="/" className=""> Banco de Proyectos </Link></li>
                     <img src={`${imgBasePath}Logotipo.webp`} alt="img_representativa" />
+                    <li><Link to="/" className=""> Banco de Proyectos </Link></li>
                 </div>
                 <div className="NavbarLogin_inicio">
-                    <li><Link to="/login" className=""> Acceder </Link></li>
-                    <li><Link to="/" className=""> Registrate </Link></li>
+                    <div className="Navbar_circulo">
+                        <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
+                    </div>
                 </div>
             </ul>
         </nav>

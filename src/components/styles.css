@@ -146,6 +146,16 @@ p {
   text-decoration: none;
 }
 
+.Navbar_circulo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--doradoClr);
+}
+
 .NavbarLogin_inicio,
 .NavbarLogin_img {
   display: flex;
