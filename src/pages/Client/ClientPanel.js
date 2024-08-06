@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
 import './ClientPanel.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
@@ -24,7 +23,6 @@ const ClientPanel = () => {
 
   return (
     <div className="client-panel-container">
-      <Navbar />
       <div className="client-panel-content">
         <div className="card-container">
           <Card 
