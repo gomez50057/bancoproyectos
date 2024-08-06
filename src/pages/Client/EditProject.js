@@ -69,8 +69,6 @@ const globalModalStyles = css`
 `;
 
 const EditProject = () => {
-  const { projectId } = useParams();
-  const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [applies, setApplies] = useState({
     estudiosProspectivos: false,
@@ -88,6 +86,8 @@ const EditProject = () => {
   });
   const [selectedRegion, setSelectedRegion] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { projectId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -275,8 +275,16 @@ const EditProject = () => {
               formData.append('indicadores_tacticos', values.indicadoresTacticos || 'No Aplica');
               formData.append('indicadores_desempeno', values.indicadoresDesempeno || 'No Aplica');
               formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
-              formData.append('estado_inicial', values.estadoInicial);
-              formData.append('estado_con_proyecto', values.estadoConProyecto);
+
+              // Manejar estadoInicial
+              if (values.estadoInicial && typeof values.estadoInicial !== 'string') {
+                formData.append('estado_inicial', values.estadoInicial);
+              }
+
+              // Manejar estadoConProyecto
+              if (values.estadoConProyecto && typeof values.estadoConProyecto !== 'string') {
+                formData.append('estado_con_proyecto', values.estadoConProyecto);
+              }
 
               for (const key in applies) {
                 if (applies[key]) {
@@ -891,19 +899,8 @@ const EditProject = () => {
                   <label>Estado Inicial (Fotografía) {project.observacion_estado_inicial && (
                     <CustomTooltip id="observacion_estado_inicial" text={project.observacion_estado_inicial} />
                   )}</label>
-                  {typeof values.estadoInicial === 'string' ? (
-                    <div>
-                      <a href={values.estadoInicial} target="_blank" rel="noopener noreferrer">Ver archivo existente</a>
-                      <input
-                        type="file"
-                        name="estadoInicial"
-                        onChange={(event) => {
-                          setFieldValue("estadoInicial", event.currentTarget.files[0]);
-                        }}
-                        accept=".jpeg,.jpg,.png"
-                        disabled={project.isBlocked_estado_inicial}
-                      />
-                    </div>
+                  {project.isBlocked_estado_inicial && values.estadoInicial && typeof values.estadoInicial === 'string' ? (
+                    <a href={values.estadoInicial} target="_blank" rel="noopener noreferrer">Ver archivo</a>
                   ) : (
                     <input
                       type="file"
@@ -921,19 +918,8 @@ const EditProject = () => {
                   <label>Estado con Proyecto (Proyección) {project.observacion_estado_con_proyecto && (
                     <CustomTooltip id="observacion_estado_con_proyecto" text={project.observacion_estado_con_proyecto} />
                   )}</label>
-                  {typeof values.estadoConProyecto === 'string' ? (
-                    <div>
-                      <a href={values.estadoConProyecto} target="_blank" rel="noopener noreferrer">Ver archivo existente</a>
-                      <input
-                        type="file"
-                        name="estadoConProyecto"
-                        onChange={(event) => {
-                          setFieldValue("estadoConProyecto", event.currentTarget.files[0]);
-                        }}
-                        accept=".jpeg,.jpg,.png"
-                        disabled={project.isBlocked_estado_con_proyecto}
-                      />
-                    </div>
+                  {project.isBlocked_estado_con_proyecto && values.estadoConProyecto && typeof values.estadoConProyecto === 'string' ? (
+                    <a href={values.estadoConProyecto} target="_blank" rel="noopener noreferrer">Ver archivo</a>
                   ) : (
                     <input
                       type="file"
@@ -976,11 +962,11 @@ const EditProject = () => {
                       )}</label>
                       <div className="checkAplica">
                         <label>
-                          <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} disabled={project[`isBlocked_${field}`]} /> {/* Deshabilitar si está bloqueado */}
+                          <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} disabled={project[`isBlocked_${field}`]} />
                           Aplica
                         </label>
                         <label>
-                          <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} disabled={project[`isBlocked_${field}`]} /> {/* Deshabilitar si está bloqueado */}
+                          <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} disabled={project[`isBlocked_${field}`]} />
                           No Aplica
                         </label>
                       </div>
@@ -992,21 +978,25 @@ const EditProject = () => {
                           <div>
                             {values[field].map((file, index) => (
                               <div key={index} className="file-input-group">
-                                <input
-                                  type="file"
-                                  onChange={(event) => {
-                                    const files = Array.from(event.currentTarget.files);
-                                    files.forEach(file => setFieldValue(`${field}.${index}`, file));
-                                  }}
-                                  accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
-                                  disabled={project[`isBlocked_${field}`]} // Deshabilitar si está bloqueado
-                                />
-                                <button type="button" onClick={() => remove(index)} disabled={project[`isBlocked_${field}`]}>Eliminar</button> {/* Deshabilitar si está bloqueado */}
+                                {typeof file === 'string' ? (
+                                  <a href={file} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+                                ) : (
+                                  <>
+                                    <input
+                                      type="file"
+                                      onChange={(event) => {
+                                        const files = Array.from(event.currentTarget.files);
+                                        files.forEach(file => setFieldValue(`${field}.${index}`, file));
+                                      }}
+                                      accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
+                                      disabled={project[`isBlocked_${field}`]}
+                                    />
+                                    <button type="button" onClick={() => remove(index)} disabled={project[`isBlocked_${field}`]}>Eliminar</button>
+                                  </>
+                                )}
                               </div>
                             ))}
-                            <button type="button" onClick={() => push(null)} className="add-file-button" disabled={project[`isBlocked_${field}`]}> {/* Deshabilitar si está bloqueado */}
-                              Agregar Archivo
-                            </button>
+                            <button type="button" onClick={() => push(null)} className="add-file-button" disabled={project[`isBlocked_${field}`]}>Agregar Archivo</button>
                           </div>
                         )}
                       </FieldArray>
@@ -1055,3 +1045,4 @@ const EditProject = () => {
 };
 
 export default EditProject;
+
