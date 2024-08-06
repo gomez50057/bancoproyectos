@@ -82,14 +82,15 @@ p {
 }
 
 .navbar ul,
-.NavbarLogin ul {
+.NavbarLogin ul,
+.navbar_opc {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: transparent;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .navbar li,
