@@ -33,12 +33,12 @@ const AppRoutes = () => {
         <Routes>
             <Route path="/" element={<MainLayout><MainContent /></MainLayout>} />
             <Route path="/login" element={<LoginLayout><Login /></LoginLayout>} />
-            <Route path="/table" element={<MainLayout><TableComponent /></MainLayout>} />
-            <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><FormDependencia /></MainLayout></PrivateRoute>} />
-            <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><ClientPanel /></MainLayout></PrivateRoute>} />
+            <Route path="/table" element={<LoginLayout><TableComponent /></LoginLayout>} />
+            <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} />
+            <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} />
             <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><ClientProjects /></MainLayout></PrivateRoute>} />
-            <Route path="/editar-proyecto/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><MainLayout><EditProject /></MainLayout></PrivateRoute>} />
-            <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><MainLayout><CRUDTable /></MainLayout></PrivateRoute>} />
+            <Route path="/editar-proyecto/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><EditProject /></LoginLayout></PrivateRoute>} />
+            <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} />
             <Route path="/project-report-react/:projectId" element={<ProjectReportReact />} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
