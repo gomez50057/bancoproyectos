@@ -115,11 +115,17 @@ p {
   text-decoration: underline;
 }
 
-.navbar.hidden {
-  top: -150px;
+.Navbar.active, .NavbarLogin.active {
+  top: 0;
+  transition: top 0.3s;
 }
 
-.navbar.scrolled {
+.navbar.hidden,  .NavbarLogin.hidden {
+  top: -150px;
+  transition: top 0.3s;
+}
+
+.navbar.scrolled, .NavbarLogin.scrolled {
   backdrop-filter: blur(10px);
   background-color: hsla(345, 3%, 24%, 0.5);
   /* background: linear-gradient(90deg, rgba(86, 23, 44, 0.6), rgba(160, 34, 65, 0.6)); */
@@ -141,7 +147,7 @@ p {
   align-items: center;
   width: 100vw;
   height: auto;
-  padding: 5px;
+  padding: 15px;
   margin: 0;
   text-decoration: none;
 }
@@ -153,7 +159,20 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--doradoClr);
+  background: var(--blanco);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 
+              0 6px 20px rgba(0, 0, 0, 0.19);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.NavbarLogin .Navbar_circulo img {
+  border-radius: 50%;
+}
+
+.NavbarLogin .Navbar_circulo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 
+              0 14px 28px rgba(0, 0, 0, 0.25);
 }
 
 .Navbar_circulo::after {
@@ -177,20 +196,6 @@ p {
   visibility: visible;
 }
 
-.NavbarLogin.active {
-  top: 0;
-  transition: top 0.3s;
-}
-
-.NavbarLogin.hidden {
-  top: -60px; /* Ajusta según la altura de tu navbar */
-  transition: top 0.3s;
-}
-
-.NavbarLogin.scrolled {
-  background-color: rgba(0, 0, 0, 0.8); /* Ajusta según tu diseño */
-  transition: background-color 0.3s;
-}
 
 .NavbarLogin_inicio,
 .NavbarLogin_img {
