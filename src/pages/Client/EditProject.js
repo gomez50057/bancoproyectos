@@ -69,6 +69,8 @@ const globalModalStyles = css`
 `;
 
 const EditProject = () => {
+  const { projectId } = useParams();
+  const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [applies, setApplies] = useState({
     estudiosProspectivos: false,
@@ -86,8 +88,6 @@ const EditProject = () => {
   });
   const [selectedRegion, setSelectedRegion] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { projectId } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -221,8 +221,8 @@ const EditProject = () => {
             indicadoresTacticos: project.indicadores_tacticos || '',
             indicadoresDesempeno: project.indicadores_desempeno || '',
             indicadoresRentabilidad: project.indicadores_rentabilidad || '',
-            estadoInicial: null,
-            estadoConProyecto: null,
+            estadoInicial: project.estado_inicial || null,
+            estadoConProyecto: project.estado_con_proyecto || null,
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
@@ -891,30 +891,60 @@ const EditProject = () => {
                   <label>Estado Inicial (Fotografía) {project.observacion_estado_inicial && (
                     <CustomTooltip id="observacion_estado_inicial" text={project.observacion_estado_inicial} />
                   )}</label>
-                  <input
-                    type="file"
-                    name="estadoInicial"
-                    onChange={(event) => {
-                      setFieldValue("estadoInicial", event.currentTarget.files[0]);
-                    }}
-                    accept=".jpeg,.jpg,.png"
-                    disabled={project.isBlocked_estado_inicial} // Deshabilitar si está bloqueado
-                  />
+                  {typeof values.estadoInicial === 'string' ? (
+                    <div>
+                      <a href={values.estadoInicial} target="_blank" rel="noopener noreferrer">Ver archivo existente</a>
+                      <input
+                        type="file"
+                        name="estadoInicial"
+                        onChange={(event) => {
+                          setFieldValue("estadoInicial", event.currentTarget.files[0]);
+                        }}
+                        accept=".jpeg,.jpg,.png"
+                        disabled={project.isBlocked_estado_inicial}
+                      />
+                    </div>
+                  ) : (
+                    <input
+                      type="file"
+                      name="estadoInicial"
+                      onChange={(event) => {
+                        setFieldValue("estadoInicial", event.currentTarget.files[0]);
+                      }}
+                      accept=".jpeg,.jpg,.png"
+                      disabled={project.isBlocked_estado_inicial}
+                    />
+                  )}
                   <ErrorMessage name="estadoInicial" component="div" className="error" />
                 </div>
                 <div className="form-group estadoConProyecto">
                   <label>Estado con Proyecto (Proyección) {project.observacion_estado_con_proyecto && (
                     <CustomTooltip id="observacion_estado_con_proyecto" text={project.observacion_estado_con_proyecto} />
                   )}</label>
-                  <input
-                    type="file"
-                    name="estadoConProyecto"
-                    onChange={(event) => {
-                      setFieldValue("estadoConProyecto", event.currentTarget.files[0]);
-                    }}
-                    accept=".jpeg,.jpg,.png"
-                    disabled={project.isBlocked_estado_con_proyecto} // Deshabilitar si está bloqueado
-                  />
+                  {typeof values.estadoConProyecto === 'string' ? (
+                    <div>
+                      <a href={values.estadoConProyecto} target="_blank" rel="noopener noreferrer">Ver archivo existente</a>
+                      <input
+                        type="file"
+                        name="estadoConProyecto"
+                        onChange={(event) => {
+                          setFieldValue("estadoConProyecto", event.currentTarget.files[0]);
+                        }}
+                        accept=".jpeg,.jpg,.png"
+                        disabled={project.isBlocked_estado_con_proyecto}
+                      />
+                    </div>
+                  ) : (
+                    <input
+                      type="file"
+                      name="estadoConProyecto"
+                      onChange={(event) => {
+                        setFieldValue("estadoConProyecto", event.currentTarget.files[0]);
+                      }}
+                      accept=".jpeg,.jpg,.png"
+                      disabled={project.isBlocked_estado_con_proyecto}
+                    />
+                  )}
                   <ErrorMessage name="estadoConProyecto" component="div" className="error" />
                 </div>
               </div>
