@@ -1,8 +1,6 @@
-// Archivo: src/pages/Responsible/EditProject.js
-
+// EditProject.js
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
-// import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
@@ -70,69 +68,6 @@ const globalModalStyles = css`
     background-color: rgba(0, 0, 0, 0.5) !important;
   }
 `;
-
-// Definición del esquema de validación de Yup para el formulario
-// const validationSchemaStep2 = Yup.object().shape({
-//   projectName: Yup.string().required('El nombre del proyecto es obligatorio'),
-//   sector: Yup.string().required('El sector es obligatorio'),
-//   tipoProyecto: Yup.string().required('El tipo de proyecto es obligatorio'),
-//   dependencia: Yup.string().when('entityType', {
-//     is: 'Dependencia',
-//     then: Yup.string().required('La dependencia es obligatoria'),
-//   }),
-//   organismo: Yup.string().when('entityType', {
-//     is: 'Organismo',
-//     then: Yup.string().required('El organismo es obligatorio'),
-//   }),
-//   municipio: Yup.string().when('entityType', {
-//     is: 'Municipio',
-//     then: Yup.string().required('El municipio es obligatorio'),
-//   }),
-//   PeticionPersonal: Yup.string().when('entityType', {
-//     is: 'Petición Personal',
-//     then: Yup.string().required('La petición personal es obligatoria'),
-//   }),
-//   montoFederal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
-//   montoEstatal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
-//   montoMunicipal: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
-//   montoOtros: Yup.number().min(0, 'El monto no puede ser negativo').nullable(),
-//   descripcion: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La descripción es obligatoria'),
-//   situacionSinProyecto: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La situación sin el proyecto es obligatoria'),
-//   objetivos: Yup.string().max(500, 'Máximo 500 caracteres').required('Los objetivos son obligatorios'),
-//   metas: Yup.string().max(500, 'Máximo 500 caracteres').required('Las metas son obligatorias'),
-//   programaPresupuestario: Yup.string().required('El programa presupuestario es obligatorio'),
-//   beneficiarios: Yup.number().min(1, 'El número de beneficiarios es obligatorio').nullable(),
-//   alineacionNormativa: Yup.string().max(200, 'Máximo 200 caracteres').required('La alineación normativa es obligatoria'),
-//   region: Yup.string().required('La región es obligatoria'),
-//   latitud: Yup.number().required('La latitud es obligatoria'),
-//   longitud: Yup.number().required('La longitud es obligatoria'),
-//   planNacional: Yup.string().required('El plan nacional de desarrollo es obligatorio'),
-//   planEstatal: Yup.string().required('El plan estatal de desarrollo es obligatorio'),
-//   planMunicipal: Yup.string().when('entityType', {
-//     is: 'Municipio',
-//     then: Yup.string().max(500, 'Máximo 500 caracteres').required('El plan municipal es obligatorio'),
-//   }),
-//   ods: Yup.string().required('Los objetivos de desarrollo sostenible son obligatorios'),
-//   planSectorial: Yup.string().required('El plan sectorial institucional es obligatorio'),
-//   unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
-//   unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
-//   ramoPresupuestal: Yup.string().required('El ramo presupuestal es obligatorio'),
-//   municipiosImpacto: Yup.array().nullable(),
-//   observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
-//   gastoProgramable: Yup.string().required('El gasto programable es obligatorio'),
-//   indicadoresEstrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
-//   indicadoresTacticos: Yup.string().test('indicadoresTacticos', 'Los indicadores tácticos son obligatorios', function (value) {
-//     const { entityType, dependencia } = this.parent;
-//     if (entityType === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
-//       return value === 'No Aplica' || Boolean(value);
-//     }
-//     return true;
-//   }),
-//   indicadoresDesempeno: Yup.string().required('Los indicadores de desempeño son obligatorios'),
-//   indicadoresRentabilidad: Yup.string().required('Los indicadores de rentabilidad son obligatorios'),
-//   estadoInicial: Yup.mixed().required('La foto del estado inicial es obligatoria'),
-//   estadoConProyecto: Yup.mixed().required('La foto del estado con proyecto es obligatoria'),
-// });
 
 const EditProject = () => {
   const [project, setProject] = useState(null);
@@ -293,6 +228,7 @@ const EditProject = () => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               const formData = new FormData();
+              formData.append('project_id', project.project_id); // Asegúrate de enviar project_id
               formData.append('project_name', values.projectName);
               formData.append('sector', values.sector);
               formData.append('tipo_proyecto', values.tipoProyecto);
@@ -1024,70 +960,58 @@ const EditProject = () => {
 
                     {applies[field] && (
                       <FieldArray name={field}>
-                        {({ push, remove }) => (
+                        {({ push, remove, form }) => (
                           <div>
-                            {values[field].map((file, index) => (
-                              <div key={index} className="file-input-group">
+                            {form.values[field].map((file, index) => (
+                              <div key={index}>
                                 <input
                                   type="file"
+                                  name={`${field}.${index}`}
                                   onChange={(event) => {
-                                    const files = Array.from(event.currentTarget.files);
-                                    files.forEach(file => setFieldValue(`${field}.${index}`, file));
+                                    const filesArray = Array.from(event.currentTarget.files);
+                                    const updatedFiles = [...form.values[field]];
+                                    updatedFiles[index] = filesArray[0];
+                                    form.setFieldValue(field, updatedFiles);
                                   }}
-                                  accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
-                                  disabled={project[`isBlocked_${field}`]} // Deshabilitar si está bloqueado
+                                  accept=".pdf,.jpeg,.jpg,.png,.doc,.docx,.xls,.xlsx"
                                 />
-                                <button type="button" onClick={() => remove(index)} disabled={project[`isBlocked_${field}`]}>Eliminar</button> {/* Deshabilitar si está bloqueado */}
+                                <button type="button" onClick={() => remove(index)}>Remove</button>
                               </div>
                             ))}
-                            <button type="button" onClick={() => push(null)} className="add-file-button" disabled={project[`isBlocked_${field}`]}> {/* Deshabilitar si está bloqueado */}
-                              Agregar Archivo
-                            </button>
+                            <button type="button" onClick={() => push('')}>Add File</button>
                           </div>
                         )}
                       </FieldArray>
                     )}
-                    <ErrorMessage name={field} component="div" className="error" />
                   </div>
                 ))}
               </div>
 
               <div className="titulosForm">
-                <h3>Observaciones y Comentarios</h3>
+                <h3>Observaciones</h3>
                 <div className="linea_form"></div>
               </div>
-
               <div className="form-group observaciones">
                 <label>Observaciones {project.observacion_observaciones && (
                   <CustomTooltip id="observacion_observaciones" text={project.observacion_observaciones} />
                 )}</label>
-                <Field as="textarea" name="observaciones" maxLength="1000" disabled={project.isBlocked_observaciones} />
+                <Field as="textarea" name="observaciones" maxLength="500" disabled={project.isBlocked_observaciones} />
                 <ErrorMessage name="observaciones" component="div" className="error" />
-                <div>Máximo 1000 caracteres</div>
+                <div>Máximo 500 caracteres</div>
               </div>
 
-              <button type="submit" disabled={isSubmitting}>
-                Enviar
-              </button>
-
-
+              <div className="form-group submit">
+                <button type="submit" disabled={isSubmitting}>Guardar Proyecto</button>
+              </div>
             </Form>
           )}
         </Formik>
       )}
-
-      <StyledModal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        shouldCloseOnOverlayClick={false}
-        shouldCloseOnEsc={false}
-        contentLabel="Proyecto Actualizado"
-        css={globalModalStyles}
-      >
-        <h2>Proyecto actualizado exitosamente</h2>
-        <button onClick={closeModal}>He finalizado</button>
+      <StyledModal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Modal" style={globalModalStyles}>
+        <h2>Proyecto Actualizado</h2>
+        <p>El proyecto ha sido actualizado exitosamente.</p>
+        <button onClick={closeModal}>Cerrar</button>
       </StyledModal>
-
     </div>
   );
 };
