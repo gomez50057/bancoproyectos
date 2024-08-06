@@ -176,18 +176,19 @@ p {
 }
 
 .Navbar_circulo::after {
-  content: attr(title);
+  content: attr(data-username);
   position: absolute;
-  bottom: 100%;
+  top: 90%;
   left: 50%;
   transform: translateX(-50%);
-  padding: 5px;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: var(--doradoClr);
+  color: var(--vinoOsc);
+  border-radius: 10px;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
+  font-weight: 600;
   transition: opacity 0.3s;
 }
 

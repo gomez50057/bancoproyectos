@@ -41,7 +41,7 @@ const NavbarLogin = () => {
           <li><Link to="/" className=""> Banco de Proyectos </Link></li>
         </div>
         <div className="NavbarLogin_inicio">
-          <div className="Navbar_circulo" title={username}>
+          <div className="Navbar_circulo" data-username={username}>
             <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
           </div>
         </div>
