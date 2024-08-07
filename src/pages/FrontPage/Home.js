@@ -59,7 +59,7 @@ const Home = () => {
                     <img src={`${imgBasePath}hometxt.webp`} alt="img_representativa" />
                 </div>
                 <div className="home_img fade-in-target">
-                    <img src={`${imgBasePath}homeimg.png`} alt="img_representativa" className="floating-img" />
+                    <img src={`${imgBasePath}homeimg.webp`} alt="img_representativa" className="floating-img" />
                 </div>
             </div>
         </section>

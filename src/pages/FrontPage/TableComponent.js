@@ -38,7 +38,7 @@ const TableComponent = () => {
     "Tipo de Proyecto",
     { name: "Municipio", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
     { name: "Beneficiarios", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
-    { name: "Estatus", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } }
+    // { name: "Estatus", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } }
   ];
 
   const options = {
