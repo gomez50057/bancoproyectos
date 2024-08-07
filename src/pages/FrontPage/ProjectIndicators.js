@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import axios from 'axios';
 import '../../components/styles.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
@@ -38,27 +39,45 @@ const ProjectIndicators = () => {
 
   useEffect(() => {
     if (hasCounted) {
-      const totalValues = {
-        citizens: 90,
-        departments: 100,
-        municipalities: 110,
-        organizations: 120,
-      };
-      const fastSpeed = 10;
-      const mediumSpeed = 50;
-      const slowSpeed = 200;
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('/proyecto/');
+          const projects = response.data;
+          const totalValues = {
+            citizens: projects.filter(project => project.tipo_entidad === 'Petición Personal').length,
+            departments: projects.filter(project => project.tipo_entidad === 'Dependencia').length,
+            municipalities: projects.filter(project => project.tipo_entidad === 'Municipio').length,
+            organizations: projects.filter(project => project.tipo_entidad === 'Organismo').length,
+          };
 
-      Object.keys(totalValues).forEach((key) => {
-        let counter = 0;
-        const timer = setInterval(() => {
-          counter++;
-          setCounts((prevCounts) => ({
-            ...prevCounts,
-            [key]: counter,
-          }));
-          if (counter === totalValues[key]) clearInterval(timer);
-        }, counter > totalValues[key] - 10 ? slowSpeed : (counter > totalValues[key] - 20 ? mediumSpeed : fastSpeed));
-      });
+          const fastSpeed = 10;
+          const mediumSpeed = 50;
+          const slowSpeed = 200;
+
+          Object.keys(totalValues).forEach((key) => {
+            let counter = 0;
+            if (totalValues[key] === 0) {
+              setCounts((prevCounts) => ({
+                ...prevCounts,
+                [key]: 0,
+              }));
+            } else {
+              const timer = setInterval(() => {
+                counter++;
+                setCounts((prevCounts) => ({
+                  ...prevCounts,
+                  [key]: counter,
+                }));
+                if (counter === totalValues[key]) clearInterval(timer);
+              }, counter > totalValues[key] - 10 ? slowSpeed : (counter > totalValues[key] - 20 ? mediumSpeed : fastSpeed));
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching project data:', error);
+        }
+      };
+
+      fetchData();
     }
   }, [hasCounted]);
 
