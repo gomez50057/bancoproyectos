@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import axios from 'axios';
 import '../../components/styles.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
@@ -39,29 +40,44 @@ const About = () => {
 
   useEffect(() => {
     if (startCounter && !hasCounted) {
-      const totalRegisteredProjects = 200;
-      const totalProjectsInProcess = 531;
-      const totalApprovedProjects = 125;
-      const fastSpeed = 5;
-      const slowSpeed = 50;
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('/proyecto/');
+          const projects = response.data;
+          const totalRegisteredProjects = projects.length;
+          const totalProjectsInProcess = projects.filter(project => project.estatus === 'En Proceso').length;
+          const totalApprovedProjects = projects.filter(project => project.estatus === 'Atendido').length;
 
-      const animateCounter = (setCounter, total, delay) => {
-        let counter = 0;
-        const timer = setInterval(() => {
-          counter++;
-          setCounter(counter);
-          if (counter === total) {
-            clearInterval(timer);
-            if (total === totalApprovedProjects) {
-              setHasCounted(true); // Update the flag once all counters are done
+          const fastSpeed = 5;
+          const slowSpeed = 50;
+
+          const animateCounter = (setCounter, total) => {
+            if (total === 0) {
+              setCounter(0);
+              return;
             }
-          }
-        }, counter > total - 10 ? slowSpeed : fastSpeed);
+            let counter = 0;
+            const timer = setInterval(() => {
+              counter++;
+              setCounter(counter);
+              if (counter === total) {
+                clearInterval(timer);
+                if (total === totalApprovedProjects) {
+                  setHasCounted(true);
+                }
+              }
+            }, counter > total - 10 ? slowSpeed : fastSpeed);
+          };
+
+          animateCounter(setRegisteredProjects, totalRegisteredProjects);
+          animateCounter(setProjectsInProcess, totalProjectsInProcess);
+          animateCounter(setApprovedProjects, totalApprovedProjects);
+        } catch (error) {
+          console.error('Error fetching project data:', error);
+        }
       };
 
-      animateCounter(setRegisteredProjects, totalRegisteredProjects);
-      animateCounter(setProjectsInProcess, totalProjectsInProcess);
-      animateCounter(setApprovedProjects, totalApprovedProjects);
+      fetchData();
     }
   }, [startCounter, hasCounted]);
 
