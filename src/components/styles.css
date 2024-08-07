@@ -89,6 +89,7 @@ p {
   background-color: transparent;
   display: flex;
   justify-content: space-around;
+  list-style: none;
 }
 
 .navbar li,
@@ -102,8 +103,15 @@ p {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 24px;
   font-weight: 700;
+}
+
+.NavbarLogin li a {
+  font-size: 24px;
+}
+
+.navbar li a{
+  font-size: 18px;
 }
 
 .navbar li a:hover,
