@@ -105,11 +105,15 @@ const InteractiveMap = () => {
 
     return (
         <section id='map'>
-            <button id="toggleSidebar" onClick={toggleSidebar}>
+            <button 
+                id="toggleSidebar" 
+                onClick={toggleSidebar}
+                className={isSidebarOpen ? 'open' : ''}
+            >
                 {isSidebarOpen ? 'Cerrar' : 'Abrir panel de información'}
             </button>
             <div id="sidebar" className={isSidebarOpen ? 'open' : ''}>
-                <h1 className="sidebar-title">Proyectos</h1>
+                <p className="sidebar-title">Proyectos</p>
                 <label htmlFor="selectorMunicipio">Selecciona por municipio:</label>
                 <select id="selectorMunicipio">
                     <option value="">-- Selecciona por municipio --</option>
