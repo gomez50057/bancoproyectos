@@ -55,8 +55,8 @@ const InteractiveMap = () => {
                 if (layer.feature.properties.NOMGEO === selectedMunicipio) {
                     foundLayer = layer;
                     layer.setStyle({
-                        color: 'yellow',
-                        fillColor: 'yellow',
+                        color: '#691B32',
+                        fillColor: '#691B32',
                         fillOpacity: 0.2,
                         weight: 5
                     });
