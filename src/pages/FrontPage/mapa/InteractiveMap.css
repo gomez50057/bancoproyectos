@@ -3,7 +3,6 @@
     z-index: 1000;
     top: 0;
     left: -300px;
-    /* Comienza oculto */
     bottom: 0;
     width: 300px;
     background: rgba(105, 27, 50, 0.6);
@@ -149,29 +148,37 @@
     padding: 0;
 }
 
-/* Estilo para el nombre del proyecto */
 .popup-project-name {
     font-size: 18px;
-    /* Tamaño más grande para el nombre del proyecto */
     color: #691B32;
-    /* Color personalizado */
 }
 
-/* Estilo para las etiquetas (Tipo de Proyecto, Sector, etc.) */
 .popup-label {
     font-weight: bold;
-    /* Negrita para las etiquetas */
     color: #333;
 }
 
-/* Opcional: personaliza el estilo del borde del popup */
 .leaflet-popup-tip-container {
     display: none;
-    /* Opcional: esconde la flecha del popup */
 }
 
-/* Ajustar la apariencia de los enlaces si hay alguno */
 .leaflet-popup-content a {
     color: #007BFF;
     text-decoration: underline;
+}
+
+
+@media (max-width: 600px) {
+    .leaflet-popup-content-wrapper {
+        width: 90vw;
+        border-radius: 20px;
+    }
+
+    .popup-content {
+        width: 87vw;
+    }
+
+    .popup-project-name {
+        font-size: 16px;
+    }
 }
