@@ -207,7 +207,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
           </div>
           {renderInputField('observaciones')}
           {renderInputField('porcentaje_avance')}
-          {renderSelectField('estatus', ['Atendido', 'En Proceso', 'Sin Avance'])}
+          {renderSelectField('estatus', ['Atendido', 'En Proceso', 'Registrado'])}
           {renderSelectField('situacion', ['Vigente', 'Antecedente', 'Cancelado'])}
           {renderInputField('retroalimentacion')}
         </div>

@@ -44,7 +44,8 @@ const About = () => {
         try {
           const response = await axios.get('/proyecto/');
           const projects = response.data;
-          const totalRegisteredProjects = projects.length;
+          // const totalRegisteredProjects = projects.length;
+          const totalRegisteredProjects = projects.filter(project => project.estatus === 'Registrado').length;
           const totalProjectsInProcess = projects.filter(project => project.estatus === 'En Proceso').length;
           const totalApprovedProjects = projects.filter(project => project.estatus === 'Atendido').length;
 
