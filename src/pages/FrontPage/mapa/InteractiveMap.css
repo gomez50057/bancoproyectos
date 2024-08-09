@@ -2,25 +2,27 @@
     position: absolute;
     z-index: 1000;
     top: 0;
-    left: -300px; /* Comienza oculto */
+    left: -300px;
+    /* Comienza oculto */
     bottom: 0;
     width: 300px;
-    background: rgba(105, 27, 50, 0.6); 
+    background: rgba(105, 27, 50, 0.6);
     color: var(--blanco);
     overflow-y: auto;
     padding: 20px;
     box-sizing: border-box;
-    backdrop-filter: blur(10px); 
-    border-right: 2px solid rgba(255, 255, 255, 0.3); 
-    border-top: 4px solid rgba(255, 255, 255, 0.3); 
-    border-bottom: 4px solid rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(10px);
+    border-right: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 4px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 6px 20px rgba(0, 0, 0, 0.9);
-    border-radius: 0 20px 20px 0; 
+    border-radius: 0 20px 20px 0;
     transition: left 0.4s ease-in-out;
 }
 
 #sidebar.open {
-    left: 0; /* Muestra el sidebar */
+    left: 0;
+    /* Muestra el sidebar */
 }
 
 #toggleSidebar {
@@ -38,7 +40,8 @@
 }
 
 #toggleSidebar.open {
-    left: 223px; /* Mueve el botón junto con el sidebar */
+    left: 223px;
+    /* Mueve el botón junto con el sidebar */
 }
 
 #map {
@@ -64,20 +67,111 @@
 }
 
 
-.leaflet-oldie .marker-cluster-large,.leaflet-oldie .marker-cluster-medium,.leaflet-oldie .marker-cluster-small,.marker-cluster-large,.marker-cluster-medium,.marker-cluster-small{background-color:hsla(345,65%,38%,.6)}.leaflet-oldie .marker-cluster-large div,.leaflet-oldie .marker-cluster-medium div,.leaflet-oldie .marker-cluster-small div,.marker-cluster-large div,.marker-cluster-medium div,.marker-cluster-small div{background-color:hsla(343,58%,26%,.6)}.marker-cluster{background-clip:padding-box;border-radius:20px}.marker-cluster div{width:30px;height:30px;margin-left:5px;margin-top:5px;color:#ccc;text-align:center;border-radius:15px}.marker-cluster span{line-height:30px}
+.leaflet-oldie .marker-cluster-large,
+.leaflet-oldie .marker-cluster-medium,
+.leaflet-oldie .marker-cluster-small,
+.marker-cluster-large,
+.marker-cluster-medium,
+.marker-cluster-small {
+    background-color: hsla(345, 65%, 38%, .6)
+}
+
+.leaflet-oldie .marker-cluster-large div,
+.leaflet-oldie .marker-cluster-medium div,
+.leaflet-oldie .marker-cluster-small div,
+.marker-cluster-large div,
+.marker-cluster-medium div,
+.marker-cluster-small div {
+    background-color: hsla(343, 58%, 26%, .6)
+}
+
+.marker-cluster {
+    background-clip: padding-box;
+    border-radius: 20px
+}
+
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+    color: #ccc;
+    text-align: center;
+    border-radius: 15px
+}
+
+.marker-cluster span {
+    line-height: 30px
+}
 
 
-.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
-	-webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
-	-moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
-	-o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
-	transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+.leaflet-cluster-anim .leaflet-marker-icon,
+.leaflet-cluster-anim .leaflet-marker-shadow {
+    -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
+    -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
+    -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-in;
 }
 
 .leaflet-cluster-spider-leg {
-	/* stroke-dashoffset (duration and function) should match with leaflet-marker-icon transform in order to track it exactly */
-	-webkit-transition: -webkit-stroke-dashoffset 0.3s ease-out, -webkit-stroke-opacity 0.3s ease-in;
-	-moz-transition: -moz-stroke-dashoffset 0.3s ease-out, -moz-stroke-opacity 0.3s ease-in;
-	-o-transition: -o-stroke-dashoffset 0.3s ease-out, -o-stroke-opacity 0.3s ease-in;
-	transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
+    /* stroke-dashoffset (duration and function) should match with leaflet-marker-icon transform in order to track it exactly */
+    -webkit-transition: -webkit-stroke-dashoffset 0.3s ease-out, -webkit-stroke-opacity 0.3s ease-in;
+    -moz-transition: -moz-stroke-dashoffset 0.3s ease-out, -moz-stroke-opacity 0.3s ease-in;
+    -o-transition: -o-stroke-dashoffset 0.3s ease-out, -o-stroke-opacity 0.3s ease-in;
+    transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in;
+}
+
+/* Estilo general para el popup */
+.leaflet-popup-content-wrapper {
+    padding: 10px;
+    width: 50vw;
+    height: auto;
+    font-family: "Montserrat", sans-serif;
+    background: rgba(245, 245, 245, 0.6);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+    border-left: 2px solid rgba(105, 27, 50, 0.6);
+    border-right: 2px solid rgba(105, 27, 50, 0.6);
+    border-top: 4px solid rgba(105, 27, 50, 0.6);
+    border-bottom: 4px solid rgba(105, 27, 50, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 6px 20px rgba(0, 0, 0, 0.9);
+    border-radius: 40px 0 40px 0;
+    transition: left 0.4s ease-in-out;
+}
+
+.popup-content {
+    width: 47vw;
+    height: auto;
+}
+
+.leaflet-popup-content {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para el nombre del proyecto */
+.popup-project-name {
+    font-size: 18px;
+    /* Tamaño más grande para el nombre del proyecto */
+    color: #691B32;
+    /* Color personalizado */
+}
+
+/* Estilo para las etiquetas (Tipo de Proyecto, Sector, etc.) */
+.popup-label {
+    font-weight: bold;
+    /* Negrita para las etiquetas */
+    color: #333;
+}
+
+/* Opcional: personaliza el estilo del borde del popup */
+.leaflet-popup-tip-container {
+    display: none;
+    /* Opcional: esconde la flecha del popup */
+}
+
+/* Ajustar la apariencia de los enlaces si hay alguno */
+.leaflet-popup-content a {
+    color: #007BFF;
+    text-decoration: underline;
 }

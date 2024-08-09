@@ -134,20 +134,22 @@ const InteractiveMap = () => {
                         });
 
                         const popupContent = `
-                            <strong>${project.project_name}</strong><br>
-                            Tipo de Proyecto: ${project.tipo_proyecto}<br>
-                            Sector: ${project.sector}<br>
-                            Municipio: ${project.municipioEnd}<br>
-                            Inversión Estimada: ${project.inversion_estimada}<br>
-                            Descripción: ${project.descripcion}<br>
-                            Objetivos: ${project.objetivos}<br>
-                            Metas: ${project.metas}<br>
-                            Beneficiarios: ${project.beneficiarios}<br>
-                            Región: ${project.region}<br>
-                            Localidad: ${project.localidad}<br>
-                            Barrio/Colonia/Ejido: ${project.barrio_colonia_ejido}<br>
-                            Estatus: ${project.estatus}
-                        `;
+                        <div class="popup-content">
+                            <strong class="popup-project-name">${project.project_name}</strong><br>
+                            <span class="popup-label">Tipo de Proyecto:</span> ${project.tipo_proyecto}<br>
+                            <span class="popup-label">Sector:</span> ${project.sector}<br>
+                            <span class="popup-label">Municipio:</span> ${project.municipioEnd}<br>
+                            <span class="popup-label">Inversión Estimada:</span> ${project.inversion_estimada}<br>
+                            <span class="popup-label">Descripción:</span> ${project.descripcion}<br>
+                            <span class="popup-label">Objetivos:</span> ${project.objetivos}<br>
+                            <span class="popup-label">Metas:</span> ${project.metas}<br>
+                            <span class="popup-label">Beneficiarios:</span> ${project.beneficiarios}<br>
+                            <span class="popup-label">Región:</span> ${project.region}<br>
+                            <span class="popup-label">Localidad:</span> ${project.localidad}<br>
+                            <span class="popup-label">Barrio/Colonia/Ejido:</span> ${project.barrio_colonia_ejido}<br>
+                            <span class="popup-label">Estatus:</span> ${project.estatus}
+                        </div>
+                    `;
 
                         const marker = L.marker([project.latitud, project.longitud], { icon: customIcon })
                             .bindPopup(popupContent);
@@ -175,8 +177,8 @@ const InteractiveMap = () => {
             markersRef.current.clearLayers(); // Limpiar los marcadores actuales
 
             axios.get('/proyecto/').then(response => {
-                const projects = response.data.filter(project => 
-                    project.estatus === 'Atendido' && 
+                const projects = response.data.filter(project =>
+                    project.estatus === 'Atendido' &&
                     (selectedSector === '' || project.sector === selectedSector)
                 );
 
@@ -192,20 +194,22 @@ const InteractiveMap = () => {
                         });
 
                         const popupContent = `
-                            <strong>${project.project_name}</strong><br>
-                            Tipo de Proyecto: ${project.tipo_proyecto}<br>
-                            Sector: ${project.sector}<br>
-                            Municipio: ${project.municipioEnd}<br>
-                            Inversión Estimada: ${project.inversion_estimada}<br>
-                            Descripción: ${project.descripcion}<br>
-                            Objetivos: ${project.objetivos}<br>
-                            Metas: ${project.metas}<br>
-                            Beneficiarios: ${project.beneficiarios}<br>
-                            Región: ${project.region}<br>
-                            Localidad: ${project.localidad}<br>
-                            Barrio/Colonia/Ejido: ${project.barrio_colonia_ejido}<br>
-                            Estatus: ${project.estatus}
-                        `;
+    <div class="popup-content">
+        <strong class="popup-project-name">${project.project_name}</strong><br>
+        <span class="popup-label">Tipo de Proyecto:</span> ${project.tipo_proyecto}<br>
+        <span class="popup-label">Sector:</span> ${project.sector}<br>
+        <span class="popup-label">Municipio:</span> ${project.municipioEnd}<br>
+        <span class="popup-label">Inversión Estimada:</span> ${project.inversion_estimada}<br>
+        <span class="popup-label">Descripción:</span> ${project.descripcion}<br>
+        <span class="popup-label">Objetivos:</span> ${project.objetivos}<br>
+        <span class="popup-label">Metas:</span> ${project.metas}<br>
+        <span class="popup-label">Beneficiarios:</span> ${project.beneficiarios}<br>
+        <span class="popup-label">Región:</span> ${project.region}<br>
+        <span class="popup-label">Localidad:</span> ${project.localidad}<br>
+        <span class="popup-label">Barrio/Colonia/Ejido:</span> ${project.barrio_colonia_ejido}<br>
+        <span class="popup-label">Estatus:</span> ${project.estatus}
+    </div>
+`;
 
                         const marker = L.marker([project.latitud, project.longitud], { icon: customIcon })
                             .bindPopup(popupContent);
@@ -242,8 +246,8 @@ const InteractiveMap = () => {
                     <option value="">-- Selecciona por municipio --</option>
                 </select>
                 <label htmlFor="sectorFilter">Filtrar por sector:</label>
-                <select 
-                    id="sectorFilter" 
+                <select
+                    id="sectorFilter"
                     value={selectedSector}
                     onChange={(e) => setSelectedSector(e.target.value)}
                 >
