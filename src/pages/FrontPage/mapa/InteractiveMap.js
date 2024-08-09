@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster';
 import axios from 'axios';
 import './InteractiveMap.css';
 import { municipios_proyectos } from './municipios';
@@ -14,7 +15,7 @@ const sectorIcons = {
     Cultura: `${iconBaseUrl}Cultura.png`,
     Deportes: `${iconBaseUrl}Deportes.png`,
     Educación: `${iconBaseUrl}Educación.png`,
-    "Urbanización y Vivienda": `${iconBaseUrl}Urbanización y Vivienda.png`
+    "Urbanización y Vivienda": `${iconBaseUrl}Urbanización y Vivienda.png`,
 };
 
 const InteractiveMap = () => {
@@ -112,42 +113,48 @@ const InteractiveMap = () => {
                 const response = await axios.get('/proyecto/');
                 const projects = response.data.filter(project => project.estatus === 'Atendido');
 
+                if (projects.length === 0) {
+                    alert('No se encontraron proyectos con estatus "Atendido".');
+                }
+
+                const markers = L.markerClusterGroup();
+
                 projects.forEach(project => {
                     if (project.latitud && project.longitud) {
-                        // Determinar el ícono basado en el sector del proyecto
-                        const iconUrl = sectorIcons[project.sector];
+                        // Determinar el ícono basado en el sector del proyecto, o usar un ícono por defecto
+                        const iconUrl = sectorIcons[project.sector] || `${iconBaseUrl}default.png`;
 
-                        if (iconUrl) {
-                            const customIcon = L.icon({
-                                iconUrl: iconUrl,
-                                iconSize: [32, 46.18], // Tamaño del ícono
-                                iconAnchor: [32, 46.18], // Punto donde el ícono se ancla en las coordenadas
-                                popupAnchor: [0, -32] // Punto desde donde el popup se abre
-                            });
+                        const customIcon = L.icon({
+                            iconUrl: iconUrl,
+                            iconSize: [60, 60], // Tamaño del icono
+                            iconAnchor: [40, 40], // Punto donde el ícono se ancla en las coordenadas
+                            popupAnchor: [0, -32] // Punto desde donde el popup se abre
+                        });
 
-                            const popupContent = `
-                                <strong>${project.project_name}</strong><br>
-                                Tipo de Proyecto: ${project.tipo_proyecto}<br>
-                                Sector: ${project.sector}<br>
-                                Municipio: ${project.municipioEnd}<br>
-                                Inversión Estimada: ${project.inversion_estimada}<br>
-                                Descripción: ${project.descripcion}<br>
-                                Objetivos: ${project.objetivos}<br>
-                                Metas: ${project.metas}<br>
-                                Beneficiarios: ${project.beneficiarios}<br>
-                                Región: ${project.region}<br>
-                                Localidad: ${project.localidad}<br>
-                                Barrio/Colonia/Ejido: ${project.barrio_colonia_ejido}<br>
-                                Estatus: ${project.estatus}
-                            `;
-                            L.marker([project.latitud, project.longitud], { icon: customIcon })
-                                .addTo(mapRef.current)
-                                .bindPopup(popupContent);
-                        } else {
-                            console.warn(`Icono no encontrado para el sector: ${project.sector}`);
-                        }
+                        const popupContent = `
+                            <strong>${project.project_name}</strong><br>
+                            Tipo de Proyecto: ${project.tipo_proyecto}<br>
+                            Sector: ${project.sector}<br>
+                            Municipio: ${project.municipioEnd}<br>
+                            Inversión Estimada: ${project.inversion_estimada}<br>
+                            Descripción: ${project.descripcion}<br>
+                            Objetivos: ${project.objetivos}<br>
+                            Metas: ${project.metas}<br>
+                            Beneficiarios: ${project.beneficiarios}<br>
+                            Región: ${project.region}<br>
+                            Localidad: ${project.localidad}<br>
+                            Barrio/Colonia/Ejido: ${project.barrio_colonia_ejido}<br>
+                            Estatus: ${project.estatus}
+                        `;
+
+                        const marker = L.marker([project.latitud, project.longitud], { icon: customIcon })
+                            .bindPopup(popupContent);
+
+                        markers.addLayer(marker);
                     }
                 });
+
+                mapRef.current.addLayer(markers);
             } catch (error) {
                 console.error('Error fetching project data:', error);
             }
@@ -167,8 +174,8 @@ const InteractiveMap = () => {
 
     return (
         <section id='map'>
-            <button 
-                id="toggleSidebar" 
+            <button
+                id="toggleSidebar"
                 onClick={toggleSidebar}
                 className={isSidebarOpen ? 'open' : ''}
             >
