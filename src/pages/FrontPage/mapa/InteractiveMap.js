@@ -20,7 +20,9 @@ const sectorIcons = {
 
 const InteractiveMap = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [selectedSector, setSelectedSector] = useState(''); // Estado para el sector seleccionado
     const mapRef = useRef(null);
+    const markersRef = useRef(L.markerClusterGroup()); // Referencia para los marcadores
 
     useEffect(() => {
         // Inicializa el mapa
@@ -117,7 +119,7 @@ const InteractiveMap = () => {
                     alert('No se encontraron proyectos con estatus "Atendido".');
                 }
 
-                const markers = L.markerClusterGroup();
+                markersRef.current.clearLayers(); // Limpiar los marcadores actuales
 
                 projects.forEach(project => {
                     if (project.latitud && project.longitud) {
@@ -150,11 +152,11 @@ const InteractiveMap = () => {
                         const marker = L.marker([project.latitud, project.longitud], { icon: customIcon })
                             .bindPopup(popupContent);
 
-                        markers.addLayer(marker);
+                        markersRef.current.addLayer(marker);
                     }
                 });
 
-                mapRef.current.addLayer(markers);
+                mapRef.current.addLayer(markersRef.current);
             } catch (error) {
                 console.error('Error fetching project data:', error);
             }
@@ -166,6 +168,58 @@ const InteractiveMap = () => {
             mapRef.current.remove();
         };
     }, []);
+
+    // Filtrar marcadores por sector
+    useEffect(() => {
+        if (markersRef.current) {
+            markersRef.current.clearLayers(); // Limpiar los marcadores actuales
+
+            axios.get('/proyecto/').then(response => {
+                const projects = response.data.filter(project => 
+                    project.estatus === 'Atendido' && 
+                    (selectedSector === '' || project.sector === selectedSector)
+                );
+
+                projects.forEach(project => {
+                    if (project.latitud && project.longitud) {
+                        const iconUrl = sectorIcons[project.sector] || `${iconBaseUrl}default.png`;
+
+                        const customIcon = L.icon({
+                            iconUrl: iconUrl,
+                            iconSize: [60, 60],
+                            iconAnchor: [40, 40],
+                            popupAnchor: [0, -32]
+                        });
+
+                        const popupContent = `
+                            <strong>${project.project_name}</strong><br>
+                            Tipo de Proyecto: ${project.tipo_proyecto}<br>
+                            Sector: ${project.sector}<br>
+                            Municipio: ${project.municipioEnd}<br>
+                            Inversión Estimada: ${project.inversion_estimada}<br>
+                            Descripción: ${project.descripcion}<br>
+                            Objetivos: ${project.objetivos}<br>
+                            Metas: ${project.metas}<br>
+                            Beneficiarios: ${project.beneficiarios}<br>
+                            Región: ${project.region}<br>
+                            Localidad: ${project.localidad}<br>
+                            Barrio/Colonia/Ejido: ${project.barrio_colonia_ejido}<br>
+                            Estatus: ${project.estatus}
+                        `;
+
+                        const marker = L.marker([project.latitud, project.longitud], { icon: customIcon })
+                            .bindPopup(popupContent);
+
+                        markersRef.current.addLayer(marker);
+                    }
+                });
+
+                mapRef.current.addLayer(markersRef.current);
+            }).catch(error => {
+                console.error('Error fetching filtered project data:', error);
+            });
+        }
+    }, [selectedSector]);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -186,6 +240,17 @@ const InteractiveMap = () => {
                 <label htmlFor="selectorMunicipio">Selecciona por municipio:</label>
                 <select id="selectorMunicipio">
                     <option value="">-- Selecciona por municipio --</option>
+                </select>
+                <label htmlFor="sectorFilter">Filtrar por sector:</label>
+                <select 
+                    id="sectorFilter" 
+                    value={selectedSector}
+                    onChange={(e) => setSelectedSector(e.target.value)}
+                >
+                    <option value="">Todos los Sectores</option>
+                    {Object.keys(sectorIcons).map(sector => (
+                        <option key={sector} value={sector}>{sector}</option>
+                    ))}
                 </select>
             </div>
         </section>
