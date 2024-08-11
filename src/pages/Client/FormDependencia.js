@@ -8,9 +8,10 @@ import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, mu
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
+import SectionTitle from './componentsForm/SectionTitle';
+
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
-
 const StyledModal = styled(Modal)`
   position: absolute;
   top: 50%;
@@ -139,7 +140,7 @@ const FormDependencia = () => {
     observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
     gastoProgramable: Yup.string().required('El gasto programable es obligatorio'),
     indicadoresEstrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
-    indicadoresTacticos: Yup.string().test('indicadoresTacticos', 'Los indicadores tácticos son obligatorios', function(value) {
+    indicadoresTacticos: Yup.string().test('indicadoresTacticos', 'Los indicadores tácticos son obligatorios', function (value) {
       const { entityType, dependencia } = this.parent;
       if (entityType === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
         return value === 'No Aplica' || Boolean(value);
@@ -419,10 +420,7 @@ const FormDependencia = () => {
           {({ isSubmitting, setFieldValue, values }) => (
             <Form>
               <div>
-                <div className="titulosForm">
-                  <h3>Datos Generales</h3>
-                  <div className="linea_form"></div>
-                </div>
+                <SectionTitle title="Datos Generales" />
 
                 <div className="DatosGenerales">
                   <div className="form-group projectDate">
@@ -611,10 +609,7 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Fuentes de Financiamiento</h3>
-                  <div className="linea_form"></div>
-                </div>
+                <SectionTitle title="Fuentes de Financiamiento" />
                 <div className="FuentesFinanciamiento">
                   <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
                   <div className="formFour">
@@ -658,11 +653,7 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Descripción del Proyecto</h3>
-                  <div className="linea_form"></div>
-                </div>
-
+                <SectionTitle title="Descripción del Proyecto" />
                 <div className="DescripcionProyecto">
                   <div className="form-group descripcion">
                     <label>Descripción</label>
@@ -729,11 +720,7 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Territorio y Georreferenciación</h3>
-                  <div className="linea_form"></div>
-                </div>
-
+                <SectionTitle title="Territorio y Georreferenciación" />
                 <div className="formFour">
                   <div className="form-group region">
                     <label>Región</label>
@@ -798,11 +785,7 @@ const FormDependencia = () => {
                   <ErrorMessage name="municipiosImpacto" component="div" className="error" />
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Alineación Estratégica</h3>
-                  <div className="linea_form"></div>
-                </div>
-
+                <SectionTitle title="Alineación Estratégica" />
                 <div className="formTwo">
                   <div className="form-group planNacional">
                     <label>Plan Nacional de Desarrollo</label>
@@ -873,11 +856,7 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Mecanismos de Evaluación y Seguimiento a Proyectos</h3>
-                  <div className="linea_form"></div>
-                </div>
-
+                <SectionTitle title="Mecanismos de Evaluación y Seguimiento a Proyectos" />
                 <div className="formTwo">
                   <div className="form-group indicadoresEstrategicos">
                     <label>Indicadores Estratégicos</label>
@@ -890,7 +869,7 @@ const FormDependencia = () => {
                     <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
                   </div>
                   <div className="form-group indicadoresTacticos">
-                  <label>Indicadores Tácticos</label>
+                    <label>Indicadores Tácticos</label>
                     {entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador' ? (
                       <Field as="select" name="indicadoresTacticos">
                         <option value="">Seleccione</option>
@@ -919,11 +898,7 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Prospectiva del Programa</h3>
-                  <div className="linea_form"></div>
-                </div>
-
+                <SectionTitle title="Prospectiva del Programa" />
                 <div className="formTwo">
                   <div className="form-group estadoInicial">
                     <label>Estado Inicial (Fotografía)</label>
@@ -951,10 +926,7 @@ const FormDependencia = () => {
                   </div>
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Rentabilidad / Estudios de Viabilidad Carga de Documentación</h3>
-                  <div className="linea_form"></div>
-                </div>
+                <SectionTitle title="Rentabilidad / Estudios de Viabilidad Carga de Documentación" />
                 <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
                 <div className="RENTABILIDAD">
                   {[
@@ -1015,11 +987,7 @@ const FormDependencia = () => {
                   ))}
                 </div>
 
-                <div className="titulosForm">
-                  <h3>Observaciones y Comentarios</h3>
-                  <div className="linea_form"></div>
-                </div>
-
+                <SectionTitle title="Observaciones y Comentarios" />
                 <div className="form-group observaciones">
                   <label>Observaciones</label>
                   <Field as="textarea" name="observaciones" maxLength="1000" />
