@@ -316,10 +316,7 @@ const EditProject = () => {
         >
           {({ isSubmitting, setFieldValue, values }) => (
             <Form>
-              <div className="titulosForm">
-                <h3>Datos Generales</h3>
-                <div className="linea_form"></div>
-              </div>
+              <SectionTitle title="Datos Generales" />
               <div className="DatosGenerales">
                 <div className="form-group projectDate">
                   <label>Fecha de Registro</label>
@@ -523,11 +520,7 @@ const EditProject = () => {
                 </div>
               </div>
 
-              <div className="titulosForm">
-                <h3>Fuentes de Financiamiento</h3>
-                <div className="linea_form"></div>
-              </div>
-
+              <SectionTitle title="Fuentes de Financiamiento" />
               <div className="FuentesFinanciamiento">
                 <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
                 <div className="formFour">
@@ -582,10 +575,7 @@ const EditProject = () => {
 
               </div>
 
-              <div className="titulosForm">
-                <h3>Descripción del Proyecto</h3>
-                <div className="linea_form"></div>
-              </div>
+              <SectionTitle title="Descripción del Proyecto" />
               <div className="DescripcionProyecto">
                 <div className="form-group descripcion">
                   <label>Descripción {project.observacion_descripcion && (
@@ -668,10 +658,7 @@ const EditProject = () => {
                 </div>
               </div>
 
-              <div className="titulosForm">
-                <h3>Territorio y Georreferenciación</h3>
-                <div className="linea_form"></div>
-              </div>
+              <SectionTitle title="Territorio y Georreferenciación" />
               <div className="formFour">
                 <div className="form-group region">
                   <label>Región {project.observacion_region && (
@@ -750,11 +737,7 @@ const EditProject = () => {
                 <ErrorMessage name="municipiosImpacto" component="div" className="error" />
               </div>
 
-              <div className="titulosForm">
-                <h3>Alineación Estratégica</h3>
-                <div className="linea_form"></div>
-              </div>
-
+              <SectionTitle title="Alineación Estratégica" />
               <div className="formTwo">
                 <div className="form-group planNacional">
                   <label>Plan Nacional de Desarrollo {project.observacion_plan_nacional && (
@@ -835,11 +818,7 @@ const EditProject = () => {
                 </div>
               </div>
 
-              <div className="titulosForm">
-                <h3>Mecanismos de Evaluación y Seguimiento a Proyectos</h3>
-                <div className="linea_form"></div>
-              </div>
-
+              <SectionTitle title="Mecanismos de Evaluación y Seguimiento a Proyectos" />
               <div className="formTwo">
                 <div className="form-group indicadoresEstrategicos">
                   <label>Indicadores Estratégicos {project.observacion_indicadores_estrategicos && (
@@ -889,11 +868,7 @@ const EditProject = () => {
                 </div>
               </div>
 
-              <div className="titulosForm">
-                <h3>Prospectiva del Programa</h3>
-                <div className="linea_form"></div>
-              </div>
-
+              <SectionTitle title="Prospectiva del Programa" />
               <div className="formTwo">
                 <div className="form-group estadoInicial">
                   <label>Estado Inicial (Fotografía) {project.observacion_estado_inicial && (
@@ -935,10 +910,7 @@ const EditProject = () => {
                 </div>
               </div>
 
-              <div className="titulosForm">
-                <h3>Rentabilidad / Estudios de Viabilidad Carga de Documentación</h3>
-                <div className="linea_form"></div>
-              </div>
+              <SectionTitle title="Rentabilidad / Estudios de Viabilidad Carga de Documentación" />
               <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
               <div className="RENTABILIDAD">
                 {[
@@ -1006,11 +978,7 @@ const EditProject = () => {
                 ))}
               </div>
 
-              <div className="titulosForm">
-                <h3>Observaciones y Comentarios</h3>
-                <div className="linea_form"></div>
-              </div>
-
+              <SectionTitle title="Observaciones y Comentarios" />
               <div className="form-group observaciones">
                 <label>Observaciones {project.observacion_observaciones && (
                   <CustomTooltip id="observacion_observaciones" text={project.observacion_observaciones} />

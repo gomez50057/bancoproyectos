@@ -421,7 +421,6 @@ const FormDependencia = () => {
             <Form>
               <div>
                 <SectionTitle title="Datos Generales" />
-
                 <div className="DatosGenerales">
                   <div className="form-group projectDate">
                     <label>Fecha de Registro</label>
