@@ -43,10 +43,12 @@ const FormDependencia = () => {
     apellidoPaterno: Yup.string().required('El apellido paterno es obligatorio'),
     apellidoMaterno: Yup.string().required('El apellido materno es obligatorio'),
     correoInstitucional: Yup.string().email('Correo electrónico no válido').required('El correo institucional es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
-    telefonoOficina: Yup.string().matches(/^\d{10}$/, 'El teléfono de oficina debe tener 10 dígitos').required('El teléfono de oficina es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
+    telefonoOficina: Yup.string().matches(/^\d{10}$/, 'El teléfono de oficina debe tener exactamente 10 dígitos, solo números').required('El teléfono de oficina es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
+    telefonoOficinaExt: Yup.string().matches(/^\d+$/, 'Solo se permiten números').required('La extensión es obligatoria').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
     correoPersonal: Yup.string().email('Correo electrónico no válido').required('El correo personal es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
-    telefonoParticular: Yup.string().matches(/^\d{10}$/, 'El teléfono particular debe tener 10 dígitos').required('El teléfono particular es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
+    telefonoParticular: Yup.string().matches(/^\d{10}$/, 'El teléfono particular debe tener exactamente 10 dígitos, solo números').required('El teléfono particular es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
   });
+
 
   const validationSchemaStep2 = Yup.object().shape({
     projectName: Yup.string().required('El nombre del proyecto es obligatorio'),
@@ -106,8 +108,8 @@ const FormDependencia = () => {
     }),
     indicadoresDesempeno: Yup.string().required('Los indicadores de desempeño son obligatorios'),
     indicadoresRentabilidad: Yup.string().required('Los indicadores de rentabilidad son obligatorios'),
-    estadoInicial: Yup.mixed().required('La foto del estado inicial es obligatoria'),
-    estadoConProyecto: Yup.mixed().required('La foto del estado con proyecto es obligatoria'),
+    estadoInicial: Yup.mixed(),
+    estadoConProyecto: Yup.mixed(),
   });
 
   const handleSubmitStep1 = (values, { setSubmitting }) => {
@@ -244,6 +246,7 @@ const FormDependencia = () => {
           apellidoMaterno: '',
           correoInstitucional: '',
           telefonoOficina: '',
+          telefonoOficinaExt: '',
           correoPersonal: '',
           telefonoParticular: '',
         }}
@@ -284,8 +287,9 @@ const FormDependencia = () => {
                     <ErrorMessage name="apellidoMaterno" component="div" className="error" />
                   </div>
                 </div>
+
                 <p>Recuerda no dejar espacios en blanco entre los caracteres en el campo de correo y teléfono.</p>
-                <div className="formFour">
+                <div className="formThree">
                   <div className="form-group correoInstitucional">
                     <label>Correo Institucional</label>
                     <Field type="email" name="correoInstitucional" />
@@ -296,6 +300,14 @@ const FormDependencia = () => {
                     <Field type="text" name="telefonoOficina" />
                     <ErrorMessage name="telefonoOficina" component="div" className="error" />
                   </div>
+                  <div className="form-group telefonoOficinaExt">
+                    <label>Extensión</label>
+                    <Field type="text" name="telefonoOficinaExt" />
+                    <ErrorMessage name="telefonoOficinaExt" component="div" className="error" />
+                  </div>
+                </div>
+
+                <div className="formTwo">
                   <div className="form-group correoPersonal">
                     <label>Correo Personal</label>
                     <Field type="email" name="correoPersonal" />

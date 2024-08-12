@@ -982,6 +982,8 @@ select {
   /* 100% width */
 }
 
+.correoPersonal,
+.telefonoParticular,
 .nombreDependencia,
 .areaAdscripcion,
 .objetivos,
@@ -1008,13 +1010,9 @@ select {
   height: 100%;
 }
 
-.correoInstitucional,
 .projectName,
 .tipoProyecto,
 .sector,
-.telefonoOficina,
-.correoPersonal,
-.telefonoParticular,
 .entityType,
 .dependencia,
 .organismo,
@@ -1033,6 +1031,9 @@ select {
   flex: 1 0 24%;
 }
 
+.correoInstitucional,
+.telefonoOficina,
+.telefonoOficinaExt,
 .nombreRegistrante,
 .apellidoPaterno,
 .apellidoMaterno {
