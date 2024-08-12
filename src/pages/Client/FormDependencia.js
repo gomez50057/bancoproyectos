@@ -130,7 +130,7 @@ const FormDependencia = () => {
       // Procesa municipios de impacto
       if (combinedData.municipiosImpacto && combinedData.municipiosImpacto.length > 0) {
         const municipiosImpactoArray = combinedData.municipiosImpacto.map(mun => mun.value);
-        formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray)); // Enviar como JSON string
+        formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray)); 
       } else {
         formData.append('municipio_impacto', JSON.stringify([]));
       }
