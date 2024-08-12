@@ -229,14 +229,14 @@ const FormDependencia = () => {
     window.location.href = '/';
   };
 
-  const formatCurrency = (value) => {
-    return value ? `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` : '';
-  };
+  // const formatCurrency = (value) => {
+  //   return value ? `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` : '';
+  // };
 
   const calculateTotal = (values) => {
     const { montoFederal, montoEstatal, montoMunicipal, montoOtros } = values;
     const total = (parseFloat(montoFederal) || 0) + (parseFloat(montoEstatal) || 0) + (parseFloat(montoMunicipal) || 0) + (parseFloat(montoOtros) || 0);
-    return formatCurrency(total);
+    return total.toFixed(2); // Asegura que siempre tenga dos decimales
   };
 
   const handleApplyChange = (field) => {
@@ -607,7 +607,7 @@ const FormDependencia = () => {
                       <label>Monto Federal</label>
                       <Field type="number" name="montoFederal" min="0" onChange={(e) => {
                         setFieldValue('montoFederal', e.target.value);
-                        setFieldValue('inversionEstimada', calculateTotal(values));
+                        setFieldValue('inversionEstimada', calculateTotal({ ...values, montoFederal: e.target.value }));
                       }} />
                       <ErrorMessage name="montoFederal" component="div" className="error" />
                     </div>
@@ -615,7 +615,7 @@ const FormDependencia = () => {
                       <label>Monto Estatal</label>
                       <Field type="number" name="montoEstatal" min="0" onChange={(e) => {
                         setFieldValue('montoEstatal', e.target.value);
-                        setFieldValue('inversionEstimada', calculateTotal(values));
+                        setFieldValue('inversionEstimada', calculateTotal({ ...values, montoEstatal: e.target.value }));
                       }} />
                       <ErrorMessage name="montoEstatal" component="div" className="error" />
                     </div>
@@ -623,7 +623,7 @@ const FormDependencia = () => {
                       <label>Monto Municipal</label>
                       <Field type="number" name="montoMunicipal" min="0" onChange={(e) => {
                         setFieldValue('montoMunicipal', e.target.value);
-                        setFieldValue('inversionEstimada', calculateTotal(values));
+                        setFieldValue('inversionEstimada', calculateTotal({ ...values, montoMunicipal: e.target.value }));
                       }} />
                       <ErrorMessage name="montoMunicipal" component="div" className="error" />
                     </div>
@@ -631,7 +631,7 @@ const FormDependencia = () => {
                       <label>Otros</label>
                       <Field type="number" name="montoOtros" min="0" defaultValue="N/A" onChange={(e) => {
                         setFieldValue('montoOtros', e.target.value);
-                        setFieldValue('inversionEstimada', calculateTotal(values));
+                        setFieldValue('inversionEstimada', calculateTotal({ ...values, montoOtros: e.target.value }));
                       }} />
                       <ErrorMessage name="montoOtros" component="div" className="error" />
                     </div>
@@ -639,7 +639,7 @@ const FormDependencia = () => {
 
                   <div className="form-group inversionEstimada">
                     <label>Inversión Estimada</label>
-                    <Field type="text" name="inversionEstimada" readOnly value={calculateTotal(values)} />
+                    <Field type="text" name="inversionEstimada" readOnly value={values.inversionEstimada} />
                   </div>
                 </div>
 
