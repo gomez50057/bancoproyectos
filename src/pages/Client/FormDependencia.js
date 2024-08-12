@@ -119,7 +119,6 @@ const FormDependencia = () => {
   };
 
   const handleSubmitStep2 = async (values, { setSubmitting, resetForm }) => {
-    // Combina los datos del paso 1 y el paso 2
     const combinedData = {
       ...step1Data, // Datos del primer paso
       ...values, // Datos del segundo paso
@@ -128,7 +127,15 @@ const FormDependencia = () => {
 
     try {
       const formData = new FormData();
-      // Agrega todos los campos al FormData
+      // Procesa municipios de impacto
+      if (combinedData.municipiosImpacto && combinedData.municipiosImpacto.length > 0) {
+        const municipiosImpactoArray = combinedData.municipiosImpacto.map(mun => mun.value);
+        formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray)); // Enviar como JSON string
+      } else {
+        formData.append('municipio_impacto', JSON.stringify([]));
+      }
+
+      // Otros campos añadidos al FormData
       formData.append('nombre_dependencia', combinedData.nombreDependencia);
       formData.append('area_adscripcion', combinedData.areaAdscripcion);
       formData.append('nombre_registrante', combinedData.nombreRegistrante);
@@ -172,14 +179,6 @@ const FormDependencia = () => {
       formData.append('unidad_responsable', combinedData.unidadResponsable);
       formData.append('unidad_presupuestal', combinedData.unidadPresupuestal);
       formData.append('ramo_presupuestal', combinedData.ramoPresupuestal);
-
-      // Procesa municipios de impacto
-      if (combinedData.municipiosImpacto && combinedData.municipiosImpacto.length > 0) {
-        const municipiosImpactoJson = JSON.stringify(combinedData.municipiosImpacto.map(mun => mun.value));
-        formData.append('municipios_impacto', municipiosImpactoJson);
-      } else {
-        formData.append('municipios_impacto', '[]');
-      }
 
       formData.append('localidad', combinedData.localidad || 'No Aplica');
       formData.append('barrio_colonia_ejido', combinedData.barrioColoniaEjido || 'No Aplica');
