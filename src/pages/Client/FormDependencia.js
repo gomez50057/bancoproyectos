@@ -126,11 +126,9 @@ const FormDependencia = () => {
       tipo_entidad: entityType, // Tipo de entidad seleccionado
     };
 
-    console.log("Datos combinados antes de enviar:", combinedData); // Depuración
-
     try {
       const formData = new FormData();
-      // Asegúrate de que todos los campos requeridos se añadan correctamente
+      // Agrega todos los campos al FormData
       formData.append('nombre_dependencia', combinedData.nombreDependencia);
       formData.append('area_adscripcion', combinedData.areaAdscripcion);
       formData.append('nombre_registrante', combinedData.nombreRegistrante);
@@ -142,10 +140,10 @@ const FormDependencia = () => {
       formData.append('correo_personal', combinedData.correoPersonal);
       formData.append('telefono_particular', combinedData.telefonoParticular);
 
-      formData.append('project_name', combinedData.projectName || '');
-      formData.append('sector', combinedData.sector || '');
-      formData.append('tipo_proyecto', combinedData.tipoProyecto || '');
-      formData.append('tipo_entidad', combinedData.tipo_entidad || '');
+      formData.append('project_name', combinedData.projectName);
+      formData.append('sector', combinedData.sector);
+      formData.append('tipo_proyecto', combinedData.tipoProyecto);
+      formData.append('tipo_entidad', combinedData.tipo_entidad);
       formData.append('dependencia', combinedData.dependencia || 'No Aplica');
       formData.append('organismo', combinedData.organismo || 'No Aplica');
       formData.append('municipio', combinedData.municipio || 'No Aplica');
@@ -156,25 +154,24 @@ const FormDependencia = () => {
       formData.append('monto_municipal', parseFloat(combinedData.montoMunicipal) || 0);
       formData.append('monto_otros', parseFloat(combinedData.montoOtros) || 0);
       formData.append('inversion_estimada', parseFloat(combinedData.inversionEstimada) || 0);
-      formData.append('descripcion', combinedData.descripcion || '');
-      formData.append('situacion_sin_proyecto', combinedData.situacionSinProyecto || '');
-      formData.append('objetivos', combinedData.objetivos || '');
-      formData.append('metas', combinedData.metas || '');
-      formData.append('programa_presupuestario', combinedData.programaPresupuestario || '');
+      formData.append('descripcion', combinedData.descripcion);
+      formData.append('situacion_sin_proyecto', combinedData.situacionSinProyecto);
+      formData.append('objetivos', combinedData.objetivos);
+      formData.append('metas', combinedData.metas);
+      formData.append('programa_presupuestario', combinedData.programaPresupuestario);
       formData.append('beneficiarios', combinedData.beneficiarios || 0);
-      formData.append('alineacion_normativa', combinedData.alineacionNormativa || '');
-      formData.append('region', combinedData.region || '');
-      formData.append('latitud', parseFloat(combinedData.latitud) || 0);
-      formData.append('longitud', parseFloat(combinedData.longitud) || 0);
-      formData.append('plan_nacional', combinedData.planNacional || '');
-      formData.append('plan_estatal', combinedData.planEstatal || '');
+      formData.append('alineacion_normativa', combinedData.alineacionNormativa);
+      formData.append('region', combinedData.region);
+      formData.append('latitud', parseFloat(combinedData.latitud));
+      formData.append('longitud', parseFloat(combinedData.longitud));
+      formData.append('plan_nacional', combinedData.planNacional);
+      formData.append('plan_estatal', combinedData.planEstatal);
       formData.append('plan_municipal', combinedData.planMunicipal || 'No Aplica');
-      formData.append('ods', combinedData.ods || '');
-      formData.append('plan_sectorial', combinedData.planSectorial || '');
-      formData.append('unidad_responsable', combinedData.unidadResponsable || '');
-      formData.append('unidad_presupuestal', combinedData.unidadPresupuestal || '');
-      formData.append('ramo_presupuestal', combinedData.ramoPresupuestal || '');
-      formData.append('barrio_colonia_ejido', combinedData.barrioColoniaEjido || '');
+      formData.append('ods', combinedData.ods);
+      formData.append('plan_sectorial', combinedData.planSectorial || 'No Aplica');
+      formData.append('unidad_responsable', combinedData.unidadResponsable);
+      formData.append('unidad_presupuestal', combinedData.unidadPresupuestal);
+      formData.append('ramo_presupuestal', combinedData.ramoPresupuestal);
 
       // Procesa municipios de impacto
       if (combinedData.municipiosImpacto && combinedData.municipiosImpacto.length > 0) {
@@ -185,9 +182,10 @@ const FormDependencia = () => {
       }
 
       formData.append('localidad', combinedData.localidad || 'No Aplica');
+      formData.append('barrio_colonia_ejido', combinedData.barrioColoniaEjido || 'No Aplica');
       formData.append('observaciones', combinedData.observaciones || 'No Aplica');
-      formData.append('gasto_programable', combinedData.gastoProgramable || '');
-      formData.append('indicadores_estrategicos', combinedData.indicadoresEstrategicos || '');
+      formData.append('gasto_programable', combinedData.gastoProgramable);
+      formData.append('indicadores_estrategicos', combinedData.indicadoresEstrategicos);
       formData.append('indicadores_tacticos', combinedData.indicadoresTacticos || 'No Aplica');
       formData.append('indicadores_desempeno', combinedData.indicadoresDesempeno || 'No Aplica');
       formData.append('indicadores_rentabilidad', combinedData.indicadoresRentabilidad || 'No Aplica');
