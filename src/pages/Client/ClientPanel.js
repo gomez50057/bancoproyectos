@@ -29,12 +29,12 @@ const ClientPanel = () => {
           <Card 
             onClick={() => navigate('/dependencia')} 
             title="Agregar Proyecto" 
-            imgSrc={`${imgBasePath}consultar.webp`} 
+            imgSrc={`${imgBasePath}agregar.webp`} 
           />
           <Card 
             onClick={() => navigate('/consulta')} 
             title="Consultar Proyecto" 
-            imgSrc={`${imgBasePath}agregar.webp`} 
+            imgSrc={`${imgBasePath}consultar.webp`} 
           />
         </div>
       </div>
