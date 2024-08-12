@@ -229,9 +229,10 @@ const FormDependencia = () => {
     window.location.href = '/';
   };
 
-  // const formatCurrency = (value) => {
-  //   return value ? `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` : '';
-  // };
+  const formatNumberWithCommas = (number) => {
+    if (!number) return '';
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   const calculateTotal = (values) => {
     const { montoFederal, montoEstatal, montoMunicipal, montoOtros } = values;
@@ -639,7 +640,7 @@ const FormDependencia = () => {
 
                   <div className="form-group inversionEstimada">
                     <label>Inversión Estimada</label>
-                    <Field type="text" name="inversionEstimada" readOnly value={values.inversionEstimada} />
+                    <Field type="text" name="inversionEstimada" readOnly value={formatNumberWithCommas(values.inversionEstimada)} />
                   </div>
                 </div>
 
