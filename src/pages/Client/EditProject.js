@@ -4,7 +4,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import { useParams, useNavigate } from 'react-router-dom';
-import CustomTooltip from './Tooltip';
+import CustomTooltip from './componentsForm/Tooltip';
+import SectionTitle from './componentsForm/SectionTitle';
 import {
   municipiosDeHidalgo,
   unidadesResponsables,
@@ -1013,4 +1014,3 @@ const EditProject = () => {
 };
 
 export default EditProject;
-

@@ -7,4 +7,4 @@ const SectionTitle = ({ title }) => (
   </div>
 );
 
-export default React.memo(SectionTitle);
+export default SectionTitle;
