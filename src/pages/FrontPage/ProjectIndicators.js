@@ -86,22 +86,27 @@ const ProjectIndicators = () => {
   return (
     <section id='projects' className="ProjectIndicators-container" ref={indicatorsRef}>
       <div className="indicators">
-        <Indicator count={counts.federal} imgSrc={`${imgBasePath}Dependencia.webp`} label="Federal" />
-        <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`} label="Dependencia y Organismo" />
-        <Indicator count={counts.municipalities} imgSrc={`${imgBasePath}Municipio.webp`} label="Municipio" />
-        <Indicator count={counts.citizens} imgSrc={`${imgBasePath}Ciudadania.webp`} label="Ciudadanía" />
+        <Indicator count={counts.federal} imgSrc={`${imgBasePath}Federal.webp`} label="Federal" />
+        <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`}>
+          <div>Dependencias</div>
+          <div>y Organismos</div>
+        </Indicator>
+        <Indicator count={counts.municipalities} imgSrc={`${imgBasePath}Municipio.webp`} label="Municipios" />
+        {/* <Indicator count={counts.citizens} imgSrc={`${imgBasePath}Ciudadania.webp`} label="Ciudadanía" /> */}
       </div>
     </section>
   );
 };
 
-const Indicator = ({ count, imgSrc, label }) => (
+const Indicator = ({ count, imgSrc, label, children }) => (
   <div className="indicators_ind">
     <div className="indicators_cont">
       <img src={imgSrc} alt={`img_${label}`} />
       <p>{count}</p>
     </div>
-    <p className="indicators_txt">{label}</p>
+    <p className="indicators_txt">
+      {children || label}
+    </p>
   </div>
 );
 
