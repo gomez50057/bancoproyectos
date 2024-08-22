@@ -8,7 +8,8 @@ const ProjectIndicators = () => {
   const [counts, setCounts] = useState({
     citizens: 0,
     municipalities: 0,
-    organizations: 0, // Aquí se almacenará la suma de organizaciones y departamentos
+    organizations: 0,
+    federal: 0,
   });
   const [hasCounted, setHasCounted] = useState(false);
   const indicatorsRef = useRef(null);
@@ -45,9 +46,10 @@ const ProjectIndicators = () => {
           const totalValues = {
             citizens: projects.filter(project => project.tipo_entidad === 'Petición Personal').length,
             municipalities: projects.filter(project => project.tipo_entidad === 'Municipio').length,
-            organizations: projects.filter(project => 
+            organizations: projects.filter(project =>
               project.tipo_entidad === 'Organismo' || project.tipo_entidad === 'Dependencia'
             ).length,
+            federal: projects.filter(project => project.tipo_entidad === 'Federal').length,
           };
 
           const fastSpeed = 10;
@@ -84,9 +86,10 @@ const ProjectIndicators = () => {
   return (
     <section id='projects' className="ProjectIndicators-container" ref={indicatorsRef}>
       <div className="indicators">
-        <Indicator count={counts.citizens} imgSrc={`${imgBasePath}Ciudadania.webp`} label="Ciudadanía" />
+        <Indicator count={counts.federal} imgSrc={`${imgBasePath}Dependencia.webp`} label="Federal" />
+        <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`} label="Dependencia y Organismo" />
         <Indicator count={counts.municipalities} imgSrc={`${imgBasePath}Municipio.webp`} label="Municipio" />
-        <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`} label="Dependencia y Organismo" /> 
+        <Indicator count={counts.citizens} imgSrc={`${imgBasePath}Ciudadania.webp`} label="Ciudadanía" />
       </div>
     </section>
   );
