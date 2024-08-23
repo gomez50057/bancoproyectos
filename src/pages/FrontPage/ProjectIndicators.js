@@ -47,8 +47,7 @@ const ProjectIndicators = () => {
             citizens: projects.filter(project => project.tipo_entidad === 'Petición Personal').length,
             municipalities: projects.filter(project => project.tipo_entidad === 'Municipio').length,
             organizations: projects.filter(project =>
-              project.tipo_entidad === 'Organismo' || project.tipo_entidad === 'Dependencia'
-            ).length,
+              project.tipo_entidad === 'Organismo' || project.tipo_entidad === 'Dependencia').length,
             federal: projects.filter(project => project.tipo_entidad === 'Federal').length,
           };
 
