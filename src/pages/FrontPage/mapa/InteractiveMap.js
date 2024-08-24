@@ -3,7 +3,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 import axios from 'axios';
-import { Tooltip } from 'react-tooltip';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import './InteractiveMap.css';
@@ -199,18 +198,13 @@ const InteractiveMap = () => {
                 </button>
 
                 {/* Icono de Pantalla Completa */}
-                <div id="fullscreenButton" data-tooltip-id="fullscreenTooltip" data-tooltip-content={isFullScreen ? 'Salir de Pantalla Completa' : 'Pantalla Completa'}>
+                <div id="fullscreenButton" onClick={toggleFullScreen}>
                     {isFullScreen ? (
-                        <FullscreenExitIcon
-                            onClick={toggleFullScreen}
-                        />
+                        <FullscreenExitIcon />
                     ) : (
-                        <FullscreenIcon
-                            onClick={toggleFullScreen}
-                        />
+                        <FullscreenIcon />
                     )}
                 </div>
-                <Tooltip id="fullscreenTooltip" place="bottom" effect="solid" />
 
                 <div id="sidebar" className={isSidebarOpen ? 'open' : ''}>
                     <p className="sidebar-title">Proyectos</p>
@@ -237,7 +231,6 @@ const InteractiveMap = () => {
             </div>
 
         </section>
-
     );
 }
 
