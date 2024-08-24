@@ -26,6 +26,15 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
     });
   };
 
+  const handleIsBlockedChange = () => {
+    onChange({
+      target: {
+        name: 'isBlocked_project',
+        value: !project.isBlocked_project,
+      },
+    });
+  };
+
   const handleSubmit = async () => {
     try {
       if (isEditMode) {
@@ -109,6 +118,17 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
           {isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}
         </div>
         <div className="dialog-content">
+          {/* Checkbox para habilitar la actualización */}
+          <div className="dialog-checkbox-container">
+            <label className="dialog-label">Habilitar actualización al usuario</label>
+            <input
+              type="checkbox"
+              checked={!project.isBlocked_project}
+              onChange={handleIsBlockedChange}
+            />
+          </div>
+          
+          {/* Resto del formulario */}
           <div className="dialog-row">
             {renderInputField('project_id')}
             {renderInputField('fecha_registro')}
