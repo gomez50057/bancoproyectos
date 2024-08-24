@@ -21,7 +21,7 @@ const sectorIcons = {
 };
 
 const InteractiveMap = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedSector, setSelectedSector] = useState('');
     const mapRef = useRef(null);
     const markersRef = useRef(L.markerClusterGroup());
@@ -132,7 +132,6 @@ const InteractiveMap = () => {
                         <span class="popup-label">Municipio:</span> ${project.municipioEnd}<br>
                         <span class="popup-label">Descripción:</span> ${project.descripcion}<br>
                         <span class="popup-label">Objetivos:</span> ${project.objetivos}<br>
-                        <span class="popup-label">Metas:</span> ${project.metas}<br>
                         <span class="popup-label">Beneficiarios:</span> ${project.beneficiarios}<br>
                         <span class="popup-label">Región:</span> ${project.region}<br>
                         <span class="popup-label">Localidad:</span> ${project.localidad}<br>
@@ -229,7 +228,6 @@ const InteractiveMap = () => {
                 <h2><span>Explora</span> Nuestros <span>Proyectos</span> en el <span>Mapa</span> Interactivo</h2>
                 <p>Descubre nuestros proyectos más destacados alrededor de Hidalgo. Navega por el mapa y conoce cómo estamos transformando comunidades con soluciones innovadoras y sostenibles. ¡Haz clic en los marcadores para obtener más detalles sobre cada iniciativa!</p>
             </div>
-
         </section>
     );
 }
