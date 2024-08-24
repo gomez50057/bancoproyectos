@@ -118,7 +118,6 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
           {isEditMode ? 'Editar Proyecto' : 'Agregar Proyecto'}
         </div>
         <div className="dialog-content">
-          {/* Checkbox para habilitar la actualización */}
           <div className="dialog-checkbox-container">
             <label className="dialog-label">Habilitar actualización al usuario</label>
             <input
@@ -128,7 +127,6 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
             />
           </div>
           
-          {/* Resto del formulario */}
           <div className="dialog-row">
             {renderInputField('project_id')}
             {renderInputField('fecha_registro')}
