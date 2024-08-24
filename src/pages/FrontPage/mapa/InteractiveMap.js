@@ -140,7 +140,13 @@ const InteractiveMap = () => {
                     `;
 
                     const marker = L.marker([project.latitud, project.longitud], { icon: customIcon })
-                        .bindPopup(popupContent);
+                        .bindPopup(popupContent)
+                        .on('click', function () {
+                            mapRef.current.setView([project.latitud, project.longitud], mapRef.current.getZoom(), {
+                                animate: true
+                            });
+                            this.openPopup();
+                        });
 
                     markersRef.current.addLayer(marker);
                 }
