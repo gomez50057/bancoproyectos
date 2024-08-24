@@ -92,7 +92,7 @@ const ProjectReportReact = () => {
 
             <div className="beneficiarios-section">
               <div className="inline-section">
-                <img src={`${imgBasePath}electricidad.png`} alt="Sector" className="image-beneficiarios" />
+                <img src={`${imgBasePath}${project.sector}.png`} alt="Sector" className="image-beneficiarios" />
                 <div className="beneficiarios-num">
                   <span className="label-sector">Sector</span>
                   <span className="value-sector">{project.sector}</span>
