@@ -3,6 +3,9 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 import axios from 'axios';
+import { Tooltip } from 'react-tooltip';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import './InteractiveMap.css';
 import { municipios_proyectos } from './municipios';
 
@@ -24,6 +27,7 @@ const InteractiveMap = () => {
     const mapRef = useRef(null);
     const markersRef = useRef(L.markerClusterGroup());
     const [projects, setProjects] = useState([]);
+    const [isFullScreen, setIsFullScreen] = useState(false);
 
     useEffect(() => {
         // Inicializa el mapa
@@ -157,34 +161,83 @@ const InteractiveMap = () => {
         setTimeout(() => mapRef.current.invalidateSize(), 300);
     };
 
+    const toggleFullScreen = () => {
+        if (!isFullScreen) {
+            if (mapRef.current) {
+                mapRef.current.getContainer().requestFullscreen();
+            }
+        } else {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        }
+        setIsFullScreen(!isFullScreen);
+    };
+
+    useEffect(() => {
+        const handleFullScreenChange = () => {
+            if (!document.fullscreenElement) {
+                setIsFullScreen(false);
+            }
+        };
+
+        document.addEventListener('fullscreenchange', handleFullScreenChange);
+        return () => {
+            document.removeEventListener('fullscreenchange', handleFullScreenChange);
+        };
+    }, []);
+
     return (
-        <section id='map'>
-            <button
-                id="toggleSidebar"
-                onClick={toggleSidebar}
-                className={isSidebarOpen ? 'open' : ''}
-            >
-                {isSidebarOpen ? 'Cerrar' : 'Abrir panel de información'}
-            </button>
-            <div id="sidebar" className={isSidebarOpen ? 'open' : ''}>
-                <p className="sidebar-title">Proyectos</p>
-                <label htmlFor="selectorMunicipio">Selecciona por municipio:</label>
-                <select id="selectorMunicipio">
-                    <option value="">-- Selecciona por municipio --</option>
-                </select>
-                <label htmlFor="sectorFilter">Filtrar por sector:</label>
-                <select
-                    id="sectorFilter"
-                    value={selectedSector}
-                    onChange={(e) => setSelectedSector(e.target.value)}
+        <section className="mapaConte">
+            <div id='map'>
+                <button
+                    id="toggleSidebar"
+                    onClick={toggleSidebar}
+                    className={isSidebarOpen ? 'open' : ''}
                 >
-                    <option value="">Todos los Sectores</option>
-                    {Object.keys(sectorIcons).map(sector => (
-                        <option key={sector} value={sector}>{sector}</option>
-                    ))}
-                </select>
+                    {isSidebarOpen ? 'Cerrar' : 'Abrir panel de información'}
+                </button>
+
+                {/* Icono de Pantalla Completa */}
+                <div id="fullscreenButton" data-tooltip-id="fullscreenTooltip" data-tooltip-content={isFullScreen ? 'Salir de Pantalla Completa' : 'Pantalla Completa'}>
+                    {isFullScreen ? (
+                        <FullscreenExitIcon
+                            onClick={toggleFullScreen}
+                        />
+                    ) : (
+                        <FullscreenIcon
+                            onClick={toggleFullScreen}
+                        />
+                    )}
+                </div>
+                <Tooltip id="fullscreenTooltip" place="bottom" effect="solid" />
+
+                <div id="sidebar" className={isSidebarOpen ? 'open' : ''}>
+                    <p className="sidebar-title">Proyectos</p>
+                    <label htmlFor="selectorMunicipio">Selecciona por municipio:</label>
+                    <select id="selectorMunicipio">
+                        <option value="">-- Selecciona por municipio --</option>
+                    </select>
+                    <label htmlFor="sectorFilter">Filtrar por sector:</label>
+                    <select
+                        id="sectorFilter"
+                        value={selectedSector}
+                        onChange={(e) => setSelectedSector(e.target.value)}
+                    >
+                        <option value="">Todos los Sectores</option>
+                        {Object.keys(sectorIcons).map(sector => (
+                            <option key={sector} value={sector}>{sector}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
+            <div className="mapaTxt">
+                <h2><span>Explora</span> Nuestros <span>Proyectos</span> en el <span>Mapa</span> Interactivo</h2>
+                <p>Descubre nuestros proyectos más destacados alrededor de Hidalgo. Navega por el mapa y conoce cómo estamos transformando comunidades con soluciones innovadoras y sostenibles. ¡Haz clic en los marcadores para obtener más detalles sobre cada iniciativa!</p>
+            </div>
+
         </section>
+
     );
 }
 
