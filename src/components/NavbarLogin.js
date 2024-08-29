@@ -1,10 +1,8 @@
-// src/components/NavbarLogin.js
-
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './styles.css';
-import UserOptionsModal from './UserOptionsModal';
+import UserOptionsModal from './UserOptionsModal'; // Asegúrate de importar el modal
 
 const img = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img/";
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
@@ -14,7 +12,7 @@ const NavbarLogin = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const buttonRef = useRef(null); // Referencia al botón que activa el modal
+  const [anchorElement, setAnchorElement] = useState(null);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -39,35 +37,33 @@ const NavbarLogin = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollPosition]);
 
-  const toggleModal = () => {
+  const toggleModal = (event) => {
+    setAnchorElement(event.currentTarget);
     setIsModalOpen(!isModalOpen);
   };
 
   return (
-    <>
-      <nav className={`NavbarLogin ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
-        <ul>
-          <div className="NavbarLogin_img">
-            <img src={`${img}Logotipo.webp`} alt="img_representativa" />
-            <li><Link to="/" className=""> Banco de Proyectos </Link></li>
+    <nav className={`NavbarLogin ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
+      <ul>
+        <div className="NavbarLogin_img">
+          <img src={`${img}Logotipo.webp`} alt="img_representativa" />
+          <li><Link to="/" className=""> Banco de Proyectos </Link></li>
+        </div>
+        <div className="NavbarLogin_inicio">
+          <div className="Navbar_circulo" data-username={username} onClick={toggleModal}>
+            <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
           </div>
-          <div className="NavbarLogin_inicio">
-            <div
-              className="Navbar_circulo"
-              data-username={username}
-              onClick={toggleModal}
-              ref={buttonRef} // Añadir referencia al botón
-            >
-              <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
-            </div>
-          </div>
-        </ul>
-      </nav>
+        </div>
+      </ul>
 
-      {/* Modal para opciones de usuario */}
-      <UserOptionsModal isOpen={isModalOpen} onClose={toggleModal} anchorElement={buttonRef.current} />
-    </>
+      <UserOptionsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        anchorElement={anchorElement}
+        username={username}
+      />
+    </nav>
   );
-};
+}
 
 export default NavbarLogin;

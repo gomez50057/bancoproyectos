@@ -38,11 +38,6 @@
   color: var(--grisOsc);
 }
 
-.status {
-  font-size: 0.8rem;
-  color: var(--grisClr);
-}
-
 .menu-item {
   display: flex;
   align-items: center;
