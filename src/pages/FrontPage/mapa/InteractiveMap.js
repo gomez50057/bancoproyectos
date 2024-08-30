@@ -131,11 +131,7 @@ const InteractiveMap = () => {
                         <span class="popup-label">Sector:</span> ${project.sector}<br>
                         <span class="popup-label">Municipio:</span> ${project.municipioEnd}<br>
                         <span class="popup-label">Descripción:</span> ${project.descripcion}<br>
-                        <span class="popup-label">Objetivos:</span> ${project.objetivos}<br>
-                        <span class="popup-label">Beneficiarios:</span> ${project.beneficiarios}<br>
-                        <span class="popup-label">Región:</span> ${project.region}<br>
-                        <span class="popup-label">Localidad:</span> ${project.localidad}<br>
-                        <span class="popup-label">Barrio/Colonia/Ejido:</span> ${project.barrio_colonia_ejido}<br>
+                        <span class="popup-label">Beneficiarios:</span> ${project.beneficiarios}<br>                       
                     </div>
                     `;
 
