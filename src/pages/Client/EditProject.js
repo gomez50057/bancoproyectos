@@ -652,7 +652,7 @@ const EditProject = () => {
                     <label>Leyes Aplicables Vigentes {project.observacion_alineacion_normativa && (
                       <CustomTooltip id="observacion_alineacion_normativa" text={project.observacion_alineacion_normativa} />
                     )}</label>
-                    <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." disabled={project.isBlocked_alineacion_normativa} />
+                    <Field as="textarea" name="alineacionNormativa" maxLength="1500" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." disabled={project.isBlocked_alineacion_normativa} />
                     <ErrorMessage name="alineacionNormativa" component="div" className="error" />
                     <div>Máximo 200 caracteres</div>
                   </div>
@@ -920,8 +920,8 @@ const EditProject = () => {
                   { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
                   { label: 'Validación Normativa', field: 'validacionNormativa' },
                   { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
-                  { label: 'Situación sin Proyecto (Reporte Fotográfico)', field: 'situacionSinProyectoFotografico' },
-                  { label: 'Situación con Proyecto (Proyección)', field: 'situacionConProyectoProyeccion' },
+                  { label: 'Estado Inicial (Complemento)', field: 'situacionSinProyectoFotografico' },
+                  { label: 'Estado con Proyecto (Complemento)', field: 'situacionConProyectoProyeccion' },
                   { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
                   { label: 'Expediente Técnico', field: 'expedienteTecnico' },
                   { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },

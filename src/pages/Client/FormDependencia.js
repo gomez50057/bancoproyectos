@@ -80,7 +80,7 @@ const FormDependencia = () => {
     metas: Yup.string().max(500, 'Máximo 500 caracteres').required('Las metas son obligatorias'),
     programaPresupuestario: Yup.string().required('El programa presupuestario es obligatorio'),
     beneficiarios: Yup.number().min(1, 'El número de beneficiarios es obligatorio').nullable(),
-    alineacionNormativa: Yup.string().max(200, 'Máximo 200 caracteres').required('La alineación normativa es obligatoria'),
+    alineacionNormativa: Yup.string().max(1500, 'Máximo 1500 caracteres').required('La alineación normativa es obligatoria'),
     region: Yup.string().required('La región es obligatoria'),
     latitud: Yup.number().required('La latitud es obligatoria'),
     longitud: Yup.number().required('La longitud es obligatoria'),
@@ -703,9 +703,9 @@ const FormDependencia = () => {
                     </div>
                     <div className="form-group alineacionNormativa">
                       <label>Leyes Aplicables Vigentes</label>
-                      <Field as="textarea" name="alineacionNormativa" maxLength="200" placeholder="Leyes, Lineamientos, Manuales, Reglamentos , etc., que faciliten la implementación efectiva de los programas y/o proyectos." />
+                      <Field as="textarea" name="alineacionNormativa" maxLength="1500" placeholder="Leyes, Lineamientos, Manuales, Reglamentos, etc., que faciliten la implementación efectiva de los programas y/o proyectos." />
                       <ErrorMessage name="alineacionNormativa" component="div" className="error" />
-                      <div>Máximo 200 caracteres</div>
+                      <div>Máximo 1500 caracteres</div>
                     </div>
                   </div>
                 </div>
@@ -925,8 +925,8 @@ const FormDependencia = () => {
                     { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
                     { label: 'Validación Normativa', field: 'validacionNormativa' },
                     { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
-                    { label: 'Situación sin Proyecto (Reporte Fotográfico)', field: 'situacionSinProyectoFotografico' },
-                    { label: 'Situación con Proyecto (Proyección)', field: 'situacionConProyectoProyeccion' },
+                    { label: 'Estado Inicial (Complemento)', field: 'situacionSinProyectoFotografico' },
+                    { label: 'Estado con Proyecto (Complemento)', field: 'situacionConProyectoProyeccion' },
                     { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
                     { label: 'Expediente Técnico', field: 'expedienteTecnico' },
                     { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },
