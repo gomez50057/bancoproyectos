@@ -85,7 +85,7 @@ const ProjectIndicators = () => {
   return (
     <section id='projects' className="ProjectIndicators-container" ref={indicatorsRef}>
       <div className="indicators">
-        <Indicator count={counts.federal} imgSrc={`${imgBasePath}Federal.webp`} label="Federal" />
+        {/* <Indicator count={counts.federal} imgSrc={`${imgBasePath}Federal.webp`} label="Federal" /> */}
         <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`}>
           <div>Dependencias</div>
           <div>y Organismos</div>

@@ -7,7 +7,7 @@ import '../../components/styles.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const About = () => {
-  const [registeredProjects, setRegisteredProjects] = useState(0);
+  const [totalProjects, setTotalProjects] = useState(0);
   const [projectsInProcess, setProjectsInProcess] = useState(0);
   const [approvedProjects, setApprovedProjects] = useState(0);
   const [startCounter, setStartCounter] = useState(false);
@@ -44,8 +44,10 @@ const About = () => {
         try {
           const response = await axios.get('/proyecto/');
           const projects = response.data;
-          // const totalRegisteredProjects = projects.length;
-          const totalRegisteredProjects = projects.filter(project => project.estatus === 'Registrado').length;
+
+          const totalProjectsCount = projects.filter(project => project.project_name).length;
+          setTotalProjects(totalProjectsCount);
+
           const totalProjectsInProcess = projects.filter(project => project.estatus === 'En Proceso').length;
           const totalApprovedProjects = projects.filter(project => project.estatus === 'Atendido').length;
 
@@ -69,8 +71,6 @@ const About = () => {
               }
             }, counter > total - 10 ? slowSpeed : fastSpeed);
           };
-
-          animateCounter(setRegisteredProjects, totalRegisteredProjects);
           animateCounter(setProjectsInProcess, totalProjectsInProcess);
           animateCounter(setApprovedProjects, totalApprovedProjects);
         } catch (error) {
@@ -105,13 +105,13 @@ const About = () => {
         </div>
         <div className="about_num">
           <div className="about_numIndi">
-            <p>{registeredProjects}<span>ANTEPROYECTOS REGISTRADOS</span></p>
+            <p>{totalProjects}<span>NÚMERO DE PROYECTOS</span></p>
           </div>
           <div className="about_numIndi">
-            <p>{projectsInProcess}<span>PROYECTOS EN PROCESO DE REVISIÓN TÉCNICA</span></p>
+            <p>{projectsInProcess}<span>PROYECTOS EN PROCESO DE REVISIÓN</span></p>
           </div>
           <div className="about_numIndi">
-            <p>{approvedProjects}<span>PROYECTOS CON REVISIÓN TÉCNICA</span></p>
+            <p>{approvedProjects}<span>PROYECTOS REVISADOS </span></p>
           </div>
         </div>
       </div>
