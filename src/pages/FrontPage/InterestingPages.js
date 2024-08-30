@@ -61,7 +61,7 @@ const InterestingPages = () => {
                     transition={{ type: 'spring', stiffness: 100, delay: 0.4 }}
                     ref={rect1Ref}
                 >
-                    <p>Conoce los proyectos de tu localidad</p>
+                    <p>¡Conoce los proyectos!</p>
                     <Link to="/table" className="rectangle-button">
                         <img src={`${imgBasePath}botton.webp`} alt="Icono" className="icon_landig" />
                         <p>Descubre más...</p>
