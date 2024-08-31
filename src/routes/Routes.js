@@ -14,6 +14,9 @@ import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
 import ProjectReportReact from '../pages/Responsible/ProjectReportReact'; 
 
+import CedulaRegistroForm from '../pages/Client/PresupuestoInver/CedulaRegistroForm';
+
+
 const MainLayout = ({ children }) => (
     <div>
         <Navbar />
@@ -34,6 +37,8 @@ const AppRoutes = () => {
             <Route path="/" element={<MainLayout><MainContent /></MainLayout>} />
             <Route path="/login" element={<LoginLayout><Login /></LoginLayout>} />
             <Route path="/table" element={<MainLayout><TableComponent /></MainLayout>} />
+            <Route path="/presupuesto-inversion" element={<CedulaRegistroForm />} />
+
             <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} />
             <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} />
             <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientProjects /></LoginLayout></PrivateRoute>} />
