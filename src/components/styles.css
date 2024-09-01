@@ -335,7 +335,6 @@ p {
   }
 }
 
-/* Clase para activar el fade-in */
 .fade-in {
   opacity: 1 !important;
 }
@@ -768,16 +767,12 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 5px 5px 8px;
+  padding: 8px 6px 5px;
   background-color: var(--vinoClr);
   color: var(--blanco);
   border-radius: 30px;
   cursor: pointer;
-  padding-inline: 6px;
-  border-width: 2px;
-  border-style: outset;
-  border-color: buttonborder;
-  border-image: initial;
+  border: 2px outset buttonborder;
   font-weight: 600;
   margin-top: 10px;
 }
@@ -786,16 +781,16 @@ p {
 /* FormDependencia */
 /*  */
 
+.formulario-container p {
+  margin: 0 0 10px;
+}
+
 .formTitulo {
   display: flex;
   align-items: center;
   flex-direction: column;
   font-weight: 500;
   margin-top: 90px;
-}
-
-.formulario-container p {
-  margin: 0 0 10px;
 }
 
 .formTitulo h3 {
@@ -839,10 +834,7 @@ label {
   margin-bottom: 5px;
 }
 
-.formulario-container input[type="text"],
-.formulario-container input[type="number"],
-.formulario-container input[type="email"],
-.formulario-container input[type="file"],
+.formulario-container input,
 textarea,
 select {
   width: 100%;
