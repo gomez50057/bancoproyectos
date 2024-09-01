@@ -33,10 +33,10 @@ const CedulaRegistroForm = () => {
     <section>
       <div className="banner">
         <div className="banner_txt">
-          <img src={`${imgBasePath}cedulatxt.png`} alt="xxx" />
+          <img src={`${imgBasePath}cedulatxt.png`} alt="imagen de cedula" />
         </div>
         <div className="banner_img">
-          <img src={`${imgBasePath}inver.png`} alt="xxx" />
+          <img src={`${imgBasePath}inver.png`} alt="imagen de inverción" />
         </div>
         <div className="container_home-button">
           <button className="home-button" onClick={() => {
