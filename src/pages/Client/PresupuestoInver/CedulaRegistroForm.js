@@ -39,7 +39,14 @@ const CedulaRegistroForm = () => {
           <img src={`${imgBasePath}inver.png`} alt="xxx" />
         </div>
         <div className="container_home-button">
-          <button className="home-button" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}></button>
+          <button className="home-button" onClick={() => {
+            const targetPosition = window.innerHeight * 0.86;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth',
+            });
+          }}
+          ></button>
         </div>
       </div>
       <div className="formulario-container">
