@@ -32,6 +32,11 @@ const ClientPanel = () => {
             imgSrc={`${imgBasePath}agregar.webp`} 
           />
           <Card 
+            onClick={() => navigate('/presupuesto-inversion')} 
+            title="Agregar el presupuesto de Inversión" 
+            imgSrc={`${imgBasePath}agregar.webp`} 
+          />
+          <Card 
             onClick={() => navigate('/consulta')} 
             title="Consultar Proyecto" 
             imgSrc={`${imgBasePath}consultar.webp`} 

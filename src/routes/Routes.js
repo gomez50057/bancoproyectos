@@ -16,6 +16,9 @@ import ProjectReportReact from '../pages/Responsible/ProjectReportReact';
 
 import CedulaRegistroForm from '../pages/Client/PresupuestoInver/CedulaRegistroForm';
 
+import Dashboard from '../pages/Dashboard/Dashboard';
+
+
 
 const MainLayout = ({ children }) => (
     <div>
@@ -46,6 +49,10 @@ const AppRoutes = () => {
             <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} />
             <Route path="/project-report-react/:projectId" element={<ProjectReportReact />} />
             <Route path="*" element={<Navigate to="/" />} />
+
+
+            <Route path="/tablas" element={<Dashboard />} />
+
         </Routes>
     );
 };
