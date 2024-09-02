@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import SvgIcon from './SvgIcon';
+import TableComponent from '../Client/ClientProjects';
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,20 +51,6 @@ const Dashboard = () => {
         <div className="toggle active"></div>
         <ul className="list">
           <li
-            className="list-item"
-            data-component="dashboard"
-            onClick={() => handleMenuClick('dashboard')}
-          >
-            <b></b>
-            <b></b>
-            <button className="list-item-link" onClick={() => handleMenuClick('dashboard')}>
-              <div className="icon">
-                <SvgIcon name="dashboard" />
-              </div>
-              <span className="title">Dashboard</span>
-            </button>
-          </li>
-          <li
             className="list-item active"
             data-component="formulario"
             onClick={() => handleMenuClick('formulario')}
@@ -92,36 +79,6 @@ const Dashboard = () => {
               <span className="sub-title">coordinador</span>
             </button>
           </li>
-          <li
-            className="list-item"
-            data-component="acuerdosResponsable"
-            onClick={() => handleMenuClick('acuerdosResponsable')}
-          >
-            <b></b>
-            <b></b>
-            <button className="list-item-link" onClick={() => handleMenuClick('acuerdosResponsable')}>
-              <div className="icon">
-                <SvgIcon name="acuerdo" />
-              </div>
-              <span className="title">Acuerdos</span>
-              <span className="sub-title">responsable</span>
-            </button>
-          </li>
-          <li
-            className="list-item"
-            data-component="acuerdosEnlace"
-            onClick={() => handleMenuClick('acuerdosEnlace')}
-          >
-            <b></b>
-            <b></b>
-            <button className="list-item-link" onClick={() => handleMenuClick('acuerdosEnlace')}>
-              <div className="icon">
-                <SvgIcon name="acuerdo" />
-              </div>
-              <span className="title">Acuerdos</span>
-              <span className="sub-title">enlace</span>
-            </button>
-          </li>
         </ul>
 
         <div className="sidebar-card">
@@ -136,8 +93,10 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-container">
+
         <section className="content">
           {/* contenido del dashboard según sea necesario */}
+          <TableComponent />
         </section>
       </div>
 

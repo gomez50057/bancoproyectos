@@ -140,6 +140,8 @@
   display: flex;
   text-decoration: none;
   color: var(--blanco);
+  background-color: transparent;
+  border: none;
 }
 
 .sidebar .list .list-item .list-item-link .icon {
@@ -269,7 +271,7 @@
   margin-right: 25px;
 }
 
-.sidebar.active  .sidebar-card button .icon {
+.sidebar.active .sidebar-card button .icon {
   margin-right: 10px;
 }
 
