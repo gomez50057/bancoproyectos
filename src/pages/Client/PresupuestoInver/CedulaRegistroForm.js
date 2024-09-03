@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+import Select from 'react-select';
 import * as Yup from 'yup';
 import {
   dependencias,
@@ -20,6 +21,7 @@ const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
+// Esquema de validación con Yup
 const validationSchema = Yup.object({
   nombreDependencia: Yup.string().required('El nombre de la dependencia u organismo es obligatorio'),
   areaAdscripcion: Yup.string().required('El área de adscripción es obligatoria'),
@@ -27,9 +29,7 @@ const validationSchema = Yup.object({
   apellidoPaterno: Yup.string().required('El apellido paterno es obligatorio'),
   apellidoMaterno: Yup.string().required('El apellido materno es obligatorio'),
   correo: Yup.string().email('Correo inválido').required('El correo es obligatorio'),
-  telefono: Yup.string()
-    .matches(/^[0-9]{10}$/, 'Debe ser un número de 10 dígitos')
-    .required('El teléfono es obligatorio'),
+  telefono: Yup.string().matches(/^[0-9]{10}$/, 'Debe ser un número de 10 dígitos').required('El teléfono es obligatorio'),
   extension: Yup.string().matches(/^[0-9]*$/, 'Solo se permiten números'),
   fechaActual: Yup.string().required('La fecha de registro es obligatoria'),
   ejercicioFiscal: Yup.string().required('El ejercicio fiscal es obligatorio'),
@@ -147,10 +147,8 @@ const CedulaRegistroForm = () => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log('Form data submitted:', values);
-          // Lógica para enviar datos al backend
           const formData = new FormData();
 
-          // Procesa archivos adicionales si aplican
           for (const key in applies) {
             if (applies[key]) {
               for (const file of values[key]) {
@@ -159,11 +157,10 @@ const CedulaRegistroForm = () => {
             }
           }
 
-          // Aquí podrías agregar la lógica para enviar el formData al backend
+          // Lógica para enviar formData al backend
         }}
       >
         {({ setFieldValue, values }) => {
-          // Obtener opciones basadas en selecciones previas
           const objetivos = values.planEstatal ? Acuerdos[values.planEstatal]?.objetivos || [] : [];
           const estrategias = values.objetivoPED ? Acuerdos[values.planEstatal]?.estrategias[values.objetivoPED] || [] : [];
           const lineasAccion = values.estrategiaPED ? Acuerdos[values.planEstatal]?.lineasAccion[values.estrategiaPED] || [] : [];
@@ -192,43 +189,50 @@ const CedulaRegistroForm = () => {
               <SectionTitle title="Datos Generales" />
               <div className="form-row">
                 <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
-                <FieldGroup name="ejercicioFiscal" label="Ejercicio Fiscal" as="select">
-                  <option value="">Selecciona una opción</option>
-                  {['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => (
-                    <option key={year} value={year}>{year}</option>
-                  ))}
-                </FieldGroup>
+                <Field
+                  name="ejercicioFiscal"
+                  label="Ejercicio Fiscal"
+                  component={CustomSelect}
+                  options={['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => ({ value: year, label: year }))}
+                  placeholder="Selecciona una opción"
+                />
               </div>
               <div className="form-row">
-                <FieldGroup name="dependencia" label="Dependencia" as="select">
-                  <option value="">Selecciona una opción</option>
-                  {dependencias.map((dep) => (
-                    <option key={dep} value={dep}>{dep}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup name="organismo" label="Organismo" as="select">
-                  <option value="">Selecciona una opción</option>
-                  {organismos.map((org) => (
-                    <option key={org} value={org}>{org}</option>
-                  ))}
-                </FieldGroup>
+                <Field
+                  name="dependencia"
+                  label="Dependencia"
+                  component={CustomSelect}
+                  options={dependencias.map((dep) => ({ value: dep, label: dep }))}
+                  placeholder="Selecciona una opción"
+                />
+                <Field
+                  name="organismo"
+                  label="Organismo"
+                  component={CustomSelect}
+                  options={organismos.map((org) => ({ value: org, label: org }))}
+                  placeholder="Selecciona una opción"
+                />
               </div>
               <div className="form-row">
-                <FieldGroup name="unidadResponsable" label="Unidad Responsable" as="select" onChange={(e) => {
-                  setFieldValue('unidadResponsable', e.target.value);
-                  setFieldValue('unidadPresupuestal', '');
-                }}>
-                  <option value="">Selecciona una opción</option>
-                  {Object.keys(unidadPresupuestalPorUnidadResponsable).map((unidad) => (
-                    <option key={unidad} value={unidad}>{unidad}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup name="unidadPresupuestal" label="Unidad Presupuestal" as="select" disabled={!values.unidadResponsable}>
-                  <option value="">Selecciona una opción</option>
-                  {(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map((unidad) => (
-                    <option key={unidad} value={unidad}>{unidad}</option>
-                  ))}
-                </FieldGroup>
+                <Field
+                  name="unidadResponsable"
+                  label="Unidad Responsable"
+                  component={CustomSelect}
+                  options={Object.keys(unidadPresupuestalPorUnidadResponsable).map((unidad) => ({ value: unidad, label: unidad }))}
+                  placeholder="Selecciona una opción"
+                  onChange={(option) => {
+                    setFieldValue('unidadResponsable', option.value);
+                    setFieldValue('unidadPresupuestal', '');
+                  }}
+                />
+                <Field
+                  name="unidadPresupuestal"
+                  label="Unidad Presupuestal"
+                  component={CustomSelect}
+                  options={(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map((unidad) => ({ value: unidad, label: unidad }))}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.unidadResponsable}
+                />
               </div>
               <div className="form-row">
                 <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" />
@@ -242,18 +246,20 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" />
               </div>
               <div className="form-row">
-                <FieldGroup name="tipoObra" label="Tipo de Obra" as="select">
-                  <option value="">Selecciona una opción</option>
-                  {['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => (
-                    <option key={tipo} value={tipo}>{tipo}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup name="calendarioEjecucion" label="Calendario de Ejecución" as="select">
-                  <option value="">Selecciona una opción</option>
-                  {[...Array(12).keys()].map((mes) => (
-                    <option key={mes + 1} value={mes + 1}>{`${mes + 1} meses`}</option>
-                  ))}
-                </FieldGroup>
+                <Field
+                  name="tipoObra"
+                  label="Tipo de Obra"
+                  component={CustomSelect}
+                  options={['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => ({ value: tipo, label: tipo }))}
+                  placeholder="Selecciona una opción"
+                />
+                <Field
+                  name="calendarioEjecucion"
+                  label="Calendario de Ejecución"
+                  component={CustomSelect}
+                  options={[...Array(12).keys()].map((mes) => ({ value: mes + 1, label: `${mes + 1} meses` }))}
+                  placeholder="Selecciona una opción"
+                />
               </div>
               <div className="form-row">
                 <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" />
@@ -272,7 +278,7 @@ const CedulaRegistroForm = () => {
                   label="Inversión Presupuestada"
                   type="text"
                   onChange={(e) => {
-                    const value = e.target.value.replace(/,/g, ''); // Elimina las comas antes de convertir
+                    const value = e.target.value.replace(/,/g, '');
                     if (!isNaN(value)) {
                       setFieldValue('inversionPresupuestada', formatNumberWithCommas(value));
                     }
@@ -284,157 +290,151 @@ const CedulaRegistroForm = () => {
               {/* Territorio */}
               <SectionTitle title="Territorio" />
               <div className="form-row">
-                <FieldGroup name="region" label="Región" as="select" onChange={(e) => {
-                  setFieldValue('region', e.target.value);
-                  setFieldValue('municipio', '');
-                }}>
-                  <option value="">Selecciona una opción</option>
-                  {Object.keys(municipiosPorRegion).map((region) => (
-                    <option key={region} value={region}>{region}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup name="municipio" label="Municipio" as="select" disabled={!values.region}>
-                  <option value="">Selecciona una opción</option>
-                  {municipios.map((municipio) => (
-                    <option key={municipio} value={municipio}>{municipio}</option>
-                  ))}
-                </FieldGroup>
+                <Field
+                  name="region"
+                  label="Región"
+                  component={CustomSelect}
+                  options={Object.keys(municipiosPorRegion).map((region) => ({ value: region, label: region }))}
+                  placeholder="Selecciona una opción"
+                  onChange={(option) => {
+                    setFieldValue('region', option.value);
+                    setFieldValue('municipio', '');
+                  }}
+                />
+                <Field
+                  name="municipio"
+                  label="Municipio"
+                  component={CustomSelect}
+                  options={municipios.map((municipio) => ({ value: municipio, label: municipio }))}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.region}
+                />
                 <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
                 <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
               </div>
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
               <div className="form-row">
-                <FieldGroup name="ods" label="Objetivos de Desarrollo Sostenible" as="select">
-                  <option value="">Selecciona una opción</option>
-                  {ODS.map((objetivo, index) => (
-                    <option key={index} value={objetivo}>{objetivo}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup
+                <Field
+                  name="ods"
+                  label="Objetivos de Desarrollo Sostenible"
+                  component={CustomSelect}
+                  options={ODS.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
+                  placeholder="Selecciona una opción"
+                />
+                <Field
                   name="planEstatal"
                   label="Plan Estatal de Desarrollo"
-                  as="select"
-                  onChange={(e) => {
-                    setFieldValue('planEstatal', e.target.value);
+                  component={CustomSelect}
+                  options={Object.keys(Acuerdos).map((acuerdo, index) => ({ value: acuerdo, label: acuerdo }))}
+                  placeholder="Selecciona una opción"
+                  onChange={(option) => {
+                    setFieldValue('planEstatal', option.value);
                     setFieldValue('objetivoPED', '');
                     setFieldValue('estrategiaPED', '');
                     setFieldValue('lineaAccionPED', '');
                     setFieldValue('indicadorPED', '');
                   }}
-                >
-                  <option value="">Selecciona una opción</option>
-                  {Object.keys(Acuerdos).map((acuerdo, index) => (
-                    <option key={index} value={acuerdo}>{acuerdo}</option>
-                  ))}
-                </FieldGroup>
+                />
               </div>
               <div className="form-row">
-                <FieldGroup
+                <Field
                   name="objetivoPED"
                   label="Objetivo del PED"
-                  as="select"
-                  disabled={!values.planEstatal}
-                  onChange={(e) => {
-                    setFieldValue('objetivoPED', e.target.value);
+                  component={CustomSelect}
+                  options={objetivos.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.planEstatal}
+                  onChange={(option) => {
+                    setFieldValue('objetivoPED', option.value);
                     setFieldValue('estrategiaPED', '');
                     setFieldValue('lineaAccionPED', '');
                     setFieldValue('indicadorPED', '');
                   }}
-                >
-                  <option value="">Selecciona una opción</option>
-                  {objetivos.map((objetivo, index) => (
-                    <option key={index} value={objetivo}>{objetivo}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup
+                />
+                <Field
                   name="estrategiaPED"
                   label="Estrategia del PED"
-                  as="select"
-                  disabled={!values.objetivoPED}
-                  onChange={(e) => {
-                    setFieldValue('estrategiaPED', e.target.value);
+                  component={CustomSelect}
+                  options={estrategias.map((estrategia, index) => ({ value: estrategia, label: estrategia }))}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.objetivoPED}
+                  onChange={(option) => {
+                    setFieldValue('estrategiaPED', option.value);
                     setFieldValue('lineaAccionPED', '');
                     setFieldValue('indicadorPED', '');
                   }}
-                >
-                  <option value="">Selecciona una opción</option>
-                  {estrategias.map((estrategia, index) => (
-                    <option key={index} value={estrategia}>{estrategia}</option>
-                  ))}
-                </FieldGroup>
+                />
               </div>
               <div className="form-row">
-                <FieldGroup
+                <Field
                   name="lineaAccionPED"
                   label="Línea de Acción del PED"
-                  as="select"
-                  disabled={!values.estrategiaPED}
-                  onChange={(e) => {
-                    setFieldValue('lineaAccionPED', e.target.value);
+                  component={CustomSelect}
+                  options={lineasAccion.map((linea, index) => ({ value: linea, label: linea }))}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.estrategiaPED}
+                  onChange={(option) => {
+                    setFieldValue('lineaAccionPED', option.value);
                     setFieldValue('indicadorPED', '');
                   }}
-                >
-                  <option value="">Selecciona una opción</option>
-                  {lineasAccion.map((linea, index) => (
-                    <option key={index} value={linea}>{linea}</option>
-                  ))}
-                </FieldGroup>
-                <FieldGroup
+                />
+                <Field
                   name="indicadorPED"
                   label="Indicador Estratégico del PED"
-                  as="select"
-                  disabled={!values.lineaAccionPED}
-                  onChange={(e) => setFieldValue('indicadorPED', e.target.value)}
-                >
-                  <option value="">Selecciona una opción</option>
-                  {indicadores.map((indicador, index) => (
-                    <option key={index} value={indicador}>{indicador}</option>
-                  ))}
-                </FieldGroup>
+                  component={CustomSelect}
+                  options={indicadores.map((indicador, index) => ({ value: indicador, label: indicador }))}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.lineaAccionPED}
+                />
               </div>
 
               {/* Verificación de Propuesta */}
               <SectionTitle title="Verificación de Propuesta" />
 
               <div className="form-row">
-                <FieldGroup
+                <Field
                   name="propuestaCampana"
                   label="¿Se apega con alguna propuesta de campaña?"
-                  as="select"
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setFieldValue('propuestaCampana', value);
-                    if (value === 'No') {
+                  component={CustomSelect}
+                  options={[
+                    { value: 'Sí', label: 'Sí' },
+                    { value: 'No', label: 'No' },
+                  ]}
+                  placeholder="Selecciona una opción"
+                  onChange={(option) => {
+                    setFieldValue('propuestaCampana', option.value);
+                    if (option.value === 'No') {
                       setFieldValue('cualPropuesta', 'No aplica');
                     } else {
                       setFieldValue('cualPropuesta', '');
                     }
                   }}
-                >
-                  <option value="">Selecciona una opción</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                </FieldGroup>
-                <FieldGroup
+                />
+                <Field
                   name="cualPropuesta"
                   label="¿Cuál?"
-                  as="select"
-                  disabled={values.propuestaCampana !== 'Sí'}
-                >
-                  <option value="">Selecciona una opción</option>
-                  {values.propuestaCampana === 'Sí' && propuestaCampana.map((propuesta, index) => (
-                    <option key={index} value={propuesta}>{propuesta}</option>
-                  ))}
-                  {values.propuestaCampana === 'No' && <option value="No aplica">No aplica</option>}
-                </FieldGroup>
+                  component={CustomSelect}
+                  options={
+                    values.propuestaCampana === 'Sí'
+                      ? propuestaCampana.map((propuesta, index) => ({ value: propuesta, label: propuesta }))
+                      : [{ value: 'No aplica', label: 'No aplica' }]
+                  }
+                  placeholder="Selecciona una opción"
+                  isDisabled={values.propuestaCampana !== 'Sí'}
+                />
               </div>
               <div className="form-row">
-                <FieldGroup name="expedienteTecnico" label="¿Cuenta con expediente técnico?" as="select">
-                  <option value="">Selecciona una opción</option>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                </FieldGroup>
+                <Field
+                  name="expedienteTecnico"
+                  label="¿Cuenta con expediente técnico?"
+                  component={CustomSelect}
+                  options={[
+                    { value: 'Sí', label: 'Sí' },
+                    { value: 'No', label: 'No' },
+                  ]}
+                  placeholder="Selecciona una opción"
+                />
               </div>
 
               {/* Rentabilidad / Estudios de Viabilidad Carga de Documentación */}
@@ -456,7 +456,7 @@ const CedulaRegistroForm = () => {
                   { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otrosEstudios' },
                 ].map(({ label, field }) => (
                   <div key={field} className="CargaDocumentacion">
-                    <div className='textAplica'>
+                    <div className="textAplica">
                       <label>{label}</label>
                       <div className="checkAplica">
                         <label>
@@ -515,5 +515,33 @@ const FieldGroup = ({ label, name, ...props }) => (
     <ErrorMessage name={name} component="div" className="error" />
   </div>
 );
+
+// Componente CustomSelect para integrar React Select con Formik
+const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = false }) => {
+  const onChange = (option) => {
+    form.setFieldValue(field.name, option.value);
+  };
+
+  const selectedOption = options ? options.find(option => option.value === field.value) : '';
+
+  return (
+    <div className="form-group">
+      <label htmlFor={field.name}>{label}</label>
+      <Select
+        className="form-group"
+        options={options}
+        name={field.name}
+        value={selectedOption}
+        onChange={onChange}
+        placeholder={placeholder}
+        isDisabled={isDisabled}
+        menuPortalTarget={document.body}
+        styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }), control: base => ({ ...base, borderRadius: '15px' })}}
+        menuPlacement="auto"
+      />
+      <ErrorMessage name={field.name} component="div" className="error" />
+    </div>
+  );
+};
 
 export default CedulaRegistroForm;
