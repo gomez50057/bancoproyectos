@@ -1,9 +1,17 @@
 // src/pages/Client/PresupuestoInver/CedulaRegistroForm.js
 
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import { dependencias, organismos, unidadPresupuestalPorUnidadResponsable, Acuerdos, municipiosPorRegion, ODS, propuestaCampana } from '../../../presup_inversion';
+import {
+  dependencias,
+  organismos,
+  unidadPresupuestalPorUnidadResponsable,
+  Acuerdos,
+  municipiosPorRegion,
+  ODS,
+  propuestaCampana,
+} from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
 
@@ -61,6 +69,28 @@ const validationSchema = Yup.object({
 const CedulaRegistroForm = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
 
+  const [applies, setApplies] = useState({
+    estudiosProspectivos: false,
+    estudiosFactibilidad: false,
+    analisisAlternativas: false,
+    validacionNormativa: false,
+    liberacionDerechoVia: false,
+    situacionSinProyectoFotografico: false,
+    situacionConProyectoProyeccion: false,
+    analisisCostoBeneficio: false,
+    expedienteTecnico: false,
+    proyectoEjecutivo: false,
+    manifestacionImpactoAmbiental: false,
+    otrosEstudios: false,
+  });
+
+  const handleApplyChange = (field) => {
+    setApplies((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
+  };
+
   return (
     <section className="formulario-container">
       <Formik
@@ -102,11 +132,34 @@ const CedulaRegistroForm = () => {
           propuestaCampana: '',
           cualPropuesta: '',
           expedienteTecnico: '',
+          estudiosProspectivos: [],
+          estudiosFactibilidad: [],
+          analisisAlternativas: [],
+          validacionNormativa: [],
+          liberacionDerechoVia: [],
+          situacionSinProyectoFotografico: [],
+          situacionConProyectoProyeccion: [],
+          analisisCostoBeneficio: [],
+          proyectoEjecutivo: [],
+          manifestacionImpactoAmbiental: [],
+          otrosEstudios: [],
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log('Form data submitted:', values);
           // Lógica para enviar datos al backend
+          const formData = new FormData();
+
+          // Procesa archivos adicionales si aplican
+          for (const key in applies) {
+            if (applies[key]) {
+              for (const file of values[key]) {
+                formData.append(key, file);
+              }
+            }
+          }
+
+          // Aquí podrías agregar la lógica para enviar el formData al backend
         }}
       >
         {({ setFieldValue, values }) => {
@@ -141,7 +194,7 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
                 <FieldGroup name="ejercicioFiscal" label="Ejercicio Fiscal" as="select">
                   <option value="">Selecciona una opción</option>
-                  {['2020', '2021', '2022', '2023', '2024', '2025'].map(year => (
+                  {['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => (
                     <option key={year} value={year}>{year}</option>
                   ))}
                 </FieldGroup>
@@ -149,13 +202,13 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="dependencia" label="Dependencia" as="select">
                   <option value="">Selecciona una opción</option>
-                  {dependencias.map(dep => (
+                  {dependencias.map((dep) => (
                     <option key={dep} value={dep}>{dep}</option>
                   ))}
                 </FieldGroup>
                 <FieldGroup name="organismo" label="Organismo" as="select">
                   <option value="">Selecciona una opción</option>
-                  {organismos.map(org => (
+                  {organismos.map((org) => (
                     <option key={org} value={org}>{org}</option>
                   ))}
                 </FieldGroup>
@@ -166,13 +219,13 @@ const CedulaRegistroForm = () => {
                   setFieldValue('unidadPresupuestal', '');
                 }}>
                   <option value="">Selecciona una opción</option>
-                  {Object.keys(unidadPresupuestalPorUnidadResponsable).map(unidad => (
+                  {Object.keys(unidadPresupuestalPorUnidadResponsable).map((unidad) => (
                     <option key={unidad} value={unidad}>{unidad}</option>
                   ))}
                 </FieldGroup>
                 <FieldGroup name="unidadPresupuestal" label="Unidad Presupuestal" as="select" disabled={!values.unidadResponsable}>
                   <option value="">Selecciona una opción</option>
-                  {(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map(unidad => (
+                  {(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map((unidad) => (
                     <option key={unidad} value={unidad}>{unidad}</option>
                   ))}
                 </FieldGroup>
@@ -191,13 +244,13 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="tipoObra" label="Tipo de Obra" as="select">
                   <option value="">Selecciona una opción</option>
-                  {['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map(tipo => (
+                  {['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => (
                     <option key={tipo} value={tipo}>{tipo}</option>
                   ))}
                 </FieldGroup>
                 <FieldGroup name="calendarioEjecucion" label="Calendario de Ejecución" as="select">
                   <option value="">Selecciona una opción</option>
-                  {[...Array(12).keys()].map(mes => (
+                  {[...Array(12).keys()].map((mes) => (
                     <option key={mes + 1} value={mes + 1}>{`${mes + 1} meses`}</option>
                   ))}
                 </FieldGroup>
@@ -214,14 +267,18 @@ const CedulaRegistroForm = () => {
               {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
-                <FieldGroup name="inversionPresupuestada" label="Inversión Presupuestada" type="text"
+                <FieldGroup
+                  name="inversionPresupuestada"
+                  label="Inversión Presupuestada"
+                  type="text"
                   onChange={(e) => {
                     const value = e.target.value.replace(/,/g, ''); // Elimina las comas antes de convertir
                     if (!isNaN(value)) {
                       setFieldValue('inversionPresupuestada', formatNumberWithCommas(value));
                     }
                   }}
-                  value={values.inversionPresupuestada} maxLength="250"
+                  value={values.inversionPresupuestada}
+                  maxLength="250"
                 />
               </div>
               {/* Territorio */}
@@ -232,13 +289,13 @@ const CedulaRegistroForm = () => {
                   setFieldValue('municipio', '');
                 }}>
                   <option value="">Selecciona una opción</option>
-                  {Object.keys(municipiosPorRegion).map(region => (
+                  {Object.keys(municipiosPorRegion).map((region) => (
                     <option key={region} value={region}>{region}</option>
                   ))}
                 </FieldGroup>
                 <FieldGroup name="municipio" label="Municipio" as="select" disabled={!values.region}>
                   <option value="">Selecciona una opción</option>
-                  {municipios.map(municipio => (
+                  {municipios.map((municipio) => (
                     <option key={municipio} value={municipio}>{municipio}</option>
                   ))}
                 </FieldGroup>
@@ -378,6 +435,68 @@ const CedulaRegistroForm = () => {
                   <option value="Sí">Sí</option>
                   <option value="No">No</option>
                 </FieldGroup>
+              </div>
+
+              {/* Rentabilidad / Estudios de Viabilidad Carga de Documentación */}
+              <SectionTitle title="Rentabilidad / Estudios de Viabilidad Carga de Documentación" />
+              <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
+              <div className="RENTABILIDAD">
+                {[
+                  { label: 'Estudios Prospectivos', field: 'estudiosProspectivos' },
+                  { label: 'Estudios de Factibilidad', field: 'estudiosFactibilidad' },
+                  { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
+                  { label: 'Validación Normativa', field: 'validacionNormativa' },
+                  { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
+                  { label: 'Estado Inicial (Complemento)', field: 'situacionSinProyectoFotografico' },
+                  { label: 'Estado con Proyecto (Complemento)', field: 'situacionConProyectoProyeccion' },
+                  { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
+                  { label: 'Expediente Técnico', field: 'expedienteTecnico' },
+                  { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },
+                  { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacionImpactoAmbiental' },
+                  { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otrosEstudios' },
+                ].map(({ label, field }) => (
+                  <div key={field} className="CargaDocumentacion">
+                    <div className='textAplica'>
+                      <label>{label}</label>
+                      <div className="checkAplica">
+                        <label>
+                          <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} />
+                          Aplica
+                        </label>
+                        <label>
+                          <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} />
+                          No Aplica
+                        </label>
+                      </div>
+                    </div>
+
+                    {applies[field] && (
+                      <FieldArray name={field}>
+                        {({ push, remove }) => (
+                          <div>
+                            {values[field].map((file, index) => (
+                              <div key={index} className="file-input-group">
+                                <input
+                                  type="file"
+                                  onChange={(event) => {
+                                    const files = Array.from(event.currentTarget.files);
+                                    files.forEach(file => setFieldValue(`${field}.${index}`, file));
+                                  }}
+                                  accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
+                                />
+                                <button type="button" onClick={() => remove(index)}>Eliminar</button>
+                              </div>
+                            ))}
+                            <button type="button" onClick={() => push(null)} className="add-file-button">
+                              Agregar Archivo
+                            </button>
+                          </div>
+                        )}
+                      </FieldArray>
+                    )}
+                    <ErrorMessage name={field} component="div" className="error" />
+                  </div>
+                ))}
               </div>
               <button type="submit">Enviar</button>
             </Form>

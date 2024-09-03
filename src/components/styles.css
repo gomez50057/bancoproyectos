@@ -969,7 +969,6 @@ select {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
-  /* Espacio entre los elementos */
 }
 
 .formTwo,
@@ -1079,31 +1078,7 @@ select {
   width: 40%;
 }
 
-/* .entityType{
-  flex: 1 0 33.667%;
-} */
 
-/* .organismo,
-.municipioEnd,
-.PeticionPersonal {
-  flex: 1 0 64.334%;
-} */
-
-
-
-/* Archivo: src/styles.css */
-
-/* .table_grid .MuiTable-root {
-  position: relative;
+option{
+background-color: #0056b3;
 }
-
-.table_grid .MuiTableCell-stickyHeader {
-  background: white;
-  position: sticky;
-  right: 0;
-  z-index: 1000;
-}
-
-.table_grid .MuiTableCell-stickyHeader + .MuiTableCell-stickyHeader {
-  z-index: 1001;
-} */
