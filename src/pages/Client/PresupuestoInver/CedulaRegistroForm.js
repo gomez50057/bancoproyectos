@@ -115,6 +115,8 @@ const CedulaRegistroForm = () => {
 
           // Lógica para enviar formData al backend
         }}
+        validateOnChange={true} // Validación en tiempo real
+        validateOnBlur={true}
       >
         {({ setFieldValue, values }) => {
           const objetivos = values.planEstatal ? Acuerdos[values.planEstatal]?.objetivos || [] : [];
