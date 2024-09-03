@@ -131,7 +131,7 @@ const CedulaRegistroForm = () => {
           // Procesa municipios de impacto
           if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
             const municipiosImpactoArray = values.municipiosImpacto.map(mun => mun.value);
-            formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray));
+            formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray)); 
           } else {
             formData.append('municipio_impacto', JSON.stringify([]));
           }
@@ -477,9 +477,9 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
         placeholder={placeholder}
         isDisabled={isDisabled}
         menuPortalTarget={document.body}
-        styles={{
-          menuPortal: base => ({ ...base, zIndex: 9999 }),
-          control: base => ({ ...base, borderRadius: '15px' })
+        styles={{ 
+          menuPortal: base => ({ ...base, zIndex: 9999 }), 
+          control: base => ({ ...base, borderRadius: '15px' }) 
         }}
         menuPlacement="auto"
       />
