@@ -1,9 +1,10 @@
 // src/pages/Client/PresupuestoInver/CedulaRegistroForm.js
 
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
-import * as Yup from 'yup';
+import { validationSchema } from './validationSchemaCedula';
+import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import {
   dependencias,
   organismos,
@@ -20,51 +21,6 @@ import './CedulaRegistroForm.css';
 const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
-
-// Esquema de validación con Yup
-const validationSchema = Yup.object({
-  nombreDependencia: Yup.string().required('El nombre de la dependencia u organismo es obligatorio'),
-  areaAdscripcion: Yup.string().required('El área de adscripción es obligatoria'),
-  nombreRegistrante: Yup.string().required('El nombre es obligatorio'),
-  apellidoPaterno: Yup.string().required('El apellido paterno es obligatorio'),
-  apellidoMaterno: Yup.string().required('El apellido materno es obligatorio'),
-  correo: Yup.string().email('Correo inválido').required('El correo es obligatorio'),
-  telefono: Yup.string().matches(/^[0-9]{10}$/, 'Debe ser un número de 10 dígitos').required('El teléfono es obligatorio'),
-  extension: Yup.string().matches(/^[0-9]*$/, 'Solo se permiten números'),
-  fechaActual: Yup.string().required('La fecha de registro es obligatoria'),
-  ejercicioFiscal: Yup.string().required('El ejercicio fiscal es obligatorio'),
-  dependencia: Yup.string().required('La dependencia es obligatoria'),
-  organismo: Yup.string().required('El organismo es obligatorio'),
-  unidadResponsable: Yup.string().required('La unidad responsable es obligatoria'),
-  unidadPresupuestal: Yup.string().required('La unidad presupuestal es obligatoria'),
-  nombreProyecto: Yup.string().max(250, 'Máximo 250 caracteres').required('El nombre del proyecto es obligatorio'),
-  descripcionProyecto: Yup.string().max(1000, 'Máximo 1000 caracteres').required('La descripción del proyecto es obligatoria'),
-  situacionActual: Yup.string().max(1000, 'Máximo 1000 caracteres').required('El análisis de la situación actual es obligatorio'),
-  tipoObra: Yup.string().required('El tipo de obra es obligatorio'),
-  calendarioEjecucion: Yup.string().required('El calendario de ejecución es obligatorio'),
-  beneficioSocial: Yup.string().max(500, 'Máximo 500 caracteres').required('El beneficio social es obligatorio'),
-  beneficioEconomico: Yup.string().max(500, 'Máximo 500 caracteres').required('El beneficio económico es obligatorio'),
-  numeroBeneficiarios: Yup.number().integer('Debe ser un número entero').required('El número de beneficiarios es obligatorio'),
-  inversionPresupuestada: Yup.number().positive('Debe ser un número positivo').required('La inversión presupuestada es obligatoria'),
-  region: Yup.string().required('La región es obligatoria'),
-  municipio: Yup.string().required('El municipio es obligatorio'),
-  localidad: Yup.string().max(50, 'Máximo 50 caracteres').required('La localidad es obligatoria'),
-  barrioColoniaEjido: Yup.string().max(50, 'Máximo 50 caracteres').required('El barrio/colonia/ejido es obligatorio'),
-  ods: Yup.string().required('El objetivo de desarrollo sostenible es obligatorio'),
-  planEstatal: Yup.string().required('El plan estatal de desarrollo es obligatorio'),
-  objetivoPED: Yup.string().required('El objetivo del PED es obligatorio'),
-  estrategiaPED: Yup.string().required('La estrategia del PED es obligatoria'),
-  lineaAccionPED: Yup.string().required('La línea de acción del PED es obligatoria'),
-  indicadorPED: Yup.string().required('El indicador estratégico del PED es obligatorio'),
-  prioridad: Yup.number().integer('Debe ser un número entero').min(1, 'Mínimo 1').max(100, 'Máximo 100').required('La prioridad es obligatoria'),
-  propuestaCampana: Yup.string().required('Este campo es obligatorio'),
-  cualPropuesta: Yup.string().when('propuestaCampana', {
-    is: 'Sí',
-    then: (schema) => schema.required('Debes especificar la propuesta de campaña'),
-    otherwise: (schema) => schema.oneOf(['No aplica'], 'Debe seleccionar "No aplica" cuando la respuesta es "No"'),
-  }),
-  expedienteTecnico: Yup.string().required('Este campo es obligatorio'),
-});
 
 const CedulaRegistroForm = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
@@ -440,64 +396,8 @@ const CedulaRegistroForm = () => {
               {/* Rentabilidad / Estudios de Viabilidad Carga de Documentación */}
               <SectionTitle title="Rentabilidad / Estudios de Viabilidad Carga de Documentación" />
               <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
-              <div className="RENTABILIDAD">
-                {[
-                  { label: 'Estudios Prospectivos', field: 'estudiosProspectivos' },
-                  { label: 'Estudios de Factibilidad', field: 'estudiosFactibilidad' },
-                  { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
-                  { label: 'Validación Normativa', field: 'validacionNormativa' },
-                  { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
-                  { label: 'Estado Inicial (Complemento)', field: 'situacionSinProyectoFotografico' },
-                  { label: 'Estado con Proyecto (Complemento)', field: 'situacionConProyectoProyeccion' },
-                  { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
-                  { label: 'Expediente Técnico', field: 'expedienteTecnico' },
-                  { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },
-                  { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacionImpactoAmbiental' },
-                  { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otrosEstudios' },
-                ].map(({ label, field }) => (
-                  <div key={field} className="CargaDocumentacion">
-                    <div className="textAplica">
-                      <label>{label}</label>
-                      <div className="checkAplica">
-                        <label>
-                          <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} />
-                          Aplica
-                        </label>
-                        <label>
-                          <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} />
-                          No Aplica
-                        </label>
-                      </div>
-                    </div>
+              <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
-                    {applies[field] && (
-                      <FieldArray name={field}>
-                        {({ push, remove }) => (
-                          <div>
-                            {values[field].map((file, index) => (
-                              <div key={index} className="file-input-group">
-                                <input
-                                  type="file"
-                                  onChange={(event) => {
-                                    const files = Array.from(event.currentTarget.files);
-                                    files.forEach(file => setFieldValue(`${field}.${index}`, file));
-                                  }}
-                                  accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
-                                />
-                                <button type="button" onClick={() => remove(index)}>Eliminar</button>
-                              </div>
-                            ))}
-                            <button type="button" onClick={() => push(null)} className="add-file-button">
-                              Agregar Archivo
-                            </button>
-                          </div>
-                        )}
-                      </FieldArray>
-                    )}
-                    <ErrorMessage name={field} component="div" className="error" />
-                  </div>
-                ))}
-              </div>
               <button type="submit">Enviar</button>
             </Form>
           );
@@ -525,10 +425,10 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
   const selectedOption = options ? options.find(option => option.value === field.value) : '';
 
   return (
-    <div className="form-group">
+    <div className="form-group" style={{ borderRadius: '15px' }}>
       <label htmlFor={field.name}>{label}</label>
       <Select
-        className="form-group"
+        className="form-select"
         options={options}
         name={field.name}
         value={selectedOption}
@@ -536,7 +436,10 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
         placeholder={placeholder}
         isDisabled={isDisabled}
         menuPortalTarget={document.body}
-        styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }), control: base => ({ ...base, borderRadius: '15px' })}}
+        styles={{ 
+          menuPortal: base => ({ ...base, zIndex: 9999 }), 
+          control: base => ({ ...base, borderRadius: '15px' }) 
+        }}
         menuPlacement="auto"
       />
       <ErrorMessage name={field.name} component="div" className="error" />
