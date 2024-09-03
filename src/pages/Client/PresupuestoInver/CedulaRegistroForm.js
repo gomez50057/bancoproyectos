@@ -47,7 +47,6 @@ const CedulaRegistroForm = () => {
     }));
   };
 
-  // Definir las opciones de municipios de impacto
   const municipiosOptions = useMemo(() => [
     { value: 'No Aplica', label: 'No Aplica' },
     ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))
@@ -113,7 +112,7 @@ const CedulaRegistroForm = () => {
           proyectoEjecutivo: [],
           manifestacionImpactoAmbiental: [],
           otrosEstudios: [],
-          municipiosImpacto: [], // Agregar el nuevo campo aquí
+          municipiosImpacto: [],
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -128,7 +127,6 @@ const CedulaRegistroForm = () => {
             }
           }
 
-          // Procesa municipios de impacto
           if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
             const municipiosImpactoArray = values.municipiosImpacto.map(mun => mun.value);
             formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray)); 
@@ -150,7 +148,6 @@ const CedulaRegistroForm = () => {
 
           return (
             <Form>
-              {/* Datos de Registro */}
               <SectionTitle title="Datos de Registro" />
               <div className="form-row">
                 <FieldGroup name="nombreDependencia" label="Nombre de la Dependencia u Organismo" type="text" />
@@ -163,10 +160,10 @@ const CedulaRegistroForm = () => {
               </div>
               <div className="form-row">
                 <FieldGroup name="correo" label="Correo" type="email" />
-                <FieldGroup name="telefono" label="Teléfono" type="text" />
+                <FieldGroup name="telefono" label="Teléfono" type="text" note="Debe ser un número de 10 dígitos" />
                 <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" />
               </div>
-              {/* Datos Generales */}
+
               <SectionTitle title="Datos Generales" />
               <div className="form-row">
                 <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
@@ -216,15 +213,14 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" />
+                <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" />
               </div>
-              {/* Descripción del Proyecto */}
               <SectionTitle title="Descripción del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" />
+                <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" />
               </div>
               <div className="form-row">
-                <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" />
+                <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" />
               </div>
               <div className="form-row">
                 <Field
@@ -243,15 +239,14 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" />
+                <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" />
+                <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" />
               </div>
               <div className="form-row">
-                <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" />
+                <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" />
               </div>
-              {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
                 <FieldGroup
@@ -266,6 +261,7 @@ const CedulaRegistroForm = () => {
                   }}
                   value={values.inversionPresupuestada}
                   maxLength="250"
+                  note="Debe ser un número positivo"
                 />
               </div>
               {/* Territorio */}
@@ -449,10 +445,11 @@ const CedulaRegistroForm = () => {
 };
 
 // Componente FieldGroup para simplificar la creación de campos
-const FieldGroup = ({ label, name, ...props }) => (
+const FieldGroup = ({ label, name, note, ...props }) => (
   <div className="form-group">
     <label htmlFor={name}>{label}</label>
     <Field id={name} name={name} {...props} />
+    {note && <p className="field-note">{note}</p>}
     <ErrorMessage name={name} component="div" className="error" />
   </div>
 );
