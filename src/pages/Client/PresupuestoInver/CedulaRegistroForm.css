@@ -9,10 +9,13 @@ form {
 .form-row {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .form-group {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .banner {
@@ -123,3 +126,37 @@ form {
 .home-button:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
 }
+
+input:focus, select:focus, textarea:focus {
+  border-color: #691b32;
+  outline: none;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+button[type="submit"] {
+  padding: 15px;
+  background-color: #691b32;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #92203e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+

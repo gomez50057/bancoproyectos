@@ -7,6 +7,11 @@ import { dependencias, organismos, unidadPresupuestalPorUnidadResponsable, Acuer
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
 
+// Función para formatear el número con comas
+const formatNumberWithCommas = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 const validationSchema = Yup.object({
   nombreDependencia: Yup.string().required('El nombre de la dependencia u organismo es obligatorio'),
   areaAdscripcion: Yup.string().required('El área de adscripción es obligatoria'),
@@ -209,7 +214,15 @@ const CedulaRegistroForm = () => {
               {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
-                <FieldGroup name="inversionPresupuestada" label="Inversión Presupuestada" type="number" step="0.01" maxLength="250" />
+                <FieldGroup name="inversionPresupuestada" label="Inversión Presupuestada" type="text"
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/,/g, ''); // Elimina las comas antes de convertir
+                    if (!isNaN(value)) {
+                      setFieldValue('inversionPresupuestada', formatNumberWithCommas(value));
+                    }
+                  }}
+                  value={values.inversionPresupuestada} maxLength="250"
+                />
               </div>
               {/* Territorio */}
               <SectionTitle title="Territorio" />
