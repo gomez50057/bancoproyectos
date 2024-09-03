@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import SvgIcon from './SvgIcon';
-import TableComponent from '../Client/ClientProjects';
+import ClientProjects from '../Client/ClientProjects';
+import ClientInveProjects from '../Client/ClientInveProjects';
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeComponent, setActiveComponent] = useState('formulario'); // Estado para controlar el componente activo
+
   useEffect(() => {
     const listItems = document.querySelectorAll('.list-item');
     listItems.forEach((item) => {
@@ -27,6 +30,7 @@ const Dashboard = () => {
   }, []);
 
   const handleMenuClick = (componentName) => {
+    setActiveComponent(componentName); // Actualiza el componente activo según el menú seleccionado
     const listItems = document.querySelectorAll('.list-item');
     listItems.forEach((li) => li.classList.remove('active'));
     document.querySelector(`[data-component=${componentName}]`).classList.add('active');
@@ -45,6 +49,18 @@ const Dashboard = () => {
     setIsModalOpen(false);
   };
 
+  // Renderiza el componente activo basado en el estado
+  const renderContent = () => {
+    switch (activeComponent) {
+      case 'formulario':
+        return <ClientProjects />;
+      case 'acuerdosCoordinador':
+        return <ClientInveProjects />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="dashboard-wrapper">
       <div className="sidebar active">
@@ -57,11 +73,11 @@ const Dashboard = () => {
           >
             <b></b>
             <b></b>
-            <button className="list-item-link" onClick={() => handleMenuClick('formulario')}>
+            <button className="list-item-link">
               <div className="icon">
                 <SvgIcon name="formulario" />
               </div>
-              <span className="title">Formulario</span>
+              <span className="title">Proyectos Registrados</span>
             </button>
           </li>
           <li
@@ -71,12 +87,11 @@ const Dashboard = () => {
           >
             <b></b>
             <b></b>
-            <button className="list-item-link" onClick={() => handleMenuClick('acuerdosCoordinador')}>
+            <button className="list-item-link">
               <div className="icon">
                 <SvgIcon name="acuerdo" />
               </div>
-              <span className="title">Acuerdos</span>
-              <span className="sub-title">coordinador</span>
+              <span className="title">Proyectos de inversión</span>
             </button>
           </li>
         </ul>
@@ -93,14 +108,12 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-container">
-
         <section className="content">
-          {/* contenido del dashboard según sea necesario */}
-          <TableComponent />
+          {renderContent()}
         </section>
       </div>
 
-      {/* Este es un modal de confirmación que puedes implementar */}
+      {/* Modal de confirmación */}
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
