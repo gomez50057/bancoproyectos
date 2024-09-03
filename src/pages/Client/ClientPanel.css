@@ -147,6 +147,12 @@
 /* Tooltip. */
 /*  */
 
+.tooltip-icon-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
 .tooltip-icon {
   position: relative;
   cursor: pointer;
@@ -160,22 +166,28 @@
 
 .tooltip-text {
   visibility: hidden;
-  width: 200px;
-  background-color: #555;
-  color: #fff;
+  text-align: justify;
+  width: 300px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  background-color: var(--grisOsc);
+  color: var(--blanco);
   text-align: center;
   border-radius: 6px;
-  padding: 5px;
+  padding: 10px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
+  bottom: 100%; /* Ajusta esta propiedad para posicionar el tooltip */
   left: 50%;
-  margin-left: -100px;
+  transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.tooltip-icon:hover .tooltip-text {
+
+
+.tooltip-icon:hover .tooltip-text,
+.tooltip-icon-support:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
 }

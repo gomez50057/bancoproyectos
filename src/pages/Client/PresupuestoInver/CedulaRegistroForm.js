@@ -1,8 +1,8 @@
-// src/pages/Client/PresupuestoInver/CedulaRegistroForm.js
-
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import TooltipHelp from '../componentsForm/TooltipHelp';
 import { validationSchema } from './validationSchemaCedula';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import {
@@ -129,7 +129,7 @@ const CedulaRegistroForm = () => {
 
           if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
             const municipiosImpactoArray = values.municipiosImpacto.map(mun => mun.value);
-            formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray)); 
+            formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray));
           } else {
             formData.append('municipio_impacto', JSON.stringify([]));
           }
@@ -379,6 +379,7 @@ const CedulaRegistroForm = () => {
                   options={indicadores.map((indicador, index) => ({ value: indicador, label: indicador }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.lineaAccionPED}
+                  tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
 
@@ -454,8 +455,8 @@ const FieldGroup = ({ label, name, note, ...props }) => (
   </div>
 );
 
-// Componente CustomSelect para integrar React Select con Formik
-const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = false }) => {
+// Componente CustomSelect modificado para integrar React Select con Formik y mostrar tooltip
+const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = false, tooltipText = '' }) => {
   const onChange = (option) => {
     form.setFieldValue(field.name, option.value);
   };
@@ -464,7 +465,17 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
 
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
-      <label htmlFor={field.name}>{label}</label>
+      <label htmlFor={field.name} style={{ display: 'flex', alignItems: 'center' }}>
+        {label}
+        {tooltipText && (
+          <div className="tooltip-icon-container">
+            <div className="tooltip-icon-support">
+              <ContactSupportIcon style={{ marginLeft: '5px', cursor: 'pointer', color: 'var(--doradoOsc)' }} />
+              <TooltipHelp id={`${field.name}-tooltip`} text={tooltipText} />
+            </div>
+          </div>
+        )}
+      </label>
       <Select
         className="form-select"
         options={options}
@@ -474,9 +485,9 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
         placeholder={placeholder}
         isDisabled={isDisabled}
         menuPortalTarget={document.body}
-        styles={{ 
-          menuPortal: base => ({ ...base, zIndex: 9999 }), 
-          control: base => ({ ...base, borderRadius: '15px' }) 
+        styles={{
+          menuPortal: base => ({ ...base, zIndex: 9999 }),
+          control: base => ({ ...base, borderRadius: '15px' })
         }}
         menuPlacement="auto"
       />
