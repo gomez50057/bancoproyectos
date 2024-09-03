@@ -1,6 +1,6 @@
 // src/pages/Client/PresupuestoInver/CedulaRegistroForm.js
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { validationSchema } from './validationSchemaCedula';
@@ -13,11 +13,11 @@ import {
   municipiosPorRegion,
   ODS,
   propuestaCampana,
+  municipiosDeHidalgo,
 } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
 
-// Función para formatear el número con comas
 const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
@@ -45,6 +45,20 @@ const CedulaRegistroForm = () => {
       ...prevState,
       [field]: !prevState[field],
     }));
+  };
+
+  // Definir las opciones de municipios de impacto
+  const municipiosOptions = useMemo(() => [
+    { value: 'No Aplica', label: 'No Aplica' },
+    ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))
+  ], []);
+
+  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
+    if (selectedOptions.some((option) => option.value === 'No Aplica')) {
+      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
+    } else {
+      setFieldValue('municipiosImpacto', selectedOptions);
+    }
   };
 
   return (
@@ -99,6 +113,7 @@ const CedulaRegistroForm = () => {
           proyectoEjecutivo: [],
           manifestacionImpactoAmbiental: [],
           otrosEstudios: [],
+          municipiosImpacto: [], // Agregar el nuevo campo aquí
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -113,9 +128,17 @@ const CedulaRegistroForm = () => {
             }
           }
 
+          // Procesa municipios de impacto
+          if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
+            const municipiosImpactoArray = values.municipiosImpacto.map(mun => mun.value);
+            formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray));
+          } else {
+            formData.append('municipio_impacto', JSON.stringify([]));
+          }
+
           // Lógica para enviar formData al backend
         }}
-        validateOnChange={true} // Validación en tiempo real
+        validateOnChange={true}
         validateOnBlur={true}
       >
         {({ setFieldValue, values }) => {
@@ -270,6 +293,22 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
                 <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
               </div>
+
+              {/* Nuevo campo de selección múltiple para Municipios de Impacto */}
+              <div className="form-group municipiosImpacto">
+                <label>Municipios de Impacto</label>
+                <p>Por favor, selecciona los municipios en los que se localiza el proyecto. Es importante que indiques todas las áreas de impacto para asegurarnos de que la información esté completa y precisa. En caso de que no fuera así seleccionar "No Aplica".</p>
+                <Select
+                  name="municipiosImpacto"
+                  options={municipiosOptions}
+                  isMulti
+                  onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
+                  value={values.municipiosImpacto}
+                  placeholder="Municipios"
+                />
+                <ErrorMessage name="municipiosImpacto" component="div" className="error" />
+              </div>
+
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
               <div className="form-row">
@@ -438,9 +477,9 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
         placeholder={placeholder}
         isDisabled={isDisabled}
         menuPortalTarget={document.body}
-        styles={{ 
-          menuPortal: base => ({ ...base, zIndex: 9999 }), 
-          control: base => ({ ...base, borderRadius: '15px' }) 
+        styles={{
+          menuPortal: base => ({ ...base, zIndex: 9999 }),
+          control: base => ({ ...base, borderRadius: '15px' })
         }}
         menuPlacement="auto"
       />
