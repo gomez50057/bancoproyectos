@@ -57,7 +57,7 @@ const CedulaRegistroForm = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
 
   return (
-    <section>
+    <section className="formulario-container">
       <Formik
         initialValues={{
           nombreDependencia: '',
@@ -116,223 +116,256 @@ const CedulaRegistroForm = () => {
             <Form>
               {/* Datos de Registro */}
               <SectionTitle title="Datos de Registro" />
-              <FieldGroup name="nombreDependencia" label="Nombre de la Dependencia u Organismo" type="text" />
-              <FieldGroup name="areaAdscripcion" label="Área de Adscripción" type="text" />
-              <FieldGroup name="nombreRegistrante" label="Nombre(s) de quien registra" type="text" />
-              <FieldGroup name="apellidoPaterno" label="Apellido Paterno" type="text" />
-              <FieldGroup name="apellidoMaterno" label="Apellido Materno" type="text" />
-              <FieldGroup name="correo" label="Correo" type="email" />
-              <FieldGroup name="telefono" label="Teléfono" type="text" />
-              <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" />
-
+              <div className="form-row">
+                <FieldGroup name="nombreDependencia" label="Nombre de la Dependencia u Organismo" type="text" />
+                <FieldGroup name="areaAdscripcion" label="Área de Adscripción" type="text" />
+              </div>
+              <div className="form-row">
+                <FieldGroup name="nombreRegistrante" label="Nombre(s) de quien registra" type="text" />
+                <FieldGroup name="apellidoPaterno" label="Apellido Paterno" type="text" />
+                <FieldGroup name="apellidoMaterno" label="Apellido Materno" type="text" />
+              </div>
+              <div className="form-row">
+                <FieldGroup name="correo" label="Correo" type="email" />
+                <FieldGroup name="telefono" label="Teléfono" type="text" />
+                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" />
+              </div>
               {/* Datos Generales */}
               <SectionTitle title="Datos Generales" />
-              <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
-              <FieldGroup name="ejercicioFiscal" label="Ejercicio Fiscal" as="select">
-                <option value="">Selecciona una opción</option>
-                {['2020', '2021', '2022', '2023', '2024', '2025'].map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="dependencia" label="Dependencia" as="select">
-                <option value="">Selecciona una opción</option>
-                {dependencias.map(dep => (
-                  <option key={dep} value={dep}>{dep}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="organismo" label="Organismo" as="select">
-                <option value="">Selecciona una opción</option>
-                {organismos.map(org => (
-                  <option key={org} value={org}>{org}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="unidadResponsable" label="Unidad Responsable" as="select" onChange={(e) => {
-                setFieldValue('unidadResponsable', e.target.value);
-                setFieldValue('unidadPresupuestal', '');
-              }}>
-                <option value="">Selecciona una opción</option>
-                {Object.keys(unidadPresupuestalPorUnidadResponsable).map(unidad => (
-                  <option key={unidad} value={unidad}>{unidad}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="unidadPresupuestal" label="Unidad Presupuestal" as="select" disabled={!values.unidadResponsable}>
-                <option value="">Selecciona una opción</option>
-                {(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map(unidad => (
-                  <option key={unidad} value={unidad}>{unidad}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" />
-
+              <div className="form-row">
+                <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
+                <FieldGroup name="ejercicioFiscal" label="Ejercicio Fiscal" as="select">
+                  <option value="">Selecciona una opción</option>
+                  {['2020', '2021', '2022', '2023', '2024', '2025'].map(year => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup name="dependencia" label="Dependencia" as="select">
+                  <option value="">Selecciona una opción</option>
+                  {dependencias.map(dep => (
+                    <option key={dep} value={dep}>{dep}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup name="organismo" label="Organismo" as="select">
+                  <option value="">Selecciona una opción</option>
+                  {organismos.map(org => (
+                    <option key={org} value={org}>{org}</option>
+                  ))}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup name="unidadResponsable" label="Unidad Responsable" as="select" onChange={(e) => {
+                  setFieldValue('unidadResponsable', e.target.value);
+                  setFieldValue('unidadPresupuestal', '');
+                }}>
+                  <option value="">Selecciona una opción</option>
+                  {Object.keys(unidadPresupuestalPorUnidadResponsable).map(unidad => (
+                    <option key={unidad} value={unidad}>{unidad}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup name="unidadPresupuestal" label="Unidad Presupuestal" as="select" disabled={!values.unidadResponsable}>
+                  <option value="">Selecciona una opción</option>
+                  {(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map(unidad => (
+                    <option key={unidad} value={unidad}>{unidad}</option>
+                  ))}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" />
+              </div>
               {/* Descripción del Proyecto */}
               <SectionTitle title="Descripción del Proyecto" />
-              <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" />
-              <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" />
-              <FieldGroup name="tipoObra" label="Tipo de Obra" as="select">
-                <option value="">Selecciona una opción</option>
-                {['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map(tipo => (
-                  <option key={tipo} value={tipo}>{tipo}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="calendarioEjecucion" label="Calendario de Ejecución" as="select">
-                <option value="">Selecciona una opción</option>
-                {[...Array(12).keys()].map(mes => (
-                  <option key={mes + 1} value={mes + 1}>{`${mes + 1} meses`}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" />
-              <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" />
-              <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" />
-
+              <div className="form-row">
+                <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" />
+              </div>
+              <div className="form-row">
+                <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" />
+              </div>
+              <div className="form-row">
+                <FieldGroup name="tipoObra" label="Tipo de Obra" as="select">
+                  <option value="">Selecciona una opción</option>
+                  {['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map(tipo => (
+                    <option key={tipo} value={tipo}>{tipo}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup name="calendarioEjecucion" label="Calendario de Ejecución" as="select">
+                  <option value="">Selecciona una opción</option>
+                  {[...Array(12).keys()].map(mes => (
+                    <option key={mes + 1} value={mes + 1}>{`${mes + 1} meses`}</option>
+                  ))}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" />
+              </div>
+              <div className="form-row">
+                <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" />
+              </div>
+              <div className="form-row">
+                <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" />
+              </div>
               {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
-              <FieldGroup name="inversionPresupuestada" label="Inversión Presupuestada" type="number" step="0.01" maxLength="250" />
-
+              <div className="form-row">
+                <FieldGroup name="inversionPresupuestada" label="Inversión Presupuestada" type="number" step="0.01" maxLength="250" />
+              </div>
               {/* Territorio */}
               <SectionTitle title="Territorio" />
-              <FieldGroup name="region" label="Región" as="select" onChange={(e) => {
-                setFieldValue('region', e.target.value);
-                setFieldValue('municipio', '');
-              }}>
-                <option value="">Selecciona una opción</option>
-                {Object.keys(municipiosPorRegion).map(region => (
-                  <option key={region} value={region}>{region}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="municipio" label="Municipio" as="select" disabled={!values.region}>
-                <option value="">Selecciona una opción</option>
-                {municipios.map(municipio => (
-                  <option key={municipio} value={municipio}>{municipio}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
-              <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
-
+              <div className="form-row">
+                <FieldGroup name="region" label="Región" as="select" onChange={(e) => {
+                  setFieldValue('region', e.target.value);
+                  setFieldValue('municipio', '');
+                }}>
+                  <option value="">Selecciona una opción</option>
+                  {Object.keys(municipiosPorRegion).map(region => (
+                    <option key={region} value={region}>{region}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup name="municipio" label="Municipio" as="select" disabled={!values.region}>
+                  <option value="">Selecciona una opción</option>
+                  {municipios.map(municipio => (
+                    <option key={municipio} value={municipio}>{municipio}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
+                <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
+              </div>
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
-              <FieldGroup name="ods" label="Objetivos de Desarrollo Sostenible" as="select">
-                <option value="">Selecciona una opción</option>
-                {ODS.map((objetivo, index) => (
-                  <option key={index} value={objetivo}>{objetivo}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup
-                name="planEstatal"
-                label="Plan Estatal de Desarrollo"
-                as="select"
-                onChange={(e) => {
-                  setFieldValue('planEstatal', e.target.value);
-                  setFieldValue('objetivoPED', '');
-                  setFieldValue('estrategiaPED', '');
-                  setFieldValue('lineaAccionPED', '');
-                  setFieldValue('indicadorPED', '');
-                }}
-              >
-                <option value="">Selecciona una opción</option>
-                {Object.keys(Acuerdos).map((acuerdo, index) => (
-                  <option key={index} value={acuerdo}>{acuerdo}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup
-                name="objetivoPED"
-                label="Objetivo del PED"
-                as="select"
-                disabled={!values.planEstatal}
-                onChange={(e) => {
-                  setFieldValue('objetivoPED', e.target.value);
-                  setFieldValue('estrategiaPED', '');
-                  setFieldValue('lineaAccionPED', '');
-                  setFieldValue('indicadorPED', '');
-                }}
-              >
-                <option value="">Selecciona una opción</option>
-                {objetivos.map((objetivo, index) => (
-                  <option key={index} value={objetivo}>{objetivo}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup
-                name="estrategiaPED"
-                label="Estrategia del PED"
-                as="select"
-                disabled={!values.objetivoPED}
-                onChange={(e) => {
-                  setFieldValue('estrategiaPED', e.target.value);
-                  setFieldValue('lineaAccionPED', '');
-                  setFieldValue('indicadorPED', '');
-                }}
-              >
-                <option value="">Selecciona una opción</option>
-                {estrategias.map((estrategia, index) => (
-                  <option key={index} value={estrategia}>{estrategia}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup
-                name="lineaAccionPED"
-                label="Línea de Acción del PED"
-                as="select"
-                disabled={!values.estrategiaPED}
-                onChange={(e) => {
-                  setFieldValue('lineaAccionPED', e.target.value);
-                  setFieldValue('indicadorPED', '');
-                }}
-              >
-                <option value="">Selecciona una opción</option>
-                {lineasAccion.map((linea, index) => (
-                  <option key={index} value={linea}>{linea}</option>
-                ))}
-              </FieldGroup>
-              <FieldGroup
-                name="indicadorPED"
-                label="Indicador Estratégico del PED"
-                as="select"
-                disabled={!values.lineaAccionPED}
-                onChange={(e) => setFieldValue('indicadorPED', e.target.value)}
-              >
-                <option value="">Selecciona una opción</option>
-                {indicadores.map((indicador, index) => (
-                  <option key={index} value={indicador}>{indicador}</option>
-                ))}
-              </FieldGroup>
+              <div className="form-row">
+                <FieldGroup name="ods" label="Objetivos de Desarrollo Sostenible" as="select">
+                  <option value="">Selecciona una opción</option>
+                  {ODS.map((objetivo, index) => (
+                    <option key={index} value={objetivo}>{objetivo}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup
+                  name="planEstatal"
+                  label="Plan Estatal de Desarrollo"
+                  as="select"
+                  onChange={(e) => {
+                    setFieldValue('planEstatal', e.target.value);
+                    setFieldValue('objetivoPED', '');
+                    setFieldValue('estrategiaPED', '');
+                    setFieldValue('lineaAccionPED', '');
+                    setFieldValue('indicadorPED', '');
+                  }}
+                >
+                  <option value="">Selecciona una opción</option>
+                  {Object.keys(Acuerdos).map((acuerdo, index) => (
+                    <option key={index} value={acuerdo}>{acuerdo}</option>
+                  ))}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup
+                  name="objetivoPED"
+                  label="Objetivo del PED"
+                  as="select"
+                  disabled={!values.planEstatal}
+                  onChange={(e) => {
+                    setFieldValue('objetivoPED', e.target.value);
+                    setFieldValue('estrategiaPED', '');
+                    setFieldValue('lineaAccionPED', '');
+                    setFieldValue('indicadorPED', '');
+                  }}
+                >
+                  <option value="">Selecciona una opción</option>
+                  {objetivos.map((objetivo, index) => (
+                    <option key={index} value={objetivo}>{objetivo}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup
+                  name="estrategiaPED"
+                  label="Estrategia del PED"
+                  as="select"
+                  disabled={!values.objetivoPED}
+                  onChange={(e) => {
+                    setFieldValue('estrategiaPED', e.target.value);
+                    setFieldValue('lineaAccionPED', '');
+                    setFieldValue('indicadorPED', '');
+                  }}
+                >
+                  <option value="">Selecciona una opción</option>
+                  {estrategias.map((estrategia, index) => (
+                    <option key={index} value={estrategia}>{estrategia}</option>
+                  ))}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup
+                  name="lineaAccionPED"
+                  label="Línea de Acción del PED"
+                  as="select"
+                  disabled={!values.estrategiaPED}
+                  onChange={(e) => {
+                    setFieldValue('lineaAccionPED', e.target.value);
+                    setFieldValue('indicadorPED', '');
+                  }}
+                >
+                  <option value="">Selecciona una opción</option>
+                  {lineasAccion.map((linea, index) => (
+                    <option key={index} value={linea}>{linea}</option>
+                  ))}
+                </FieldGroup>
+                <FieldGroup
+                  name="indicadorPED"
+                  label="Indicador Estratégico del PED"
+                  as="select"
+                  disabled={!values.lineaAccionPED}
+                  onChange={(e) => setFieldValue('indicadorPED', e.target.value)}
+                >
+                  <option value="">Selecciona una opción</option>
+                  {indicadores.map((indicador, index) => (
+                    <option key={index} value={indicador}>{indicador}</option>
+                  ))}
+                </FieldGroup>
+              </div>
 
               {/* Verificación de Propuesta */}
               <SectionTitle title="Verificación de Propuesta" />
-              <FieldGroup 
-                name="propuestaCampana" 
-                label="¿Se apega con alguna propuesta de campaña?" 
-                as="select" 
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setFieldValue('propuestaCampana', value);
-                  if (value === 'No') {
-                    setFieldValue('cualPropuesta', 'No aplica');
-                  } else {
-                    setFieldValue('cualPropuesta', '');
-                  }
-                }}
-              >
-                <option value="">Selecciona una opción</option>
-                <option value="Sí">Sí</option>
-                <option value="No">No</option>
-              </FieldGroup>
 
-              <FieldGroup 
-                name="cualPropuesta" 
-                label="¿Cuál?" 
-                as="select" 
-                disabled={values.propuestaCampana !== 'Sí'}
-              >
-                <option value="">Selecciona una opción</option>
-                {values.propuestaCampana === 'Sí' && propuestaCampana.map((propuesta, index) => (
-                  <option key={index} value={propuesta}>{propuesta}</option>
-                ))}
-                {values.propuestaCampana === 'No' && <option value="No aplica">No aplica</option>}
-              </FieldGroup>
-
-              <FieldGroup name="expedienteTecnico" label="¿Cuenta con expediente técnico?" as="select">
-                <option value="">Selecciona una opción</option>
-                <option value="Sí">Sí</option>
-                <option value="No">No</option>
-              </FieldGroup>
-
+              <div className="form-row">
+                <FieldGroup
+                  name="propuestaCampana"
+                  label="¿Se apega con alguna propuesta de campaña?"
+                  as="select"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setFieldValue('propuestaCampana', value);
+                    if (value === 'No') {
+                      setFieldValue('cualPropuesta', 'No aplica');
+                    } else {
+                      setFieldValue('cualPropuesta', '');
+                    }
+                  }}
+                >
+                  <option value="">Selecciona una opción</option>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </FieldGroup>
+                <FieldGroup
+                  name="cualPropuesta"
+                  label="¿Cuál?"
+                  as="select"
+                  disabled={values.propuestaCampana !== 'Sí'}
+                >
+                  <option value="">Selecciona una opción</option>
+                  {values.propuestaCampana === 'Sí' && propuestaCampana.map((propuesta, index) => (
+                    <option key={index} value={propuesta}>{propuesta}</option>
+                  ))}
+                  {values.propuestaCampana === 'No' && <option value="No aplica">No aplica</option>}
+                </FieldGroup>
+              </div>
+              <div className="form-row">
+                <FieldGroup name="expedienteTecnico" label="¿Cuenta con expediente técnico?" as="select">
+                  <option value="">Selecciona una opción</option>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </FieldGroup>
+              </div>
               <button type="submit">Enviar</button>
             </Form>
           );
