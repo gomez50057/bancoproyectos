@@ -3,7 +3,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { dependencias, organismos, unidadPresupuestalPorUnidadResponsable, Acuerdos } from '../../../presup_inversion';
+import { dependencias, organismos, unidadPresupuestalPorUnidadResponsable, Acuerdos, municipiosPorRegion, ODS } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
 
@@ -110,6 +110,7 @@ const CedulaRegistroForm = () => {
           const estrategias = values.objetivoPED ? Acuerdos[values.planEstatal]?.estrategias[values.objetivoPED] || [] : [];
           const lineasAccion = values.estrategiaPED ? Acuerdos[values.planEstatal]?.lineasAccion[values.estrategiaPED] || [] : [];
           const indicadores = values.lineaAccionPED ? Acuerdos[values.planEstatal]?.indicadores[values.lineaAccionPED] || [] : [];
+          const municipios = values.region ? municipiosPorRegion[values.region] || [] : [];
 
           return (
             <Form>
@@ -193,11 +194,15 @@ const CedulaRegistroForm = () => {
                 setFieldValue('municipio', '');
               }}>
                 <option value="">Selecciona una opción</option>
-                {/* Opciones de regiones */}
+                {Object.keys(municipiosPorRegion).map(region => (
+                  <option key={region} value={region}>{region}</option>
+                ))}
               </FieldGroup>
               <FieldGroup name="municipio" label="Municipio" as="select" disabled={!values.region}>
                 <option value="">Selecciona una opción</option>
-                {/* Opciones de municipios */}
+                {municipios.map(municipio => (
+                  <option key={municipio} value={municipio}>{municipio}</option>
+                ))}
               </FieldGroup>
               <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
               <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
@@ -205,7 +210,10 @@ const CedulaRegistroForm = () => {
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
               <FieldGroup name="ods" label="Objetivos de Desarrollo Sostenible" as="select">
-                {/* Opciones de ODS */}
+                <option value="">Selecciona una opción</option>
+                {ODS.map((objetivo, index) => (
+                  <option key={index} value={objetivo}>{objetivo}</option>
+                ))}
               </FieldGroup>
               <FieldGroup
                 name="planEstatal"
