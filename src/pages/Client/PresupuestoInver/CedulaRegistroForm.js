@@ -3,11 +3,10 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { dependencias, organismos, unidadPresupuestalPorUnidadResponsable, Acuerdos, municipiosPorRegion, ODS } from '../../../presup_inversion';
+import { dependencias, organismos, unidadPresupuestalPorUnidadResponsable, Acuerdos, municipiosPorRegion, ODS, propuestaCampana } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
 
-// Esquema de validación con Yup
 const validationSchema = Yup.object({
   nombreDependencia: Yup.string().required('El nombre de la dependencia u organismo es obligatorio'),
   areaAdscripcion: Yup.string().required('El área de adscripción es obligatoria'),
@@ -48,7 +47,8 @@ const validationSchema = Yup.object({
   propuestaCampana: Yup.string().required('Este campo es obligatorio'),
   cualPropuesta: Yup.string().when('propuestaCampana', {
     is: 'Sí',
-    then: Yup.string().required('Debes especificar la propuesta de campaña')
+    then: (schema) => schema.required('Debes especificar la propuesta de campaña'),
+    otherwise: (schema) => schema.oneOf(['No aplica'], 'Debe seleccionar "No aplica" cuando la respuesta es "No"'),
   }),
   expedienteTecnico: Yup.string().required('Este campo es obligatorio'),
 });
@@ -295,16 +295,38 @@ const CedulaRegistroForm = () => {
 
               {/* Verificación de Propuesta */}
               <SectionTitle title="Verificación de Propuesta" />
-              <FieldGroup name="prioridad" label="¿Cuál es la Prioridad?" type="number" min="1" max="100" />
-              <FieldGroup name="propuestaCampana" label="¿Se apega con alguna propuesta de campaña?" as="select">
+              <FieldGroup 
+                name="propuestaCampana" 
+                label="¿Se apega con alguna propuesta de campaña?" 
+                as="select" 
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setFieldValue('propuestaCampana', value);
+                  if (value === 'No') {
+                    setFieldValue('cualPropuesta', 'No aplica');
+                  } else {
+                    setFieldValue('cualPropuesta', '');
+                  }
+                }}
+              >
                 <option value="">Selecciona una opción</option>
                 <option value="Sí">Sí</option>
                 <option value="No">No</option>
               </FieldGroup>
-              <FieldGroup name="cualPropuesta" label="¿Cuál?" as="select" disabled={values.propuestaCampana !== 'Sí'}>
+
+              <FieldGroup 
+                name="cualPropuesta" 
+                label="¿Cuál?" 
+                as="select" 
+                disabled={values.propuestaCampana !== 'Sí'}
+              >
                 <option value="">Selecciona una opción</option>
-                {/* Agregar opciones de campaña aquí */}
+                {values.propuestaCampana === 'Sí' && propuestaCampana.map((propuesta, index) => (
+                  <option key={index} value={propuesta}>{propuesta}</option>
+                ))}
+                {values.propuestaCampana === 'No' && <option value="No aplica">No aplica</option>}
               </FieldGroup>
+
               <FieldGroup name="expedienteTecnico" label="¿Cuenta con expediente técnico?" as="select">
                 <option value="">Selecciona una opción</option>
                 <option value="Sí">Sí</option>

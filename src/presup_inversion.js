@@ -2184,3 +2184,25 @@ export const Acuerdos = {
     }
   },
 };
+
+export const propuestaCampana = [
+  'La corrupción será delito grave',
+  '¡Que respondan los que le han robado a Hidalgo!',
+  'Revocación de mandato',
+  'La casa del gobernador se convertirá en Centro de Atención',
+  'Paz en Hidalgo',
+  'Atención Médica y Medicamentos',
+  'Mujeres en Bienestar',
+  'Mujeres Libres y Seguras',
+  'Mujeres Independientes',
+  'Hidalgo será potencia',
+  'Créditos a la palabra',
+  'Campo de la esperanza',
+  'Becas para todas y todos',
+  'Tarjeta del Bienestar Educativo',
+  'Empleo y bienestar',
+  'Apoyo para tu primer trabajo',
+  'Agua para todas y todos',
+  'Hidalgo Conectado',
+  'Pavimentando Caminos'
+];
