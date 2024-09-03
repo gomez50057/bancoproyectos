@@ -262,6 +262,7 @@ const CedulaRegistroForm = () => {
                   value={values.inversionPresupuestada}
                   maxLength="250"
                   note="Debe ser un número positivo"
+                  tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
               {/* Territorio */}
@@ -289,22 +290,18 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
                 <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
               </div>
-
-              {/* Nuevo campo de selección múltiple para Municipios de Impacto */}
-              <div className="form-group municipiosImpacto">
-                <label>Municipios de Impacto</label>
-                <p>Por favor, selecciona los municipios en los que se localiza el proyecto. Es importante que indiques todas las áreas de impacto para asegurarnos de que la información esté completa y precisa. En caso de que no fuera así seleccionar "No Aplica".</p>
-                <Select
+              <div className="form-row">
+                <Field
                   name="municipiosImpacto"
+                  label="Municipios de Impacto"
+                  component={CustomSelect}
                   options={municipiosOptions}
-                  isMulti
-                  onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
-                  value={values.municipiosImpacto}
                   placeholder="Municipios"
+                  isMulti={true}
+                  onChangeCustom={handleMunicipiosImpactoChange}
+                  tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
                 />
-                <ErrorMessage name="municipiosImpacto" component="div" className="error" />
               </div>
-
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
               <div className="form-row">
@@ -445,10 +442,20 @@ const CedulaRegistroForm = () => {
   );
 };
 
-// Componente FieldGroup para simplificar la creación de campos
-const FieldGroup = ({ label, name, note, ...props }) => (
+// Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip
+const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
   <div className="form-group">
-    <label htmlFor={name}>{label}</label>
+    <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
+      {label}
+      {tooltipText && (
+        <div className="tooltip-icon-container">
+          <div className="tooltip-icon-support">
+            <ContactSupportIcon style={{ marginLeft: '5px', cursor: 'pointer', color: 'var(--doradoOsc)' }} />
+            <TooltipHelp id={`${name}-tooltip`} text={tooltipText} />
+          </div>
+        </div>
+      )}
+    </label>
     <Field id={name} name={name} {...props} />
     {note && <p className="field-note">{note}</p>}
     <ErrorMessage name={name} component="div" className="error" />
@@ -456,12 +463,16 @@ const FieldGroup = ({ label, name, note, ...props }) => (
 );
 
 // Componente CustomSelect modificado para integrar React Select con Formik y mostrar tooltip
-const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = false, tooltipText = '' }) => {
+const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChangeCustom }) => {
   const onChange = (option) => {
-    form.setFieldValue(field.name, option.value);
+    if (onChangeCustom) {
+      onChangeCustom(option, form.setFieldValue);
+    } else {
+      form.setFieldValue(field.name, isMulti ? option : option.value);
+    }
   };
 
-  const selectedOption = options ? options.find(option => option.value === field.value) : '';
+  const selectedOption = options ? (isMulti ? field.value : options.find(option => option.value === field.value)) : '';
 
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
@@ -484,6 +495,7 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
         onChange={onChange}
         placeholder={placeholder}
         isDisabled={isDisabled}
+        isMulti={isMulti}
         menuPortalTarget={document.body}
         styles={{
           menuPortal: base => ({ ...base, zIndex: 9999 }),
@@ -495,5 +507,6 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
     </div>
   );
 };
+
 
 export default CedulaRegistroForm;
