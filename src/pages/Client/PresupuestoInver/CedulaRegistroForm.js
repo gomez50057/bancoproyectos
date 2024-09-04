@@ -27,17 +27,16 @@ const CedulaRegistroForm = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
 
   const [applies, setApplies] = useState({
-    estudiosProspectivos: false,
     estudiosFactibilidad: false,
     analisisAlternativas: false,
     validacionNormativa: false,
     liberacionDerechoVia: false,
-    situacionSinProyectoFotografico: false,
-    situacionConProyectoProyeccion: false,
     analisisCostoBeneficio: false,
+    expedienteTecnicoDocu: false,
     expedienteTecnico: false,
     proyectoEjecutivo: false,
     manifestacionImpactoAmbiental: false,
+    FotografiaRenderProyecto: false,
     otrosEstudios: false,
   });
 
@@ -127,24 +126,21 @@ const CedulaRegistroForm = () => {
           estrategiaPED: '',
           lineaAccionPED: '',
           indicadorPED: '',
-          prioridad: '',
+          programaSectorial: '',
+          objetivoPrograma: '',
           propuestaCampana: '',
           cualPropuesta: '',
           expedienteTecnico: '',
-          estudiosProspectivos: [],
           estudiosFactibilidad: [],
           analisisAlternativas: [],
           validacionNormativa: [],
           liberacionDerechoVia: [],
-          situacionSinProyectoFotografico: [],
-          situacionConProyectoProyeccion: [],
           analisisCostoBeneficio: [],
+          expedienteTecnicoDocu: [],
           proyectoEjecutivo: [],
           manifestacionImpactoAmbiental: [],
           FotografiaRenderProyecto: [],
           otrosEstudios: [],
-          programaSectorial: '',
-          objetivoPrograma: '',
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
