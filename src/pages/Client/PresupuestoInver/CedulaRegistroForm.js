@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
@@ -14,7 +14,7 @@ import {
   propuestaCampana,
   municipiosDeHidalgo,
   programasSectorialesOptions,
-  regionesHGO
+  regionesHGO,
 } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
@@ -49,11 +49,11 @@ const CedulaRegistroForm = () => {
   };
 
   const municipiosOptions = useMemo(() => [
-    ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))
+    ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun })),
   ], []);
 
   const regionesOptions = useMemo(() => [
-    ...regionesHGO.map((region) => ({ value: region, label: region }))
+    ...regionesHGO.map((region) => ({ value: region, label: region })),
   ], []);
 
   const handleCoberturaChange = (selectedOption, setFieldValue) => {
@@ -196,19 +196,17 @@ const CedulaRegistroForm = () => {
               <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
                 <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
-                <Field
+                <CustomSelectField
                   name="ejercicioFiscal"
                   label="Ejercicio Fiscal"
-                  component={CustomSelect}
                   options={['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => ({ value: year, label: year }))}
                   placeholder="Selecciona una opción"
                 />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="dependencia"
                   label="Dependencia"
-                  component={CustomSelect}
                   options={dependencias.map((dep) => ({ value: dep, label: dep }))}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
@@ -217,10 +215,9 @@ const CedulaRegistroForm = () => {
                     setFieldValue('objetivoPrograma', '');
                   }}
                 />
-                <Field
+                <CustomSelectField
                   name="organismo"
                   label="Organismo"
-                  component={CustomSelect}
                   options={organismos.map((org) => ({ value: org, label: org }))}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
@@ -231,10 +228,9 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="unidadResponsable"
                   label="Unidad Responsable"
-                  component={CustomSelect}
                   options={Object.keys(unidadPresupuestalPorUnidadResponsable).map((unidad) => ({ value: unidad, label: unidad }))}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
@@ -242,10 +238,9 @@ const CedulaRegistroForm = () => {
                     setFieldValue('unidadPresupuestal', '');
                   }}
                 />
-                <Field
+                <CustomSelectField
                   name="unidadPresupuestal"
                   label="Unidad Presupuestal"
-                  component={CustomSelect}
                   options={(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map((unidad) => ({ value: unidad, label: unidad }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.unidadResponsable}
@@ -262,17 +257,15 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="tipoObra"
                   label="Tipo de Obra"
-                  component={CustomSelect}
                   options={['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => ({ value: tipo, label: tipo }))}
                   placeholder="Selecciona una opción"
                 />
-                <Field
+                <CustomSelectField
                   name="calendarioEjecucion"
                   label="Calendario de Ejecución"
-                  component={CustomSelect}
                   options={[...Array(12).keys()].map((mes) => ({ value: mes + 1, label: `${mes + 1} meses` }))}
                   placeholder="Selecciona una opción"
                 />
@@ -304,18 +297,17 @@ const CedulaRegistroForm = () => {
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
-                            
+
               {/* Ubicación del Proyecto */}
               <SectionTitle title="Ubicación del Proyecto" />
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="cobertura"
                   label="Cobertura"
-                  component={CustomSelect}
                   options={[
                     { value: 'Federal', label: 'Federal' },
                     { value: 'Regional', label: 'Regional' },
-                    { value: 'Municipal', label: 'Municipal' }
+                    { value: 'Municipal', label: 'Municipal' },
                   ]}
                   placeholder="Selecciona una opción"
                   onChange={(option) => handleCoberturaChange(option, setFieldValue)}
@@ -323,10 +315,9 @@ const CedulaRegistroForm = () => {
               </div>
               {values.cobertura === 'Regional' && (
                 <div className="form-row">
-                  <Field
+                  <CustomSelectField
                     name="regiones"
                     label="Regiones"
-                    component={CustomSelect}
                     options={regionesOptions}
                     isMulti={true}
                     placeholder="Selecciona una o más regiones"
@@ -335,14 +326,13 @@ const CedulaRegistroForm = () => {
               )}
               {values.cobertura === 'Municipal' && (
                 <div className="form-row">
-                  <Field
+                  <CustomSelectField
                     name="municipios"
                     label="Municipios"
-                    component={CustomSelect}
                     options={municipiosOptions}
                     isMulti={true}
                     placeholder="Selecciona uno o más municipios"
-                     tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
+                    tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
                   />
                 </div>
               )}
@@ -350,19 +340,17 @@ const CedulaRegistroForm = () => {
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="ods"
                   label="Objetivos de Desarrollo Sostenible"
-                  component={CustomSelect}
                   options={ODS.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
                   placeholder="Selecciona una opción"
                 />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="planEstatal"
                   label="Plan Estatal de Desarrollo"
-                  component={CustomSelect}
                   options={Object.keys(Acuerdos).map((acuerdo, index) => ({ value: acuerdo, label: acuerdo }))}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
@@ -375,10 +363,9 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="objetivoPED"
                   label="Objetivo del PED"
-                  component={CustomSelect}
                   options={objetivos.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.planEstatal}
@@ -389,10 +376,9 @@ const CedulaRegistroForm = () => {
                     setFieldValue('indicadorPED', '');
                   }}
                 />
-                <Field
+                <CustomSelectField
                   name="estrategiaPED"
                   label="Estrategia del PED"
-                  component={CustomSelect}
                   options={estrategias.map((estrategia, index) => ({ value: estrategia, label: estrategia }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.objetivoPED}
@@ -404,10 +390,9 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="lineaAccionPED"
                   label="Línea de Acción del PED"
-                  component={CustomSelect}
                   options={lineasAccion.map((linea, index) => ({ value: linea, label: linea }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.estrategiaPED}
@@ -416,10 +401,9 @@ const CedulaRegistroForm = () => {
                     setFieldValue('indicadorPED', '');
                   }}
                 />
-                <Field
+                <CustomSelectField
                   name="indicadorPED"
                   label="Indicador Estratégico del PED"
-                  component={CustomSelect}
                   options={indicadores.map((indicador, index) => ({ value: indicador, label: indicador }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.lineaAccionPED}
@@ -427,10 +411,9 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="programaSectorial"
                   label="Programa Sectorial/Especial/Institucional"
-                  component={CustomSelect}
                   options={programasOptions}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
@@ -438,20 +421,18 @@ const CedulaRegistroForm = () => {
                     setFieldValue('objetivoPrograma', '');  // Limpiar el campo dependiente
                   }}
                 />
-                <Field
+                <CustomSelectField
                   name="objetivoPrograma"
                   label="Objetivo del Programa"
-                  component={CustomSelect}
                   options={objetivosOptions}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.programaSectorial}
                 />
-              </div>          
+              </div>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="propuestaCampana"
                   label="¿Se relaciona con alguna propuesta de campaña?"
-                  component={CustomSelect}
                   options={[
                     { value: 'Sí', label: 'Sí' },
                     { value: 'No', label: 'No' },
@@ -466,10 +447,9 @@ const CedulaRegistroForm = () => {
                     }
                   }}
                 />
-                <Field
+                <CustomSelectField
                   name="cualPropuesta"
                   label="¿Cuál?"
-                  component={CustomSelect}
                   options={
                     values.propuestaCampana === 'Sí'
                       ? propuestaCampana.map((propuesta, index) => ({ value: propuesta, label: propuesta }))
@@ -484,10 +464,9 @@ const CedulaRegistroForm = () => {
               <SectionTitle title="Anexos del proyecto " />
               <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
               <div className="form-row">
-                <Field
+                <CustomSelectField
                   name="expedienteTecnico"
                   label="¿Cuenta con expediente técnico Validado?"
-                  component={CustomSelect}
                   options={[
                     { value: 'Sí', label: 'Sí' },
                     { value: 'No', label: 'No' },
@@ -526,13 +505,14 @@ const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
   </div>
 );
 
-// Componente CustomSelect modificado para integrar React Select con Formik y mostrar tooltip
-const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChangeCustom }) => {
-  const onChange = (option) => {
-    if (onChangeCustom) {
-      onChangeCustom(option, form.setFieldValue);
-    } else {
-      form.setFieldValue(field.name, isMulti ? option : option.value);
+// Componente CustomSelectField modificado para integrar React Select con Formik y mostrar tooltip
+const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChange }) => {
+  const [field, , helpers] = useField(name);
+
+  const handleChange = (option) => {
+    helpers.setValue(isMulti ? option : option?.value);
+    if (onChange) {
+      onChange(option);
     }
   };
 
@@ -540,13 +520,13 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
 
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
-      <label htmlFor={field.name} style={{ display: 'flex', alignItems: 'center' }}>
+      <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
         {label}
         {tooltipText && (
           <div className="tooltip-icon-container">
             <div className="tooltip-icon-support">
               <ContactSupportIcon style={{ marginLeft: '5px', cursor: 'pointer', color: 'var(--doradoOsc)' }} />
-              <TooltipHelp id={`${field.name}-tooltip`} text={tooltipText} />
+              <TooltipHelp id={`${name}-tooltip`} text={tooltipText} />
             </div>
           </div>
         )}
@@ -554,20 +534,20 @@ const CustomSelect = ({ label, options, field, form, placeholder, isDisabled = f
       <Select
         className="form-select"
         options={options}
-        name={field.name}
+        name={name}
         value={selectedOption}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder={placeholder}
         isDisabled={isDisabled}
         isMulti={isMulti}
         menuPortalTarget={document.body}
         styles={{
-          menuPortal: base => ({ ...base, zIndex: 9999 }),
-          control: base => ({ ...base, borderRadius: '15px' })
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+          control: (base) => ({ ...base, borderRadius: '15px' }),
         }}
         menuPlacement="auto"
       />
-      <ErrorMessage name={field.name} component="div" className="error" />
+      <ErrorMessage name={name} component="div" className="error" />
     </div>
   );
 };
