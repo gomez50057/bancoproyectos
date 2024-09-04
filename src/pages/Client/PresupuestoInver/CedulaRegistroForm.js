@@ -101,7 +101,7 @@ const CedulaRegistroForm = () => {
           correo: '',
           telefono: '',
           extension: '',
-          fechaActual: fechaHoy,
+          fechaRegistro: fechaHoy,
           ejercicioFiscal: '',
           dependencia: '',
           organismo: '',
@@ -116,10 +116,9 @@ const CedulaRegistroForm = () => {
           beneficioEconomico: '',
           numeroBeneficiarios: '',
           inversionPresupuestada: '',
-          region: '',
-          municipio: '',
-          localidad: '',
-          barrioColoniaEjido: '',
+          cobertura: '',
+          regiones: [],
+          municipios: [],          
           ods: '',
           planEstatal: '',
           objetivoPED: '',
@@ -144,9 +143,6 @@ const CedulaRegistroForm = () => {
           municipiosImpacto: [],
           programaSectorial: '',
           objetivoPrograma: '',
-          cobertura: '',
-          regiones: [],
-          municipios: [],
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -195,7 +191,7 @@ const CedulaRegistroForm = () => {
 
               <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
+                <FieldGroup name="fechaRegistro" label="Fecha de Registro" type="date" value={values.fechaRegistro} readOnly />
                 <CustomSelectField
                   name="ejercicioFiscal"
                   label="Ejercicio Fiscal"
