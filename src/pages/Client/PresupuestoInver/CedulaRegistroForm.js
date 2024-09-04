@@ -447,7 +447,7 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <Field
                   name="propuestaCampana"
-                  label="¿Se apega con alguna propuesta de campaña?"
+                  label="¿Se relaciona con alguna propuesta de campaña?"
                   component={CustomSelect}
                   options={[
                     { value: 'Sí', label: 'Sí' },

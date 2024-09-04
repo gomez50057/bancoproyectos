@@ -108,7 +108,7 @@ const About = () => {
             <p>{totalProjects}<span>NÚMERO DE PROYECTOS</span></p>
           </div>
           <div className="about_numIndi">
-            <p>{projectsInProcess}<span>PROYECTOS EN PROCESO DE REVISIÓN</span></p>
+            <p>{projectsInProcess}<span>PROYECTOS EN ANÁLISIS DOCUMENTAL</span></p>
           </div>
           <div className="about_numIndi">
             <p>{approvedProjects}<span>PROYECTOS REVISADOS </span></p>
