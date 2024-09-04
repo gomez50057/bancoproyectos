@@ -5,13 +5,11 @@ import { Field, FieldArray, ErrorMessage } from 'formik';
 
 const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldValue }) => {
   const documentos = [
-    { label: 'Estudios Prospectivos', field: 'estudiosProspectivos' },
     { label: 'Estudios de Factibilidad', field: 'estudiosFactibilidad' },
     { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
     { label: 'Validación Normativa', field: 'validacionNormativa' },
+    { label: 'Validación Técnica', field: 'validacionTecnica' },
     { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
-    { label: 'Estado Inicial (Complemento)', field: 'situacionSinProyectoFotografico' },
-    { label: 'Estado con Proyecto (Complemento)', field: 'situacionConProyectoProyeccion' },
     { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
     { label: 'Expediente Técnico', field: 'expedienteTecnico' },
     { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },

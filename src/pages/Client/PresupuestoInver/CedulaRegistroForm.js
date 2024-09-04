@@ -85,6 +85,9 @@ const CedulaRegistroForm = () => {
 
   return (
     <section className="formulario-container">
+      <div className="banner">
+
+      </div>
       <Formik
         initialValues={{
           nombreDependencia: '',
@@ -176,7 +179,7 @@ const CedulaRegistroForm = () => {
 
           return (
             <Form>
-              <SectionTitle title="Datos de Registro" />
+              <SectionTitle title="Registro del Responsable del Proyecto" />
               <div className="form-row">
                 <FieldGroup name="nombreDependencia" label="Nombre de la Dependencia u Organismo" type="text" />
                 <FieldGroup name="areaAdscripcion" label="Área de Adscripción" type="text" />
@@ -192,7 +195,7 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" />
               </div>
 
-              <SectionTitle title="Datos Generales" />
+              <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
                 <FieldGroup name="fechaActual" label="Fecha de Registro" type="date" value={values.fechaActual} readOnly />
                 <Field
@@ -303,8 +306,8 @@ const CedulaRegistroForm = () => {
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
-              {/* Territorio */}
-              <SectionTitle title="Territorio" />
+              {/* Ubicación del Proyecto */}
+              <SectionTitle title="Ubicación del Proyecto" />
               <div className="form-row">
                 <Field
                   name="region"
@@ -344,29 +347,6 @@ const CedulaRegistroForm = () => {
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />
               <div className="form-row">
-                {/* Campo: Programa Sectorial/Institucional/Especial */}
-                <Field
-                  name="programaSectorial"
-                  label="Programa Sectorial/Institucional/Especial"
-                  component={CustomSelect}
-                  options={programasOptions}
-                  placeholder="Selecciona una opción"
-                  onChange={(option) => {
-                    setFieldValue('programaSectorial', option.value);
-                    setFieldValue('objetivoPrograma', '');  // Limpiar el campo dependiente
-                  }}
-                />
-                {/* Campo: Objetivo del Programa */}
-                <Field
-                  name="objetivoPrograma"
-                  label="Objetivo del Programa"
-                  component={CustomSelect}
-                  options={objetivosOptions}
-                  placeholder="Selecciona una opción"
-                  isDisabled={!values.programaSectorial}
-                />
-              </div>
-              <div className="form-row">
                 <Field
                   name="ods"
                   label="Objetivos de Desarrollo Sostenible"
@@ -374,6 +354,8 @@ const CedulaRegistroForm = () => {
                   options={ODS.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
                   placeholder="Selecciona una opción"
                 />
+              </div>
+              <div className="form-row">
                 <Field
                   name="planEstatal"
                   label="Plan Estatal de Desarrollo"
@@ -441,10 +423,27 @@ const CedulaRegistroForm = () => {
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
-
-              {/* Verificación de Propuesta */}
-              <SectionTitle title="Verificación de Propuesta" />
-
+              <div className="form-row">
+                <Field
+                  name="programaSectorial"
+                  label="Programa Sectorial/Especial/Institucional"
+                  component={CustomSelect}
+                  options={programasOptions}
+                  placeholder="Selecciona una opción"
+                  onChange={(option) => {
+                    setFieldValue('programaSectorial', option.value);
+                    setFieldValue('objetivoPrograma', '');  // Limpiar el campo dependiente
+                  }}
+                />
+                <Field
+                  name="objetivoPrograma"
+                  label="Objetivo del Programa"
+                  component={CustomSelect}
+                  options={objetivosOptions}
+                  placeholder="Selecciona una opción"
+                  isDisabled={!values.programaSectorial}
+                />
+              </div>          
               <div className="form-row">
                 <Field
                   name="propuestaCampana"
@@ -477,10 +476,14 @@ const CedulaRegistroForm = () => {
                   isDisabled={values.propuestaCampana !== 'Sí'}
                 />
               </div>
+
+              {/* Anexos del proyecto  */}
+              <SectionTitle title="Anexos del proyecto " />
+              <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
               <div className="form-row">
                 <Field
                   name="expedienteTecnico"
-                  label="¿Cuenta con expediente técnico?"
+                  label="¿Cuenta con expediente técnico Validado?"
                   component={CustomSelect}
                   options={[
                     { value: 'Sí', label: 'Sí' },
@@ -489,10 +492,6 @@ const CedulaRegistroForm = () => {
                   placeholder="Selecciona una opción"
                 />
               </div>
-
-              {/* Rentabilidad / Estudios de Viabilidad Carga de Documentación */}
-              <SectionTitle title="Rentabilidad / Estudios de Viabilidad Carga de Documentación" />
-              <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
               <button type="submit">Enviar</button>
