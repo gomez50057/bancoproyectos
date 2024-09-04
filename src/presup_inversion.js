@@ -2183,31 +2183,65 @@ export const Acuerdos = {
       ],
     }
   },
-  // '5. Acuerdo para un Gobierno Cercano, Justo y Honesto': {
-  //   objetivos: [
-  //     'No Aplica',
-  //   ],
-  //   estrategias: {
-  //     'No Aplica': [
-  //       'No Aplica',
-  //     ],
-  //   },
-  //   lineasAccion: {
-  //     'No Aplica': [
-  //       'No Aplica',
-  //     ],
-  //   },
-  //   indicadores: {
-  //     'No Aplica': [
-  //       'No Aplica',
-  //     ],
-  //   }
-  // },
   '5. Acuerdo para un Gobierno Cercano, Justo y Honesto': {
+    objetivos: [
+      'No Aplica',
+    ],
+    estrategias: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    },
+    lineasAccion: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    },
+    indicadores: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    }
   },
   '6. Acuerdo para Garantizar los Derechos Humanos': {
+    objetivos: [
+      'No Aplica',
+    ],
+    estrategias: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    },
+    lineasAccion: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    },
+    indicadores: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    }
   },
   '7. Acuerdo para la Transparencia y Rendición de Cuentas.': {
+    objetivos: [
+      'No Aplica',
+    ],
+    estrategias: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    },
+    lineasAccion: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    },
+    indicadores: {
+      'No Aplica': [
+        'No Aplica',
+      ],
+    }
   },
 };
 
