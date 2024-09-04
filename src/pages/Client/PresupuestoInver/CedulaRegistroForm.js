@@ -58,7 +58,7 @@ const CedulaRegistroForm = () => {
 
   const handleCoberturaChange = (selectedOption, setFieldValue) => {
     setFieldValue('cobertura', selectedOption.value);
-    if (selectedOption.value === 'Federal') {
+    if (selectedOption.value === 'Estatal') {
       setFieldValue('regiones', []);
       setFieldValue('municipios', []);
     } else if (selectedOption.value === 'Regional') {
@@ -90,7 +90,9 @@ const CedulaRegistroForm = () => {
 
   return (
     <section className="formulario-container">
-      <div className="banner"></div>
+      <div className="banner">
+        <h1>Anteproyecto para el Presupuesto de Inversión 2025</h1>
+      </div>
       <Formik
         initialValues={{
           nombreDependencia: '',
@@ -118,7 +120,7 @@ const CedulaRegistroForm = () => {
           inversionPresupuestada: '',
           cobertura: '',
           regiones: [],
-          municipios: [],          
+          municipios: [],
           ods: '',
           planEstatal: '',
           objetivoPED: '',
@@ -191,12 +193,13 @@ const CedulaRegistroForm = () => {
 
               <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="fechaRegistro" label="Fecha de Registro" type="date" value={values.fechaRegistro} readOnly />
+                <FieldGroup name="fechaRegistro" label="Fecha de Registro" type="date" value={values.fechaRegistro} tooltipText="Ejemplo." readOnly />
                 <CustomSelectField
                   name="ejercicioFiscal"
                   label="Ejercicio Fiscal"
                   options={['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => ({ value: year, label: year }))}
                   placeholder="Selecciona una opción"
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
@@ -210,6 +213,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programaSectorial', '');
                     setFieldValue('objetivoPrograma', '');
                   }}
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="organismo"
@@ -221,6 +225,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programaSectorial', '');  // Limpiar el campo dependiente
                     setFieldValue('objetivoPrograma', '');    // Limpiar el campo dependiente
                   }}
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
@@ -233,6 +238,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('unidadResponsable', option.value);
                     setFieldValue('unidadPresupuestal', '');
                   }}
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="unidadPresupuestal"
@@ -240,17 +246,18 @@ const CedulaRegistroForm = () => {
                   options={(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map((unidad) => ({ value: unidad, label: unidad }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.unidadResponsable}
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" />
+                <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Ejemplo." />
               </div>
               <SectionTitle title="Descripción del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" />
+                <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
-                <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" />
+                <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
                 <CustomSelectField
@@ -258,22 +265,24 @@ const CedulaRegistroForm = () => {
                   label="Tipo de Obra"
                   options={['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => ({ value: tipo, label: tipo }))}
                   placeholder="Selecciona una opción"
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="calendarioEjecucion"
                   label="Calendario de Ejecución"
                   options={[...Array(12).keys()].map((mes) => ({ value: mes + 1, label: `${mes + 1} meses` }))}
                   placeholder="Selecciona una opción"
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" />
+                <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" />
+                <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
-                <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" />
+                <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" tooltipText="Ejemplo." />
               </div>
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
@@ -301,12 +310,13 @@ const CedulaRegistroForm = () => {
                   name="cobertura"
                   label="Cobertura"
                   options={[
-                    { value: 'Federal', label: 'Federal' },
+                    { value: 'Estatal', label: 'Estatal' },
                     { value: 'Regional', label: 'Regional' },
                     { value: 'Municipal', label: 'Municipal' },
                   ]}
                   placeholder="Selecciona una opción"
                   onChange={(option) => handleCoberturaChange(option, setFieldValue)}
+                  tooltipText="Ejemplo."
                 />
               </div>
               {values.cobertura === 'Regional' && (
@@ -317,6 +327,7 @@ const CedulaRegistroForm = () => {
                     options={regionesOptions}
                     isMulti={true}
                     placeholder="Selecciona una o más regiones"
+                    tooltipText="Ejemplo."
                   />
                 </div>
               )}
@@ -341,6 +352,7 @@ const CedulaRegistroForm = () => {
                   label="Objetivos de Desarrollo Sostenible"
                   options={ODS.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
                   placeholder="Selecciona una opción"
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
@@ -356,6 +368,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('lineaAccionPED', '');
                     setFieldValue('indicadorPED', '');
                   }}
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
@@ -371,6 +384,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('lineaAccionPED', '');
                     setFieldValue('indicadorPED', '');
                   }}
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="estrategiaPED"
@@ -383,6 +397,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('lineaAccionPED', '');
                     setFieldValue('indicadorPED', '');
                   }}
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
@@ -396,6 +411,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('lineaAccionPED', option.value);
                     setFieldValue('indicadorPED', '');
                   }}
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="indicadorPED"
@@ -416,6 +432,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programaSectorial', option.value);
                     setFieldValue('objetivoPrograma', '');  // Limpiar el campo dependiente
                   }}
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="objetivoPrograma"
@@ -423,6 +440,7 @@ const CedulaRegistroForm = () => {
                   options={objetivosOptions}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.programaSectorial}
+                  tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
@@ -442,6 +460,7 @@ const CedulaRegistroForm = () => {
                       setFieldValue('cualPropuesta', '');
                     }
                   }}
+                  tooltipText="Ejemplo."
                 />
                 <CustomSelectField
                   name="cualPropuesta"
@@ -453,6 +472,7 @@ const CedulaRegistroForm = () => {
                   }
                   placeholder="Selecciona una opción"
                   isDisabled={values.propuestaCampana !== 'Sí'}
+                  tooltipText="Ejemplo."
                 />
               </div>
 

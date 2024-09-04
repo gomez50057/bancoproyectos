@@ -33,7 +33,7 @@ const ClientPanel = () => {
           />
           <Card 
             onClick={() => navigate('/presupuesto-inversion')} 
-            title="Anteproyecto para el presupuesto del ejercicio 2025" 
+            title="Anteproyecto para el presupuesto de inversión 2025" 
             imgSrc={`${imgBasePath}agregar.webp`} 
           />
           <Card 
