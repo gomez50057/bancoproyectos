@@ -14,6 +14,7 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     { label: 'Expediente Técnico', field: 'expedienteTecnico' },
     { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },
     { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacionImpactoAmbiental' },
+    { label: 'Fotografía o Render del Proyecto', field: 'FotografiaRenderProyecto' },
     { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otrosEstudios' },
   ];
 

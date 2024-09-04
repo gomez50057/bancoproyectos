@@ -1892,7 +1892,7 @@ export const Acuerdos = {
       ],
     }
   },
-  ' 4. Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora': {
+  '4. Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora': {
     objetivos: [
       '4.1. Infraestructura para el desarrollo social y sostenible.',
       '4.2. Planeación territorial y urbana.',
@@ -2182,6 +2182,32 @@ export const Acuerdos = {
         'No cuenta',
       ],
     }
+  },
+  // '5. Acuerdo para un Gobierno Cercano, Justo y Honesto': {
+  //   objetivos: [
+  //     'No Aplica',
+  //   ],
+  //   estrategias: {
+  //     'No Aplica': [
+  //       'No Aplica',
+  //     ],
+  //   },
+  //   lineasAccion: {
+  //     'No Aplica': [
+  //       'No Aplica',
+  //     ],
+  //   },
+  //   indicadores: {
+  //     'No Aplica': [
+  //       'No Aplica',
+  //     ],
+  //   }
+  // },
+  '5. Acuerdo para un Gobierno Cercano, Justo y Honesto': {
+  },
+  '6. Acuerdo para Garantizar los Derechos Humanos': {
+  },
+  '7. Acuerdo para la Transparencia y Rendición de Cuentas.': {
   },
 };
 

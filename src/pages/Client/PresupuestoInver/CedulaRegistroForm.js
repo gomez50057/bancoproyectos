@@ -141,8 +141,8 @@ const CedulaRegistroForm = () => {
           analisisCostoBeneficio: [],
           proyectoEjecutivo: [],
           manifestacionImpactoAmbiental: [],
+          FotografiaRenderProyecto: [],
           otrosEstudios: [],
-          municipiosImpacto: [],
           programaSectorial: '',
           objetivoPrograma: '',
         }}

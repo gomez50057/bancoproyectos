@@ -43,7 +43,9 @@ const AppRoutes = () => {
             <Route path="/presupuesto-inversion" element={<LoginLayout><CedulaRegistroForm /></LoginLayout>} />
 
             <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} />
-            <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} />
+            {/* <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} /> */}
+            <Route path="/panel-usuario/*" element={<LoginLayout><ClientPanel /></LoginLayout>} />
+
             <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientProjects /></LoginLayout></PrivateRoute>} />
             <Route path="/editar-proyecto/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><EditProject /></LoginLayout></PrivateRoute>} />
             <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} />

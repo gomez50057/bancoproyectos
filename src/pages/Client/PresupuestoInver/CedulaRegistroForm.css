@@ -1,24 +1,24 @@
 /* src/pages/Client/PresupuestoInver/CedulaRegistroForm.css */
 
-form {
+.formulario-container form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.form-row {
+.formulario-container .form-row {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-.form-group {
+.formulario-container .form-group {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.banner {
+.formulario-container .banner {
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -33,7 +33,7 @@ form {
   transition: 1.5s;
 }
 
-.banner h1{
+.formulario-container .banner h1{
   color: var(--doradoClr);
   font-weight: 600;
   font-size: 3rem;
@@ -41,98 +41,9 @@ form {
   text-align: center;
 }
 
-.banner_img{
-  width: 40vw;
-  height: 80%;
-  margin-bottom: 4vh;
-}
-
-.banner_txt{
-  width: 40vw;
-  height: 60%;
-  margin-bottom: 4vh;
-}
-
-.banner_img img{
-  width: auto;
-  height: 100%;
-}
-
-.banner_txt img{
-  width: 100%;
-  height: auto;
-}
-
-.banner:hover {
+.formulario-container .banner:hover {
   box-shadow: 0px 10px 20px 4px rgba(0, 0, 0, 0.4);
   transform: translateY(-5vh);
-}
-
-.container_home-button {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  width: 30px;
-  height: 60px;
-  transform: translateX(-50%);
-}
-
-.container_home-button .home-button {
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--vinoOsc);
-  border-radius: 50px;
-  box-sizing: border-box;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s ease;
-  position: relative;
-}
-
-.home-button::before,
-.home-button::after {
-  content: "";
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  height: 10px;
-  width: 10px;
-  transform: translate(-50%, -100%) rotate(45deg);
-  border: 2px solid var(--blanco);
-  border-top: transparent;
-  border-left: transparent;
-  animation: home-button 2s ease-in-out infinite;
-}
-
-.home-button::before {
-  top: 30%;
-  animation-delay: 0.3s;
-}
-
-@keyframes home-button {
-  0% {
-    top: 20%;
-    opacity: 0;
-  }
-
-  30% {
-    opacity: 1;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  100% {
-    top: 90%;
-    opacity: 0;
-  }
-}
-
-.home-button:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
 }
 
 input:focus, select:focus, textarea:focus {
@@ -140,13 +51,13 @@ input:focus, select:focus, textarea:focus {
   outline: none;
 }
 
-.error {
+.formulario-container .error {
   color: red;
   font-size: 0.875rem;
   margin-top: 5px;
 }
 
-button[type="submit"] {
+.formulario-container button[type="submit"] {
   padding: 15px;
   background-color: #691b32;
   color: #fff;
@@ -157,13 +68,13 @@ button[type="submit"] {
   transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+.formulario-container button[type="submit"]:hover {
   background-color: #92203e;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .form-row {
+  .formulario-container .form-row {
     flex-direction: column;
   }
 }
