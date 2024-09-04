@@ -14,7 +14,7 @@ import {
   ODS,
   propuestaCampana,
   municipiosDeHidalgo,
-  programasSectorialesOptions,  // Añadido: Importar opciones del programa sectorial
+  programasSectorialesOptions,  // Importar opciones del programa sectorial
 } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
@@ -61,25 +61,25 @@ const CedulaRegistroForm = () => {
     }
   };
 
-  // Funciones para gestionar la lógica de los nuevos campos
-  const getProgramasOptions = (dependenciaOrOrganismo) => {
-    if (!dependenciaOrOrganismo || dependenciaOrOrganismo === 'No Aplica') return [];
+  const getProgramasOptions = (organismo, dependencia) => {
+    // Verificar si "Organismo" es diferente de "No Aplica"
+    const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-    // Obtener el objeto de programas para la dependencia o el organismo dado
-    const programas = programasSectorialesOptions[dependenciaOrOrganismo];
+    if (!condicionante) return []; // Si no hay condicionante válido, devolver lista vacía
 
-    // Convertir las claves del objeto de programas a un formato compatible con react-select
-    return programas ? Object.keys(programas).map(programa => ({ value: programa, label: programa })) : [];
+    const programas = programasSectorialesOptions[condicionante];
+
+    return programas
+      ? Object.keys(programas).map(programa => ({ value: programa, label: programa }))
+      : []; // Devolver opciones si existen programas, de lo contrario, lista vacía
   };
 
+  const getObjetivosOptions = (organismo, dependencia, programa) => {
+    const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-  const getObjetivosOptions = (dependenciaOrOrganismo, programa) => {
-    if (!dependenciaOrOrganismo || !programa) return [];
+    if (!condicionante || !programa) return []; // Si falta algún dato necesario, devolver lista vacía
 
-    // Obtener los objetivos basados en la dependencia/organismo y el programa seleccionados
-    const objetivos = programasSectorialesOptions[dependenciaOrOrganismo]?.[programa] || [];
-
-    // Convertir los objetivos a un formato compatible con react-select
+    const objetivos = programasSectorialesOptions[condicionante]?.[programa] || [];
     return objetivos.map(objetivo => ({ value: objetivo, label: objetivo }));
   };
 
@@ -165,15 +165,14 @@ const CedulaRegistroForm = () => {
         validateOnBlur={true}
       >
         {({ setFieldValue, values }) => {
+          const programasOptions = getProgramasOptions(values.organismo, values.dependencia);
+          const objetivosOptions = getObjetivosOptions(values.organismo, values.dependencia, values.programaSectorial);
+
           const objetivos = values.planEstatal ? Acuerdos[values.planEstatal]?.objetivos || [] : [];
           const estrategias = values.objetivoPED ? Acuerdos[values.planEstatal]?.estrategias[values.objetivoPED] || [] : [];
           const lineasAccion = values.estrategiaPED ? Acuerdos[values.planEstatal]?.lineasAccion[values.estrategiaPED] || [] : [];
           const indicadores = values.lineaAccionPED ? Acuerdos[values.planEstatal]?.indicadores[values.lineaAccionPED] || [] : [];
           const municipios = values.region ? municipiosPorRegion[values.region] || [] : [];
-
-          // Obtener opciones para los programas sectoriales según la dependencia o el organismo
-          const programasOptions = getProgramasOptions(values.organismo || values.dependencia);
-          const objetivosOptions = getObjetivosOptions(values.programaSectorial);
 
           return (
             <Form>
@@ -211,6 +210,11 @@ const CedulaRegistroForm = () => {
                   component={CustomSelect}
                   options={dependencias.map((dep) => ({ value: dep, label: dep }))}
                   placeholder="Selecciona una opción"
+                  onChange={(option) => {
+                    setFieldValue('dependencia', option.value);
+                    setFieldValue('programaSectorial', '');
+                    setFieldValue('objetivoPrograma', '');
+                  }}
                 />
                 <Field
                   name="organismo"
@@ -221,6 +225,7 @@ const CedulaRegistroForm = () => {
                   onChange={(option) => {
                     setFieldValue('organismo', option.value);
                     setFieldValue('programaSectorial', '');  // Limpiar el campo dependiente
+                    setFieldValue('objetivoPrograma', '');    // Limpiar el campo dependiente
                   }}
                 />
               </div>
@@ -344,7 +349,7 @@ const CedulaRegistroForm = () => {
                   name="programaSectorial"
                   label="Programa Sectorial/Institucional/Especial"
                   component={CustomSelect}
-                  options={getProgramasOptions(values.organismo || values.dependencia)}  // Usar la función para obtener opciones
+                  options={programasOptions}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
                     setFieldValue('programaSectorial', option.value);
@@ -356,7 +361,7 @@ const CedulaRegistroForm = () => {
                   name="objetivoPrograma"
                   label="Objetivo del Programa"
                   component={CustomSelect}
-                  options={getObjetivosOptions(values.organismo || values.dependencia, values.programaSectorial)}  // Usar la función para obtener opciones
+                  options={objetivosOptions}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.programaSectorial}
                 />
