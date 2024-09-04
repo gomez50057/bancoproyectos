@@ -10,11 +10,11 @@ import {
   organismos,
   unidadPresupuestalPorUnidadResponsable,
   Acuerdos,
-  municipiosPorRegion,
   ODS,
   propuestaCampana,
   municipiosDeHidalgo,
-  programasSectorialesOptions,  // Importar opciones del programa sectorial
+  programasSectorialesOptions,
+  regionesHGO
 } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
@@ -49,24 +49,29 @@ const CedulaRegistroForm = () => {
   };
 
   const municipiosOptions = useMemo(() => [
-    { value: 'No Aplica', label: 'No Aplica' },
     ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))
   ], []);
 
-  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
-    if (selectedOptions.some((option) => option.value === 'No Aplica')) {
-      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
-    } else {
-      setFieldValue('municipiosImpacto', selectedOptions);
+  const regionesOptions = useMemo(() => [
+    ...regionesHGO.map((region) => ({ value: region, label: region }))
+  ], []);
+
+  const handleCoberturaChange = (selectedOption, setFieldValue) => {
+    setFieldValue('cobertura', selectedOption.value);
+    if (selectedOption.value === 'Federal') {
+      setFieldValue('regiones', []);
+      setFieldValue('municipios', []);
+    } else if (selectedOption.value === 'Regional') {
+      setFieldValue('regiones', []);
+    } else if (selectedOption.value === 'Municipal') {
+      setFieldValue('municipios', []);
     }
   };
 
   const getProgramasOptions = (organismo, dependencia) => {
-    // Verificar si "Organismo" es diferente de "No Aplica"
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
     if (!condicionante) return []; // Si no hay condicionante válido, devolver lista vacía
-
     const programas = programasSectorialesOptions[condicionante];
 
     return programas
@@ -85,9 +90,7 @@ const CedulaRegistroForm = () => {
 
   return (
     <section className="formulario-container">
-      <div className="banner">
-
-      </div>
+      <div className="banner"></div>
       <Formik
         initialValues={{
           nombreDependencia: '',
@@ -139,8 +142,11 @@ const CedulaRegistroForm = () => {
           manifestacionImpactoAmbiental: [],
           otrosEstudios: [],
           municipiosImpacto: [],
-          programaSectorial: '',  // Añadido: Nuevo campo
-          objetivoPrograma: '',   // Añadido: Nuevo campo
+          programaSectorial: '',
+          objetivoPrograma: '',
+          cobertura: '',
+          regiones: [],
+          municipios: [],
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -153,13 +159,6 @@ const CedulaRegistroForm = () => {
                 formData.append(key, file);
               }
             }
-          }
-
-          if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
-            const municipiosImpactoArray = values.municipiosImpacto.map(mun => mun.value);
-            formData.append('municipio_impacto', JSON.stringify(municipiosImpactoArray));
-          } else {
-            formData.append('municipio_impacto', JSON.stringify([]));
           }
 
           // Lógica para enviar formData al backend
@@ -175,7 +174,6 @@ const CedulaRegistroForm = () => {
           const estrategias = values.objetivoPED ? Acuerdos[values.planEstatal]?.estrategias[values.objetivoPED] || [] : [];
           const lineasAccion = values.estrategiaPED ? Acuerdos[values.planEstatal]?.lineasAccion[values.estrategiaPED] || [] : [];
           const indicadores = values.lineaAccionPED ? Acuerdos[values.planEstatal]?.indicadores[values.lineaAccionPED] || [] : [];
-          const municipios = values.region ? municipiosPorRegion[values.region] || [] : [];
 
           return (
             <Form>
@@ -306,43 +304,48 @@ const CedulaRegistroForm = () => {
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
+                            
               {/* Ubicación del Proyecto */}
               <SectionTitle title="Ubicación del Proyecto" />
               <div className="form-row">
                 <Field
-                  name="region"
-                  label="Región"
+                  name="cobertura"
+                  label="Cobertura"
                   component={CustomSelect}
-                  options={Object.keys(municipiosPorRegion).map((region) => ({ value: region, label: region }))}
+                  options={[
+                    { value: 'Federal', label: 'Federal' },
+                    { value: 'Regional', label: 'Regional' },
+                    { value: 'Municipal', label: 'Municipal' }
+                  ]}
                   placeholder="Selecciona una opción"
-                  onChange={(option) => {
-                    setFieldValue('region', option.value);
-                    setFieldValue('municipio', '');
-                  }}
-                />
-                <Field
-                  name="municipio"
-                  label="Municipio"
-                  component={CustomSelect}
-                  options={municipios.map((municipio) => ({ value: municipio, label: municipio }))}
-                  placeholder="Selecciona una opción"
-                  isDisabled={!values.region}
-                />
-                <FieldGroup name="localidad" label="Localidad" type="text" maxLength="50" />
-                <FieldGroup name="barrioColoniaEjido" label="Barrio/Colonia/Ejido" type="text" maxLength="50" />
-              </div>
-              <div className="form-row">
-                <Field
-                  name="municipiosImpacto"
-                  label="Municipios de Impacto"
-                  component={CustomSelect}
-                  options={municipiosOptions}
-                  placeholder="Municipios"
-                  isMulti={true}
-                  onChangeCustom={handleMunicipiosImpactoChange}
-                  tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
+                  onChange={(option) => handleCoberturaChange(option, setFieldValue)}
                 />
               </div>
+              {values.cobertura === 'Regional' && (
+                <div className="form-row">
+                  <Field
+                    name="regiones"
+                    label="Regiones"
+                    component={CustomSelect}
+                    options={regionesOptions}
+                    isMulti={true}
+                    placeholder="Selecciona una o más regiones"
+                  />
+                </div>
+              )}
+              {values.cobertura === 'Municipal' && (
+                <div className="form-row">
+                  <Field
+                    name="municipios"
+                    label="Municipios"
+                    component={CustomSelect}
+                    options={municipiosOptions}
+                    isMulti={true}
+                    placeholder="Selecciona uno o más municipios"
+                     tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
+                  />
+                </div>
+              )}
 
               {/* Alineación Estratégica */}
               <SectionTitle title="Alineación Estratégica" />

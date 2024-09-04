@@ -2207,7 +2207,6 @@ export const propuestaCampana = [
   'Pavimentando Caminos'
 ];
 
-
 export const municipiosDeHidalgo = [
   '001 Acatlán', '002 Acaxochitlán', '003 Actopan', '004 Agua Blanca de Iturbide', '005 Ajacuba', '006 Alfajayucan',
   '007 Almoloya', '008 Apan', '009 El Arenal', '010 Atitalaquia', '011 Atlapexco', '012 Atotonilco el Grande',
@@ -2226,6 +2225,21 @@ export const municipiosDeHidalgo = [
   '069 Tizayuca', '070 Tlahuelilpan', '071 Tlahuiltepa', '072 Tlanalapa', '073 Tlanchinol', '074 Tlaxcoapan',
   '075 Tolcayuca', '076 Tula de Allende', '077 Tulancingo de Bravo', '078 Xochiatipan', '079 Xochicoatlán',
   '080 Yahualica', '081 Zacualtipán de Ángeles', '082 Zapotlán de Juárez', '083 Zempoala', '084 Zimapán'
+];
+
+export const regionesHGO = [
+  '01.Tula',
+  '02.Tulancingo',
+  '03.Pachuca',
+  '04.Huejutla',
+  '05.Mineral de la Reforma',
+  '06.Tizayuca',
+  '07.Actopan',
+  '08.Ixmiquilpan',
+  '09.Zacualtipán',
+  '10.Apan',
+  '11.Huichapan',
+  '12.Jacala'
 ];
 
 export const programasSectorialesOptions = {
