@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
+// import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -496,7 +497,7 @@ const CedulaRegistroForm = () => {
                   options={objetivosOptions}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.programa_sectorial}
-                  tooltipText="Selecciona el objetivo del programa sectorial que corresponde."
+                  tooltipText="Selecciona el objetivo del programa que corresponde."
                 />
               </div>
               <div className="form-row">
@@ -534,7 +535,6 @@ const CedulaRegistroForm = () => {
 
               {/* Anexos del proyecto  */}
               <SectionTitle title="Anexos del proyecto " />
-              <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
               <div className="form-row">
                 <CustomSelectField
                   name="expediente_tecnico"
@@ -547,6 +547,7 @@ const CedulaRegistroForm = () => {
                   tooltipText="Indica si el proyecto cuenta con expediente técnico validado."
                 />
               </div>
+              <p>Si tienes algún documento complementario, anéxalo en el campo que más se adecue.</p>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
               <button type="submit" disabled={isSubmitting}>Enviar</button>
