@@ -3,11 +3,10 @@ import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
-// import { validationSchema } from './validationSchemaCedula';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import ProjectCreationModal from '../componentsForm/ProjectCreationModal';  // Importa el modal aquí
+import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import {
   dependencias,
   organismos,
@@ -214,30 +213,30 @@ const CedulaRegistroForm = () => {
               {/* Registro del Responsable del Proyecto */}
               <SectionTitle title="Registro del Responsable del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" type="text" />
-                <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" />
+                <FieldGroup name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" type="text" tooltipText="Indica la dependencia o el organismo que presenta el proyecto." />
+                <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área a la que pertenece dentro de la dependencia." />
               </div>
               <div className="form-row">
-                <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" />
-                <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" />
-                <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" />
+                <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre completo como responsable de este registro." />
+                <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
+                <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
               </div>
               <div className="form-row">
-                <FieldGroup name="correo" label="Correo" type="email" />
-                <FieldGroup name="telefono" label="Teléfono" type="text" note="Debe ser un número de 10 dígitos" />
-                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" />
+                <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónico institucional." />
+                <FieldGroup name="telefono" label="Teléfono" type="text" note="Debe ser un número de 10 dígitos" tooltipText="Ingresa un número de teléfono válido de 10 dígitos." />
+                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" tooltipText="Proporciona la extensión telefónica, si aplica." />
               </div>
 
               {/* Datos Generales del Proyecto */}
               <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipText="Ejemplo." readOnly />
+                <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipText="Esta es la fecha en que estás registrando el proyecto." readOnly />
                 <CustomSelectField
                   name="ejercicio_fiscal"
                   label="Ejercicio Fiscal"
                   options={['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => ({ value: year, label: year }))}
                   placeholder="Selecciona una opción"
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el ejercicio fiscal al que corresponde el proyecto."
                 />
               </div>
               <div className="form-row">
@@ -251,7 +250,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programa_sectorial', '');
                     setFieldValue('objetivo_programa', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona la dependencia que presenta el proyecto."
                 />
                 <CustomSelectField
                   name="organismo"
@@ -263,7 +262,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programa_sectorial', '');
                     setFieldValue('objetivo_programa', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el organismo que presenta el proyecto, si aplica."
                 />
               </div>
               <div className="form-row">
@@ -276,7 +275,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('unidad_responsable', option.value);
                     setFieldValue('unidad_presupuestal', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona la unidad responsable del proyecto."
                 />
                 <CustomSelectField
                   name="unidad_presupuestal"
@@ -284,20 +283,20 @@ const CedulaRegistroForm = () => {
                   options={(unidadPresupuestalPorUnidadResponsable[values.unidad_responsable] || []).map((unidad) => ({ value: unidad, label: unidad }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.unidad_responsable}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona la unidad presupuestal correspondiente."
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="nombre_proyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="nombre_proyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Especifica el nombre del proyecto, máximo 250 caracteres." />
               </div>
 
               {/* Descripción del Proyecto */}
               <SectionTitle title="Descripción del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="descripcion_proyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="descripcion_proyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Describe brevemente el proyecto, máximo 1000 caracteres." />
               </div>
               <div className="form-row">
-                <FieldGroup name="situacion_actual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="situacion_actual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Describe la situación actual que motiva el proyecto." />
               </div>
               <div className="form-row">
                 <CustomSelectField
@@ -305,21 +304,21 @@ const CedulaRegistroForm = () => {
                   label="Tipo de Obra"
                   options={['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => ({ value: tipo, label: tipo }))}
                   placeholder="Selecciona una opción"
-                  tooltipText="Ejemplo."
+                  tooltipText="Indica el tipo de obra que se va a realizar en el proyecto."
                 />
                 <CustomSelectField
                   name="calendario_ejecucion"
                   label="Calendario de Ejecución"
                   options={[...Array(12).keys()].map((mes) => ({ value: mes + 1, label: `${mes + 1} meses` }))}
                   placeholder="Selecciona una opción"
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el tiempo estimado para la ejecución del proyecto."
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficio_social" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="beneficio_social" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Describe el beneficio social que brindará el proyecto." />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficio_economico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="beneficio_economico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Describe el beneficio económico que generará el proyecto." />
               </div>
               <FieldGroup
                 name="numero_beneficiarios"
@@ -334,7 +333,7 @@ const CedulaRegistroForm = () => {
                 }}
                 value={formatNumberWithCommas(values.numero_beneficiarios)}
                 note="Debe ser un número entero"
-                tooltipText="Ejemplo."
+                tooltipText="Proporciona el número de beneficiarios estimados del proyecto."
               />
 
               {/* Estructura Financiera */}
@@ -354,7 +353,7 @@ const CedulaRegistroForm = () => {
                   value={formatNumberWithCommas(values.inversion_presupuestada)}
                   maxLength="250"
                   note="Debe ser un número positivo"
-                  tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
+                  tooltipText="Indica la inversión presupuestada para el proyecto."
                 />
               </div>
 
@@ -371,7 +370,7 @@ const CedulaRegistroForm = () => {
                   ]}
                   placeholder="Selecciona una opción"
                   onChange={(option) => handleCoberturaChange(option, setFieldValue)}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el ámbito de cobertura del proyecto."
                 />
               </div>
               {values.cobertura === 'Regional' && (
@@ -382,7 +381,7 @@ const CedulaRegistroForm = () => {
                     options={regionesOptions}
                     isMulti={true}
                     placeholder="Selecciona una o más regiones"
-                    tooltipText="Ejemplo."
+                    tooltipText="Selecciona las regiones que serán beneficiadas por el proyecto."
                     onChange={(selectedOptions) => setFieldValue('regiones', selectedOptions.map(option => option.value))}
                   />
                 </div>
@@ -395,7 +394,7 @@ const CedulaRegistroForm = () => {
                     options={municipiosOptions}
                     isMulti={true}
                     placeholder="Selecciona uno o más municipios"
-                    tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
+                    tooltipText="Selecciona los municipios beneficiados por el proyecto."
                     onChange={(selectedOptions) => setFieldValue('municipios', selectedOptions.map(option => option.value))}
                   />
                 </div>
@@ -409,7 +408,7 @@ const CedulaRegistroForm = () => {
                   label="Objetivos de Desarrollo Sostenible"
                   options={ODS.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
                   placeholder="Selecciona una opción"
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el objetivo de desarrollo sostenible que apoya el proyecto."
                 />
               </div>
               <div className="form-row">
@@ -425,7 +424,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('linea_accion_ped', '');
                     setFieldValue('indicador_ped', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el plan estatal de desarrollo al que se adhiere el proyecto."
                 />
               </div>
               <div className="form-row">
@@ -441,7 +440,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('linea_accion_ped', '');
                     setFieldValue('indicador_ped', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el objetivo estratégico del PED relacionado al proyecto."
                 />
                 <CustomSelectField
                   name="estrategia_ped"
@@ -454,7 +453,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('linea_accion_ped', '');
                     setFieldValue('indicador_ped', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona la estrategia dentro del PED que se adhiere al proyecto."
                 />
               </div>
               <div className="form-row">
@@ -468,7 +467,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('linea_accion_ped', option.value);
                     setFieldValue('indicador_ped', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona la línea de acción dentro del PED."
                 />
                 <CustomSelectField
                   name="indicador_ped"
@@ -476,7 +475,7 @@ const CedulaRegistroForm = () => {
                   options={indicadores.map((indicador, index) => ({ value: indicador, label: indicador }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.linea_accion_ped}
-                  tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
+                  tooltipText="Proporciona el indicador estratégico relacionado a la línea de acción del PED."
                 />
               </div>
               <div className="form-row">
@@ -489,7 +488,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programa_sectorial', option.value);
                     setFieldValue('objetivo_programa', '');
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el programa sectorial relacionado con el proyecto."
                 />
                 <CustomSelectField
                   name="objetivo_programa"
@@ -497,7 +496,7 @@ const CedulaRegistroForm = () => {
                   options={objetivosOptions}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.programa_sectorial}
-                  tooltipText="Ejemplo."
+                  tooltipText="Selecciona el objetivo del programa sectorial que corresponde."
                 />
               </div>
               <div className="form-row">
@@ -517,7 +516,7 @@ const CedulaRegistroForm = () => {
                       setFieldValue('cual_propuesta', '');
                     }
                   }}
-                  tooltipText="Ejemplo."
+                  tooltipText="Indica si el proyecto está relacionado con alguna propuesta de campaña."
                 />
                 <CustomSelectField
                   name="cual_propuesta"
@@ -529,7 +528,7 @@ const CedulaRegistroForm = () => {
                   }
                   placeholder="Selecciona una opción"
                   isDisabled={values.propuesta_campana !== 'Sí'}
-                  tooltipText="Ejemplo."
+                  tooltipText="Especifica a cuál propuesta de campaña está relacionada, si aplica."
                 />
               </div>
 
@@ -545,6 +544,7 @@ const CedulaRegistroForm = () => {
                     { value: 'No', label: 'No' },
                   ]}
                   placeholder="Selecciona una opción"
+                  tooltipText="Indica si el proyecto cuenta con expediente técnico validado."
                 />
               </div>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
