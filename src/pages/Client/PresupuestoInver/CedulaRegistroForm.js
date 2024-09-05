@@ -117,7 +117,7 @@ const CedulaRegistroForm = () => {
     const csrfToken = Cookies.get('csrftoken');
 
     try {
-      const response = await axios.post('/cedulas/', formData, {
+      const response = await axios.post('cedulas/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'X-CSRFToken': csrfToken  // Añadir el token CSRF al encabezado
@@ -183,6 +183,7 @@ const CedulaRegistroForm = () => {
           objetivo_programa: '',
           propuesta_campana: '',
           cual_propuesta: '',
+          prioridad: '',
           expediente_tecnico: '',
           estudios_factibilidad: [],
           analisis_alternativas: [],
@@ -530,6 +531,17 @@ const CedulaRegistroForm = () => {
                   placeholder="Selecciona una opción"
                   isDisabled={values.propuesta_campana !== 'Sí'}
                   tooltipText="Especifica a cuál propuesta de campaña está relacionada, si aplica."
+                />
+              </div>
+
+              {/* Campo Prioridad */}
+              <div className="form-row">
+                <CustomSelectField
+                  name="prioridad"
+                  label="Prioridad"
+                  options={[...Array(100).keys()].map((num) => ({ value: num + 1, label: `${num + 1}` }))}
+                  placeholder="Selecciona una opción"
+                  tooltipText="Deberás priorizar tu proyecto siendo 1 el prioritario. Recuerda que no debes repetir números."
                 />
               </div>
 

@@ -26,29 +26,29 @@ const ClientPanel = () => {
     <div className="client-panel-container">
       <div className="client-panel-content">
         <div className="card-container">
-          {/* <Card 
+          <Card 
             onClick={() => navigate('/dependencia')} 
             title="Agregar Proyecto" 
             imgSrc={`${imgBasePath}agregar.webp`} 
-          /> */}
-          <Card 
+          />
+          {/* <Card 
             title="Agregar Proyecto (Próximamente)" 
             imgSrc={`${imgBasePath}agregar.webp`} 
-          />
+          /> */}
           <Card 
             onClick={() => navigate('/presupuesto-inversion')} 
             title="Anteproyecto para el Presupuesto de Inversión 2025" 
             imgSrc={`${imgBasePath}agregar.webp`} 
           />
-          {/* <Card 
+          <Card 
             onClick={() => navigate('/consulta')} 
             title="Consultar Proyecto" 
             imgSrc={`${imgBasePath}consultar.webp`} 
-          /> */}
-          <Card 
+          />
+          {/* <Card 
             title="Consultar Proyecto (Próximamente)" 
             imgSrc={`${imgBasePath}consultar.webp`} 
-          />
+          /> */}
         </div>
       </div>
       <img src={`${imgBasePath}galaxiaBlanca1-2.png`} alt="Decorative Star" className="background-image-left" />
