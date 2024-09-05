@@ -1,8 +1,8 @@
-// ProjectCreationModal.js
 import React from 'react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
 import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 const StyledModal = styled(Modal)`
   position: absolute;
@@ -45,19 +45,28 @@ const globalModalStyles = css`
   }
 `;
 
-const ProjectCreationModal = ({ isOpen, onRequestClose, projectId }) => (
-  <StyledModal
-    isOpen={isOpen}
-    onRequestClose={onRequestClose}
-    shouldCloseOnOverlayClick={false}
-    shouldCloseOnEsc={false}
-    contentLabel="Proyecto Creado"
-    css={globalModalStyles}
-  >
-    <h2>Proyecto creado exitosamente</h2>
-    <p>ID del Proyecto: {projectId}</p>
-    <button onClick={onRequestClose}>He finalizado</button>
-  </StyledModal>
-);
+const ProjectCreationModal = ({ isOpen, onRequestClose, projectId }) => {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    onRequestClose();
+    navigate('/panel-usuario');
+  };
+
+  return (
+    <StyledModal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      shouldCloseOnOverlayClick={false}
+      shouldCloseOnEsc={false}
+      contentLabel="Proyecto Creado"
+      css={globalModalStyles}
+    >
+      <h2>Proyecto creado exitosamente</h2>
+      <p>ID del Proyecto: {projectId}</p>
+      <button onClick={handleClose}>He finalizado</button>
+    </StyledModal>
+  );
+};
 
 export default ProjectCreationModal;

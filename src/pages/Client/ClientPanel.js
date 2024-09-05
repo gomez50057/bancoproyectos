@@ -40,9 +40,13 @@ const ClientPanel = () => {
             title="Anteproyecto para el Presupuesto de Inversión 2025" 
             imgSrc={`${imgBasePath}agregar.webp`} 
           />
-          <Card 
+          {/* <Card 
             onClick={() => navigate('/consulta')} 
             title="Consultar Proyecto" 
+            imgSrc={`${imgBasePath}consultar.webp`} 
+          /> */}
+          <Card 
+            title="Consultar Proyecto (Próximamente)" 
             imgSrc={`${imgBasePath}consultar.webp`} 
           />
         </div>

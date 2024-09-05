@@ -424,7 +424,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('linea_accion_ped', '');
                     setFieldValue('indicador_ped', '');
                   }}
-                  tooltipText="Selecciona el plan estatal de desarrollo al que se adhiere el proyecto."
+                  tooltipText="Selecciona el acuerdo del Plan Estatal al que se adhiere el proyecto."
                 />
               </div>
               <div className="form-row">
@@ -475,7 +475,7 @@ const CedulaRegistroForm = () => {
                   options={indicadores.map((indicador, index) => ({ value: indicador, label: indicador }))}
                   placeholder="Selecciona una opción"
                   isDisabled={!values.linea_accion_ped}
-                  tooltipText="Proporciona el indicador estratégico relacionado a la línea de acción del PED."
+                  tooltipText="Proporciona el indicador estratégico relacionado con el objetivo."
                 />
               </div>
               <div className="form-row">
