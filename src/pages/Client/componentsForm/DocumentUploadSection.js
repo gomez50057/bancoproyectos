@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, FieldArray, ErrorMessage } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 
 const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldValue }) => {
   const documentos = [
@@ -33,30 +33,16 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
           </div>
 
           {applies[field] && (
-            <FieldArray name={field}>
-              {({ push, remove }) => (
-                <div>
-                  {(values[field] || []).map((file, index) => (
-                    <div key={index} className="file-input-group">
-                      <input
-                        type="file"
-                        onChange={(event) => {
-                          const files = event.currentTarget.files;
-                          if (files && files.length > 0) {
-                            setFieldValue(`${field}.${index}`, files[0]); // Aquí se asegura de que se guarde el archivo en el campo correcto
-                          }
-                        }}
-                        accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
-                      />
-                      <button type="button" onClick={() => remove(index)}>Eliminar</button>
-                    </div>
-                  ))}
-                  <button type="button" onClick={() => push(null)} className="add-file-button"> {/* Cambié a `null` para asegurar que se puede empujar un nuevo campo vacío */}
-                    Agregar Archivo
-                  </button>
-                </div>
-              )}
-            </FieldArray>
+            <div className="file-input-group">
+              <input
+                type="file"
+                onChange={(event) => {
+                  const file = event.currentTarget.files[0]; // Solo un archivo
+                  setFieldValue(`${field}`, file); // Guardar solo un archivo
+                }}
+                accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
+              />
+            </div>
           )}
           <ErrorMessage name={field} component="div" className="error" />
         </div>
