@@ -330,9 +330,21 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="beneficio_economico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
               </div>
-              <div className="form-row">
-                <FieldGroup name="numero_beneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" tooltipText="Ejemplo." />
-              </div>
+              <FieldGroup
+                name="numero_beneficiarios"
+                label="Número Beneficiarios"
+                type="text"
+                onChange={(e) => {
+                  const value = e.target.value.replace(/,/g, '');
+                  if (!isNaN(value)) {
+                    setFieldValue('numero_beneficiarios', value);
+                    e.target.value = formatNumberWithCommas(value);
+                  }
+                }}
+                value={formatNumberWithCommas(values.numero_beneficiarios)}
+                note="Debe ser un número entero"
+                tooltipText="Ejemplo."
+              />
 
               {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
@@ -344,10 +356,11 @@ const CedulaRegistroForm = () => {
                   onChange={(e) => {
                     const value = e.target.value.replace(/,/g, '');
                     if (!isNaN(value)) {
-                      setFieldValue('inversion_presupuestada', formatNumberWithCommas(value));
+                      setFieldValue('inversion_presupuestada', value);
+                      e.target.value = formatNumberWithCommas(value);
                     }
                   }}
-                  value={values.inversion_presupuestada}
+                  value={formatNumberWithCommas(values.inversion_presupuestada)}
                   maxLength="250"
                   note="Debe ser un número positivo"
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
