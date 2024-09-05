@@ -65,16 +65,10 @@ const CedulaRegistroForm = () => {
 
   const handleCoberturaChange = (selectedOption, setFieldValue) => {
     setFieldValue('cobertura', selectedOption.value);
-    if (selectedOption.value === 'Estatal') {
-      setFieldValue('regiones', []);
-      setFieldValue('municipios', []);
-    } else if (selectedOption.value === 'Regional') {
-      setFieldValue('regiones', []);
-    } else if (selectedOption.value === 'Municipal') {
-      setFieldValue('municipios', []);
-    }
+    setFieldValue('regiones', []);
+    setFieldValue('municipios', []);
   };
-
+  
   const getProgramasOptions = (organismo, dependencia) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
@@ -102,7 +96,6 @@ const CedulaRegistroForm = () => {
 
     const formData = new FormData();
 
-    // Añadir datos del formulario a formData
     for (const key in values) {
       if (values[key] instanceof File) {
         formData.append(key, values[key]);
@@ -595,20 +588,21 @@ const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
 );
 
 // Componente CustomSelectField modificado para integrar React Select con Formik y mostrar tooltip
-const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false }) => {
+const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChange }) => {
   const [field, , helpers] = useField(name);
 
   const handleChange = (selectedOptions) => {
     if (isMulti) {
-      // Extraer solo los valores de las opciones seleccionadas
       const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
       helpers.setValue(selectedValues);
     } else {
       helpers.setValue(selectedOptions ? selectedOptions.value : '');
     }
+    if (onChange) {
+      onChange(selectedOptions);
+    }
   };
 
-  // Convertir el valor actual del campo en una lista de objetos para Select
   const selectedOption = options ? (isMulti ? options.filter(option => field.value.includes(option.value)) : options.find(option => option.value === field.value)) : '';
 
   return (
