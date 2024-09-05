@@ -73,7 +73,7 @@ const CedulaRegistroForm = () => {
   const getProgramasOptions = (organismo, dependencia) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-    if (!condicionante) return []; 
+    if (!condicionante) return [];
     const programas = programasSectorialesOptions[condicionante];
 
     return programas
@@ -97,15 +97,21 @@ const CedulaRegistroForm = () => {
 
     const formData = new FormData();
 
+    // Añadir datos del formulario a formData
     for (const key in values) {
       if (values[key] instanceof File) {
         formData.append(key, values[key]);
       } else if (Array.isArray(values[key])) {
-        values[key].forEach((file, index) => {
-          if (file instanceof File) {
-            formData.append(`${key}[${index}]`, file);
-          }
-        });
+        // Convertir 'regiones' y 'municipios' a JSON string si son arrays
+        if (key === 'regiones' || key === 'municipios') {
+          formData.append(key, JSON.stringify(values[key]));
+        } else {
+          values[key].forEach((file, index) => {
+            if (file instanceof File) {
+              formData.append(`${key}[${index}]`, file);
+            }
+          });
+        }
       } else {
         formData.append(key, values[key]);
       }
@@ -282,7 +288,7 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="nombre_proyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Ejemplo." />
               </div>
-              
+
               {/* Descripción del Proyecto */}
               <SectionTitle title="Descripción del Proyecto" />
               <div className="form-row">
@@ -316,7 +322,7 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="numero_beneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" tooltipText="Ejemplo." />
               </div>
-              
+
               {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
@@ -362,6 +368,7 @@ const CedulaRegistroForm = () => {
                     isMulti={true}
                     placeholder="Selecciona una o más regiones"
                     tooltipText="Ejemplo."
+                    onChange={(selectedOptions) => setFieldValue('regiones', selectedOptions.map(option => option.value))}
                   />
                 </div>
               )}
@@ -374,6 +381,7 @@ const CedulaRegistroForm = () => {
                     isMulti={true}
                     placeholder="Selecciona uno o más municipios"
                     tooltipText="Selecciona los municipios que serán impactados por el proyecto. Si no aplica, selecciona 'No Aplica'."
+                    onChange={(selectedOptions) => setFieldValue('municipios', selectedOptions.map(option => option.value))}
                   />
                 </div>
               )}
@@ -556,17 +564,21 @@ const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
 );
 
 // Componente CustomSelectField modificado para integrar React Select con Formik y mostrar tooltip
-const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChange }) => {
+const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false }) => {
   const [field, , helpers] = useField(name);
 
-  const handleChange = (option) => {
-    helpers.setValue(isMulti ? option : option?.value);
-    if (onChange) {
-      onChange(option);
+  const handleChange = (selectedOptions) => {
+    if (isMulti) {
+      // Extraer solo los valores de las opciones seleccionadas
+      const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+      helpers.setValue(selectedValues);
+    } else {
+      helpers.setValue(selectedOptions ? selectedOptions.value : '');
     }
   };
 
-  const selectedOption = options ? (isMulti ? field.value : options.find(option => option.value === field.value)) : '';
+  // Convertir el valor actual del campo en una lista de objetos para Select
+  const selectedOption = options ? (isMulti ? options.filter(option => field.value.includes(option.value)) : options.find(option => option.value === field.value)) : '';
 
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
