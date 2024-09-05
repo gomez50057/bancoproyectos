@@ -620,6 +620,7 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
       </label>
       <Select
         className="form-select"
+        id={name}
         options={options}
         name={name}
         value={selectedOption}
