@@ -3,8 +3,10 @@ import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
-import { validationSchema } from './validationSchemaCedula';
+// import { validationSchema } from './validationSchemaCedula';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import {
   dependencias,
   organismos,
@@ -19,6 +21,7 @@ import {
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
 
+// Función para formatear números con comas
 const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
@@ -39,6 +42,7 @@ const CedulaRegistroForm = () => {
     otrosEstudios: false,
   });
 
+  // Manejadores de cambios
   const handleApplyChange = (field) => {
     setApplies((prevState) => ({
       ...prevState,
@@ -69,21 +73,63 @@ const CedulaRegistroForm = () => {
   const getProgramasOptions = (organismo, dependencia) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-    if (!condicionante) return []; // Si no hay condicionante válido, devolver lista vacía
+    if (!condicionante) return []; 
     const programas = programasSectorialesOptions[condicionante];
 
     return programas
       ? Object.keys(programas).map(programa => ({ value: programa, label: programa }))
-      : []; // Devolver opciones si existen programas, de lo contrario, lista vacía
+      : [];
   };
 
   const getObjetivosOptions = (organismo, dependencia, programa) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-    if (!condicionante || !programa) return []; // Si falta algún dato necesario, devolver lista vacía
+    if (!condicionante || !programa) return [];
 
     const objetivos = programasSectorialesOptions[condicionante]?.[programa] || [];
     return objetivos.map(objetivo => ({ value: objetivo, label: objetivo }));
+  };
+
+  // Función para enviar el formulario
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    alert('Iniciando el envío del formulario...');
+    console.log('Form data to be submitted:', values);
+
+    const formData = new FormData();
+
+    for (const key in values) {
+      if (values[key] instanceof File) {
+        formData.append(key, values[key]);
+      } else if (Array.isArray(values[key])) {
+        values[key].forEach((file, index) => {
+          if (file instanceof File) {
+            formData.append(`${key}[${index}]`, file);
+          }
+        });
+      } else {
+        formData.append(key, values[key]);
+      }
+    }
+
+    // Obtener el token CSRF de las cookies
+    const csrfToken = Cookies.get('csrftoken');
+
+    try {
+      const response = await axios.post('/cedulas/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'X-CSRFToken': csrfToken  // Añadir el token CSRF al encabezado
+        },
+      });
+      alert('Formulario enviado con éxito');
+      console.log('Response:', response.data);
+      resetForm();
+    } catch (error) {
+      alert('Error al enviar el formulario');
+      console.error('Error:', error);
+    }
+
+    setSubmitting(false);
   };
 
   return (
@@ -93,7 +139,7 @@ const CedulaRegistroForm = () => {
       </div>
       <Formik
         initialValues={{
-          nombreDependencia: '',
+          nombre_dependencia: '',
           areaAdscripcion: '',
           nombreRegistrante: '',
           apellidoPaterno: '',
@@ -141,25 +187,12 @@ const CedulaRegistroForm = () => {
           FotografiaRenderProyecto: [],
           otrosEstudios: [],
         }}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log('Form data submitted:', values);
-          const formData = new FormData();
-
-          for (const key in applies) {
-            if (applies[key]) {
-              for (const file of values[key]) {
-                formData.append(key, file);
-              }
-            }
-          }
-
-          // Lógica para enviar formData al backend
-        }}
+        validationSchema={null}
+        onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ setFieldValue, values }) => {
+        {({ setFieldValue, values, isSubmitting }) => {
           const programasOptions = getProgramasOptions(values.organismo, values.dependencia);
           const objetivosOptions = getObjetivosOptions(values.organismo, values.dependencia, values.programaSectorial);
 
@@ -170,6 +203,7 @@ const CedulaRegistroForm = () => {
 
           return (
             <Form>
+              {/* Registro del Responsable del Proyecto */}
               <SectionTitle title="Registro del Responsable del Proyecto" />
               <div className="form-row">
                 <FieldGroup name="nombreDependencia" label="Nombre de la Dependencia u Organismo" type="text" />
@@ -186,6 +220,7 @@ const CedulaRegistroForm = () => {
                 <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" />
               </div>
 
+              {/* Datos Generales del Proyecto */}
               <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
                 <FieldGroup name="fechaRegistro" label="Fecha de Registro" type="date" value={values.fechaRegistro} tooltipText="Ejemplo." readOnly />
@@ -217,8 +252,8 @@ const CedulaRegistroForm = () => {
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
                     setFieldValue('organismo', option.value);
-                    setFieldValue('programaSectorial', '');  // Limpiar el campo dependiente
-                    setFieldValue('objetivoPrograma', '');    // Limpiar el campo dependiente
+                    setFieldValue('programaSectorial', '');
+                    setFieldValue('objetivoPrograma', '');
                   }}
                   tooltipText="Ejemplo."
                 />
@@ -247,6 +282,8 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Ejemplo." />
               </div>
+              
+              {/* Descripción del Proyecto */}
               <SectionTitle title="Descripción del Proyecto" />
               <div className="form-row">
                 <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
@@ -279,6 +316,8 @@ const CedulaRegistroForm = () => {
               <div className="form-row">
                 <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" tooltipText="Ejemplo." />
               </div>
+              
+              {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
                 <FieldGroup
@@ -425,7 +464,7 @@ const CedulaRegistroForm = () => {
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
                     setFieldValue('programaSectorial', option.value);
-                    setFieldValue('objetivoPrograma', '');  // Limpiar el campo dependiente
+                    setFieldValue('objetivoPrograma', '');
                   }}
                   tooltipText="Ejemplo."
                 />
@@ -487,7 +526,7 @@ const CedulaRegistroForm = () => {
               </div>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
-              <button type="submit">Enviar</button>
+              <button type="submit" disabled={isSubmitting}>Enviar</button>
             </Form>
           );
         }}

@@ -10,7 +10,7 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     { label: 'Validación Normativa', field: 'validacionNormativa' },
     { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
     { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
-    { label: 'Expediente Técnico', field: 'expedienteTecnico' },
+    // { label: 'Expediente Técnico', field: 'expedienteTecnico' },
     { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },
     { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacionImpactoAmbiental' },
     { label: 'Fotografía o Render del Proyecto', field: 'FotografiaRenderProyecto' },

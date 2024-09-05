@@ -40,11 +40,12 @@ const AppRoutes = () => {
             <Route path="/" element={<MainLayout><MainContent /></MainLayout>} />
             <Route path="/login" element={<LoginLayout><Login /></LoginLayout>} />
             <Route path="/table" element={<MainLayout><TableComponent /></MainLayout>} />
-            <Route path="/presupuesto-inversion" element={<LoginLayout><CedulaRegistroForm /></LoginLayout>} />
+            {/* <Route path="/presupuesto-inversion" element={<LoginLayout><CedulaRegistroForm /></LoginLayout>} /> */}
+            <Route path="/presupuesto-inversion/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><CedulaRegistroForm /></LoginLayout></PrivateRoute>} />
 
             <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} />
-            {/* <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} /> */}
-            <Route path="/panel-usuario/*" element={<LoginLayout><ClientPanel /></LoginLayout>} />
+            <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} />
+            {/* <Route path="/panel-usuario/*" element={<LoginLayout><ClientPanel /></LoginLayout>} /> */}
 
             <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientProjects /></LoginLayout></PrivateRoute>} />
             <Route path="/editar-proyecto/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><EditProject /></LoginLayout></PrivateRoute>} />

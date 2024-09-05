@@ -57,7 +57,7 @@ input:focus, select:focus, textarea:focus {
   margin-top: 5px;
 }
 
-.formulario-container button[type="submit"] {
+/* .formulario-container button[type="submit"] {
   padding: 15px;
   background-color: #691b32;
   color: #fff;
@@ -70,7 +70,7 @@ input:focus, select:focus, textarea:focus {
 
 .formulario-container button[type="submit"]:hover {
   background-color: #92203e;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {
