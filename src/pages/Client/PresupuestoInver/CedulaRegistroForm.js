@@ -488,7 +488,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programa_sectorial', option.value);
                     setFieldValue('objetivo_programa', '');
                   }}
-                  tooltipText="Selecciona el programa sectorial relacionado con el proyecto."
+                  tooltipText="Selecciona el programa relacionado con el proyecto."
                 />
                 <CustomSelectField
                   name="objetivo_programa"
