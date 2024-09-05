@@ -8,7 +8,6 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     { label: 'Estudios de Factibilidad', field: 'estudiosFactibilidad' },
     { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
     { label: 'Validación Normativa', field: 'validacionNormativa' },
-    { label: 'Validación Técnica', field: 'validacionTecnica' },
     { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
     { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
     { label: 'Expediente Técnico', field: 'expedienteTecnico' },

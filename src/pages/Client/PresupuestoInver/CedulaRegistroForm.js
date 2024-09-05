@@ -33,7 +33,6 @@ const CedulaRegistroForm = () => {
     liberacionDerechoVia: false,
     analisisCostoBeneficio: false,
     expedienteTecnicoDocu: false,
-    expedienteTecnico: false,
     proyectoEjecutivo: false,
     manifestacionImpactoAmbiental: false,
     FotografiaRenderProyecto: false,
