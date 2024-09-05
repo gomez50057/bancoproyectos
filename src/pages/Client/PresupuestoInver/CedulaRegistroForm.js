@@ -7,6 +7,7 @@ import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import ProjectCreationModal from '../componentsForm/ProjectCreationModal';  // Importa el modal aquí
 import {
   dependencias,
   organismos,
@@ -41,6 +42,10 @@ const CedulaRegistroForm = () => {
     fotografia_render_proyecto: false,
     otros_estudios: false,
   });
+
+  // Estado para el modal y el ID del proyecto
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [projectId, setProjectId] = useState('');
 
   // Manejadores de cambios
   const handleApplyChange = (field) => {
@@ -127,7 +132,13 @@ const CedulaRegistroForm = () => {
           'X-CSRFToken': csrfToken  // Añadir el token CSRF al encabezado
         },
       });
+
+      // Obtener el projectId desde la respuesta
+      const createdProjectId = response.data.projInvestment_id;
+      setProjectId(createdProjectId);
+
       alert('Formulario enviado con éxito');
+      setModalOpen(true); // Abre el modal
       console.log('Response:', response.data);
       resetForm();
     } catch (error) {
@@ -539,6 +550,13 @@ const CedulaRegistroForm = () => {
           );
         }}
       </Formik>
+
+      {/* Modal para mostrar el ID del proyecto */}
+      <ProjectCreationModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        projectId={projectId}
+      />
     </section>
   );
 };
