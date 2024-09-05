@@ -30,16 +30,16 @@ const CedulaRegistroForm = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
 
   const [applies, setApplies] = useState({
-    estudiosFactibilidad: false,
-    analisisAlternativas: false,
-    validacionNormativa: false,
-    liberacionDerechoVia: false,
-    analisisCostoBeneficio: false,
-    expedienteTecnicoDocu: false,
-    proyectoEjecutivo: false,
-    manifestacionImpactoAmbiental: false,
-    FotografiaRenderProyecto: false,
-    otrosEstudios: false,
+    estudios_factibilidad: false,
+    analisis_alternativas: false,
+    validacion_normativa: false,
+    liberacion_derecho_via: false,
+    analisis_costo_beneficio: false,
+    expediente_tecnico_docu: false,
+    proyecto_ejecutivo: false,
+    manifestacion_impacto_ambiental: false,
+    fotografia_render_proyecto: false,
+    otros_estudios: false,
   });
 
   // Manejadores de cambios
@@ -140,52 +140,52 @@ const CedulaRegistroForm = () => {
       <Formik
         initialValues={{
           nombre_dependencia: '',
-          areaAdscripcion: '',
-          nombreRegistrante: '',
-          apellidoPaterno: '',
-          apellidoMaterno: '',
+          area_adscripcion: '',
+          nombre_registrante: '',
+          apellido_paterno: '',
+          apellido_materno: '',
           correo: '',
           telefono: '',
           extension: '',
-          fechaRegistro: fechaHoy,
-          ejercicioFiscal: '',
+          fecha_registro: fechaHoy,
+          ejercicio_fiscal: '',
           dependencia: '',
           organismo: '',
-          unidadResponsable: '',
-          unidadPresupuestal: '',
-          nombreProyecto: '',
-          descripcionProyecto: '',
-          situacionActual: '',
-          tipoObra: '',
-          calendarioEjecucion: '',
-          beneficioSocial: '',
-          beneficioEconomico: '',
-          numeroBeneficiarios: '',
-          inversionPresupuestada: '',
+          unidad_responsable: '',
+          unidad_presupuestal: '',
+          nombre_proyecto: '',
+          descripcion_proyecto: '',
+          situacion_actual: '',
+          tipo_obra: '',
+          calendario_ejecucion: '',
+          beneficio_social: '',
+          beneficio_economico: '',
+          numero_beneficiarios: '',
+          inversion_presupuestada: '',
           cobertura: '',
           regiones: [],
           municipios: [],
           ods: '',
-          planEstatal: '',
-          objetivoPED: '',
-          estrategiaPED: '',
-          lineaAccionPED: '',
-          indicadorPED: '',
-          programaSectorial: '',
-          objetivoPrograma: '',
-          propuestaCampana: '',
-          cualPropuesta: '',
-          expedienteTecnico: '',
-          estudiosFactibilidad: [],
-          analisisAlternativas: [],
-          validacionNormativa: [],
-          liberacionDerechoVia: [],
-          analisisCostoBeneficio: [],
-          expedienteTecnicoDocu: [],
-          proyectoEjecutivo: [],
-          manifestacionImpactoAmbiental: [],
-          FotografiaRenderProyecto: [],
-          otrosEstudios: [],
+          plan_estatal: '',
+          objetivo_ped: '',
+          estrategia_ped: '',
+          linea_accion_ped: '',
+          indicador_ped: '',
+          programa_sectorial: '',
+          objetivo_programa: '',
+          propuesta_campana: '',
+          cual_propuesta: '',
+          expediente_tecnico: '',
+          estudios_factibilidad: [],
+          analisis_alternativas: [],
+          validacion_normativa: [],
+          liberacion_derecho_via: [],
+          analisis_costo_beneficio: [],
+          expediente_tecnico_docu: [],
+          proyecto_ejecutivo: [],
+          manifestacion_impacto_ambiental: [],
+          fotografia_render_proyecto: [],
+          otros_estudios: [],
         }}
         validationSchema={null}
         onSubmit={handleSubmit}
@@ -194,25 +194,25 @@ const CedulaRegistroForm = () => {
       >
         {({ setFieldValue, values, isSubmitting }) => {
           const programasOptions = getProgramasOptions(values.organismo, values.dependencia);
-          const objetivosOptions = getObjetivosOptions(values.organismo, values.dependencia, values.programaSectorial);
+          const objetivosOptions = getObjetivosOptions(values.organismo, values.dependencia, values.programa_sectorial);
 
-          const objetivos = values.planEstatal ? Acuerdos[values.planEstatal]?.objetivos || [] : [];
-          const estrategias = values.objetivoPED ? Acuerdos[values.planEstatal]?.estrategias[values.objetivoPED] || [] : [];
-          const lineasAccion = values.estrategiaPED ? Acuerdos[values.planEstatal]?.lineasAccion[values.estrategiaPED] || [] : [];
-          const indicadores = values.lineaAccionPED ? Acuerdos[values.planEstatal]?.indicadores[values.lineaAccionPED] || [] : [];
+          const objetivos = values.plan_estatal ? Acuerdos[values.plan_estatal]?.objetivos || [] : [];
+          const estrategias = values.objetivo_ped ? Acuerdos[values.plan_estatal]?.estrategias[values.objetivo_ped] || [] : [];
+          const lineasAccion = values.estrategia_ped ? Acuerdos[values.plan_estatal]?.lineasAccion[values.estrategia_ped] || [] : [];
+          const indicadores = values.linea_accion_ped ? Acuerdos[values.plan_estatal]?.indicadores[values.linea_accion_ped] || [] : [];
 
           return (
             <Form>
               {/* Registro del Responsable del Proyecto */}
               <SectionTitle title="Registro del Responsable del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="nombreDependencia" label="Nombre de la Dependencia u Organismo" type="text" />
-                <FieldGroup name="areaAdscripcion" label="Área de Adscripción" type="text" />
+                <FieldGroup name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" type="text" />
+                <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" />
               </div>
               <div className="form-row">
-                <FieldGroup name="nombreRegistrante" label="Nombre(s) de quien registra" type="text" />
-                <FieldGroup name="apellidoPaterno" label="Apellido Paterno" type="text" />
-                <FieldGroup name="apellidoMaterno" label="Apellido Materno" type="text" />
+                <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" />
+                <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" />
+                <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" />
               </div>
               <div className="form-row">
                 <FieldGroup name="correo" label="Correo" type="email" />
@@ -223,9 +223,9 @@ const CedulaRegistroForm = () => {
               {/* Datos Generales del Proyecto */}
               <SectionTitle title="Datos Generales del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="fechaRegistro" label="Fecha de Registro" type="date" value={values.fechaRegistro} tooltipText="Ejemplo." readOnly />
+                <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipText="Ejemplo." readOnly />
                 <CustomSelectField
-                  name="ejercicioFiscal"
+                  name="ejercicio_fiscal"
                   label="Ejercicio Fiscal"
                   options={['2020', '2021', '2022', '2023', '2024', '2025'].map((year) => ({ value: year, label: year }))}
                   placeholder="Selecciona una opción"
@@ -240,8 +240,8 @@ const CedulaRegistroForm = () => {
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
                     setFieldValue('dependencia', option.value);
-                    setFieldValue('programaSectorial', '');
-                    setFieldValue('objetivoPrograma', '');
+                    setFieldValue('programa_sectorial', '');
+                    setFieldValue('objetivo_programa', '');
                   }}
                   tooltipText="Ejemplo."
                 />
@@ -252,55 +252,55 @@ const CedulaRegistroForm = () => {
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
                     setFieldValue('organismo', option.value);
-                    setFieldValue('programaSectorial', '');
-                    setFieldValue('objetivoPrograma', '');
+                    setFieldValue('programa_sectorial', '');
+                    setFieldValue('objetivo_programa', '');
                   }}
                   tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="unidadResponsable"
+                  name="unidad_responsable"
                   label="Unidad Responsable"
                   options={Object.keys(unidadPresupuestalPorUnidadResponsable).map((unidad) => ({ value: unidad, label: unidad }))}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
-                    setFieldValue('unidadResponsable', option.value);
-                    setFieldValue('unidadPresupuestal', '');
+                    setFieldValue('unidad_responsable', option.value);
+                    setFieldValue('unidad_presupuestal', '');
                   }}
                   tooltipText="Ejemplo."
                 />
                 <CustomSelectField
-                  name="unidadPresupuestal"
+                  name="unidad_presupuestal"
                   label="Unidad Presupuestal"
-                  options={(unidadPresupuestalPorUnidadResponsable[values.unidadResponsable] || []).map((unidad) => ({ value: unidad, label: unidad }))}
+                  options={(unidadPresupuestalPorUnidadResponsable[values.unidad_responsable] || []).map((unidad) => ({ value: unidad, label: unidad }))}
                   placeholder="Selecciona una opción"
-                  isDisabled={!values.unidadResponsable}
+                  isDisabled={!values.unidad_responsable}
                   tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="nombreProyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="nombre_proyecto" label="Nombre del Proyecto" type="text" maxLength="250" note="Máximo 250 caracteres" tooltipText="Ejemplo." />
               </div>
               
               {/* Descripción del Proyecto */}
               <SectionTitle title="Descripción del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="descripcionProyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="descripcion_proyecto" label="Descripción del Proyecto" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
-                <FieldGroup name="situacionActual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="situacion_actual" label="Análisis de la situación actual" as="textarea" maxLength="1000" note="Máximo 1000 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="tipoObra"
+                  name="tipo_obra"
                   label="Tipo de Obra"
                   options={['Adecuación', 'Ampliación', 'Construcción', 'Equipamiento', 'Mantenimiento', 'Rehabilitación', 'Otra'].map((tipo) => ({ value: tipo, label: tipo }))}
                   placeholder="Selecciona una opción"
                   tooltipText="Ejemplo."
                 />
                 <CustomSelectField
-                  name="calendarioEjecucion"
+                  name="calendario_ejecucion"
                   label="Calendario de Ejecución"
                   options={[...Array(12).keys()].map((mes) => ({ value: mes + 1, label: `${mes + 1} meses` }))}
                   placeholder="Selecciona una opción"
@@ -308,29 +308,29 @@ const CedulaRegistroForm = () => {
                 />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficioSocial" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="beneficio_social" label="Beneficio Social" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
-                <FieldGroup name="beneficioEconomico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
+                <FieldGroup name="beneficio_economico" label="Beneficio Económico" as="textarea" maxLength="500" note="Máximo 500 caracteres" tooltipText="Ejemplo." />
               </div>
               <div className="form-row">
-                <FieldGroup name="numeroBeneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" tooltipText="Ejemplo." />
+                <FieldGroup name="numero_beneficiarios" label="Número Beneficiarios" type="number" note="Debe ser un número entero" tooltipText="Ejemplo." />
               </div>
               
               {/* Estructura Financiera */}
               <SectionTitle title="Estructura Financiera" />
               <div className="form-row">
                 <FieldGroup
-                  name="inversionPresupuestada"
+                  name="inversion_presupuestada"
                   label="Inversión Presupuestada"
                   type="text"
                   onChange={(e) => {
                     const value = e.target.value.replace(/,/g, '');
                     if (!isNaN(value)) {
-                      setFieldValue('inversionPresupuestada', formatNumberWithCommas(value));
+                      setFieldValue('inversion_presupuestada', formatNumberWithCommas(value));
                     }
                   }}
-                  value={values.inversionPresupuestada}
+                  value={values.inversion_presupuestada}
                   maxLength="250"
                   note="Debe ser un número positivo"
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
@@ -391,95 +391,95 @@ const CedulaRegistroForm = () => {
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="planEstatal"
+                  name="plan_estatal"
                   label="Plan Estatal de Desarrollo"
                   options={Object.keys(Acuerdos).map((acuerdo, index) => ({ value: acuerdo, label: acuerdo }))}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
-                    setFieldValue('planEstatal', option.value);
-                    setFieldValue('objetivoPED', '');
-                    setFieldValue('estrategiaPED', '');
-                    setFieldValue('lineaAccionPED', '');
-                    setFieldValue('indicadorPED', '');
+                    setFieldValue('plan_estatal', option.value);
+                    setFieldValue('objetivo_ped', '');
+                    setFieldValue('estrategia_ped', '');
+                    setFieldValue('linea_accion_ped', '');
+                    setFieldValue('indicador_ped', '');
                   }}
                   tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="objetivoPED"
+                  name="objetivo_ped"
                   label="Objetivo del PED"
                   options={objetivos.map((objetivo, index) => ({ value: objetivo, label: objetivo }))}
                   placeholder="Selecciona una opción"
-                  isDisabled={!values.planEstatal}
+                  isDisabled={!values.plan_estatal}
                   onChange={(option) => {
-                    setFieldValue('objetivoPED', option.value);
-                    setFieldValue('estrategiaPED', '');
-                    setFieldValue('lineaAccionPED', '');
-                    setFieldValue('indicadorPED', '');
+                    setFieldValue('objetivo_ped', option.value);
+                    setFieldValue('estrategia_ped', '');
+                    setFieldValue('linea_accion_ped', '');
+                    setFieldValue('indicador_ped', '');
                   }}
                   tooltipText="Ejemplo."
                 />
                 <CustomSelectField
-                  name="estrategiaPED"
+                  name="estrategia_ped"
                   label="Estrategia del PED"
                   options={estrategias.map((estrategia, index) => ({ value: estrategia, label: estrategia }))}
                   placeholder="Selecciona una opción"
-                  isDisabled={!values.objetivoPED}
+                  isDisabled={!values.objetivo_ped}
                   onChange={(option) => {
-                    setFieldValue('estrategiaPED', option.value);
-                    setFieldValue('lineaAccionPED', '');
-                    setFieldValue('indicadorPED', '');
+                    setFieldValue('estrategia_ped', option.value);
+                    setFieldValue('linea_accion_ped', '');
+                    setFieldValue('indicador_ped', '');
                   }}
                   tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="lineaAccionPED"
+                  name="linea_accion_ped"
                   label="Línea de Acción del PED"
                   options={lineasAccion.map((linea, index) => ({ value: linea, label: linea }))}
                   placeholder="Selecciona una opción"
-                  isDisabled={!values.estrategiaPED}
+                  isDisabled={!values.estrategia_ped}
                   onChange={(option) => {
-                    setFieldValue('lineaAccionPED', option.value);
-                    setFieldValue('indicadorPED', '');
+                    setFieldValue('linea_accion_ped', option.value);
+                    setFieldValue('indicador_ped', '');
                   }}
                   tooltipText="Ejemplo."
                 />
                 <CustomSelectField
-                  name="indicadorPED"
+                  name="indicador_ped"
                   label="Indicador Estratégico del PED"
                   options={indicadores.map((indicador, index) => ({ value: indicador, label: indicador }))}
                   placeholder="Selecciona una opción"
-                  isDisabled={!values.lineaAccionPED}
+                  isDisabled={!values.linea_accion_ped}
                   tooltipText="Complete este campo con el indicador estratégico relevante que corresponde a su línea de acción del PED."
                 />
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="programaSectorial"
+                  name="programa_sectorial"
                   label="Programa Sectorial/Especial/Institucional"
                   options={programasOptions}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
-                    setFieldValue('programaSectorial', option.value);
-                    setFieldValue('objetivoPrograma', '');
+                    setFieldValue('programa_sectorial', option.value);
+                    setFieldValue('objetivo_programa', '');
                   }}
                   tooltipText="Ejemplo."
                 />
                 <CustomSelectField
-                  name="objetivoPrograma"
+                  name="objetivo_programa"
                   label="Objetivo del Programa"
                   options={objetivosOptions}
                   placeholder="Selecciona una opción"
-                  isDisabled={!values.programaSectorial}
+                  isDisabled={!values.programa_sectorial}
                   tooltipText="Ejemplo."
                 />
               </div>
               <div className="form-row">
                 <CustomSelectField
-                  name="propuestaCampana"
+                  name="propuesta_campana"
                   label="¿Se relaciona con alguna propuesta de campaña?"
                   options={[
                     { value: 'Sí', label: 'Sí' },
@@ -487,25 +487,25 @@ const CedulaRegistroForm = () => {
                   ]}
                   placeholder="Selecciona una opción"
                   onChange={(option) => {
-                    setFieldValue('propuestaCampana', option.value);
+                    setFieldValue('propuesta_campana', option.value);
                     if (option.value === 'No') {
-                      setFieldValue('cualPropuesta', 'No aplica');
+                      setFieldValue('cual_propuesta', 'No aplica');
                     } else {
-                      setFieldValue('cualPropuesta', '');
+                      setFieldValue('cual_propuesta', '');
                     }
                   }}
                   tooltipText="Ejemplo."
                 />
                 <CustomSelectField
-                  name="cualPropuesta"
+                  name="cual_propuesta"
                   label="¿Cuál?"
                   options={
-                    values.propuestaCampana === 'Sí'
+                    values.propuesta_campana === 'Sí'
                       ? propuestaCampana.map((propuesta, index) => ({ value: propuesta, label: propuesta }))
                       : [{ value: 'No aplica', label: 'No aplica' }]
                   }
                   placeholder="Selecciona una opción"
-                  isDisabled={values.propuestaCampana !== 'Sí'}
+                  isDisabled={values.propuesta_campana !== 'Sí'}
                   tooltipText="Ejemplo."
                 />
               </div>
@@ -515,7 +515,7 @@ const CedulaRegistroForm = () => {
               <p>Si tienes algún estudio complementario, anéxalo en el campo que más se adecue.</p>
               <div className="form-row">
                 <CustomSelectField
-                  name="expedienteTecnico"
+                  name="expediente_tecnico"
                   label="¿Cuenta con expediente técnico Validado?"
                   options={[
                     { value: 'Sí', label: 'Sí' },
