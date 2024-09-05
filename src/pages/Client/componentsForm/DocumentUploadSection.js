@@ -1,20 +1,17 @@
-// src/pages/Client/componentsForm/DocumentUploadSection.js
-
 import React from 'react';
 import { Field, FieldArray, ErrorMessage } from 'formik';
 
 const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldValue }) => {
   const documentos = [
-    { label: 'Estudios de Factibilidad', field: 'estudiosFactibilidad' },
-    { label: 'Análisis de Alternativas', field: 'analisisAlternativas' },
-    { label: 'Validación Normativa', field: 'validacionNormativa' },
-    { label: 'Liberación de Derecho de Vía', field: 'liberacionDerechoVia' },
-    { label: 'Análisis Costo Beneficio (ACB)', field: 'analisisCostoBeneficio' },
-    // { label: 'Expediente Técnico', field: 'expedienteTecnico' },
-    { label: 'Proyecto Ejecutivo', field: 'proyectoEjecutivo' },
-    { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacionImpactoAmbiental' },
-    { label: 'Fotografía o Render del Proyecto', field: 'FotografiaRenderProyecto' },
-    { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otrosEstudios' },
+    { label: 'Estudios de Factibilidad', field: 'estudios_factibilidad' },
+    { label: 'Análisis de Alternativas', field: 'analisis_alternativas' },
+    { label: 'Validación Normativa', field: 'validacion_normativa' },
+    { label: 'Liberación de Derecho de Vía', field: 'liberacion_derecho_via' },
+    { label: 'Análisis Costo Beneficio (ACB)', field: 'analisis_costo_beneficio' },
+    { label: 'Proyecto Ejecutivo', field: 'proyecto_ejecutivo' },
+    { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacion_impacto_ambiental' },
+    { label: 'Fotografía o Render del Proyecto', field: 'fotografia_render_proyecto' },
+    { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otros_estudios' },
   ];
 
   return (
@@ -39,20 +36,22 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
             <FieldArray name={field}>
               {({ push, remove }) => (
                 <div>
-                  {values[field].map((file, index) => (
+                  {(values[field] || []).map((file, index) => (
                     <div key={index} className="file-input-group">
                       <input
                         type="file"
                         onChange={(event) => {
-                          const files = Array.from(event.currentTarget.files);
-                          files.forEach(file => setFieldValue(`${field}.${index}`, file));
+                          const files = event.currentTarget.files;
+                          if (files && files.length > 0) {
+                            setFieldValue(`${field}.${index}`, files[0]); // Aquí se asegura de que se guarde el archivo en el campo correcto
+                          }
                         }}
                         accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
                       />
                       <button type="button" onClick={() => remove(index)}>Eliminar</button>
                     </div>
                   ))}
-                  <button type="button" onClick={() => push(null)} className="add-file-button">
+                  <button type="button" onClick={() => push(null)} className="add-file-button"> {/* Cambié a `null` para asegurar que se puede empujar un nuevo campo vacío */}
                     Agregar Archivo
                   </button>
                 </div>

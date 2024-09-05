@@ -68,7 +68,7 @@ const CedulaRegistroForm = () => {
     setFieldValue('regiones', []);
     setFieldValue('municipios', []);
   };
-  
+
   const getProgramasOptions = (organismo, dependencia) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
@@ -97,16 +97,14 @@ const CedulaRegistroForm = () => {
     const formData = new FormData();
 
     for (const key in values) {
-      if (values[key] instanceof File) {
-        formData.append(key, values[key]);
-      } else if (Array.isArray(values[key])) {
-        // Convertir 'regiones' y 'municipios' a JSON string si son arrays
+      if (Array.isArray(values[key])) {
+        // Verifica si el array contiene archivos
         if (key === 'regiones' || key === 'municipios') {
           formData.append(key, JSON.stringify(values[key]));
         } else {
           values[key].forEach((file, index) => {
             if (file instanceof File) {
-              formData.append(`${key}[${index}]`, file);
+              formData.append(key, file); // Asegúrate de usar el nombre correcto del campo para archivos
             }
           });
         }
