@@ -54,7 +54,7 @@ const Dashboard = () => {
     switch (activeComponent) {
       case 'formulario':
         return <ClientProjects />;
-      case 'acuerdosCoordinador':
+      case 'ProjInvestment':
         return <ClientInveProjects />;
       default:
         return null;
@@ -82,8 +82,8 @@ const Dashboard = () => {
           </li>
           <li
             className="list-item"
-            data-component="acuerdosCoordinador"
-            onClick={() => handleMenuClick('acuerdosCoordinador')}
+            data-component="ProjInvestment"
+            onClick={() => handleMenuClick('ProjInvestment')}
           >
             <b></b>
             <b></b>

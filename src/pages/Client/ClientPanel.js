@@ -41,7 +41,7 @@ const ClientPanel = () => {
             imgSrc={`${imgBasePath}agregar.webp`} 
           />
           <Card 
-            onClick={() => navigate('/consulta')} 
+            onClick={() => navigate('/tablas')} 
             title="Consultar Proyecto" 
             imgSrc={`${imgBasePath}consultar.webp`} 
           />

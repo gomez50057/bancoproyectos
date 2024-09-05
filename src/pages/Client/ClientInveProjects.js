@@ -13,13 +13,13 @@ const ClientProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/cedulas/');
+        const response = await axios.get('cedulas/');
         const data = response.data.map(project => [
-          project.project_id,
-          project.ejercicio_fiscal,
+          project.projInvestment_id,
+          project.fecha_registro,
           project.nombre_proyecto,
           project.porcentaje_avance,
-          project.isBlocked_project, // Asegúrate de que esta línea esté presente
+          project.is_blocked_project, // Asegúrate de que esta línea esté presente
         ]);
         setProjects(data);
       } catch (error) {
