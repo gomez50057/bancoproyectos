@@ -45,7 +45,7 @@ const EditProjectInvest = () => {
   // Estado para el modal y el ID del proyecto
   const [isModalOpen, setModalOpen] = useState(false);
   const [projectId, setProjectId] = useState('');
-  
+
   // Estado para almacenar los valores iniciales obtenidos de la API
   const [initialValues, setInitialValues] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -55,10 +55,29 @@ const EditProjectInvest = () => {
     const fetchInitialData = async () => {
       try {
         const response = await axios.get('/cedulas/UNK0511240001/');
-        setInitialValues({
+        
+        // Asegúrate de que los valores iniciales para los select coincidan con las opciones
+        const initialData = {
           ...response.data,
           fecha_registro: fechaHoy,
-        });
+          dependencia: response.data.dependencia || '',  
+          organismo: response.data.organismo || '',
+          unidad_responsable: response.data.unidad_responsable || '',
+          unidad_presupuestal: response.data.unidad_presupuestal || '',
+          programa_sectorial: response.data.programa_sectorial || '',
+          objetivo_programa: response.data.objetivo_programa || '',
+          cobertura: response.data.cobertura || '',
+          ods: response.data.ods || '',
+          plan_estatal: response.data.plan_estatal || '',
+          objetivo_ped: response.data.objetivo_ped || '',
+          estrategia_ped: response.data.estrategia_ped || '',
+          linea_accion_ped: response.data.linea_accion_ped || '',
+          indicador_ped: response.data.indicador_ped || '',
+          propuesta_campana: response.data.propuesta_campana || '',
+          cual_propuesta: response.data.cual_propuesta || '',
+        };
+
+        setInitialValues(initialData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching initial data:', error);
@@ -574,6 +593,7 @@ const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
 const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChange }) => {
   const [field, , helpers] = useField(name);
 
+  // Manejo del cambio en los valores seleccionados
   const handleChange = (selectedOptions) => {
     if (isMulti) {
       const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
@@ -586,7 +606,13 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
     }
   };
 
-  const selectedOption = options ? (isMulti ? options.filter(option => field.value.includes(option.value)) : options.find(option => option.value === field.value)) : '';
+  // Si es multi-selección o simple, asegurar que el valor esté correctamente asignado
+  const selectedOption = options
+    ? (isMulti 
+        ? options.filter(option => field.value.includes(option.value)) 
+        : options.find(option => option.value === field.value)
+      ) 
+    : null;
 
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
@@ -606,7 +632,7 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
         id={name}
         options={options}
         name={name}
-        value={selectedOption}
+        value={selectedOption || ''}  // Aseguramos que se muestre el valor seleccionado
         onChange={handleChange}
         placeholder={placeholder}
         isDisabled={isDisabled}
