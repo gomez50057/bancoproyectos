@@ -607,13 +607,17 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
   };
 
   // Si es multi-selección o simple, asegurar que el valor esté correctamente asignado
-  const selectedOption = options
-    ? (isMulti 
-        ? options.filter(option => field.value.includes(option.value)) 
-        : options.find(option => option.value === field.value)
-      ) 
+  const selectedOption = isMulti
+    ? options.filter(option => field.value.includes(option.value))
+    : options.find(option => option.value === field.value);
+
+  // Agregar dinámicamente opciones faltantes si no están en las opciones originales
+  const dynamicOption = field.value && !selectedOption
+    ? { value: field.value, label: `Valor no disponible: ${field.value}` }
     : null;
 
+  const allOptions = dynamicOption ? [...options, dynamicOption] : options;
+  
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
       <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
@@ -630,9 +634,9 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
       <Select
         className="form-select"
         id={name}
-        options={options}
+        options={allOptions} // Usamos todas las opciones, incluyendo las dinámicas
         name={name}
-        value={selectedOption || ''}  // Aseguramos que se muestre el valor seleccionado
+        value={selectedOption || dynamicOption || ''}  // Mostrar la opción seleccionada o la dinámica
         onChange={handleChange}
         placeholder={placeholder}
         isDisabled={isDisabled}
