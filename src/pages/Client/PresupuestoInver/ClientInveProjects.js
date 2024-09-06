@@ -29,7 +29,7 @@ const ClientProjects = () => {
   }, []);
 
   const handleEditClick = (projectId) => {
-    navigate(`/editar-proyecto/${projectId}`);
+    navigate(`/editar-proyecto-inversion/${projectId}`);
   };
 
   const columns = [
