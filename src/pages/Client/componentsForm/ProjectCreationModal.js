@@ -62,7 +62,7 @@ const ProjectCreationModal = ({ isOpen, onRequestClose, projectId }) => {
       contentLabel="Proyecto Creado"
       css={globalModalStyles}
     >
-      <h2>Proyecto creado exitosamente</h2>
+      <h2>La operación fue exitosa</h2>
       <p>ID del Proyecto: {projectId}</p>
       <button onClick={handleClose}>He finalizado</button>
     </StyledModal>

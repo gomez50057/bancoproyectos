@@ -55,12 +55,12 @@ const EditProjectInvest = () => {
     const fetchInitialData = async () => {
       try {
         const response = await axios.get('/cedulas/UNK0511240001/');
-        
+
         // Asegúrate de que los valores iniciales para los select coincidan con las opciones
         const initialData = {
           ...response.data,
           fecha_registro: fechaHoy,
-          dependencia: response.data.dependencia || '',  
+          dependencia: response.data.dependencia || '',
           organismo: response.data.organismo || '',
           unidad_responsable: response.data.unidad_responsable || '',
           unidad_presupuestal: response.data.unidad_presupuestal || '',
@@ -130,51 +130,37 @@ const EditProjectInvest = () => {
   };
 
   // Función para enviar el formulario
+  // Función para enviar (actualizar) el formulario
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    alert('Iniciando el envío del formulario...');
+    alert('Iniciando la actualización del formulario...');
     console.log('Form data to be submitted:', values);
-
-    const formData = new FormData();
-
-    for (const key in values) {
-      if (Array.isArray(values[key])) {
-        if (key === 'regiones' || key === 'municipios') {
-          formData.append(key, JSON.stringify(values[key]));
-        } else {
-          values[key].forEach((file, index) => {
-            if (file instanceof File) {
-              formData.append(key, file); 
-            }
-          });
-        }
-      } else {
-        formData.append(key, values[key]);
-      }
-    }
 
     const csrfToken = Cookies.get('csrftoken');
 
     try {
-      const response = await axios.post('cedulas/', formData, {
+      // Aquí cambiamos a PUT para actualizar los datos en lugar de crear un nuevo registro
+      const response = await axios.put('/cedulas/UNK0511240001/', values, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken
         },
       });
 
-      const createdProjectId = response.data.projInvestment_id;
-      setProjectId(createdProjectId);
+      // Aquí mantienes la lógica de obtener el ID del proyecto si es necesario
+      const updatedProjectId = response.data.projInvestment_id;
+      setProjectId(updatedProjectId);
 
-      alert('Formulario enviado con éxito');
-      setModalOpen(true); 
-      resetForm();
+      alert('Formulario actualizado con éxito');
+      setModalOpen(true);
+      resetForm();  // Resetea el formulario si es necesario
     } catch (error) {
-      alert('Error al enviar el formulario');
+      alert('Error al actualizar el formulario');
       console.error('Error:', error);
     }
 
     setSubmitting(false);
   };
+
 
   if (loading) {
     return <p>Cargando datos iniciales...</p>;
@@ -617,7 +603,7 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
     : null;
 
   const allOptions = dynamicOption ? [...options, dynamicOption] : options;
-  
+
   return (
     <div className="form-group" style={{ borderRadius: '15px' }}>
       <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
