@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import SvgIcon from './SvgIcon';
 import ClientProjects from '../Client/ClientProjects';
-import ClientInveProjects from '../Client/ClientInveProjects';
+import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

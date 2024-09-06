@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Typography, Tooltip } from '@mui/material';  // Importar Tooltip
+import { CssBaseline, Typography, Tooltip } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,6 @@ const ClientProjects = () => {
           project.projInvestment_id,
           project.fecha_registro,
           project.nombre_proyecto,
-          project.porcentaje_avance,
           project.is_blocked_project, // Asegúrate de que esta línea esté presente
         ]);
         setProjects(data);
@@ -35,9 +34,8 @@ const ClientProjects = () => {
 
   const columns = [
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
+    { name: "Fecha de Creación", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
-    { name: "Estatus", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
-    { name: "Porcentaje de Avance", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
     { 
       name: "Acciones", 
       options: { 
