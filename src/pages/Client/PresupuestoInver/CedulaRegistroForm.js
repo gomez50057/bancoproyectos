@@ -43,9 +43,10 @@ const CedulaRegistroForm = () => {
     otros_estudios: false,
   });
 
-  // Estado para el modal y el ID del proyecto
+  // Estado para el modal, el ID del proyecto y el estado de carga
   const [isModalOpen, setModalOpen] = useState(false);
   const [projectId, setProjectId] = useState('');
+  const [loading, setLoading] = useState(false); // Añadir estado de carga
 
   // Manejadores de cambios
   const handleApplyChange = (field) => {
@@ -94,17 +95,18 @@ const CedulaRegistroForm = () => {
     alert('Iniciando el envío del formulario...');
     console.log('Form data to be submitted:', values);
 
+    setLoading(true); // Muestra el loader al iniciar el envío
+
     const formData = new FormData();
 
     for (const key in values) {
       if (Array.isArray(values[key])) {
-        // Verifica si el array contiene archivos
         if (key === 'regiones' || key === 'municipios') {
           formData.append(key, JSON.stringify(values[key]));
         } else {
           values[key].forEach((file, index) => {
             if (file instanceof File) {
-              formData.append(key, file); // Asegúrate de usar el nombre correcto del campo para archivos
+              formData.append(key, file);
             }
           });
         }
@@ -137,6 +139,7 @@ const CedulaRegistroForm = () => {
       console.error('Error:', error);
     }
 
+    setLoading(false); // Oculta el loader después de enviar
     setSubmitting(false);
   };
 
@@ -145,6 +148,9 @@ const CedulaRegistroForm = () => {
       <div className="banner">
         <h1>Anteproyecto para el Presupuesto de Inversión 2025</h1>
       </div>
+
+      {loading && <div className="loader">Cargando...</div>} {/* Loader */}
+
       <Formik
         initialValues={{
           nombre_dependencia: '',
@@ -562,7 +568,11 @@ const CedulaRegistroForm = () => {
               <p>Si tienes algún documento complementario, anéxalo en el campo que más se adecue.</p>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
-              <button type="submit" disabled={isSubmitting}>Enviar</button>
+              <div className="form-row">
+                <button type="submit" className="submit-button" disabled={isSubmitting || loading}>
+                  {loading ? 'Enviando...' : 'Enviar'}
+                </button>
+              </div>
             </Form>
           );
         }}
