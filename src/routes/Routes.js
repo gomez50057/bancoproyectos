@@ -59,7 +59,9 @@ const AppRoutes = () => {
             <Route path="/project-report-react/:projectId" element={<ProjectReportReact />} />
             <Route path="*" element={<Navigate to="/" />} />
             
-            <Route path="/tablas" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><Dashboard /></LoginLayout></PrivateRoute>} />
+            <Route path="/tablas" element={<Dashboard /> } />
+            {/* <Route path="/tablas" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><Dashboard /></LoginLayout></PrivateRoute>} /> */}
+
 
 
         </Routes>

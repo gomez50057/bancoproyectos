@@ -63,7 +63,7 @@ p {
 /*  */
 
 .table_grid_pro {
-  margin: 80px 20px 0;
+  margin: 30px 20px 0;
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
@@ -79,6 +79,10 @@ p {
   width: 100%;
   z-index: 1000;
   transition: top 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.NavbarTablas {
+  position: static;
 }
 
 .navbar {
@@ -97,12 +101,14 @@ p {
 }
 
 .navbar li,
-.NavbarLogin li {
+.NavbarLogin li,
+.NavbarTablas li {
   margin: 0 10px;
 }
 
 .navbar li a,
-.NavbarLogin li a {
+.NavbarLogin li a,
+.NavbarTablas li a {
   display: block;
   text-align: center;
   padding: 14px 16px;
@@ -110,7 +116,8 @@ p {
   font-weight: 700;
 }
 
-.NavbarLogin li a {
+.NavbarLogin li a,
+.NavbarTablas li a {
   font-size: 24px;
 }
 
@@ -119,7 +126,8 @@ p {
 }
 
 .navbar li a:hover,
-.NavbarLogin li a:hover {
+.NavbarLogin li a:hover,
+.NavbarTablas li a:hover {
   text-decoration: underline;
 }
 
@@ -131,11 +139,13 @@ p {
   color: var(--doradoOsc);
 }
 
-.NavbarLogin li a {
+.NavbarLogin li a,
+.NavbarTablas li a {
   color: var(--vinoOsc);
 }
 
-.NavbarLogin li a:hover {
+.NavbarLogin li a:hover,
+.NavbarTablas li a:hover {
   color: var(--vinoClr);
 }
 
@@ -166,7 +176,8 @@ p {
   height: 40px;
 }
 
-.NavbarLogin img {
+.NavbarLogin img,
+.NavbarTablas img {
   width: auto;
   height: 30px;
 }
@@ -176,20 +187,29 @@ p {
   justify-content: center;
 }
 
-.NavbarLogin ul {
+.NavbarLogin ul,
+.NavbarTablas ul {
   list-style-type: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90vw;
   height: auto;
   padding: 2px 10px;
-  margin: 10px 0;
   text-decoration: none;
   background-color: hsla(240, 33%, 96%, 0.81);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(3px);
   border-radius: 100vw;
+}
+
+.NavbarLogin ul {
+  width: 90vw;
+  margin: 10px 0;
+}
+
+.NavbarTablas ul {
+  width: 99%;
+  margin: 0;
 }
 
 .Navbar_circulo {
@@ -205,11 +225,13 @@ p {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.NavbarLogin .Navbar_circulo img {
+.NavbarLogin .Navbar_circulo img,
+.NavbarTablas .Navbar_circulo img {
   border-radius: 50%;
 }
 
-.NavbarLogin .Navbar_circulo:hover {
+.NavbarLogin .Navbar_circulo:hover,
+.NavbarTablas .Navbar_circulo:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
     0 14px 28px rgba(0, 0, 0, 0.25);
@@ -1079,6 +1101,6 @@ select {
 }
 
 
-option{
-background-color: #0056b3;
+option {
+  background-color: #0056b3;
 }

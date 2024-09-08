@@ -3,6 +3,7 @@ import './Dashboard.css';
 import SvgIcon from './SvgIcon';
 import ClientProjects from '../Client/ClientProjects';
 import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
+import NavbarAntepro from '../../components/NavbarAntepro';
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -109,6 +110,7 @@ const Dashboard = () => {
 
       <div className="dashboard-container">
         <section className="content">
+          <NavbarAntepro />
           {renderContent()}
         </section>
       </div>

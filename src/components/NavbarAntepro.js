@@ -43,13 +43,13 @@ const NavbarAntepro = () => {
   };
 
   return (
-    <nav className={`NavbarLogin ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
+    <nav className={`NavbarTablas ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
       <ul>
         <div className="NavbarLogin_img">
           <img src={`${img}Logotipo.webp`} alt="img_representativa" />
-          <li><Link to="/" >Banco de Proyectos<span>ejercicio 2025</span></Link></li>
+          <li><Link to="/" >Banco de Proyectos</Link></li>
         </div>
-        <div className="NavbarLogin_inicio">
+        <div className="NavbarTablas_inicio">
           <div className="Navbar_circulo" data-username={username} onClick={toggleModal}>
             <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
           </div>

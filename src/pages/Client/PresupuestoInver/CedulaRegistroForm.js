@@ -117,7 +117,7 @@ const CedulaRegistroForm = () => {
     const csrfToken = Cookies.get('csrftoken');
 
     try {
-      const response = await axios.post('cedulas/', formData, {
+      const response = await axios.post('/cedulas/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'X-CSRFToken': csrfToken  // Añadir el token CSRF al encabezado
