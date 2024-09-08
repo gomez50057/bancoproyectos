@@ -8,6 +8,8 @@ import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
+import Preloader from '../../../components/Preloader'; 
+
 import {
   dependencias,
   organismos,
@@ -149,7 +151,7 @@ const CedulaRegistroForm = () => {
         <h1>Anteproyecto para el Presupuesto de Inversión 2025</h1>
       </div>
 
-      {loading && <div className="loader">Cargando...</div>} {/* Loader */}
+      {loading && <Preloader />} {/* Mostrar el Preloader mientras se carga */}
 
       <Formik
         initialValues={{
