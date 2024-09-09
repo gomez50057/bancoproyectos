@@ -8,7 +8,7 @@ import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
-import Preloader from '../../../components/Preloader'; 
+import Preloader from '../../../components/Preloader';
 
 import {
   dependencias,
@@ -233,8 +233,18 @@ const CedulaRegistroForm = () => {
               </div>
               <div className="form-row">
                 <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónico institucional." />
-                <FieldGroup name="telefono" label="Teléfono" type="text" note="Debe ser un número de 10 dígitos" tooltipText="Ingresa un número de teléfono válido de 10 dígitos." />
-                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" tooltipText="Proporciona la extensión telefónica, si aplica." />
+                <FieldGroup name="telefono" label="Teléfono" type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." 
+                onChange={(e) => {
+                  const { value } = e.target;
+                  const onlyNums = value.replace(/[^0-9]/g, '');
+                  setFieldValue('telefono', onlyNums);
+                }}  />
+                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." 
+                onChange={(e) => {
+                  const { value } = e.target;
+                  const onlyNums = value.replace(/[^0-9]/g, '');
+                  setFieldValue('extension', onlyNums);
+                }} />
               </div>
 
               {/* Datos Generales del Proyecto */}
