@@ -14,6 +14,11 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otros_estudios' },
   ];
 
+  const handleFileChange = (event, field) => {
+    const files = Array.from(event.currentTarget.files); // Obtener todos los archivos seleccionados
+    setFieldValue(field, files); // Guardar la lista de archivos en el estado de Formik
+  };
+
   return (
     <div className="RENTABILIDAD">
       {documentos.map(({ label, field }) => (
@@ -36,12 +41,17 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
             <div className="file-input-group">
               <input
                 type="file"
-                onChange={(event) => {
-                  const file = event.currentTarget.files[0]; // Solo un archivo
-                  setFieldValue(`${field}`, file); // Guardar solo un archivo
-                }}
+                multiple // Permitir múltiples archivos
+                onChange={(event) => handleFileChange(event, field)}
                 accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
               />
+              {values[field] && values[field].length > 0 && (
+                <ul>
+                  {values[field].map((file, index) => (
+                    <li key={index}>{file.name}</li> // Mostrar la lista de archivos cargados
+                  ))}
+                </ul>
+              )}
             </div>
           )}
           <ErrorMessage name={field} component="div" className="error" />
