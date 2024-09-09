@@ -26,6 +26,12 @@ const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
+const handleNumericInput = (fieldName, setFieldValue) => (e) => {
+  const { value } = e.target;
+  const onlyNums = value.replace(/[^0-9]/g, '');
+  setFieldValue(fieldName, onlyNums);
+};
+
 const EditProjectInvest = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
 
@@ -202,8 +208,9 @@ const EditProjectInvest = () => {
               </div>
               <div className="form-row">
                 <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónico institucional." />
-                <FieldGroup name="telefono" label="Teléfono" type="text" note="Debe ser un número de 10 dígitos" tooltipText="Ingresa un número de teléfono válido de 10 dígitos." />
-                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" tooltipText="Proporciona la extensión telefónica, si aplica." />
+                <FieldGroup name="telefono" label="Teléfono"
+                  type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
+                <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('extension', setFieldValue)} />
               </div>
 
               {/* Datos Generales del Proyecto */}
