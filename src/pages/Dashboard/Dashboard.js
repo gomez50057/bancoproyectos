@@ -6,6 +6,8 @@ import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
 import NavbarAntepro from '../../components/NavbarAntepro';
 // import EditProjectInvestAdmin from '../../components/EditProjectInvestAdmin';
 
+const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
+
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState('formulario'); // Estado para controlar el componente activo
@@ -112,15 +114,16 @@ const Dashboard = () => {
               <span className="title">Proyectos de inversión Admin</span>
             </button>
           </li>*/}
-        </ul> 
+        </ul>
 
         <div className="sidebar-card">
-          <div className="sidebarCardImg">
+          {/* <div className="sidebarCardImg">
             <img src="/img/sidebarRecurso.png" alt="Icono de Cerrar Sesión" />
-          </div>
+          </div> */}
           <button onClick={handleLogoutClick}>
-            <img src="/img/iconos/exit.png" alt="Icono de Cerrar Sesión" className="icon" />
+            <img src={`${imgBasePath}exit.png`} alt="Icono de Cerrar Sesión" className="icon" />
             Cerrar Sesión
+
           </button>
         </div>
       </div>
