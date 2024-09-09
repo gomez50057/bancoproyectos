@@ -19,6 +19,11 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     setFieldValue(field, [...(values[field] || []), ...acceptedFiles]); // Añadir los archivos seleccionados al estado de Formik
   };
 
+  const handleRemoveFile = (field, fileIndex) => {
+    const updatedFiles = values[field].filter((_, index) => index !== fileIndex);
+    setFieldValue(field, updatedFiles); // Actualizar la lista de archivos
+  };
+
   return (
     <div className="RENTABILIDAD">
       {documentos.map(({ label, field }) => (
@@ -37,19 +42,11 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
                 No Aplica
               </label>
             </div>
-
           </div>
 
           {applies[field] && (
             <div className="file-input-group">
-              <DropzoneField field={field} handleDrop={handleDrop} values={values} />
-              {values[field] && values[field].length > 0 && (
-                <ul>
-                  {values[field].map((file, index) => (
-                    <li key={index}>{file.name}</li> // Mostrar la lista de archivos cargados
-                  ))}
-                </ul>
-              )}
+              <DropzoneField field={field} handleDrop={handleDrop} handleRemoveFile={handleRemoveFile} values={values} />
             </div>
           )}
           <ErrorMessage name={field} component="div" className="error" />
@@ -59,9 +56,15 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
   );
 };
 
-const DropzoneField = ({ field, handleDrop, values }) => {
+const DropzoneField = ({ field, handleDrop, handleRemoveFile, values }) => {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: ".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4",
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+      'image/jpeg': ['.jpeg'],
+      'image/vnd.dwg': ['.dwg'],
+      'video/mp4': ['.mp4']
+    },
     multiple: true,
     onDrop: (acceptedFiles) => handleDrop(acceptedFiles, field),
   });
@@ -73,7 +76,10 @@ const DropzoneField = ({ field, handleDrop, values }) => {
       {values[field] && values[field].length > 0 && (
         <ul>
           {values[field].map((file, index) => (
-            <li key={index}>{file.name}</li>
+            <li key={index}>
+              {file.name}
+              <button type="button" onClick={() => handleRemoveFile(field, index)}>Eliminar</button>
+            </li>
           ))}
         </ul>
       )}

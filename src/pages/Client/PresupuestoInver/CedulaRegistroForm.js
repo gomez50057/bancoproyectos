@@ -214,7 +214,7 @@ const CedulaRegistroForm = () => {
           fotografia_render_proyecto: [],
           otros_estudios: [],
         }}
-        validationSchema={validationSchemaCedula} // Aquí se integra el esquema de validación
+        validationSchema={validationSchemaCedula}
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
