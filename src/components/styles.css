@@ -1102,16 +1102,76 @@ select {
   color: #333;
 }
 
-.CargaDocumentacion .checkAplica {
+/* Contenedor principal del checkbox */
+.checkAplica {
   display: flex;
   justify-content: space-around;
   width: 40%;
+  align-items: center;
+  padding: 10px 0;
 }
 
+/* Estilos base del checkbox */
 .checkAplica label {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
   font-size: 0.9rem;
   color: #555;
+  cursor: pointer;
+  position: relative;
+  padding-left: 35px; /* Espacio para el checkbox personalizado */
+  transition: color 0.3s ease-in-out; /* Suaviza el cambio de color del texto */
+}
+
+.checkAplica label input {
+  position: absolute;
+  opacity: 0; /* Ocultamos el checkbox por defecto */
+  cursor: pointer;
+}
+
+/* Checkbox personalizado */
+.checkAplica label .custom-checkbox {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%; /* Redondeado para un estilo moderno */
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  transform: translateY(-50%);
+}
+
+/* Estado cuando el checkbox está seleccionado */
+.checkAplica label input:checked + .custom-checkbox {
+  background-color: #691b32;
+  border-color: #691b32;
+}
+
+/* Icono de verificación cuando está seleccionado */
+.checkAplica label input:checked + .custom-checkbox:after {
+  content: '✓'; /* Símbolo de verificación */
+  color: white;
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+/* Efecto hover para los checkboxes */
+.checkAplica label:hover .custom-checkbox {
+  border-color: #888;
+  background-color: #f0f0f0;
+}
+
+/* Mejora en la accesibilidad cuando el checkbox está en foco */
+.checkAplica label:focus-within .custom-checkbox {
+  border-color: #691b32;
+  box-shadow: 0 0 5px rgba(105, 27, 50, 0.5);
 }
 
 /* Dropzone personalizado */
@@ -1179,73 +1239,7 @@ select {
   margin-top: 15px;
 }
 
-/* Estilos para los checkboxes personalizados */
-.checkAplica {
-  display: flex;
-  justify-content: space-around;
-  width: 40%;
-  align-items: center;
-}
-
-.checkAplica label {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  color: #555;
-  cursor: pointer;
-  position: relative;
-  padding-left: 35px; /* Espacio para el checkbox personalizado */
-}
-
-.checkAplica label input {
-  position: absolute;
-  opacity: 0; /* Ocultamos el checkbox por defecto */
-  cursor: pointer;
-}
-
-/* Checkbox personalizado */
-.checkAplica label .custom-checkbox {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  transition: background-color 0.3s, border-color 0.3s;
-  transform: translateY(-50%);
-}
-
-/* Estado del checkbox cuando está seleccionado */
-.checkAplica label input:checked + .custom-checkbox {
-  background-color: #691b32;
-  border-color: #691b32;
-}
-
-/* Icono de verificación cuando el checkbox está marcado */
-.checkAplica label input:checked + .custom-checkbox:after {
-  content: '✔';
-  color: white;
-  font-size: 1rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Efecto hover para el checkbox */
-.checkAplica label:hover .custom-checkbox {
-  border-color: #888;
-}
-
-/* Mejora en la accesibilidad */
-.checkAplica label:focus-within .custom-checkbox {
-  border-color: #691b32;
-  box-shadow: 0 0 5px rgba(105, 27, 50, 0.5);
-}
-
-
+/* Media queries para pantallas pequeñas */
 @media (max-width: 768px) {
   .CargaDocumentacion {
     padding: 10px;
@@ -1266,10 +1260,4 @@ select {
   .dropzone ul li {
     font-size: 0.8rem;
   }
-}
-
-
-
-option {
-  background-color: #0056b3;
 }
