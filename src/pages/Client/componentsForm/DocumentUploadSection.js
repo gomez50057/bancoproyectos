@@ -28,13 +28,16 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
             <div className="checkAplica">
               <label>
                 <Field type="checkbox" name={`applies.${field}`} checked={applies[field]} onChange={() => handleApplyChange(field)} />
+                <span className="custom-checkbox"></span>
                 Aplica
               </label>
               <label>
                 <Field type="checkbox" name={`applies.${field}`} checked={!applies[field]} onChange={() => handleApplyChange(field)} />
+                <span className="custom-checkbox"></span>
                 No Aplica
               </label>
             </div>
+
           </div>
 
           {applies[field] && (
