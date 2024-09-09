@@ -29,6 +29,7 @@ const ClientProjects = () => {
   }, []);
 
   const handleEditClick = (projectId) => {
+    // Agregar navegación a la página de edición, pasando el projectId en la URL
     navigate(`/editar-proyecto-inversion/${projectId}`);
   };
 
@@ -43,7 +44,7 @@ const ClientProjects = () => {
         customBodyRender: (value, tableMeta) => {
           const projectId = projects[tableMeta.rowIndex][0];
           const estatus = projects[tableMeta.rowIndex][2];
-          const isBlocked = projects[tableMeta.rowIndex][4]; 
+          const isBlocked = projects[tableMeta.rowIndex][3]; 
 
           if (isBlocked) {
             if (estatus === "Atendido") {
@@ -106,7 +107,7 @@ const ClientProjects = () => {
             return (
               <button 
                 className="crud-button" 
-                onClick={() => handleEditClick(projectId)} 
+                onClick={() => handleEditClick(projectId)} // Aquí navegas a la edición del proyecto
               >
                 Editar
               </button>

@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
@@ -50,7 +51,9 @@ const EditProjectInvest = () => {
 
   // Estado para el modal y el ID del proyecto
   const [isModalOpen, setModalOpen] = useState(false);
-  const [projectId, setProjectId] = useState('');
+
+  const { projectId, setProjectId } = useParams();
+
 
   // Estado para almacenar los valores iniciales obtenidos de la API
   const [initialValues, setInitialValues] = useState(null);
@@ -60,7 +63,7 @@ const EditProjectInvest = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const response = await axios.get('/cedulas/UNK0511240001/');
+        const response = await axios.get(`/cedulas/${projectId}/`);
 
         // Asegúrate de que los valores iniciales para los select coincidan con las opciones
         const initialData = {
@@ -91,7 +94,7 @@ const EditProjectInvest = () => {
     };
 
     fetchInitialData();
-  }, [fechaHoy]);
+  }, [projectId, fechaHoy]);
 
   // Manejadores de cambios
   const handleApplyChange = (field) => {
@@ -135,7 +138,6 @@ const EditProjectInvest = () => {
     return objetivos.map(objetivo => ({ value: objetivo, label: objetivo }));
   };
 
-  // Función para enviar el formulario
   // Función para enviar (actualizar) el formulario
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     alert('Iniciando la actualización del formulario...');
@@ -144,28 +146,23 @@ const EditProjectInvest = () => {
     const csrfToken = Cookies.get('csrftoken');
 
     try {
-      // Aquí cambiamos a PUT para actualizar los datos en lugar de crear un nuevo registro
-      const response = await axios.put('/cedulas/UNK0511240001/', values, {
+      const response = await axios.put(`/cedulas/${projectId}/`, values, {
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken
         },
       });
-
-      // Aquí mantienes la lógica de obtener el ID del proyecto si es necesario
-      const updatedProjectId = response.data.projInvestment_id;
-      setProjectId(updatedProjectId);
-
+      setProjectId(response.data.projInvestment_id);
       alert('Formulario actualizado con éxito');
       setModalOpen(true);
-      resetForm();  // Resetea el formulario si es necesario
+      resetForm();
     } catch (error) {
       alert('Error al actualizar el formulario');
       console.error('Error:', error);
     }
-
     setSubmitting(false);
   };
+
 
 
   if (loading) {

@@ -4,6 +4,7 @@ import SvgIcon from './SvgIcon';
 import ClientProjects from '../Client/ClientProjects';
 import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
 import NavbarAntepro from '../../components/NavbarAntepro';
+// import EditProjectInvestAdmin from '../../components/EditProjectInvestAdmin';
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +58,8 @@ const Dashboard = () => {
         return <ClientProjects />;
       case 'ProjInvestment':
         return <ClientInveProjects />;
+      // case 'ProjInvestmentAdmin':
+      //   return <EditProjectInvestAdmin />;
       default:
         return null;
     }
@@ -95,10 +98,10 @@ const Dashboard = () => {
               <span className="title">Proyectos de inversión</span>
             </button>
           </li>
-          <li
+          {/* <li
             className="list-item"
-            data-component="ProjInvestment"
-            onClick={() => handleMenuClick('ProjInvestment')}
+            data-component="ProjInvestmentAdmin"
+            onClick={() => handleMenuClick('ProjInvestmentAdmin')}
           >
             <b></b>
             <b></b>
@@ -108,8 +111,8 @@ const Dashboard = () => {
               </div>
               <span className="title">Proyectos de inversión Admin</span>
             </button>
-          </li>
-        </ul>
+          </li>*/}
+        </ul> 
 
         <div className="sidebar-card">
           <div className="sidebarCardImg">
