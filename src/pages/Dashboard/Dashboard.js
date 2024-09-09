@@ -95,6 +95,20 @@ const Dashboard = () => {
               <span className="title">Proyectos de inversión</span>
             </button>
           </li>
+          <li
+            className="list-item"
+            data-component="ProjInvestment"
+            onClick={() => handleMenuClick('ProjInvestment')}
+          >
+            <b></b>
+            <b></b>
+            <button className="list-item-link">
+              <div className="icon">
+                <SvgIcon name="acuerdo" />
+              </div>
+              <span className="title">Proyectos de inversión Admin</span>
+            </button>
+          </li>
         </ul>
 
         <div className="sidebar-card">
