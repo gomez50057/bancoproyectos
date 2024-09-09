@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-// import validationSchemaCedula from './validationSchemaCedula';
+import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -204,7 +204,7 @@ const CedulaRegistroForm = () => {
           fotografia_render_proyecto: [],
           otros_estudios: [],
         }}
-        validationSchema={null}
+        validationSchema={validationSchemaCedula} // Aquí se integra el esquema de validación
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
