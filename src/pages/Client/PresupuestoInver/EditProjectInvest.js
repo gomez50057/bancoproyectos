@@ -52,7 +52,7 @@ const EditProjectInvest = () => {
   // Estado para el modal y el ID del proyecto
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const { projectId, setProjectId } = useParams();
+  const { projectId } = useParams();
 
 
   // Estado para almacenar los valores iniciales obtenidos de la API
@@ -94,7 +94,8 @@ const EditProjectInvest = () => {
     };
 
     fetchInitialData();
-  }, [projectId, fechaHoy]);
+  }, [projectId, fechaHoy]
+);
 
   // Manejadores de cambios
   const handleApplyChange = (field) => {
@@ -152,7 +153,6 @@ const EditProjectInvest = () => {
           'X-CSRFToken': csrfToken
         },
       });
-      setProjectId(response.data.projInvestment_id);
       alert('Formulario actualizado con éxito');
       setModalOpen(true);
       resetForm();

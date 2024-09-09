@@ -18,7 +18,7 @@ const ClientProjects = () => {
           project.projInvestment_id,
           project.fecha_registro,
           project.nombre_proyecto,
-          project.is_blocked_project, // Asegúrate de que esta línea esté presente
+          project.is_blocked_project,
         ]);
         setProjects(data);
       } catch (error) {
