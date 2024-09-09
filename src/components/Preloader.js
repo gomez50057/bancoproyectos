@@ -105,6 +105,12 @@ const Preloader = () => {
           </g>
         </svg>
         <div className="loading-text">Cargando...</div>
+        <div className="loading-messages">
+          <div className="message">Enviando...</div>
+          <div className="message">Analizando salida...</div>
+          <div className="message">Subiendo Formulario...</div>
+        </div>
+
       </div>
     </div>
   );
