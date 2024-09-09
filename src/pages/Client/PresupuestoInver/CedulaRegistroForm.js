@@ -99,20 +99,18 @@ const CedulaRegistroForm = () => {
   };
 
   // Función para enviar el formulario
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
     alert('Iniciando el envío del formulario...');
     console.log('Form data to be submitted:', values);
-
     setLoading(true); // Muestra el loader al iniciar el envío
 
     const formData = new FormData();
-
     for (const key in values) {
       if (Array.isArray(values[key])) {
         if (key === 'regiones' || key === 'municipios') {
           formData.append(key, JSON.stringify(values[key]));
         } else {
-          values[key].forEach((file, index) => {
+          values[key].forEach((file) => {
             if (file instanceof File) {
               formData.append(key, file);
             }
@@ -130,25 +128,31 @@ const CedulaRegistroForm = () => {
       const response = await axios.post('/cedulas/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'X-CSRFToken': csrfToken  // Añadir el token CSRF al encabezado
+          'X-CSRFToken': csrfToken,
         },
       });
 
-      // Obtener el projectId desde la respuesta
       const createdProjectId = response.data.projInvestment_id;
       setProjectId(createdProjectId);
 
       alert('Formulario enviado con éxito');
-      setModalOpen(true); // Abre el modal
-      console.log('Response:', response.data);
-      resetForm();
+      setModalOpen(true);
+      resetForm(); // Reinicia el formulario
     } catch (error) {
-      alert('Error al enviar el formulario');
-      console.error('Error:', error);
+      // Muestra mensajes claros en caso de error al enviar el formulario
+      if (error.response) {
+        // Mensaje de error proporcionado por el servidor
+        setErrors({
+          general: `Error al enviar el formulario: ${error.response.data.message || 'Algo salió mal. Por favor, intente nuevamente.'}`,
+        });
+      } else {
+        // Mensaje de error en caso de fallo de conexión o similar
+        setErrors({ general: 'Error de conexión. Por favor, verifica tu conexión a Internet y vuelve a intentarlo.' });
+      }
+    } finally {
+      setLoading(false); // Oculta el loader después de enviar
+      setSubmitting(false); // Finaliza el estado de envío
     }
-
-    setLoading(false); // Oculta el loader después de enviar
-    setSubmitting(false);
   };
 
   return (
