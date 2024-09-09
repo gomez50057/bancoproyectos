@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDropzone } from 'react-dropzone';
 import { Field, ErrorMessage } from 'formik';
 
 const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldValue }) => {
@@ -14,9 +15,8 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otros_estudios' },
   ];
 
-  const handleFileChange = (event, field) => {
-    const files = Array.from(event.currentTarget.files); // Obtener todos los archivos seleccionados
-    setFieldValue(field, files); // Guardar la lista de archivos en el estado de Formik
+  const handleDrop = (acceptedFiles, field) => {
+    setFieldValue(field, [...(values[field] || []), ...acceptedFiles]); // Añadir los archivos seleccionados al estado de Formik
   };
 
   return (
@@ -39,12 +39,7 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
 
           {applies[field] && (
             <div className="file-input-group">
-              <input
-                type="file"
-                multiple // Permitir múltiples archivos
-                onChange={(event) => handleFileChange(event, field)}
-                accept=".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4"
-              />
+              <DropzoneField field={field} handleDrop={handleDrop} values={values} />
               {values[field] && values[field].length > 0 && (
                 <ul>
                   {values[field].map((file, index) => (
@@ -57,6 +52,28 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
           <ErrorMessage name={field} component="div" className="error" />
         </div>
       ))}
+    </div>
+  );
+};
+
+const DropzoneField = ({ field, handleDrop, values }) => {
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: ".pdf,.xlsx,.jpeg,.dwg,.rtv,.mp4",
+    multiple: true,
+    onDrop: (acceptedFiles) => handleDrop(acceptedFiles, field),
+  });
+
+  return (
+    <div {...getRootProps({ className: 'dropzone' })}>
+      <input {...getInputProps()} />
+      <p>Arrastra y suelta algunos archivos aquí, o haz clic para seleccionar archivos</p>
+      {values[field] && values[field].length > 0 && (
+        <ul>
+          {values[field].map((file, index) => (
+            <li key={index}>{file.name}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

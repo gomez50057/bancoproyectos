@@ -1066,32 +1066,40 @@ select {
   flex: 1 0 32.333%;
 }
 
+/* Contenedor principal de cada documento */
 .CargaDocumentacion {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  flex-grow: 1;
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
-  /* Permitir que crezca según sea necesario */
+  width: 100%;
+  margin-bottom: 20px; /* Separación entre las secciones */
+  transition: background-color 0.3s ease-in-out;
 }
 
 .CargaDocumentacion:nth-child(2n+1) {
-  background-color: #98989a4f;
+  background-color: #f2f2f2;
 }
 
 .CargaDocumentacion:nth-child(2n) {
-  background-color: #7072716f;
+  background-color: #e0e0e0;
 }
 
+/* Estilo para la sección de selección "Aplica" / "No Aplica" */
 .textAplica {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
 
 .textAplica label:first-child {
   width: 50%;
+  font-weight: bold;
+  color: #333;
 }
 
 .CargaDocumentacion .checkAplica {
@@ -1099,6 +1107,100 @@ select {
   justify-content: space-around;
   width: 40%;
 }
+
+.checkAplica label {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Dropzone personalizado */
+.dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.dropzone:hover {
+  border-color: #999;
+}
+
+.dropzone p {
+  color: #888;
+  font-size: 1rem;
+}
+
+.dropzone ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.dropzone ul li {
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropzone ul li:hover {
+  background-color: #e2e2e2;
+}
+
+.dropzone ul li:before {
+  content: '📄'; /* Icono de documento */
+  margin-right: 10px;
+}
+
+/* Estilo para los mensajes de error */
+.error {
+  color: #ff4d4d;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+/* Mejoras generales */
+.RENTABILIDAD {
+  width: 100%;
+  max-width: 1000px; /* Ajusta según el diseño general */
+  margin: 0 auto;
+}
+
+.file-input-group {
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .CargaDocumentacion {
+    padding: 10px;
+  }
+
+  .textAplica label:first-child {
+    width: 60%;
+  }
+
+  .CargaDocumentacion .checkAplica {
+    width: 35%;
+  }
+
+  .dropzone {
+    padding: 15px;
+  }
+
+  .dropzone ul li {
+    font-size: 0.8rem;
+  }
+}
+
 
 
 option {
