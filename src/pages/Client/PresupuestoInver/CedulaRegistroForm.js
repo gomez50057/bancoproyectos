@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-import validationSchemaCedula from './validationSchemaCedula';
+// import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import ErrorIcon from '@mui/icons-material/Error';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import axios from 'axios';
@@ -152,7 +153,12 @@ const CedulaRegistroForm = () => {
       setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
       console.error('Error al enviar el formulario:', error);
       setErrors({
-        general: `Error al enviar el formulario: ${error.message || 'Algo salió mal. Por favor, intente nuevamente.'}`,
+        general: (
+          <div>
+            <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
+            Error al enviar el formulario: {error.message || 'Algo salió mal. Por favor, intente nuevamente.'}
+          </div>
+        ),
       });
     } finally {
       setLoading(false); // Oculta el loader después de enviar
@@ -220,7 +226,7 @@ const CedulaRegistroForm = () => {
           fotografia_render_proyecto: [],
           otros_estudios: [],
         }}
-        validationSchema={validationSchemaCedula}
+        validationSchema={null}
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
@@ -589,18 +595,18 @@ const CedulaRegistroForm = () => {
 
               {Object.keys(errors).length > 0 && touched && !isValid && (
                 <div className="error-message">
+                  <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
                   Por favor, revisa el formulario. Hay campos vacíos o incorrectos.
                 </div>
               )}
 
-              <div className="form-row">
+              {errors.general && <div className="error-message">{errors.general}</div>}
+
+              <div className="form-row-button">
                 <button type="submit" className="submit-button" disabled={isSubmitting || loading}>
                   {loading ? 'Enviando...' : 'Enviar'}
                 </button>
               </div>
-
-              {/* Mostrar mensajes de error generales */}
-              {errors.general && <div className="error-message">{errors.general}</div>}
             </Form>
           );
         }}

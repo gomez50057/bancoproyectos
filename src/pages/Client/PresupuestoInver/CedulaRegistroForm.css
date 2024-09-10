@@ -12,6 +12,18 @@
   flex-wrap: wrap;
 }
 
+.formulario-container .form-row-button {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+
+.formulario-container .form-row-button .submit-button{
+  width: 150px;
+}
+
 .formulario-container .form-group {
   flex: 1;
   display: flex;
@@ -33,7 +45,7 @@
   transition: 1.5s;
 }
 
-.formulario-container .banner h1{
+.formulario-container .banner h1 {
   color: var(--doradoClr);
   font-weight: 600;
   font-size: 3rem;
@@ -47,7 +59,9 @@
   transform: translateY(-5vh);
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   border-color: #691b32;
   outline: none;
 }
@@ -80,3 +94,8 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
+.error-message {
+  color: var(--vinoClr);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
