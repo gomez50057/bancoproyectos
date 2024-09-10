@@ -2183,7 +2183,7 @@ export const Acuerdos = {
       ],
     }
   },
-  '5. Acuerdo para un Gobierno Cercano, Justo y Honesto': {
+  '5. Acuerdo por la Ciencia y Tecnología para el Desarrollo': {
     objetivos: [
       'No Aplica',
     ],
@@ -2223,7 +2223,7 @@ export const Acuerdos = {
       ],
     }
   },
-  '7. Acuerdo para la Transparencia y Rendición de Cuentas.': {
+  '7. Acuerdo para la Transparencia y Rendición de Cuentas': {
     objetivos: [
       'No Aplica',
     ],
