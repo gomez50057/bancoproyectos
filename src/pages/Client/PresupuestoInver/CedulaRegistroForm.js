@@ -139,24 +139,14 @@ const CedulaRegistroForm = () => {
       setModalOpen(true);
       resetForm(); // Reinicia el formulario
     } catch (error) {
-      let errorMessage = 'Ocurrió un error. Por favor, inténtalo nuevamente.';
+      // Muestra mensajes claros en caso de error al enviar el formulario
       if (error.response) {
-        if (error.response.status === 400) {
-          errorMessage = 'Hay un error en los datos proporcionados. Por favor, verifica que todos los campos estén completos y correctos.';
-        } else if (error.response.status === 404) {
-          errorMessage = 'El recurso solicitado no existe o no está disponible en este momento.';
-        } else if (error.response.status === 500) {
-          errorMessage = 'Hubo un problema con el servidor. Por favor, inténtalo más tarde.';
-        } else {
-          errorMessage = `Error inesperado: ${error.response.status}. Por favor, contacta al soporte.`;
-        }
-      }
-      setErrors({ general: errorMessage });
-      if (error.response) {
+        // Mensaje de error proporcionado por el servidor
         setErrors({
           general: `Error al enviar el formulario: ${error.response.data.message || 'Algo salió mal. Por favor, intente nuevamente.'}`,
         });
       } else {
+        // Mensaje de error en caso de fallo de conexión o similar
         setErrors({ general: 'Error de conexión. Por favor, verifica tu conexión a Internet y vuelve a intentarlo.' });
       }
     } finally {
