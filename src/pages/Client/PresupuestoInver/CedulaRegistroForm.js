@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-// import validationSchemaCedula from './validationSchemaCedula';
+import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -55,6 +55,8 @@ const CedulaRegistroForm = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [projectId, setProjectId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   // Combina las dependencias y organismos en una sola lista para el desplegable
   const dependenciasYOrganismos = useMemo(() => {
@@ -109,6 +111,8 @@ const CedulaRegistroForm = () => {
     alert('Iniciando el envío del formulario...');
     console.log('Form data to be submitted:', values);
     setLoading(true); // Muestra el loader al iniciar el envío
+    setErrorMessage(''); // Limpiar cualquier mensaje de error previo
+
 
     const formData = new FormData();
     for (const key in values) {
@@ -145,15 +149,16 @@ const CedulaRegistroForm = () => {
       setModalOpen(true);
       resetForm(); // Reinicia el formulario
     } catch (error) {
-      // Muestra mensajes claros en caso de error al enviar el formulario
+      // Muestra un mensaje de error claro si falla el envío
       if (error.response) {
         // Mensaje de error proporcionado por el servidor
+        setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
         setErrors({
           general: `Error al enviar el formulario: ${error.response.data.message || 'Algo salió mal. Por favor, intente nuevamente.'}`,
         });
       } else {
         // Mensaje de error en caso de fallo de conexión o similar
-        setErrors({ general: 'Error de conexión. Por favor, verifica tu conexión a Internet y vuelve a intentarlo.' });
+        setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
       }
     } finally {
       setLoading(false); // Oculta el loader después de enviar
@@ -167,7 +172,8 @@ const CedulaRegistroForm = () => {
         <h1>Anteproyecto para el Presupuesto de Inversión 2025</h1>
       </div>
 
-      {loading && <Preloader />} {/* Mostrar el Preloader mientras se carga */}
+      {loading && <Preloader />}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       <Formik
         initialValues={{
@@ -220,12 +226,12 @@ const CedulaRegistroForm = () => {
           fotografia_render_proyecto: [],
           otros_estudios: [],
         }}
-        validationSchema={null}
+        validationSchema={validationSchemaCedula}
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ setFieldValue, values, isSubmitting }) => {
+        {({ setFieldValue, values, isSubmitting, errors, isValid, touched }) => {
           const programasOptions = getProgramasOptions(values.organismo, values.dependencia);
           const objetivosOptions = getObjetivosOptions(values.organismo, values.dependencia, values.programa_sectorial);
 
@@ -587,11 +593,20 @@ const CedulaRegistroForm = () => {
               <p>Si tienes algún documento complementario, anéxalo en el campo que más se adecue.</p>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
+              {Object.keys(errors).length > 0 && touched && !isValid && (
+                <div className="error-message">
+                  Por favor, revisa el formulario. Hay campos vacíos o incorrectos.
+                </div>
+              )}
+
               <div className="form-row">
                 <button type="submit" className="submit-button" disabled={isSubmitting || loading}>
                   {loading ? 'Enviando...' : 'Enviar'}
                 </button>
               </div>
+
+              {/* Mostrar mensajes de error generales */}
+              {errors.general && <div className="error-message">{errors.general}</div>}
             </Form>
           );
         }}
