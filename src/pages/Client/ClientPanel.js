@@ -26,11 +26,11 @@ const ClientPanel = () => {
     <div className="client-panel-container">
       <div className="client-panel-content">
         <div className="card-container">
-          <Card 
+          {/* <Card 
             onClick={() => navigate('/dependencia')} 
             title="Agregar Proyecto" 
             imgSrc={`${imgBasePath}agregar.webp`} 
-          />
+          /> */}
           {/* <Card 
             title="Agregar Proyecto (Próximamente)" 
             imgSrc={`${imgBasePath}agregar.webp`} 
