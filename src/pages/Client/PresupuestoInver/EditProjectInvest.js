@@ -54,8 +54,9 @@ const EditProjectInvest = () => {
 
   // Estado para el modal y el ID del proyecto
   const [isModalOpen, setModalOpen] = useState(false);
-  const { projectId } = useParams();
-  const [setProjectId] = useState('');
+  const { projectId } = useParams();  // Valor obtenido desde la URL
+  const [localProjectId, setLocalProjectId] = useState('');  // Estado para almacenar el ID del proyecto localmente
+  
 
 
   // Estado para almacenar los valores iniciales obtenidos de la API
@@ -167,11 +168,11 @@ const EditProjectInvest = () => {
   const handleSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
     alert('Iniciando la actualización del formulario...');
     console.log('Form data to be submitted:', values);
-    setLoading(true); // Muestra el loader al iniciar el envío
-    setErrorMessage(''); // Limpiar cualquier mensaje de error previo
-
+    setLoading(true);
+    setErrorMessage('');
+  
     const csrfToken = Cookies.get('csrftoken');
-
+  
     try {
       const response = await axios.put(`/cedulas/${projectId}/`, values, {
         headers: {
@@ -179,9 +180,9 @@ const EditProjectInvest = () => {
           'X-CSRFToken': csrfToken
         },
       });
+  
       const createdProjectId = response.data.projInvestment_id;
-      setProjectId(createdProjectId);
-
+      setLocalProjectId(createdProjectId);  // Actualiza el estado local
       alert('Formulario actualizado con éxito');
       setModalOpen(true);
       resetForm();
@@ -197,12 +198,10 @@ const EditProjectInvest = () => {
         ),
       });
     } finally {
-      setLoading(false); // Oculta el loader después de enviar
-      setSubmitting(false); // Finaliza el estado de envío
+      setLoading(false);
+      setSubmitting(false);
     }
-  };
-
-
+  };  
 
   if (loading) {
     return <p>Cargando datos iniciales...</p>;
