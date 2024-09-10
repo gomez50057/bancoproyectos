@@ -55,8 +55,9 @@ const EditProjectInvest = () => {
   // Estado para el modal y el ID del proyecto
   const [isModalOpen, setModalOpen] = useState(false);
   const { projectId } = useParams();  // Valor obtenido desde la URL
-  const [localProjectId, setLocalProjectId] = useState('');  // Estado para almacenar el ID del proyecto localmente
-  
+  // const [localProjectId, setLocalProjectId] = useState(''); 
+  const [setLocalProjectId] = useState('');  // Estado para almacenar el ID del proyecto localmente
+
 
 
   // Estado para almacenar los valores iniciales obtenidos de la API
@@ -170,9 +171,9 @@ const EditProjectInvest = () => {
     console.log('Form data to be submitted:', values);
     setLoading(true);
     setErrorMessage('');
-  
+
     const csrfToken = Cookies.get('csrftoken');
-  
+
     try {
       const response = await axios.put(`/cedulas/${projectId}/`, values, {
         headers: {
@@ -180,7 +181,7 @@ const EditProjectInvest = () => {
           'X-CSRFToken': csrfToken
         },
       });
-  
+
       const createdProjectId = response.data.projInvestment_id;
       setLocalProjectId(createdProjectId);  // Actualiza el estado local
       alert('Formulario actualizado con éxito');
@@ -201,10 +202,10 @@ const EditProjectInvest = () => {
       setLoading(false);
       setSubmitting(false);
     }
-  };  
+  };
 
-  if (loading) {
-    return <p>Cargando datos iniciales...</p>;
+  if (loading || !initialValues) {
+    return <Preloader />;
   }
 
   return (
@@ -595,8 +596,11 @@ const EditProjectInvest = () => {
 
               {errors.general && <div className="error-message">{errors.general}</div>}
 
-                            <button type="submit" disabled={isSubmitting}>Enviar</button>
-
+              <div className="form-row-button">
+                <button type="submit" className="submit-button" disabled={isSubmitting || loading}>
+                  {loading ? 'Enviando...' : 'Enviar'}
+                </button>
+              </div>
             </Form>
           );
         }}
