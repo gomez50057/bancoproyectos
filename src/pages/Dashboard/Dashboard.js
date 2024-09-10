@@ -10,7 +10,7 @@ const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeComponent, setActiveComponent] = useState('formulario'); // Estado para controlar el componente activo
+  const [activeComponent, setActiveComponent] = useState('ProjInvestment'); // Estado para controlar el componente activo
 
   useEffect(() => {
     const listItems = document.querySelectorAll('.list-item');
@@ -72,7 +72,7 @@ const Dashboard = () => {
       <div className="sidebar active">
         <div className="toggle active"></div>
         <ul className="list">
-          <li
+          {/* <li
             className="list-item active"
             data-component="formulario"
             onClick={() => handleMenuClick('formulario')}
@@ -85,9 +85,9 @@ const Dashboard = () => {
               </div>
               <span className="title">Proyectos Registrados</span>
             </button>
-          </li>
+          </li> */}
           <li
-            className="list-item"
+            className="list-item active"
             data-component="ProjInvestment"
             onClick={() => handleMenuClick('ProjInvestment')}
           >

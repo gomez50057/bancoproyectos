@@ -2,7 +2,9 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
+import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import ErrorIcon from '@mui/icons-material/Error';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import axios from 'axios';
@@ -21,6 +23,7 @@ import {
 } from '../../../presup_inversion';
 import SectionTitle from '../componentsForm/SectionTitle';
 import './CedulaRegistroForm.css';
+import Preloader from '../../../components/Preloader';
 
 // Función para formatear números con comas
 const formatNumberWithCommas = (number) => {
@@ -51,13 +54,22 @@ const EditProjectInvest = () => {
 
   // Estado para el modal y el ID del proyecto
   const [isModalOpen, setModalOpen] = useState(false);
-
   const { projectId } = useParams();
+  const [setProjectId] = useState('');
 
 
   // Estado para almacenar los valores iniciales obtenidos de la API
   const [initialValues, setInitialValues] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+
+  // Combina las dependencias y organismos en una sola lista para el desplegable
+  const dependenciasYOrganismos = useMemo(() => {
+    const combined = [...dependencias, ...organismos].map((item) => ({ value: item, label: item }));
+    return combined;
+  }, []);
 
   // Efecto para obtener los datos iniciales desde la API
   useEffect(() => {
@@ -95,7 +107,7 @@ const EditProjectInvest = () => {
 
     fetchInitialData();
   }, [projectId, fechaHoy]
-);
+  );
 
   // Manejadores de cambios
   const handleApplyChange = (field) => {
@@ -122,27 +134,41 @@ const EditProjectInvest = () => {
   const getProgramasOptions = (organismo, dependencia) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-    if (!condicionante) return [];
+    if (!condicionante) return [{ value: 'No cuenta con programa', label: 'No cuenta con programa' }];
+
     const programas = programasSectorialesOptions[condicionante];
 
-    return programas
-      ? Object.keys(programas).map(programa => ({ value: programa, label: programa }))
-      : [];
+    if (!programas || Object.keys(programas).length === 0) {
+      return [{ value: 'No cuenta con programa', label: 'No cuenta con programa' }];
+    }
+
+    return Object.keys(programas).map(programa => ({ value: programa, label: programa }));
   };
 
   const getObjetivosOptions = (organismo, dependencia, programa) => {
+    if (programa === 'No cuenta con programa') {
+      return [{ value: 'No Aplica', label: 'No Aplica' }];
+    }
+
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
     if (!condicionante || !programa) return [];
 
     const objetivos = programasSectorialesOptions[condicionante]?.[programa] || [];
+
+    if (objetivos.length === 0) {
+      return [{ value: 'No Aplica', label: 'No Aplica' }];
+    }
+
     return objetivos.map(objetivo => ({ value: objetivo, label: objetivo }));
   };
 
   // Función para enviar (actualizar) el formulario
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
     alert('Iniciando la actualización del formulario...');
     console.log('Form data to be submitted:', values);
+    setLoading(true); // Muestra el loader al iniciar el envío
+    setErrorMessage(''); // Limpiar cualquier mensaje de error previo
 
     const csrfToken = Cookies.get('csrftoken');
 
@@ -153,14 +179,27 @@ const EditProjectInvest = () => {
           'X-CSRFToken': csrfToken
         },
       });
+      const createdProjectId = response.data.projInvestment_id;
+      setProjectId(createdProjectId);
+
       alert('Formulario actualizado con éxito');
       setModalOpen(true);
       resetForm();
     } catch (error) {
-      alert('Error al actualizar el formulario');
-      console.error('Error:', error);
+      setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
+      console.error('Error al enviar el formulario:', error);
+      setErrors({
+        general: (
+          <div>
+            <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
+            Error al enviar el formulario: {error.message || 'Algo salió mal. Por favor, intente nuevamente.'}
+          </div>
+        ),
+      });
+    } finally {
+      setLoading(false); // Oculta el loader después de enviar
+      setSubmitting(false); // Finaliza el estado de envío
     }
-    setSubmitting(false);
   };
 
 
@@ -174,14 +213,18 @@ const EditProjectInvest = () => {
       <div className="banner">
         <h1>Anteproyecto para el Presupuesto de Inversión 2025</h1>
       </div>
+
+      {loading && <Preloader />}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+
       <Formik
         initialValues={initialValues}  // Usar los valores iniciales obtenidos de la API
-        validationSchema={null}
+        validationSchema={validationSchemaCedula}
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ setFieldValue, values, isSubmitting }) => {
+        {({ setFieldValue, values, isSubmitting, errors, isValid, touched }) => {
           const programasOptions = getProgramasOptions(values.organismo, values.dependencia);
           const objetivosOptions = getObjetivosOptions(values.organismo, values.dependencia, values.programa_sectorial);
 
@@ -195,7 +238,7 @@ const EditProjectInvest = () => {
               {/* Registro del Responsable del Proyecto */}
               <SectionTitle title="Registro del Responsable del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" type="text" tooltipText="Indica la dependencia o el organismo que presenta el proyecto." />
+                <CustomSelectField name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" options={dependenciasYOrganismos} placeholder="Selecciona una opción" tooltipText="Indica la dependencia o el organismo que presenta el proyecto." />
                 <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área a la que pertenece dentro de la dependencia." />
               </div>
               <div className="form-row">
@@ -471,6 +514,7 @@ const EditProjectInvest = () => {
                     setFieldValue('programa_sectorial', option.value);
                     setFieldValue('objetivo_programa', '');
                   }}
+                  isDisabled={!values.dependencia && !values.organismo}
                   tooltipText="Selecciona el programa relacionado con el proyecto."
                 />
                 <CustomSelectField
@@ -543,7 +587,17 @@ const EditProjectInvest = () => {
               <p>Si tienes algún documento complementario, anéxalo en el campo que más se adecue.</p>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
-              <button type="submit" disabled={isSubmitting}>Enviar</button>
+              {Object.keys(errors).length > 0 && touched && !isValid && (
+                <div className="error-message">
+                  <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
+                  Por favor, revisa el formulario. Hay campos vacíos o incorrectos.
+                </div>
+              )}
+
+              {errors.general && <div className="error-message">{errors.general}</div>}
+
+                            <button type="submit" disabled={isSubmitting}>Enviar</button>
+
             </Form>
           );
         }}
