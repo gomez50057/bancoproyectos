@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-import validationSchemaCedula from './validationSchemaCedula';
+// import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -149,17 +149,16 @@ const CedulaRegistroForm = () => {
       setModalOpen(true);
       resetForm(); // Reinicia el formulario
     } catch (error) {
-      // Muestra un mensaje de error claro si falla el envío
-      if (error.response) {
-        // Mensaje de error proporcionado por el servidor
-        setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
-        setErrors({
-          general: `Error al enviar el formulario: ${error.response.data.message || 'Algo salió mal. Por favor, intente nuevamente.'}`,
-        });
-      } else {
-        // Mensaje de error en caso de fallo de conexión o similar
-        setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
-      }
+      // Mostrar siempre el mensaje, sin importar la causa del error
+      setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
+    
+      // Opcional: puedes seguir registrando o verificando el error para propósitos de depuración, pero no afectará el mensaje mostrado al usuario
+      console.error('Error al enviar el formulario:', error);
+    
+      // Si tienes errores específicos que quieras manejar, puedes hacerlo aquí, pero el mensaje siempre será mostrado al usuario
+      setErrors({
+        general: `Error al enviar el formulario: ${error.message || 'Algo salió mal. Por favor, intente nuevamente.'}`,
+      });
     } finally {
       setLoading(false); // Oculta el loader después de enviar
       setSubmitting(false); // Finaliza el estado de envío
@@ -226,7 +225,7 @@ const CedulaRegistroForm = () => {
           fotografia_render_proyecto: [],
           otros_estudios: [],
         }}
-        validationSchema={validationSchemaCedula}
+        validationSchema={null}
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
