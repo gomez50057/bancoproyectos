@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-// import validationSchemaCedula from './validationSchemaCedula';
+import validationSchemaCedula from './validationSchemaCedula';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import ErrorIcon from '@mui/icons-material/Error';
 import TooltipHelp from '../componentsForm/TooltipHelp';
@@ -226,7 +226,7 @@ const CedulaRegistroForm = () => {
           fotografia_render_proyecto: [],
           otros_estudios: [],
         }}
-        validationSchema={null}
+        validationSchema={validationSchemaCedula}
         onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
