@@ -90,20 +90,32 @@ const CedulaRegistroForm = () => {
   const getProgramasOptions = (organismo, dependencia) => {
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
-    if (!condicionante) return [];
+    if (!condicionante) return [{ value: 'No cuenta con programa', label: 'No cuenta con programa' }];
+
     const programas = programasSectorialesOptions[condicionante];
 
-    return programas
-      ? Object.keys(programas).map(programa => ({ value: programa, label: programa }))
-      : [];
+    if (!programas || Object.keys(programas).length === 0) {
+      return [{ value: 'No cuenta con programa', label: 'No cuenta con programa' }];
+    }
+
+    return Object.keys(programas).map(programa => ({ value: programa, label: programa }));
   };
 
   const getObjetivosOptions = (organismo, dependencia, programa) => {
+    if (programa === 'No cuenta con programa') {
+      return [{ value: 'No Aplica', label: 'No Aplica' }];
+    }
+
     const condicionante = organismo !== 'No Aplica' && organismo ? organismo : dependencia;
 
     if (!condicionante || !programa) return [];
 
     const objetivos = programasSectorialesOptions[condicionante]?.[programa] || [];
+
+    if (objetivos.length === 0) {
+      return [{ value: 'No Aplica', label: 'No Aplica' }];
+    }
+
     return objetivos.map(objetivo => ({ value: objetivo, label: objetivo }));
   };
 
@@ -521,6 +533,7 @@ const CedulaRegistroForm = () => {
                     setFieldValue('programa_sectorial', option.value);
                     setFieldValue('objetivo_programa', '');
                   }}
+                  isDisabled={!values.dependencia && !values.organismo}
                   tooltipText="Selecciona el programa relacionado con el proyecto."
                 />
                 <CustomSelectField
