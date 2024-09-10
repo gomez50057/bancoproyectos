@@ -54,7 +54,13 @@ const CedulaRegistroForm = () => {
   // Estado para el modal, el ID del proyecto y el estado de carga
   const [isModalOpen, setModalOpen] = useState(false);
   const [projectId, setProjectId] = useState('');
-  const [loading, setLoading] = useState(false); // Añadir estado de carga
+  const [loading, setLoading] = useState(false);
+
+  // Combina las dependencias y organismos en una sola lista para el desplegable
+  const dependenciasYOrganismos = useMemo(() => {
+    const combined = [...dependencias, ...organismos].map((item) => ({ value: item, label: item }));
+    return combined;
+  }, []);
 
   // Manejadores de cambios
   const handleApplyChange = (field) => {
@@ -233,7 +239,7 @@ const CedulaRegistroForm = () => {
               {/* Registro del Responsable del Proyecto */}
               <SectionTitle title="Registro del Responsable del Proyecto" />
               <div className="form-row">
-                <FieldGroup name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" type="text" tooltipText="Indica la dependencia o el organismo que presenta el proyecto." />
+                <CustomSelectField name="nombre_dependencia" label="Nombre de la Dependencia u Organismo" options={dependenciasYOrganismos} placeholder="Selecciona una opción" tooltipText="Indica la dependencia o el organismo que presenta el proyecto." />
                 <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área a la que pertenece dentro de la dependencia." />
               </div>
               <div className="form-row">
