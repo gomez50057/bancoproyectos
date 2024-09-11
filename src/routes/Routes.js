@@ -9,16 +9,16 @@ import CRUDTable from '../pages/Responsible/CRUDTable';
 import ClientPanel from '../pages/Client/ClientPanel';
 import ClientProjects from '../pages/Client/ClientProjects';
 import EditProject from '../pages/Client/EditProject';
-
 import EditProjectInvest from '../pages/Client/PresupuestoInver/EditProjectInvest';
-
 import PrivateRoute from './PrivateRoute';
 import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
 import ProjectReportReact from '../pages/Responsible/ProjectReportReact'; 
 
-import CedulaRegistroForm from '../pages/Client/PresupuestoInver/CedulaRegistroForm';
+import InvestmentReport from '../pages/Responsible/PresupuestoInver/InvestmentReport'; 
 
+
+import CedulaRegistroForm from '../pages/Client/PresupuestoInver/CedulaRegistroForm';
 import Dashboard from '../pages/Dashboard/Dashboard';
 
 
@@ -57,6 +57,12 @@ const AppRoutes = () => {
 
             <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} />
             <Route path="/project-report-react/:projectId" element={<ProjectReportReact />} />
+
+
+            <Route path="/reporte-inversion" element={<InvestmentReport />} />
+
+
+
             <Route path="*" element={<Navigate to="/" />} />
             
             <Route path="/tablas" element={<Dashboard /> } />

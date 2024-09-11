@@ -1,6 +1,10 @@
 /* Archivo: src/pages/Responsible/ProjectReportReact.css */
 
-/* .project-report {
+p {
+  margin: 0;
+}
+
+.project-report {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,6 +20,7 @@
   position: relative;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   background-color: #fff;
+  /* transform: scale(1.2); */
 }
 
 .project-report .print-button {
@@ -36,7 +41,7 @@
   }
 
   .project-report .report-container {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 
@@ -46,7 +51,7 @@
   left: 0;
   height: 100%;
   width: auto;
-  opacity: 0.5;
+  opacity: 0.4;
   z-index: 1;
 }
 
@@ -78,7 +83,8 @@
   flex-direction: column;
   padding: 10px;
   width: 100%;
-  height: 100%;
+  height: auto;
+  gap: 15px;
   justify-content: space-evenly;
 }
 
@@ -101,8 +107,13 @@
   display: block;
 }
 
-.project-report .label {
-  font-size: 12px;
+.inline-label {
+  display: inline;
+}
+
+.project-report .label,
+.project-report .inline-label {
+  font-size: 15px;
   font-weight: bold;
   color: #bc955b;
 }
@@ -116,7 +127,7 @@
 .project-report .label-num-be {
   font-size: 12px;
   color: #98989a;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .project-report .label-sector {
@@ -132,10 +143,12 @@
   margin-top: -8px;
 }
 
-.project-report .value {
-  font-size: 10px;
+.project-report .value,
+.project-report .inline-value {
+  font-size: 12px;
   color: #98989a;
 }
+
 
 .project-report .value-container {
   font-size: 10px;
@@ -157,7 +170,7 @@
 }
 
 .project-report .value-num-be {
-  font-size: 30px;
+  font-size: 24px;
   color: #98989a;
   font-weight: 500;
 }
@@ -178,6 +191,19 @@
   z-index: 2;
 }
 
+.project-report .NomDependencia {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  z-index: 2;
+}
+
+.project-report .NomDependencia p {
+  color: var(--blanco);
+  font-weight: 600;
+  margin: 0;
+}
+
 .project-report .footer-image {
   width: 100%;
   height: 100%;
@@ -194,6 +220,7 @@
 
 .project-report .project-name {
   width: 80%;
+  height: auto;
   background-color: #691B32;
   border-bottom-right-radius: 40px;
   border-right: 7px solid #fff;
@@ -212,7 +239,7 @@
 
 .project-report .text-container {
   width: 400px;
-  padding: 0 9px;
+  padding: 0 9px 0 0;
 }
 
 .project-report .image-container {
@@ -221,18 +248,44 @@
   margin-top: -50px;
   border-radius: 10px;
   overflow: hidden;
+  background: linear-gradient(to right, #a02142, #92203e, #841e3b, #761d36, #691b32);
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
   z-index: 100;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
 }
 
-.project-report .project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.project-report .logoSecretaria {
+  width: auto;
+  height: 110px;
 }
+
+.project-report .inversionImg {
+  width: 95%;
+  height: auto;
+}
+
+
+.project-report .logoSecretaria img,
+.project-report .inversionImg img {
+  width: 100%;
+  height: auto;
+}
+
+.project-report .logoSecretaria img {
+  width: auto;
+  height: 110px;
+}
+
+.project-report .inversionImg img {
+  max-height: 215px;
+}
+
+
+
+
 
 .project-report .image-beneficiarios {
   width: 50px;
@@ -241,6 +294,11 @@
 }
 
 .project-report .inline-section {
+  display: flex;
+  align-items: center;
+}
+
+.project-report .sectionCobertura {
   display: flex;
   align-items: center;
 }
@@ -255,4 +313,4 @@
 
 .leaflet-container .leaflet-control-attribution {
   opacity: 0;
-} */
+}

@@ -18,7 +18,11 @@ const App = () => {
 
 const AppContent = () => {
     const location = useLocation();
-    const hideFooterRoutes = ['/project-report-react/:projectId'];
+    const hideFooterRoutes = [
+        '/project-report-react/:projectId',
+        '/reporte-inversion',
+        '/reporte-inversion/:projectId'
+    ];
 
     const shouldHideFooter = hideFooterRoutes.some(route =>
         new RegExp(route.replace(':projectId', '[^/]+')).test(location.pathname)
