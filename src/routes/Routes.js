@@ -16,9 +16,7 @@ import NavbarLogin from '../components/NavbarLogin';
 import ProjectReportReact from '../pages/Responsible/projectRegistration/ProjectReportReact'; 
 import InvestmentReport from '../pages/Responsible/investmentBudget/InvestmentReport'; 
 import CedulaRegistroForm from '../pages/Client/investmentBudget/CedulaRegistroForm';
-import Dashboard from '../pages/Dashboard/Dashboard';
-
-
+import DashboardClient from '../pages/Client/dashboard/DashboardClient';
 
 const MainLayout = ({ children }) => (
     <div>
@@ -62,7 +60,7 @@ const AppRoutes = () => {
 
             <Route path="*" element={<Navigate to="/" />} />
             
-            <Route path="/tablas" element={<Dashboard /> } />
+            <Route path="/tablas" element={<DashboardClient /> } />
             {/* <Route path="/tablas" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><Dashboard /></LoginLayout></PrivateRoute>} /> */}
 
 
