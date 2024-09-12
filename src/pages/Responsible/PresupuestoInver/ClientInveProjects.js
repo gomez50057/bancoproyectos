@@ -39,14 +39,14 @@ const ClientProjects = () => {
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
     { name: "Fecha de Creación", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
-    { 
-      name: "Acciones", 
-      options: { 
+    {
+      name: "Acciones",
+      options: {
         setCellProps: () => ({ style: { textAlign: 'center' } }),
         customBodyRender: (value, tableMeta) => {
           const projectId = projects[tableMeta.rowIndex][0];
           const estatus = projects[tableMeta.rowIndex][2];
-          const isBlocked = projects[tableMeta.rowIndex][3]; 
+          const isBlocked = projects[tableMeta.rowIndex][3];
 
           return (
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -102,25 +102,15 @@ const ClientProjects = () => {
                   </Tooltip>
                 )
               ) : (
-                <>
-                  <button 
-                    className="crud-button" 
-                    onClick={() => handleEditClick(projectId)}
-                  >
-                    Editar
-                  </button>
-                  <button 
-                    className="crud-button" 
-                    onClick={() => handleFichaClick(projectId)}
-                  >
-                    Ficha
-                  </button>
-                </>
+                <div className="Acciones-con">
+                  <button className="crud-button" onClick={() => handleEditClick(projectId)}>Editar</button>
+                  <button className="crud-button" onClick={() => handleFichaClick(projectId)}>Ficha</button>
+                </div>
               )}
             </div>
           );
         }
-      } 
+      }
     }
   ];
 
