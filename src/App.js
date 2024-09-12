@@ -20,7 +20,6 @@ const AppContent = () => {
     const location = useLocation();
     const hideFooterRoutes = [
         '/project-report-react/:projectId',
-        '/reporte-inversion',
         '/reporte-inversion/:projectId'
     ];
 
