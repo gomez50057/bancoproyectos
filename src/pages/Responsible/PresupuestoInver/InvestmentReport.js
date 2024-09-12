@@ -1,4 +1,3 @@
-// Archivo: src/pages/Responsible/ProjectReportReact.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -47,6 +46,11 @@ const ProjectReportReact = () => {
     return <div>{error}</div>;
   }
 
+  // Aplicar formato de números con separadores de miles
+  const formatNumberWithCommas = (number) => {
+    return number.toLocaleString('en-US');
+  };
+
   return (
     <div className="project-report">
       <div className="report-container">
@@ -56,14 +60,18 @@ const ProjectReportReact = () => {
           <div className="rectangle-content">
             <div className="section">
               <span className="label">Inversión Estimada: </span>
-              <span className="value-inversion-estimada">${project.inversion_presupuestada}</span>
+              <span className="value-inversion-estimada">
+                ${formatNumberWithCommas(Number(project.inversion_presupuestada))}
+              </span>
             </div>
 
             <div className="beneficiarios-section">
               <div className="inline-section">
                 <img src={`${imgBasePath}benificiarios.png`} alt="Beneficiarios" className="image-beneficiarios" />
                 <div className="beneficiarios-num">
-                  <span className="value-num-be">{project.numero_beneficiarios}</span>
+                  <span className="value-num-be">
+                    {formatNumberWithCommas(Number(project.numero_beneficiarios))}
+                  </span>
                   <span className="label-num-be">Personas</span>
                 </div>
               </div>
