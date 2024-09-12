@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from '../config/axiosConfig';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
@@ -91,7 +91,7 @@ const Login = () => {
                     {error && <div className="error-message">{error}</div>}
                     <button type="submit">INGRESAR</button>
                 </form>
-                <p>¿No tienes una cuenta? <Link to="/" className="link-registrarse">REGÍSTRATE</Link></p>
+              {/* <p>¿No tienes una cuenta? <Link to="/" className="link-registrarse">REGÍSTRATE</Link></p> */}
             </div>
         </section>
     );

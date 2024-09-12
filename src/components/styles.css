@@ -164,12 +164,7 @@ p {
 .navbar.scrolled {
   backdrop-filter: blur(10px);
   background-color: hsla(345, 3%, 24%, 0.5);
-  /* background: linear-gradient(90deg, rgba(86, 23, 44, 0.6), rgba(160, 34, 65, 0.6)); */
 }
-
-/* .NavbarLogin.scrolled {
-  backdrop-filter: blur(10px);
-} */
 
 .navbar img {
   width: auto;
@@ -258,7 +253,6 @@ p {
   opacity: 1;
   visibility: visible;
 }
-
 
 .NavbarLogin_inicio,
 .NavbarLogin_img {
@@ -720,6 +714,10 @@ p {
   border-radius: 40px;
   margin-top: 2vh;
   padding: 3vw;
+}
+
+.login_txt p{
+  margin: 20px 0;
 }
 
 .login_txt img {
