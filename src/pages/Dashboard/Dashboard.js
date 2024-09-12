@@ -11,13 +11,11 @@ const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Cargar el componente activo desde localStorage o usar 'ProjInvestment' como predeterminado
   const [activeComponent, setActiveComponent] = useState(
     localStorage.getItem('activeComponent') || 'ProjInvestment'
   );
 
   useEffect(() => {
-    // Guardar el componente activo en localStorage cuando cambie
     localStorage.setItem('activeComponent', activeComponent);
 
     const listItems = document.querySelectorAll('.list-item');
