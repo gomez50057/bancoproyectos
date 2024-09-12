@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import SvgIcon from './SvgIcon';
 import ClientProjects from '../Client/ClientProjects';
-import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
-import ClientInveProjectsAdmin from '../Responsible/PresupuestoInver/ClientInveProjects';
+import ClientInveProjects from '../Client/investmentBudget/ClientInveProjects';
+import ClientInveProjectsAdmin from '../Responsible/investmentBudget/ClientInveProjects';
 import NavbarAntepro from '../../components/NavbarAntepro';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";

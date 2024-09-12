@@ -9,16 +9,16 @@ import CRUDTable from '../pages/Responsible/CRUDTable';
 import ClientPanel from '../pages/Client/ClientPanel';
 import ClientProjects from '../pages/Client/ClientProjects';
 import EditProject from '../pages/Client/EditProject';
-import EditProjectInvest from '../pages/Client/PresupuestoInver/EditProjectInvest';
+import EditProjectInvest from '../pages/Client/investmentBudget/EditProjectInvest';
 import PrivateRoute from './PrivateRoute';
 import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
 import ProjectReportReact from '../pages/Responsible/ProjectReportReact'; 
 
-import InvestmentReport from '../pages/Responsible/PresupuestoInver/InvestmentReport'; 
+import InvestmentReport from '../pages/Responsible/investmentBudget/InvestmentReport'; 
 
 
-import CedulaRegistroForm from '../pages/Client/PresupuestoInver/CedulaRegistroForm';
+import CedulaRegistroForm from '../pages/Client/investmentBudget/CedulaRegistroForm';
 import Dashboard from '../pages/Dashboard/Dashboard';
 
 
