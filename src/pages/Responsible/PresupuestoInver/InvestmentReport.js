@@ -95,16 +95,12 @@ const ProjectReportReact = () => {
               </div>
             </div>
             <div className="image-container">
-              {/* <img src={`${imgBasePath}foto_proyecto.png`} alt="Proyecto" className="project-image" /> */}
-
               <div className="logoSecretaria">
                 <img src={`${imgBasePath}Logotipo8.png`} alt="Logo de secretaria" />
               </div>
               <div className="inversionImg">
                 <img src={`${imgBasePath}inver.png`} alt="Proyecto" />
               </div>
-              
-
             </div>
           </div>
         </div>
