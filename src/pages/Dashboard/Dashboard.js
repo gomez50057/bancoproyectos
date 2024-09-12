@@ -10,9 +10,16 @@ const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeComponent, setActiveComponent] = useState('ProjInvestment'); // Estado para controlar el componente activo
+
+  // Cargar el componente activo desde localStorage o usar 'ProjInvestment' como predeterminado
+  const [activeComponent, setActiveComponent] = useState(
+    localStorage.getItem('activeComponent') || 'ProjInvestment'
+  );
 
   useEffect(() => {
+    // Guardar el componente activo en localStorage cuando cambie
+    localStorage.setItem('activeComponent', activeComponent);
+
     const listItems = document.querySelectorAll('.list-item');
     listItems.forEach((item) => {
       item.addEventListener('click', () => {
@@ -31,7 +38,7 @@ const Dashboard = () => {
       toggleBtn.classList.toggle('active');
       sidebar.classList.toggle('active');
     };
-  }, []);
+  }, [activeComponent]);
 
   const handleMenuClick = (componentName) => {
     setActiveComponent(componentName); // Actualiza el componente activo según el menú seleccionado
@@ -73,7 +80,7 @@ const Dashboard = () => {
         <div className="toggle active"></div>
         <ul className="list">
           <li
-            className="list-item active"
+            className={`list-item ${activeComponent === 'ProjInvestment' ? 'active' : ''}`}
             data-component="ProjInvestment"
             onClick={() => handleMenuClick('ProjInvestment')}
           >
@@ -88,7 +95,7 @@ const Dashboard = () => {
           </li>
 
           <li
-            className="list-item"
+            className={`list-item ${activeComponent === 'ClientInveProjectsAdmin' ? 'active' : ''}`}
             data-component="ClientInveProjectsAdmin"
             onClick={() => handleMenuClick('ClientInveProjectsAdmin')}
           >
@@ -110,7 +117,6 @@ const Dashboard = () => {
           <button onClick={handleLogoutClick}>
             <img src={`${imgBasePath}exit.png`} alt="Icono de Cerrar Sesión" className="icon" />
             Cerrar Sesión
-
           </button>
         </div>
       </div>
