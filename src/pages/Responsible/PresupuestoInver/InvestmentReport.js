@@ -7,14 +7,15 @@ const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pd
 const ProjectReportReact = () => {
   // Simulación de los datos del proyecto
   const project = {
-    project_name: 'Proyecto de Mejoramiento de Universidad',
-    inversion_estimada: "5,000,000",
+    nombre_proyecto: 'Proyecto de Mejoramiento de Universidad',
+    inversion_presupuestada: "5,000,000",
     cobertura: 'Regional',
-    municipio: '03.Pachuca, 05.Mineral de la Reforma',
-    beneficiarios: "15,000",
-    sector: 'Educación',
-    descripcion: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, placerat vehicula odio tellus habitasse gravida nisl, faucibus parturient mi ac arcu posuere. Dictumst pretium diam a venenatis ante mauris varius, montes ut platea ultrices ullamcorper consequat, dis hendrerit risus pulvinar nascetur velit. In hac vulputate erat fermentum mollis eget per etiam montes, lacinia dictum imperdiet ad porta turpis mauris nulla dapibus, duis platea porttitor hendrerit sed orci conubia penatibus. Turpis pretium tempor eleifend euismod fermentum dis habitant lobortis lacus odio, vivamus facilisis torquent mauris per ridiculus cursus est nascetur, pellentesque vehicula rutrum non vestibulum platea justo egestas cum. Posuere lobortis placerat aliquet bibendum maecenas mus tellus tempor iaculis convallis mi enim curae, ultrices malesuada platea suspendisse accumsan blandit dictumst nec auctor eleifend et massa. Posuere consequat curabitur at inceptos tempus nascetur accumsan maecenas, ullamcorper vestibulum.',
-    situacion_sin_proyecto: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, placerat vehicula odio tellus habitasse gravida nisl, faucibus parturient mi ac arcu posuere. Dictumst pretium diam a venenatis ante mauris varius, montes ut platea ultrices ullamcorper consequat, dis hendrerit risus pulvinar nascetur velit. In hac vulputate erat fermentum mollis eget per etiam montes, lacinia dictum imperdiet ad porta turpis mauris nulla dapibus, duis platea porttitor hendrerit sed orci conubia penatibus. Turpis pretium tempor eleifend euismod fermentum dis habitant lobortis lacus odio, vivamus facilisis torquent mauris per ridiculus cursus est nascetur, pellentesque vehicula rutrum non vestibulum platea justo egestas cum. Posuere lobortis placerat aliquet bibendum maecenas mus tellus tempor iaculis convallis mi enim curae, ultrices malesuada platea suspendisse accumsan blandit dictumst nec auctor eleifend et massa. Posuere consequat curabitur at inceptos tempus nascetur accumsan maecenas, ullamcorper vestibulum.',
+    municipios: '20.Pachuca, 30.Mineral de la Reforma',
+    regiones: '03.Pachuca, 05.Mineral de la Reforma',
+
+    numero_beneficiarios: "15,000",
+    descripcion_proyecto: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, placerat vehicula odio tellus habitasse gravida nisl, faucibus parturient mi ac arcu posuere. Dictumst pretium diam a venenatis ante mauris varius, montes ut platea ultrices ullamcorper consequat, dis hendrerit risus pulvinar nascetur velit. In hac vulputate erat fermentum mollis eget per etiam montes, lacinia dictum imperdiet ad porta turpis mauris nulla dapibus, duis platea porttitor hendrerit sed orci conubia penatibus. Turpis pretium tempor eleifend euismod fermentum dis habitant lobortis lacus odio, vivamus facilisis torquent mauris per ridiculus cursus est nascetur, pellentesque vehicula rutrum non vestibulum platea justo egestas cum. Posuere lobortis placerat aliquet bibendum maecenas mus tellus tempor iaculis convallis mi enim curae, ultrices malesuada platea suspendisse accumsan blandit dictumst nec auctor eleifend et massa. Posuere consequat curabitur at inceptos tempus nascetur accumsan maecenas, ullamcorper vestibulum.',
+    situacion_actual: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, placerat vehicula odio tellus habitasse gravida nisl, faucibus parturient mi ac arcu posuere. Dictumst pretium diam a venenatis ante mauris varius, montes ut platea ultrices ullamcorper consequat, dis hendrerit risus pulvinar nascetur velit. In hac vulputate erat fermentum mollis eget per etiam montes, lacinia dictum imperdiet ad porta turpis mauris nulla dapibus, duis platea porttitor hendrerit sed orci conubia penatibus. Turpis pretium tempor eleifend euismod fermentum dis habitant lobortis lacus odio, vivamus facilisis torquent mauris per ridiculus cursus est nascetur, pellentesque vehicula rutrum non vestibulum platea justo egestas cum. Posuere lobortis placerat aliquet bibendum maecenas mus tellus tempor iaculis convallis mi enim curae, ultrices malesuada platea suspendisse accumsan blandit dictumst nec auctor eleifend et massa. Posuere consequat curabitur at inceptos tempus nascetur accumsan maecenas, ullamcorper vestibulum.',
     prioridad: "01",
     dependencia: "Secretaría de Medio Ambiente y Recursos Naturales"
   };
@@ -38,14 +39,14 @@ const ProjectReportReact = () => {
           <div className="rectangle-content">
             <div className="section">
               <span className="label">Inversión Estimada: </span>
-              <span className="value-inversion-estimada">${project.inversion_estimada}</span>
+              <span className="value-inversion-estimada">${project.inversion_presupuestada}</span>
             </div>
 
             <div className="beneficiarios-section">
               <div className="inline-section">
                 <img src={`${imgBasePath}benificiarios.png`} alt="Beneficiarios" className="image-beneficiarios" />
                 <div className="beneficiarios-num">
-                  <span className="value-num-be">{project.beneficiarios}</span>
+                  <span className="value-num-be">{project.numero_beneficiarios}</span>
                   <span className="label-num-be">Personas</span>
                 </div>
               </div>
@@ -72,7 +73,7 @@ const ProjectReportReact = () => {
 
               </div>
               <div className="section">
-                <span className="value">{project.municipio}</span>
+                <span className="value">{project.municipios}</span>
               </div>
             </div>
 
@@ -81,17 +82,17 @@ const ProjectReportReact = () => {
 
         <div className="main-container">
           <div className="project-name">
-            <span className="value-project-name">{project.project_name}</span>
+            <span className="value-project-name">{project.nombre_proyecto}</span>
           </div>
           <div className="project-container">
             <div className="text-container">
               <div className="section">
                 <span className="label-container">Descripción del Proyecto</span>
-                <span className="value-container">{project.descripcion}</span>
+                <span className="value-container">{project.descripcion_proyecto}</span>
               </div>
               <div className="section">
                 <span className="label-container">Situación Actual</span>
-                <span className="value-container">{project.situacion_sin_proyecto}</span>
+                <span className="value-container">{project.situacion_actual}</span>
               </div>
             </div>
             <div className="image-container">
