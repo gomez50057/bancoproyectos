@@ -3,11 +3,8 @@ import './Dashboard.css';
 import SvgIcon from './SvgIcon';
 import ClientProjects from '../Client/ClientProjects';
 import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
-
 import ClientInveProjectsAdmin from '../Responsible/PresupuestoInver/ClientInveProjects';
-
 import NavbarAntepro from '../../components/NavbarAntepro';
-// import EditProjectInvestAdmin from '../../components/EditProjectInvestAdmin';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
@@ -65,8 +62,6 @@ const Dashboard = () => {
         return <ClientInveProjects />;
       case 'ClientInveProjectsAdmin':
         return <ClientInveProjectsAdmin />;
-      // case 'ProjInvestmentAdmin':
-      //   return <EditProjectInvestAdmin />;
       default:
         return null;
     }
@@ -77,20 +72,6 @@ const Dashboard = () => {
       <div className="sidebar active">
         <div className="toggle active"></div>
         <ul className="list">
-          {/* <li
-            className="list-item active"
-            data-component="formulario"
-            onClick={() => handleMenuClick('formulario')}
-          >
-            <b></b>
-            <b></b>
-            <button className="list-item-link">
-              <div className="icon">
-                <SvgIcon name="formulario" />
-              </div>
-              <span className="title">Proyectos Registrados</span>
-            </button>
-          </li> */}
           <li
             className="list-item active"
             data-component="ProjInvestment"
@@ -120,26 +101,12 @@ const Dashboard = () => {
               <span className="title">Proyectos de inversión Admin</span>
             </button>
           </li>
-          {/* <li
-            className="list-item"
-            data-component="ProjInvestmentAdmin"
-            onClick={() => handleMenuClick('ProjInvestmentAdmin')}
-          >
-            <b></b>
-            <b></b>
-            <button className="list-item-link">
-              <div className="icon">
-                <SvgIcon name="acuerdo" />
-              </div>
-              <span className="title">Proyectos de inversión Admin</span>
-            </button>
-          </li>*/}
         </ul>
 
         <div className="sidebar-card">
-          {/* <div className="sidebarCardImg">
+          <div className="sidebarCardImg">
             <img src="/img/sidebarRecurso.png" alt="Icono de Cerrar Sesión" />
-          </div> */}
+          </div>
           <button onClick={handleLogoutClick}>
             <img src={`${imgBasePath}exit.png`} alt="Icono de Cerrar Sesión" className="icon" />
             Cerrar Sesión
