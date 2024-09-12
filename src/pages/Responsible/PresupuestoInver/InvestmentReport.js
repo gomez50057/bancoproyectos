@@ -126,7 +126,7 @@ const ProjectReportReact = () => {
             </div>
             <div className="image-container">
               <div className="logoSecretaria">
-                <img src={`${imgBasePath}Logotipo8.png`} alt="Logo de secretaria" />
+                <img src={`${imgBasePath}${project.dependencia}.png`} alt="Logo de secretaria" />
               </div>
               <div className="inversionImg">
                 <img src={`${imgBasePath}inver.png`} alt="Proyecto" />
