@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ClientPanel.css';
+import '../projectRegistration/ClientPanel.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ClientPanel.css';
+import '../projectRegistration/ClientPanel.css';
 
 const TooltipHelp = ({ id, text }) => {
   return (

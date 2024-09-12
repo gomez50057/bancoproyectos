@@ -4,7 +4,7 @@ import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Typography } from '@mui/material';
-import { getCsrfToken } from '../../utils';
+import { getCsrfToken } from '../../../utils';
 import ProjectDialog from './ProjectDialog';
 import './CRUDTable.css';
 import { useNavigate } from 'react-router-dom';

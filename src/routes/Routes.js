@@ -3,21 +3,18 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainContent from '../pages/FrontPage/MainContent';
 import Login from '../components/Login';
-import FormDependencia from '../pages/Client/FormDependencia';
+import FormDependencia from '../pages/Client/projectRegistration/FormDependencia';
 import TableComponent from '../pages/FrontPage/TableComponent';
-import CRUDTable from '../pages/Responsible/CRUDTable';
-import ClientPanel from '../pages/Client/ClientPanel';
-import ClientProjects from '../pages/Client/ClientProjects';
-import EditProject from '../pages/Client/EditProject';
+import CRUDTable from '../pages/Responsible/projectRegistration/CRUDTable';
+import ClientPanel from '../pages/Client/projectRegistration/ClientPanel';
+import ClientProjects from '../pages/Client/projectRegistration/ClientProjects';
+import EditProject from '../pages/Client/projectRegistration/EditProject';
 import EditProjectInvest from '../pages/Client/investmentBudget/EditProjectInvest';
 import PrivateRoute from './PrivateRoute';
 import Navbar from '../components/Navbar';
 import NavbarLogin from '../components/NavbarLogin';
-import ProjectReportReact from '../pages/Responsible/ProjectReportReact'; 
-
+import ProjectReportReact from '../pages/Responsible/projectRegistration/ProjectReportReact'; 
 import InvestmentReport from '../pages/Responsible/investmentBudget/InvestmentReport'; 
-
-
 import CedulaRegistroForm from '../pages/Client/investmentBudget/CedulaRegistroForm';
 import Dashboard from '../pages/Dashboard/Dashboard';
 

@@ -4,9 +4,9 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../../utils';
-import SectionTitle from './componentsForm/SectionTitle';
-import ProjectCreationModal from './componentsForm/ProjectCreationModal';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../../../utils';
+import SectionTitle from '../componentsForm/SectionTitle';
+import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 

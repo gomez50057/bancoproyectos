@@ -4,8 +4,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import { useParams, useNavigate } from 'react-router-dom';
-import CustomTooltip from './componentsForm/Tooltip';
-import SectionTitle from './componentsForm/SectionTitle';
+import CustomTooltip from '../componentsForm/Tooltip';
+import SectionTitle from '../componentsForm/SectionTitle';
 import {
   municipiosDeHidalgo,
   unidadesResponsables,
@@ -20,7 +20,7 @@ import {
   sectorOptions,
   tipoProyectoOptions,
   programasSectorialesOptions
-} from '../../utils';
+} from '../../../utils';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
