@@ -3,6 +3,9 @@ import './Dashboard.css';
 import SvgIcon from './SvgIcon';
 import ClientProjects from '../Client/ClientProjects';
 import ClientInveProjects from '../Client/PresupuestoInver/ClientInveProjects';
+
+import ClientInveProjectsAdmin from '../Responsible/PresupuestoInver/ClientInveProjects';
+
 import NavbarAntepro from '../../components/NavbarAntepro';
 // import EditProjectInvestAdmin from '../../components/EditProjectInvestAdmin';
 
@@ -60,6 +63,8 @@ const Dashboard = () => {
         return <ClientProjects />;
       case 'ProjInvestment':
         return <ClientInveProjects />;
+      case 'ClientInveProjectsAdmin':
+        return <ClientInveProjectsAdmin />;
       // case 'ProjInvestmentAdmin':
       //   return <EditProjectInvestAdmin />;
       default:
@@ -98,6 +103,21 @@ const Dashboard = () => {
                 <SvgIcon name="acuerdo" />
               </div>
               <span className="title">Proyectos de inversión</span>
+            </button>
+          </li>
+
+          <li
+            className="list-item"
+            data-component="ClientInveProjectsAdmin"
+            onClick={() => handleMenuClick('ClientInveProjectsAdmin')}
+          >
+            <b></b>
+            <b></b>
+            <button className="list-item-link">
+              <div className="icon">
+                <SvgIcon name="acuerdo" />
+              </div>
+              <span className="title">Proyectos de inversión Admin</span>
             </button>
           </li>
           {/* <li

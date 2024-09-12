@@ -1,24 +1,33 @@
 // Archivo: src/pages/Responsible/ProjectReportReact.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './InvestmentReport.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pdf/";
 
 const ProjectReportReact = () => {
-  // Simulación de los datos del proyecto
-  const project = {
-    nombre_proyecto: 'Proyecto de Mejoramiento de Universidad',
-    inversion_presupuestada: "5,000,000",
-    cobertura: 'Regional',
-    municipios: '20.Pachuca, 30.Mineral de la Reforma',
-    regiones: '03.Pachuca, 05.Mineral de la Reforma',
+  const { projectId } = useParams();
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    numero_beneficiarios: "15,000",
-    descripcion_proyecto: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, placerat vehicula odio tellus habitasse gravida nisl, faucibus parturient mi ac arcu posuere. Dictumst pretium diam a venenatis ante mauris varius, montes ut platea ultrices ullamcorper consequat, dis hendrerit risus pulvinar nascetur velit. In hac vulputate erat fermentum mollis eget per etiam montes, lacinia dictum imperdiet ad porta turpis mauris nulla dapibus, duis platea porttitor hendrerit sed orci conubia penatibus. Turpis pretium tempor eleifend euismod fermentum dis habitant lobortis lacus odio, vivamus facilisis torquent mauris per ridiculus cursus est nascetur, pellentesque vehicula rutrum non vestibulum platea justo egestas cum. Posuere lobortis placerat aliquet bibendum maecenas mus tellus tempor iaculis convallis mi enim curae, ultrices malesuada platea suspendisse accumsan blandit dictumst nec auctor eleifend et massa. Posuere consequat curabitur at inceptos tempus nascetur accumsan maecenas, ullamcorper vestibulum.',
-    situacion_actual: 'Lorem ipsum dolor sit amet consectetur adipiscing elit, placerat vehicula odio tellus habitasse gravida nisl, faucibus parturient mi ac arcu posuere. Dictumst pretium diam a venenatis ante mauris varius, montes ut platea ultrices ullamcorper consequat, dis hendrerit risus pulvinar nascetur velit. In hac vulputate erat fermentum mollis eget per etiam montes, lacinia dictum imperdiet ad porta turpis mauris nulla dapibus, duis platea porttitor hendrerit sed orci conubia penatibus. Turpis pretium tempor eleifend euismod fermentum dis habitant lobortis lacus odio, vivamus facilisis torquent mauris per ridiculus cursus est nascetur, pellentesque vehicula rutrum non vestibulum platea justo egestas cum. Posuere lobortis placerat aliquet bibendum maecenas mus tellus tempor iaculis convallis mi enim curae, ultrices malesuada platea suspendisse accumsan blandit dictumst nec auctor eleifend et massa. Posuere consequat curabitur at inceptos tempus nascetur accumsan maecenas, ullamcorper vestibulum.',
-    prioridad: "01",
-    dependencia: "Secretaría de Medio Ambiente y Recursos Naturales"
-  };
+  // Efecto para obtener los datos del proyecto desde la API
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(`/cedulas/${projectId}/`);
+        setProject(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching project:', error);
+        setError('Error al cargar los datos del proyecto');
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [projectId]);
 
   const handlePrint = () => {
     alert(
@@ -29,6 +38,14 @@ const ProjectReportReact = () => {
     );
     window.print();
   };
+
+  if (loading) {
+    return <div>Cargando datos del proyecto...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="project-report">

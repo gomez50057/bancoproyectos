@@ -59,7 +59,7 @@ const AppRoutes = () => {
             <Route path="/project-report-react/:projectId" element={<ProjectReportReact />} />
 
 
-            <Route path="/reporte-inversion" element={<InvestmentReport />} />
+            <Route path="/reporte-inversion/:projectId" element={<InvestmentReport />} />
 
 
 
