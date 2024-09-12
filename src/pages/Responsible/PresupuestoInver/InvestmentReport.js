@@ -95,10 +95,14 @@ const ProjectReportReact = () => {
             <div className="beneficiarios-section">
               <div className="inline-section">
                 <p className="inline-label">Cobertura: <span className="inline-value">{project.cobertura}</span></p>
-
               </div>
               <div className="section">
-                <span className="value">{project.municipios}</span>
+                {project.cobertura === 'Regional' && (
+                  <span className="value">{project.regiones}</span>
+                )}
+                {project.cobertura === 'Municipal' && (
+                  <span className="value">{project.municipios}</span>
+                )}
               </div>
             </div>
 
