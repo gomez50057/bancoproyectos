@@ -3,11 +3,21 @@ import '../../../components/Dashboard.css';
 import SvgIcon from '../../../components/SvgIcon';
 import ClientInveProjectsAdmin from '../../Responsible/investmentBudget/ClientInveProjects';
 import NavbarAntepro from '../../../components/NavbarAntepro';
+import LogoutConfirmationModal from '../../../components/LogoutModal';
+
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const DashboardResponsible = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleCloseLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+  };
 
   const [activeComponent, setActiveComponent] = useState(
     localStorage.getItem('activeComponent') || 'ClientInveProjectsAdmin'
@@ -41,19 +51,6 @@ const DashboardResponsible = () => {
     const listItems = document.querySelectorAll('.list-item');
     listItems.forEach((li) => li.classList.remove('active'));
     document.querySelector(`[data-component=${componentName}]`).classList.add('active');
-  };
-
-  const handleLogoutClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleConfirmLogout = () => {
-    setIsModalOpen(false);
-    window.location.href = '/';
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   // Renderiza el componente activo basado en el estado
@@ -105,15 +102,11 @@ const DashboardResponsible = () => {
         </section>
       </div>
 
-      {/* Modal de confirmación */}
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Confirmar Cierre de Sesión</h2>
-            <button onClick={handleConfirmLogout}>Confirmar</button>
-            <button onClick={handleCloseModal}>Cancelar</button>
-          </div>
-        </div>
+      {isLogoutModalOpen && (
+        <LogoutConfirmationModal
+          isOpen={isLogoutModalOpen}
+          onClose={handleCloseLogoutModal}
+        />
       )}
     </div>
   );
