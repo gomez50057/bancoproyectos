@@ -12,7 +12,7 @@ const UserOptionsModal = ({ isOpen, onClose, anchorElement, username }) => {
   const { top, left, height } = anchorElement.getBoundingClientRect();
   const modalStyle = {
     position: 'absolute',
-    top: top + height + window.scrollY + 30,
+    top: top + height + (window.scrollY > 0 ? 100 : 30),
     left: left + window.scrollX - 200,
     zIndex: 1000,
   };
