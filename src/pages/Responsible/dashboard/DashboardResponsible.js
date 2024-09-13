@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './DashboardClient.css';
+import '../../../components/Dashboard.css';
 import SvgIcon from '../../../components/SvgIcon';
-import ClientInveProjects from '../investmentBudget/ClientInveProjects';
 import ClientInveProjectsAdmin from '../../Responsible/investmentBudget/ClientInveProjects';
 import NavbarAntepro from '../../../components/NavbarAntepro';
 
@@ -11,7 +10,7 @@ const DashboardResponsible = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [activeComponent, setActiveComponent] = useState(
-    localStorage.getItem('activeComponent') || 'ProjInvestment'
+    localStorage.getItem('activeComponent') || 'ClientInveProjectsAdmin'
   );
 
   useEffect(() => {
@@ -60,8 +59,6 @@ const DashboardResponsible = () => {
   // Renderiza el componente activo basado en el estado
   const renderContent = () => {
     switch (activeComponent) {
-      case 'ProjInvestment':
-        return <ClientInveProjects />;
       case 'ClientInveProjectsAdmin':
         return <ClientInveProjectsAdmin />;
       default:
@@ -92,7 +89,7 @@ const DashboardResponsible = () => {
 
         <div className="sidebar-card">
           <div className="sidebarCardImg">
-            <img src="/img/sidebarRecurso.png" alt="Icono de Cerrar Sesión" />
+            <img src={`${imgBasePath}sidebarRecurso.webp`} alt="sidebar Recurso" />
           </div>
           <button onClick={handleLogoutClick}>
             <img src={`${imgBasePath}exit.png`} alt="Icono de Cerrar Sesión" className="icon" />

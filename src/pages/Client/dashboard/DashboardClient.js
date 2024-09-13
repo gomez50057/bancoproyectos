@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './DashboardClient.css';
+import '../../../components/Dashboard.css';
 import SvgIcon from '../../../components/SvgIcon';
 import ClientProjects from '../projectRegistration/ClientProjects';
 import ClientInveProjects from '../investmentBudget/ClientInveProjects';
@@ -92,7 +92,7 @@ const Dashboard = () => {
 
         <div className="sidebar-card">
           <div className="sidebarCardImg">
-            <img src="/img/sidebarRecurso.png" alt="Icono de Cerrar Sesión" />
+            <img src={`${imgBasePath}sidebarRecurso.webp`} alt="sidebar Recurso" />
           </div>
           <button onClick={handleLogoutClick}>
             <img src={`${imgBasePath}exit.png`} alt="Icono de Cerrar Sesión" className="icon" />
