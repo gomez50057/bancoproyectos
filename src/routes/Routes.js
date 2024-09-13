@@ -18,6 +18,8 @@ import InvestmentReport from '../pages/Responsible/investmentBudget/InvestmentRe
 import CedulaRegistroForm from '../pages/Client/investmentBudget/CedulaRegistroForm';
 import DashboardClient from '../pages/Client/dashboard/DashboardClient';
 import DashboardResponsible from '../pages/Responsible/dashboard/DashboardResponsible';
+import FAQ from '../pages/FrontPage/faq/FAQ';
+
 
 
 const MainLayout = ({ children }) => (
@@ -55,10 +57,11 @@ const AppRoutes = () => {
       <Route path="/reporte-inversion/:projectId" element={<PrivateRoute allowedGroups={['responsable']}><InvestmentReport /></PrivateRoute>} />
       {/* <Route path="/panel-proyectos" element={<DashboardClient />} /> */}
       <Route path="/panel-proyectos" element={<PrivateRoute allowedGroups={['cliente']}><DashboardClient /></PrivateRoute>} />
-      
+
       {/* <Route path="/panel-responsable" element={<DashboardResponsible />} /> */}
       <Route path="/panel-responsable" element={<PrivateRoute allowedGroups={['responsable']}><DashboardResponsible /></PrivateRoute>} />
-      
+
+      <Route path="/preguntas-frecuentes" element={<FAQ />} />
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
