@@ -51,7 +51,7 @@ const NavbarAntepro = () => {
         </div>
 
         <div className="NavbarTablas_inicio">
-          <li><Link className="opc" to="/panel-usuario" >Panel de Control</Link></li>
+          <li><Link className="opc" to="/panel-usuario">Panel de Control</Link></li>
 
           <div className="Navbar_circulo" data-username={username} onClick={toggleModal}>
             <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
