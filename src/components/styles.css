@@ -85,6 +85,16 @@ p {
   position: static;
 }
 
+.NavbarTablas_inicio {
+  display: flex;
+  align-items: center;
+}
+
+.NavbarTablas .opc {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
 .navbar {
   padding: 10px 0;
 }
@@ -716,7 +726,7 @@ p {
   padding: 3vw;
 }
 
-.login_txt p{
+.login_txt p {
   margin: 20px 0;
 }
 
@@ -1072,7 +1082,8 @@ select {
   padding: 15px;
   border-radius: 10px;
   width: 100%;
-  margin-bottom: 20px; /* Separación entre las secciones */
+  margin-bottom: 20px;
+  /* Separación entre las secciones */
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -1117,13 +1128,16 @@ select {
   color: #555;
   cursor: pointer;
   position: relative;
-  padding-left: 35px; /* Espacio para el checkbox personalizado */
-  transition: color 0.3s ease-in-out; /* Suaviza el cambio de color del texto */
+  padding-left: 35px;
+  /* Espacio para el checkbox personalizado */
+  transition: color 0.3s ease-in-out;
+  /* Suaviza el cambio de color del texto */
 }
 
 .checkAplica label input {
   position: absolute;
-  opacity: 0; /* Ocultamos el checkbox por defecto */
+  opacity: 0;
+  /* Ocultamos el checkbox por defecto */
   cursor: pointer;
 }
 
@@ -1136,20 +1150,22 @@ select {
   height: 20px;
   background-color: #fff;
   border: 2px solid #ccc;
-  border-radius: 50%; /* Redondeado para un estilo moderno */
+  border-radius: 50%;
+  /* Redondeado para un estilo moderno */
   transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
   transform: translateY(-50%);
 }
 
 /* Estado cuando el checkbox está seleccionado */
-.checkAplica label input:checked + .custom-checkbox {
+.checkAplica label input:checked+.custom-checkbox {
   background-color: #691b32;
   border-color: #691b32;
 }
 
 /* Icono de verificación cuando está seleccionado */
-.checkAplica label input:checked + .custom-checkbox:after {
-  content: '✓'; /* Símbolo de verificación */
+.checkAplica label input:checked+.custom-checkbox:after {
+  content: '✓';
+  /* Símbolo de verificación */
   color: white;
   font-size: 1rem;
   position: absolute;
@@ -1214,12 +1230,13 @@ select {
 }
 
 .dropzone ul li:before {
-  content: '📄'; /* Icono de documento */
+  content: '📄';
+  /* Icono de documento */
   margin-right: 10px;
 }
 
 /* Estilo para los mensajes de error */
-.CargaDocumentacion  .error {
+.CargaDocumentacion .error {
   color: #ff4d4d;
   font-size: 0.8rem;
   margin-top: 5px;
@@ -1229,7 +1246,8 @@ select {
 /* Mejoras generales */
 .RENTABILIDAD {
   width: 100%;
-  max-width: 1000px; /* Ajusta según el diseño general */
+  max-width: 1000px;
+  /* Ajusta según el diseño general */
   margin: 0 auto;
 }
 
