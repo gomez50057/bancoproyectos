@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './DashboardClient.css';
 import SvgIcon from '../../../components/SvgIcon';
-import ClientProjects from '../projectRegistration/ClientProjects';
 import ClientInveProjects from '../investmentBudget/ClientInveProjects';
+import ClientInveProjectsAdmin from '../../Responsible/investmentBudget/ClientInveProjects';
 import NavbarAntepro from '../../../components/NavbarAntepro';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
-const Dashboard = () => {
+const DashboardResponsible = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [activeComponent, setActiveComponent] = useState(
@@ -60,10 +60,10 @@ const Dashboard = () => {
   // Renderiza el componente activo basado en el estado
   const renderContent = () => {
     switch (activeComponent) {
-      case 'formulario':
-        return <ClientProjects />;
       case 'ProjInvestment':
         return <ClientInveProjects />;
+      case 'ClientInveProjectsAdmin':
+        return <ClientInveProjectsAdmin />;
       default:
         return null;
     }
@@ -75,9 +75,9 @@ const Dashboard = () => {
         <div className="toggle active"></div>
         <ul className="list">
           <li
-            className={`list-item ${activeComponent === 'ProjInvestment' ? 'active' : ''}`}
-            data-component="ProjInvestment"
-            onClick={() => handleMenuClick('ProjInvestment')}
+            className={`list-item ${activeComponent === 'ClientInveProjectsAdmin' ? 'active' : ''}`}
+            data-component="ClientInveProjectsAdmin"
+            onClick={() => handleMenuClick('ClientInveProjectsAdmin')}
           >
             <b></b>
             <b></b>
@@ -85,7 +85,7 @@ const Dashboard = () => {
               <div className="icon">
                 <SvgIcon name="acuerdo" />
               </div>
-              <span className="title">Proyectos de inversión</span>
+              <span className="title">Proyectos de inversión Admin</span>
             </button>
           </li>
         </ul>
@@ -122,4 +122,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardResponsible;

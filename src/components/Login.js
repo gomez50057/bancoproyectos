@@ -29,10 +29,10 @@ const Login = () => {
 
                 switch (group) {
                     case 'responsable':
-                        navigate('/crud');
+                        navigate('/panel-responsable');
                         break;
                     case 'visualizador':
-                        navigate('/table');
+                        navigate('/panel-proyectos');
                         break;
                     case 'cliente':
                         navigate('/panel-usuario');
