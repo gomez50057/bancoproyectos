@@ -3,11 +3,13 @@ import './UserOptionsModal.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LogoutConfirmationModal from '../components/LogoutModal';
+import { useNavigate } from 'react-router-dom';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const UserOptionsModal = ({ isOpen, onClose, anchorElement, username }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   if (!isOpen || !anchorElement) return null; // Retorna si no hay modal abierto o no existe el elemento ancla
 
@@ -31,6 +33,10 @@ const UserOptionsModal = ({ isOpen, onClose, anchorElement, username }) => {
     setIsLogoutModalOpen(false);
   };
 
+  const handleFaqClick = () => {
+    navigate('/preguntas-frecuentes');
+  };
+
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
@@ -48,18 +54,18 @@ const UserOptionsModal = ({ isOpen, onClose, anchorElement, username }) => {
             </div>
           </div>
 
+          <div className="menu-item" onClick={handleFaqClick}>
+            <HelpOutlineIcon />
+            <span>Preguntas frecuentes</span>
+          </div>
+
           <div className="menu-item" onClick={() => alert('Ayuda Técnica')}>
             <HelpOutlineIcon />
             <span>Ayuda Técnica</span>
           </div>
 
-          <div className="menu-item" onClick={() => alert('Preguntas frecuentes')}>
-            <HelpOutlineIcon />
-            <span>Preguntas frecuentes</span>
-          </div>
-
-          <button 
-            className="logout-button" 
+          <button
+            className="logout-button"
             onClick={username ? handleLogoutClick : handleLoginRedirect}
           >
             <LogoutIcon />

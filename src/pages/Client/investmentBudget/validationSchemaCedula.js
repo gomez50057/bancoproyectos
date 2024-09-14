@@ -22,9 +22,10 @@ const validationSchemaCedula = Yup.object({
     .required('La fecha de registro es obligatoria'),
   ejercicio_fiscal: Yup.string()
     .required('El ejercicio fiscal es obligatorio'),
-  dependencia: Yup.string()
+  dependencia: Yup.string
     .required('La dependencia es obligatoria'),
-  organismo: Yup.string(),
+  organismo: Yup.string()
+    .required('La organismo es obligatoria'),
   unidad_responsable: Yup.string()
     .required('La unidad responsable es obligatoria'),
   unidad_presupuestal: Yup.string()
@@ -63,15 +64,30 @@ const validationSchemaCedula = Yup.object({
     .required('Los objetivos de desarrollo sostenible son obligatorios'),
   plan_estatal: Yup.string()
     .required('El plan estatal de desarrollo es obligatorio'),
-  programa_sectorial: Yup.string(),
+  objetivo_ped: Yup.string()
+    .required('El Objetivo del PED es obligatorio'),
+  estrategia_ped: Yup.string()
+    .required('La Estrategia del PED es obligatorio'),
+  linea_accion_ped: Yup.string()
+    .required('La Línea de Acción del PED es obligatorio'),
+  indicador_ped: Yup.string()
+    .required('El Indicador Estratégico del PED es obligatorio'),
+  programa_sectorial: Yup.string()
+    .required('El Programa Sectorial/Especial/Institucional es obligatorio'),
+  objetivo_programa: Yup.string()
+    .required('El Objetivo del Programa es obligatorio'),
   propuesta_campana: Yup.string()
     .required('Debes indicar si se relaciona con una propuesta de campaña'),
-  cual_propuesta: Yup.string(),
+  cual_propuesta: Yup.string()
+    .required('Debes indicar cual es la propuesta de campaña'),
+
   prioridad: Yup.number()
     .typeError('Debe ser un número')
     .positive('Debe ser un número positivo')
     .integer('Debe ser un número entero')
     .required('La prioridad es obligatoria'),
+  expediente_tecnico: Yup.string()
+    .required('Este campo es obligatorio'),
 });
 
 export default validationSchemaCedula;
