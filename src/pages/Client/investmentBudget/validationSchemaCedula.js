@@ -22,10 +22,10 @@ const validationSchemaCedula = Yup.object({
     .required('La fecha de registro es obligatoria'),
   ejercicio_fiscal: Yup.string()
     .required('El ejercicio fiscal es obligatorio'),
-  dependencia: Yup.string
+  dependencia: Yup.string()
     .required('La dependencia es obligatoria'),
   organismo: Yup.string()
-    .required('La organismo es obligatoria'),
+    .required('El organismo es obligatoria'),
   unidad_responsable: Yup.string()
     .required('La unidad responsable es obligatoria'),
   unidad_presupuestal: Yup.string()
