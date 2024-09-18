@@ -382,7 +382,7 @@ export const dependencias = [
 
 export const organismos = [
   'No Aplica',
-  'Centro de Justicia para Mujeres del Estado de Hidalgo', 'Ciudad de las Mujeres', 'Instituto Hidalguense de las Mujeres',
+  'Centro de Justicia para Mujeres del Estado de Hidalgo','Comisión Ejecutiva de Víctimas del Estado de Hidalgo ', 'Ciudad de las Mujeres', 'Instituto Hidalguense de las Mujeres',
   'Instituto Hidalguense para el Desarrollo Municipal', 'Instituto Catastral del Estado de Hidalgo',
   'Instituto para Devolver al Pueblo lo Robado', 'Centro Estatal de Maquinaria para el Desarrollo',
   'Comisión de Agua y Alcantarillado del Sistema Valle del Mezquital', 'Comisión de Agua y Alcantarillado de Sistemas Intermunicipales',
