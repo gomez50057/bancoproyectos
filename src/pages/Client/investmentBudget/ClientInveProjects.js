@@ -107,7 +107,7 @@ const ClientProjects = () => {
             return (
               <button 
                 className="crud-button" 
-                onClick={() => handleEditClick(projectId)} // Aquí navegas a la edición del proyecto
+                onClick={() => handleEditClick(projectId)} 
               >
                 Editar
               </button>
