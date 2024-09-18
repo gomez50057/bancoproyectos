@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
 import { categories, questions } from '../../../utils/faqData';
-import './FAQ.css'; 
+import './FAQ.css';
+// import Header from './Header';
 
 const FAQ = () => {
   const [activeCategory, setActiveCategory] = useState('ArchivosAdjuntos');
@@ -14,6 +15,7 @@ const FAQ = () => {
 
   return (
     <div className="faq">
+      {/* <Header></Header> */}
       <div className="faq-title">
         <h1>Preguntas Frecuentes</h1>
         <p>¿Cómo Empezar?</p>
