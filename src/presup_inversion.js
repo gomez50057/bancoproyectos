@@ -384,7 +384,7 @@ export const organismos = [
   'No Aplica',
   'Centro de Justicia para Mujeres del Estado de Hidalgo','Comisión Ejecutiva de Víctimas del Estado de Hidalgo ', 'Ciudad de las Mujeres', 'Instituto Hidalguense de las Mujeres',
   'Instituto Hidalguense para el Desarrollo Municipal', 'Instituto Catastral del Estado de Hidalgo',
-  'Instituto para Devolver al Pueblo lo Robado', 'Centro Estatal de Maquinaria para el Desarrollo',
+  'Instituto para Devolver al Pueblo lo Robado', 'Instituto de la Función Registral', 'Centro Estatal de Maquinaria para el Desarrollo',
   'Comisión de Agua y Alcantarillado del Sistema Valle del Mezquital', 'Comisión de Agua y Alcantarillado de Sistemas Intermunicipales',
   'Comisión Estatal del Agua y Alcantarillado', 'Comisión Estatal de Vivienda', 'Policía Industrial Bancaria del Estado de Hidalgo',
   'Consejo Estatal para la Cultura y las Artes de Hidalgo', 'Escuela de Música del Estado de Hidalgo',

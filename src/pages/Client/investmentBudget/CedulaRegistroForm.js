@@ -609,7 +609,14 @@ const CedulaRegistroForm = () => {
               {Object.keys(errors).length > 0 && touched && !isValid && (
                 <div className="error-message">
                   <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
-                  Por favor, revisa el formulario. Hay campos vacíos o incorrectos.
+                  <p>Por favor, revisa el formulario. Los siguientes campos tienen errores:</p>
+                  <ul>
+                    {Object.keys(errors).map((field) => (
+                      <li key={field} className="error-item">
+                        {field}: {errors[field]}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 

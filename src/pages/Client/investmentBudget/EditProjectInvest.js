@@ -56,7 +56,7 @@ const EditProjectInvest = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { projectId } = useParams();  // Valor obtenido desde la URL
   // const [localProjectId, setLocalProjectId] = useState(''); 
-  const [setLocalProjectId] = useState('');  // Estado para almacenar el ID del proyecto localmente
+  const [localProjectId, setLocalProjectId] = useState('');  // Estado para almacenar el ID del proyecto localmente
 
 
 
