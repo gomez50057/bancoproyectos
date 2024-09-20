@@ -1,0 +1,35 @@
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.total-proyectos {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.chart-section {
+  margin-bottom: 50px;
+}
+
+.chart-section h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.chart-section canvas {
+  max-width: 100%;
+  height: auto;
+}

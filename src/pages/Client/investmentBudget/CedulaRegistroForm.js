@@ -43,7 +43,7 @@ const refreshCsrfToken = async () => {
     const response = await axios.get('/api/csrf-token/'); // Asegúrate de que esta ruta coincide con tu backend
     const newCsrfToken = response.data.csrfToken;
     Cookies.set('csrftoken', newCsrfToken);
-    console.log('Token CSRF refrescado:', newCsrfToken);
+    // console.log('Token CSRF refrescado:', newCsrfToken);
   } catch (error) {
     console.error('Error al refrescar el token CSRF:', error);
   }

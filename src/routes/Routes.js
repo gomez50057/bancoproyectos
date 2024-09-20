@@ -20,6 +20,7 @@ import DashboardClient from '../pages/Client/dashboard/DashboardClient';
 import DashboardResponsible from '../pages/Responsible/dashboard/DashboardResponsible';
 import FAQ from '../pages/FrontPage/faq/FAQ';
 
+import DashboardInvestment from '../pages/visualizer/dashboard/DashboardInvestment';
 
 
 const MainLayout = ({ children }) => (
@@ -62,6 +63,10 @@ const AppRoutes = () => {
       <Route path="/panel-responsable" element={<PrivateRoute allowedGroups={['responsable']}><DashboardResponsible /></PrivateRoute>} />
 
       <Route path="/preguntas-frecuentes" element={<FAQ />} />
+
+
+      <Route path="/panel-admin" element={<DashboardInvestment />} />
+
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

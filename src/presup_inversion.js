@@ -2347,16 +2347,16 @@ export const programasSectorialesOptions = {
   },
   "Oficialía Mayor": {
     "Programa Especial de Desarrollo de Oficialía Mayor": [
-      "1. Implementar acciones de fortalecimiento para la atención y\n vinculación de los trabajadores del Poder Ejecutivo del Estado.",
+      "1. Implementar acciones de fortalecimiento para la atención y vinculación de los trabajadores del Poder Ejecutivo del Estado.",
       "2. Modernizar los procesos para la administración de Recursos Humanos del Poder Ejecutivo para la correcta gestión administrativa.",
       "3. Incrementar la cobertura de mantenimiento de Inmuebles del Poder Ejecutivo, que garanticen la seguridad del personal y aumenten la productividad.",
       "4. Regularizar eficaz y eficiente el Patrimonio Inmobiliario propiedad del Gobierno del Estado, para brindar un mejor servicio a las Dependencias del Poder Ejecutivo.",
       "5. Incrementar la cobertura de servidores públicos capacitados del Poder Ejecutivo, con los nuevos principios de actuación.",
       "6. Fortalecer el proceso de compra pública del Poder Ejecutivo, para generar certeza en el ámbito de la transparencia y asegurar al Estado las mejores condiciones en términos de precio, calidad, financiamiento y oportunidad en cada uno de sus respectivos procedimientos.",
       "7. Promover la administración homogénea de los archivos, con el fin de preservar, incrementar y difundir el patrimonio documnental del Estado de Hidalgo.",
-      "8. Contar con una Administración Pública Estatal eficiente. fluida y simplificada con base en los nuevos principios de actuación, para la unificación de los criterios de atención que\n merece la ciudadanía.",
+      "8. Contar con una Administración Pública Estatal eficiente. fluida y simplificada con base en los nuevos principios de actuación, para la unificación de los criterios de atención que merece la ciudadanía.",
       "9. Consolidar un Gobierno Digital con el máximo aprovechamiento de las tecnologías de la información y comunicación, para agilizar los trámites que ofertan las dependencias y transparentar el quehacer institucional y la calidad de los servicios gubernamentales.",
-      "10. Implementar mecanismos de planeación, programación,\n organización, coordinación, control y seguimiento para el logro\n de los objetivos de Oficialía Mayor."
+      "10. Implementar mecanismos de planeación, programación, organización, coordinación, control y seguimiento para el logro de los objetivos de Oficialía Mayor."
     ]
   },
   "Secretaría de Contraloría": {
@@ -2427,14 +2427,14 @@ export const programasSectorialesOptions = {
   },
   "Secretaría de Turismo": {
     "Programa Sectorial de Desarrollo de Turismo Sostenible": [
-      "1.- Fortalecer el desarrollo turístico sostenible a través de la armonización de los planes, programas, proyectos, obras y acciones con los tres órdenes de gobierno, sector social y privado para el cumplimiento de los acuerdos del Plan Estatal de Desarrollo 2022-2028.",
-      "2.- Impulsar el desarrollo turístico del estado a partir de las vocaciones turísticas regionales, para el fortalecimiento, la innovación y consolidación de productos turísticos sostenibles.",
-      "3.- Democratizar el desarrollo turístico sostenible a través del Consejo Consultivo para el Desarrollo Turístico Sustentable de Hidalgo, con la participación de los tres órdenes de gobierno, el sector social y privado.",
-      "4.- Desarrollar una oferta turística diversificada, innovadora y con enfoque sostenible que atienda a diferentes segmentos de mercado a partir de la riqueza natural, cultural e histórica del estado y sus comunidades.",
-      "5.- Fomentar la inversión local, nacional y extranjera en infraestructura, equipamiento e instalaciones orientada al mejoramiento de la oferta turística del estado.",
-      "6.- Posicionar el destino Hidalgo con estrategias de promoción y difusión que fortalezcan la comercialización de la oferta turística del estado.",
-      "7.- Generar alianzas estratégicas con los sectores público, social, productivo y académico, potencializando el desarrollo y posicionamiento turístico del estado de Hidalgo.",
-      "8.- Impulsar la competitividad y profesionalización del sector turístico, mediante mecanismos y acciones en materia de capacitación, certificación de los prestadores de servicios turísticos y fomento de la cultura turística que garantice una oferta turística de calidad para los visitantes."
+      "1. Fortalecer el desarrollo turístico sostenible a través de la armonización de los planes, programas, proyectos, obras y acciones con los tres órdenes de gobierno, sector social y privado para el cumplimiento de los acuerdos del Plan Estatal de Desarrollo 2022-2028.",
+      "2. Impulsar el desarrollo turístico del estado a partir de las vocaciones turísticas regionales, para el fortalecimiento, la innovación y consolidación de productos turísticos sostenibles.",
+      "3. Democratizar el desarrollo turístico sostenible a través del Consejo Consultivo para el Desarrollo Turístico Sustentable de Hidalgo, con la participación de los tres órdenes de gobierno, el sector social y privado.",
+      "4. Desarrollar una oferta turística diversificada, innovadora y con enfoque sostenible que atienda a diferentes segmentos de mercado a partir de la riqueza natural, cultural e histórica del estado y sus comunidades.",
+      "5. Fomentar la inversión local, nacional y extranjera en infraestructura, equipamiento e instalaciones orientada al mejoramiento de la oferta turística del estado.",
+      "6. Posicionar el destino Hidalgo con estrategias de promoción y difusión que fortalezcan la comercialización de la oferta turística del estado.",
+      "7. Generar alianzas estratégicas con los sectores público, social, productivo y académico, potencializando el desarrollo y posicionamiento turístico del estado de Hidalgo.",
+      "8. Impulsar la competitividad y profesionalización del sector turístico, mediante mecanismos y acciones en materia de capacitación, certificación de los prestadores de servicios turísticos y fomento de la cultura turística que garantice una oferta turística de calidad para los visitantes."
     ]
   },
   "Secretaría del Trabajo y Previsión Social": {
@@ -2503,15 +2503,15 @@ export const programasSectorialesOptions = {
   },
   "Secretaría de Seguridad Pública": {
     "Programa Sectorial de Desarrollo de Seguridad Pública": [
-      "1.- Mejorar las condiciones de seguridad en las regiones de mayor prevalencia delictiva de la entidad para construir la paz.",
-      "2.- Instrumentar mecanismos para promover una cultura de prevención, auto protección, legalidad y la denuncia para la población en el Estado.",
-      "3.- Propiciar espacios públicos seguros con la participación ciudadana en los programas y acciones institucionales que permitan crear entornos sanos y pacíficos para la población hidalguense.",
+      "1. Mejorar las condiciones de seguridad en las regiones de mayor prevalencia delictiva de la entidad para construir la paz.",
+      "2. Instrumentar mecanismos para promover una cultura de prevención, auto protección, legalidad y la denuncia para la población en el Estado.",
+      "3. Propiciar espacios públicos seguros con la participación ciudadana en los programas y acciones institucionales que permitan crear entornos sanos y pacíficos para la población hidalguense.",
       "4. Fortalecer las capacidades institucionales para la formación, profesionalización y capacitación de las y los integrantes de las Instituciones Policiales y Sistema Penitenciario.",
       "5. Aplicar y mantener la vigencia de las evaluaciones de control de confianza a los aspirantes e  integrantes de las Instituciones de Seguridad Pública del Estado.",
       "6. Fortalecer en el Estado, el sistema penitenciario para garantizar una efectiva reinserción social de las personas privadas de su libertad.",
-      "7- Fortalecer los esfuerzos institucionales con los tres órdenes de gobierno mediante acciones que promuevan la prevención y la reducción de la incidencia delictiva, para mejorar las condiciones de seguridad y paz social en la entidad.",
-      "8.- Incrementar la fuerza operativa y tecnológica por medio del análisis e inteligencia en la redistribución y concentración de estratégica y acciones en los lugares de alta incidencia delictiva.  Para conocer las necesidades locales y el nivel de incidencia delictiva de cada zona.",
-      "9.- Consolidar a la policía violeta, como el cuerpo policial de intervención especializada integrada por hombres y mujeres que actúe oportuna y eficazmente en la detección, identificación, intervención, atención, protección y prevención de los casos de violencia contra las mujeres, niños, niñas y adolescentes."
+      "7. Fortalecer los esfuerzos institucionales con los tres órdenes de gobierno mediante acciones que promuevan la prevención y la reducción de la incidencia delictiva, para mejorar las condiciones de seguridad y paz social en la entidad.",
+      "8. Incrementar la fuerza operativa y tecnológica por medio del análisis e inteligencia en la redistribución y concentración de estratégica y acciones en los lugares de alta incidencia delictiva.  Para conocer las necesidades locales y el nivel de incidencia delictiva de cada zona.",
+      "9. Consolidar a la policía violeta, como el cuerpo policial de intervención especializada integrada por hombres y mujeres que actúe oportuna y eficazmente en la detección, identificación, intervención, atención, protección y prevención de los casos de violencia contra las mujeres, niños, niñas y adolescentes."
     ]
   },
   "Secretaría de Hacienda": {
@@ -2762,58 +2762,36 @@ export const programasSectorialesOptions = {
   },
   "Universidad Tecnológica de la Zona Metropolitana del Valle de México": {
     "Programa Institucional de Desarrollo de la  Universidad Tecnológica de la  Zona Metropolitana Del Valle De México 2023-2028": [
-      "1.- Contribuir a que el estudiantado realice y concluya su formación educativa de manera satisfactoria e integral.",
-      "2.- Fortalecer la vinculación con el sector público, privado y social a través de los distintos servicios educativos de la institución, en favor de su bienestar.",
-      "3.- Fomentar la participación de docentes y estudiantes en proyectos de investigación científica y tecnológica con otras instituciones educativas y/o sector privado.",
-      "4.- Incrementar la calidad educativa que ofrece la Universidad beneficiando a la comunidad estudiantil, a través de la profesionalización docente.",
-      "5.- Mejorar los servicios administrativos y generales de la Universidad, asegurando la transparencia y rendición de cuentas."
+      "1. Contribuir a que el estudiantado realice y concluya su formación educativa de manera satisfactoria e integral.",
+      "2. Fortalecer la vinculación con el sector público, privado y social a través de los distintos servicios educativos de la institución, en favor de su bienestar.",
+      "3. Fomentar la participación de docentes y estudiantes en proyectos de investigación científica y tecnológica con otras instituciones educativas y/o sector privado.",
+      "4. Incrementar la calidad educativa que ofrece la Universidad beneficiando a la comunidad estudiantil, a través de la profesionalización docente.",
+      "5. Mejorar los servicios administrativos y generales de la Universidad, asegurando la transparencia y rendición de cuentas."
     ]
   },
   "Instituto Tecnológico Superior de Huichapan": {
     "Programa Institucional de Desarrollo del Instituto Tecnológico Superior de Huichapan 2023-2028": [
-      "1. Impulsar la calidad de la educación superior permitiendo el desarrollo de",
-      "las competencias necesarias de la población estudiantil, potenciando su",
-      "inserción laboral.",
-      "2. Reducir el rezago educativo, así como el abandono escolar en educación",
-      "superior, incrementando efectivamente el egreso de las y los estudiantes.",
-      "3. Potenciar los ambientes de aprendizaje para la comunidad estudiantil de",
-      "educación superior, mediante esquemas en favor de la seguridad e",
-      "igualdad, así como de una vida libre de violencia.",
-      "4. Brindar esquemas de formación, capacitación y actualización profesional al",
-      "personal docente, mejorando sus acciones pedagógicas, beneficiando con",
-      "ello a la comunidad estudiantil.",
-      "5. Fortalecer la innovación y el desarrollo tecnológico, a través de",
-      "proyectos de investigación científica, que contribuyan al desarrollo",
-      "de competencias entre la población estudiantil."
+      "1. Impulsar la calidad de la educación superior permitiendo el desarrollo de las competencias necesarias de la población estudiantil, potenciando su inserción laboral.",
+      "2. Reducir el rezago educativo, así como el abandono escolar en educación superior, incrementando efectivamente el egreso de las y los estudiantes.",
+      "3. Potenciar los ambientes de aprendizaje para la comunidad estudiantil de educación superior, mediante esquemas en favor de la seguridad e igualdad, así como de una vida libre de violencia.",
+      "4. Brindar esquemas de formación, capacitación y actualización profesional al personal docente, mejorando sus acciones pedagógicas, beneficiando con ello a la comunidad estudiantil.",
+      "5. Fortalecer la innovación y el desarrollo tecnológico, a través de proyectos de investigación científica, que contribuyan al desarrollo de competencias entre la población estudiantil."
     ]
   },
   "Instituto Tecnológico Superior del Occidente del Estado de Hidalgo": {
     "Programa Institucional de Desarrollo del Instituto Tecnológico Superior del Occidente del Estado de Hidalgo 2023-2028": [
-      "1. Fortalecer la calidad de la oferta educativa en el nivel superior,",
-      "desarrollando las competencias, habilidades y conocimientos del",
-      "alumnado, en favor del bienestar social hidalguense.",
-      "2. Reducir el rezago educativo y el abandono escolar en el nivel superior",
-      "con igualdad de oportunidades, equidad y siempre en favor de la",
-      "justicia social al pueblo de Hidalgo.",
-      "3. Desarrollar ambientes de aprendizaje seguros e igualitarios, con una",
-      "formación integral entre las y los alumnos, del Occidente del Estado",
-      "de Hidalgo, asegurando el desarrollo de sus potencialidades.",
-      "4. Impulsar la capacitación y desarrollo profesional y pedagógico del",
-      "personal docente en educación superior de manera continua, en",
-      "beneficio de la población estudiantil.",
-      "5. Fomentar la investigación científica, el desarrollo tecnológico y la",
-      "innovación en beneficio del Estado, para el bienestar de la sociedad",
-      "hidalguense."
+      "1. Fortalecer la calidad de la oferta educativa en el nivel superior desarrollando las competencias, habilidades y conocimientos del alumnado, en favor del bienestar social hidalguense.",
+      "2. Reducir el rezago educativo y el abandono escolar en el nivel superior con igualdad de oportunidades, equidad y siempre en favor de la justicia social al pueblo de Hidalgo.",
+      "3. Desarrollar ambientes de aprendizaje seguros e igualitarios, con una formación integral entre las y los alumnos, del Occidente del Estado de Hidalgo, asegurando el desarrollo de sus potencialidades.",
+      "4. Impulsar la capacitación y desarrollo profesional y pedagógico del personal docente en educación superior de manera continua, en beneficio de la población estudiantil.",
+      "5. Fomentar la investigación científica, el desarrollo tecnológico y la innovación en beneficio del Estado, para el bienestar de la sociedad hidalguense."
     ]
   },
   "Instituto Tecnológico Superior del Oriente del Estado de Hidalgo": {
     "Programa Institucional de Desarrollo del Instituto Tecnológico Superior del Oriente del Estado de Hidalgo 2023-2028": [
-      "1. Fortalecer la calidad de la oferta educativa de la educación superior, permitiendo su inserción laboral gracias al desarrollo de las competencias y habilidades de la",
-      "población estudiantil.",
+      "1. Fortalecer la calidad de la oferta educativa de la educación superior, permitiendo su inserción laboral gracias al desarrollo de las competencias y habilidades de la población estudiantil.",
       "2. Reducir el abandono escolar y el rezago educativo en educación superior, a través de la igualdad de oportunidades.",
-      "3. Impulsar la formación de ambientes de aprendizaje seguros e igualitarios, en",
-      "educación superior, contribuyendo al desarrollo social y emocional de la población",
-      "estudiantil, así como el de sus máximas potencialidades.",
+      "3. Impulsar la formación de ambientes de aprendizaje seguros e igualitarios, en educación superior, contribuyendo al desarrollo social y emocional de la población estudiantil, así como el de sus máximas potencialidades.",
       "4. Promover la formación, capacitación y actualización del personal docente, mejorando sus acciones pedagógicas para beneficiar a la población estudiantil.",
       "5. Desarrollar la investigación científica, el desarrollo tecnológico y la innovación para mejorar el bienestar de la sociedad en general habitante en la región."
     ]
@@ -2866,18 +2844,11 @@ export const programasSectorialesOptions = {
   },
   "El Colegio del Estado de Hidalgo": {
     "Programa Institucional de Desarrollo del Colegio del Estado de Hidalgo 2023-2028": [
-      "1. Incrementar la cobertura en educación superior con nuevos programas",
-      "académicos de posgrados, en áreas de ciencias sociales y humanidades.",
-      "2. Disminuir el nivel de abandono educativo en los posgrados impartidos",
-      "por El CEH implementando estrategias de seguimiento y acompañamiento.",
-      "3. Promover ambientes seguros e igualitarios con perspectiva de género",
-      "en la comunidad de El CEH a través de diversas estrategias de difusión y",
-      "divulgación.",
-      "4. Aumentar la participación del Núcleo Académico Básico de El CEH en",
-      "Redes de Generación de Conocimiento Interinstitucionales.",
-      "5. Promover la aplicación del conocimiento, con la producción académica",
-      "en materia de medio ambiente, gestión y planeación territorial, urbana y",
-      "ecológica a nivel regional y local."
+      "1. Incrementar la cobertura en educación superior con nuevos programas académicos de posgrados, en áreas de ciencias sociales y humanidades.",
+      "2. Disminuir el nivel de abandono educativo en los posgrados impartidos por El CEH implementando estrategias de seguimiento y acompañamiento.",
+      "3. Promover ambientes seguros e igualitarios con perspectiva de género en la comunidad de El CEH a través de diversas estrategias de difusión y divulgación.",
+      "4. Aumentar la participación del Núcleo Académico Básico de El CEH en Redes de Generación de Conocimiento Interinstitucionales.",
+      "5. Promover la aplicación del conocimiento, con la producción académica en materia de medio ambiente, gestión y planeación territorial, urbana y ecológica a nivel regional y local."
     ]
   },
   "Colegio de Educación Profesional Técnica del Estado de Hidalgo": {
@@ -2902,9 +2873,9 @@ export const programasSectorialesOptions = {
   "Instituto Hidalguense del Deporte": {
     "Programa Institucional de Desarrollo del Instituto Hidalguense del Deporte 2023-2028": [
       "1. Impulsar la práctica de actividades físicas, recreativas y de deporte social en la población hidalguense de manera incluyente, favoreciendo su  adherencia a una mejor calidad de vida.",
-      "2.- Fomentar en la niñez la práctica de actividades físicas, deportivas y recreativas, que generen hábitos de vida saludable contribuyendo a la disminución del sedentarismo en educación básica.",
-      "3.- Impulsar el desarrollo de talentos con y sin discapacidad para la conformación de una plataforma de deportistas que nutran a las selecciones estatales y nacionales en el deporte competitivo y de alto rendimiento.",
-      "4.- Generar un programa general de obra deportiva para construcción, rehabilitación, equipamiento, acondicionamiento y mantenimiento para el fortalecimiento de la práctica deportiva."
+      "2. Fomentar en la niñez la práctica de actividades físicas, deportivas y recreativas, que generen hábitos de vida saludable contribuyendo a la disminución del sedentarismo en educación básica.",
+      "3. Impulsar el desarrollo de talentos con y sin discapacidad para la conformación de una plataforma de deportistas que nutran a las selecciones estatales y nacionales en el deporte competitivo y de alto rendimiento.",
+      "4. Generar un programa general de obra deportiva para construcción, rehabilitación, equipamiento, acondicionamiento y mantenimiento para el fortalecimiento de la práctica deportiva."
     ]
   },
   "Universidad Tecnológica Minera de Zimapán": {
@@ -2938,8 +2909,7 @@ export const programasSectorialesOptions = {
   },
   "Instituto Hidalguense de la Infraestructura Física Educativa": {
     "Programa Institucional de Desarrollo del Instituto Hidalguense de la Infraestructura Física Educativa 2023-2028": [
-      "1. Incrementar la construcción, rehabilitación, mantenimiento y equipamiento de",
-      "los planteles educativos de educación básica, mejorando las condiciones de desarrollo de las y los niños hidalquenses.",
+      "1. Incrementar la construcción, rehabilitación, mantenimiento y equipamiento de los planteles educativos de educación básica, mejorando las condiciones de desarrollo de las y los niños hidalquenses.",
       "2. Fortalecer la infraestructura física educativa en materia de  construcción, rehabilitación, mantenimiento y equipamiento de  acuerdo a la asignación de recursos y necesidades del nivel de educación media superior.",
       "3. Impulsar la infraestructura física educativa mediante la construcción, rehabilitación, mantenimiento y equipamiento de acuerdo a la disponibilidad de los recursos y necesidades del nivel de educación superior.",
       "4. Gestionar la conectividad de todos los planteles públicos, incrementando el número de escuelas con acceso a internet, en beneficio de las y los estudiantes hidalguenses."
@@ -2994,7 +2964,7 @@ export const programasSectorialesOptions = {
   },
   "Instituto Catastral del Estado de Hidalgo": {
     "Programa Institucional de Desarrollo del Instituto Catastral del Estado de Hidalgo 2023-2028": [
-      "1.-Fomentar el uso del Sistema Integral de Gestión Catastral Multifinalitario del Estado de Hidalgo (SIGCMEH) en los municipios, dependencias y organismos públicos descentralizados, para la integración y actualización de la información catastral.",
+      "1. Fomentar el uso del Sistema Integral de Gestión Catastral Multifinalitario del Estado de Hidalgo (SIGCMEH) en los municipios, dependencias y organismos públicos descentralizados, para la integración y actualización de la información catastral.",
       "2. Impulsar la capacitación y profesionalización de las y los servidores públicos de las áreas catastrales municipales, mejorando su desempeño, eficiencia y eficacia."
     ]
   },
@@ -3016,8 +2986,8 @@ export const programasSectorialesOptions = {
   },
   "Operadora de Eventos del Estado de Hidalgo": {
     "Programa Institucional De Desarrollo de la  Operadora de Eventos del Estado de Hidalgo 2023-2028": [
-      "1.- Gestionar la planeación y operación de eventos artísticos, culturales y sociales en los recintos propiedad del Estado, satisfaciendo a organizadores y asistentes, contribuyendo al posicionamiento del destino Hidalgo.",
-      "2.- Promover los eventos artísticos, culturales y sociales a realizarse en los recintos a cargo del Estado, contribuyendo a la captación de visitantes al destino Hidalgo."
+      "1. Gestionar la planeación y operación de eventos artísticos, culturales y sociales en los recintos propiedad del Estado, satisfaciendo a organizadores y asistentes, contribuyendo al posicionamiento del destino Hidalgo.",
+      "2. Promover los eventos artísticos, culturales y sociales a realizarse en los recintos a cargo del Estado, contribuyendo a la captación de visitantes al destino Hidalgo."
     ]
   },
   "Servicios de Salud de Hidalgo": {
@@ -3041,13 +3011,9 @@ export const programasSectorialesOptions = {
   },
   "Comisión de Agua y Alcantarillado de Sistemas Intermunicipales": {
     "Programa Institucional de Desarrollo de la Comisión de Agua y Alcantarillado de Sistemas Intermunicipales 2023-2028": [
-      "1. Mejorar la eficiencia del organismo, con el fin de incrementar los ingresos",
-      "para una mayor dotación de los servicios en favor del bienestar de la",
-      "población.",
-      "2. Garantizar el funcionamiento de la infraestructura de conducción y",
-      "tratamiento de aguas residuales.",
-      "3. Otorgar el servicio continuo de agua potable, garantizando el abasto a la",
-      "población para el consumo diario por toma."
+      "1. Mejorar la eficiencia del organismo, con el fin de incrementar los ingresos para una mayor dotación de los servicios en favor del bienestar de la población.",
+      "2. Garantizar el funcionamiento de la infraestructura de conducción y tratamiento de aguas residuales.",
+      "3. Otorgar el servicio continuo de agua potable, garantizando el abasto a la población para el consumo diario por toma."
     ]
   },
   "Comisión de Agua y Alcantarillado del Sistema Valle del Mezquital": {
@@ -3059,31 +3025,16 @@ export const programasSectorialesOptions = {
   },
   "Centro Estatal de Maquinaria para el Desarrollo": {
     "Programa Institucional de Desarrollo del Centro Estatal de Maquinaria para el Desarrollo 2023-2028": [
-      "1. Contribuir al desarrollo o rehabilitación de infraestructura en",
-      "caminos, a través de movilizar maquinaria pesada con la finalidad de dar",
-      "accesibilidad a la población que contribuya a su desarrollo social y",
-      "económico.",
-      "2. Generar infraestructura que permita el almacenamiento de agua y",
-      "preparación de la tierra para lograr la mayor productividad y",
-      "competitividad en el campo, mediante el uso de maquinaria pesada en",
-      "apoyo a los productores agrícolas.",
-      "3. Atender a la población afectada por desastres naturales geológicos,",
-      "hidrometeorológicos o antrópicos a través del retiro de derrumbes en las",
-      "vías de accesibilidad y comunicación; así como la implementación de",
-      "acciones de prevención.",
-      "4. Contribuir al desarrollo rural y urbano sostenible con el manejo de",
-      "maquinaria que permita generar infraestructura para los espacios",
-      "públicos y el manejo adecuado de desechos sólidos."
+      "1. Contribuir al desarrollo o rehabilitación de infraestructura en caminos, a través de movilizar maquinaria pesada con la finalidad de dar accesibilidad a la población que contribuya a su desarrollo social y económico.",
+      "2. Generar infraestructura que permita el almacenamiento de agua y preparación de la tierra para lograr la mayor productividad y competitividad en el campo, mediante el uso de maquinaria pesada en apoyo a los productores agrícolas.",
+      "3. Atender a la población afectada por desastres naturales geológicos hidrometeorológicos o antrópicos a través del retiro de derrumbes en las vías de accesibilidad y comunicación; así como la implementación de acciones de prevención.",
+      "4. Contribuir al desarrollo rural y urbano sostenible con el manejo de maquinaria que permita generar infraestructura para los espacios públicos y el manejo adecuado de desechos sólidos."
     ]
   },
   "Instituto Hidalguense de Competitividad Empresarial": {
     "Programa Institucional de Desarrollo del Instituto Hidalguense de Competitividad Empresarial 2023-2028": [
-      "1. Promover la competitividad de las micro, pequeñas y medianas",
-      "empresas de los sectores tradicionales y estratégicos, a través de",
-      "recursos clave.",
-      "2. Impulsar el acceso a financiamientos y apoyos económicos para las",
-      "MiPyMes y los emprendedores conforme a sus necesidades,",
-      "fomentando su competitividad."
+      "1. Promover la competitividad de las micro, pequeñas y medianas empresas de los sectores tradicionales y estratégicos, a través de recursos clave.",
+      "2. Impulsar el acceso a financiamientos y apoyos económicos para las PyMes y los emprendedores conforme a sus necesidades fomentando su competitividad."
     ]
   },
   "Corporación de Fomento de Infraestructura Industrial": {
@@ -3095,30 +3046,20 @@ export const programasSectorialesOptions = {
   },
   "Agencia de Desarrollo Valle de Plata": {
     "Programa Institucional de Desarrollo de la Agencia de Desarrollo Valle de Plata 2023-2028": [
-      "1. Fortalecer la infraestructura, equipamiento y servicios, para el desarrollo",
-      "de proyectos estratégicos y la consolidación de las zonas industriales,",
-      "incentivando la inversión pública y privada, que contribuyan al desarrollo",
-      "económico de la Zona del Valle de Plata."
+      "1. Fortalecer la infraestructura, equipamiento y servicios, para el desarrollo de proyectos estratégicos y la consolidación de las zonas industriales, incentivando la inversión pública y privada, que contribuyan al desarrollo económico de la Zona del Valle de Plata."
     ]
   },
   "Agencia Estatal de Energía de Hidalgo": {
     "Programa Institucional de Desarrollo de la Agencia Estatal de Energía de Hidalgo 2023-2028": [
-      "1. Incrementar la oferta energética en el estado de Hidalgo con un",
-      "enfoque de sostenibilidad, haciendo énfasis en las fuentes de energía",
-      "limpia y renovable.",
-      "2. Ampliar la cobertura por infraestructura de telecomunicaciones en",
-      "las localidades del estado de Hidalgo para el acceso y mejora en la",
-      "calidad del servicio de Internet.",
-      "3. Fortalecer las capacidades de la población relacionada con el sector",
-      "energético en el Estado de Hidalgo, mediante una visión compartida",
-      "que coadyuve al ahorro y uso eficiente de la energía, así como de sus",
-      "fuentes renovables."
+      "1. Incrementar la oferta energética en el estado de Hidalgo con un enfoque de sostenibilidad, haciendo énfasis en las fuentes de energía limpia y renovable.",
+      "2. Ampliar la cobertura por infraestructura de telecomunicaciones en las localidades del estado de Hidalgo para el acceso y mejora en la calidad del servicio de Internet.",
+      "3. Fortalecer las capacidades de la población relacionada con el sector energético en el Estado de Hidalgo, mediante una visión compartida que coadyuve al ahorro y uso eficiente de la energía, así como de sus fuentes renovables."
     ]
   },
   "Policía Industrial Bancaria del Estado de Hidalgo": {
     "Programa Institucional de Desarrollo de la Policía Industrial Bancaria del Estado de Hidalgo 2023 - 2028": [
-      "1.- Incrementar la cobertura de los servicios de seguridad intramuros otorgados en sus diferentes modalidades, que son protección, custodia, vigilancia y traslado.",
-      "2.- Incrementar la satisfacción de los servicios de seguridad y vigilancia intramuros, otorgados a las y los distintos usuarios de los mismos."
+      "1. Incrementar la cobertura de los servicios de seguridad intramuros otorgados en sus diferentes modalidades, que son protección, custodia, vigilancia y traslado.",
+      "2. Incrementar la satisfacción de los servicios de seguridad y vigilancia intramuros, otorgados a las y los distintos usuarios de los mismos."
     ]
   },
   "Instituto de Capacitación para el Trabajo del Estado de Hidalgo": {
@@ -3155,12 +3096,8 @@ export const programasSectorialesOptions = {
   },
   "Escuela de Música del Estado de Hidalgo": {
     "Programa Institucional de Desarrollo de la Escuela de Música del Estado de Hidalgo 2023-2028": [
-      "1. Incrementar la eficiencia terminal del sistema educativo en los niveles",
-      "ofertados, para las y los estudiantes de la Escuela de Música del Estado de",
-      "Hidalgo.",
-      "2. Reforzar el conocimiento artístico, cultural y tecnológico mediante las",
-      "actividades extracurriculares para el beneficio de las y los estudiantes de",
-      "la Escuela de Música del Estado de Hidalgo."
+      "1. Incrementar la eficiencia terminal del sistema educativo en los nivelesofertados, para las y los estudiantes de la Escuela de Música del Estado deHidalgo.",
+      "2. Reforzar el conocimiento artístico, cultural y tecnológico mediante lasactividades extracurriculares para el beneficio de las y los estudiantes dela Escuela de Música del Estado de Hidalgo."
     ]
   },
   "Consejo Estatal para la Cultura y las Artes de Hidalgo": {
@@ -3172,34 +3109,19 @@ export const programasSectorialesOptions = {
   },
   "Comisión Estatal de Biodiversidad de Hidalgo": {
     "Programa Institucional de Desarrollo de la Comisión Estatal de Biodiversidad de Hidalgo 2023-2028": [
-      "1. Promover el avance y actualización de las acciones contenidas en la política",
-      "pública enfocadas para el conocimiento, la conservación y el uso sustentable de la",
-      "Biodiversidad.",
-      "2. Impulsar proyectos de conservación de especies de fauna y flora en",
-      "ambientes urbanos y periurbanos del estado de Hidalgo.",
-      "3. Impulsar la participación de las infancias y juventudes en temas de cultura de",
-      "la conservación de la biodiversidad en la entidad."
+      "1. Promover el avance y actualización de las acciones contenidas en la política pública enfocadas para el conocimiento, la conservación y el uso sustentable de la Biodiversidad.",
+      "2. Impulsar proyectos de conservación de especies de fauna y flora en ambientes urbanos y periurbanos del estado de Hidalgo.",
+      "3. Impulsar la participación de las infancias y juventudes en temas de cultura de la conservación de la biodiversidad en la entidad."
     ]
   },
   "Comisión Estatal de Agua y Alcantarillado": {
     "Programa Institucional de Desarrollo de la Comisión Estatal de Agua y Alcantarillado 2023-2028": [
-      "1. Incrementar la cobertura de agua potable en el ámbito urbano y rural,",
-      "para el beneficio de todas y todos.",
-      "2. Incrementar la cobertura de alcantarillado sanitario en el ámbito urbano",
-      "y rural, beneficiando a toda la población hidalguense.",
-      "3. Incrementar el nivel de gestión para la operación de las Plantas de",
-      "Tratamiento de Aguas Residuales, para el mejoramiento de calidad de",
-      "vida de la población hidalguense.",
-      "4. Incrementar el nivel de gestión de la Cultura del Agua en el Estado de",
-      "Hidalgo, para el mejoramiento de calidad de vida de la población",
-      "hidalguense.",
-      "5. Incrementar el nivel de Gestión de la Calidad del Agua en el Estado de",
-      "Hidalgo, para el mejoramiento de calidad de vida de la población",
-      "hidalguense.",
-      "6. Fortalecer a los municipios con el diseño, implementación y monitoreo",
-      "de un Programa Anual Hídrico, para consolidar administrativa y",
-      "operativamente a Presidencias Municipales y Organismos Operadores",
-      "del Agua."
+      "1. Incrementar la cobertura de agua potable en el ámbito urbano y rural para el beneficio de todas y todos.",
+      "2. Incrementar la cobertura de alcantarillado sanitario en el ámbito urbano y rural, beneficiando a toda la población hidalguense.",
+      "3. Incrementar el nivel de gestión para la operación de las Plantas de Tratamiento de Aguas Residuales, para el mejoramiento de calidad de vida de la población hidalguense.",
+      "4. Incrementar el nivel de gestión de la Cultura del Agua en el Estado de Hidalgo, para el mejoramiento de calidad de vida de la población hidalguense.",
+      "5. Incrementar el nivel de Gestión de la Calidad del Agua en el Estado de Hidalgo, para el mejoramiento de calidad de vida de la población hidalguense.",
+      "6. Fortalecer a los municipios con el diseño, implementación y monitoreo de un Programa Anual Hídrico, para consolidar administrativa y operativamente a Presidencias Municipales y Organismos Operadores del Agua."
     ]
   }
 
