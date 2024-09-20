@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Typography } from '@mui/material';
+import { CssBaseline, Typography, IconButton, Tooltip } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import * as XLSX from 'xlsx'; // Importamos XLSX para trabajar con archivos Excel
+import { saveAs } from 'file-saver'; // Importamos file-saver para guardar el archivo
+import DownloadIcon from '@mui/icons-material/Download'; // Importamos el ícono de descarga
 
 const ClientProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -32,6 +35,20 @@ const ClientProjects = () => {
 
   const handleFichaClick = (projectId) => {
     navigate(`/reporte-inversion/${projectId}`);
+  };
+
+  const exportToXLSX = () => {
+    const ws = XLSX.utils.json_to_sheet(projects.map(project => ({
+      "ID del Proyecto": project[0],
+      "Fecha de Creación": project[1],
+      "Nombre del Proyecto": project[2],
+    })));
+    
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Proyectos de Inversión");
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(data, 'proyectos_inversion.xlsx');
   };
 
   const columns = [
@@ -72,6 +89,13 @@ const ClientProjects = () => {
         },
       },
     }),
+    customToolbar: () => (
+      <Tooltip title="Descargar XLSX" arrow>
+        <IconButton onClick={exportToXLSX}>
+          <DownloadIcon />
+        </IconButton>
+      </Tooltip>
+    ),
     textLabels: {
       body: {
         noMatch: "No se encontraron registros",
