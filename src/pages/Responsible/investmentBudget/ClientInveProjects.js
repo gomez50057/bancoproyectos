@@ -58,8 +58,7 @@ const ClientProjects = () => {
 
   const options = {
     selectableRows: 'none',
-    download: false,
-    print: false,
+    stickyHeader: true,
     setRowProps: (row, dataIndex) => ({
       style: {
         backgroundColor: dataIndex % 2 === 0 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(240, 240, 240, 0.8)',
@@ -86,6 +85,8 @@ const ClientProjects = () => {
       },
       toolbar: {
         search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
         viewColumns: "Ver columnas",
         filterTable: "Filtrar tabla",
       },
