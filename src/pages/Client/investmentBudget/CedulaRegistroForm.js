@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
 import validationSchemaCedula from './validationSchemaCedula';
@@ -34,6 +34,29 @@ const handleNumericInput = (fieldName, setFieldValue) => (e) => {
   const { value } = e.target;
   const onlyNums = value.replace(/[^0-9]/g, '');
   setFieldValue(fieldName, onlyNums);
+};
+
+
+// Función para refrescar el token CSRF cada 5 minutos
+const refreshCsrfToken = async () => {
+  try {
+    const response = await axios.get('/api/csrf-token/'); // Asegúrate de que esta ruta coincide con tu backend
+    const newCsrfToken = response.data.csrfToken;
+    Cookies.set('csrftoken', newCsrfToken);
+    console.log('Token CSRF refrescado:', newCsrfToken);
+  } catch (error) {
+    console.error('Error al refrescar el token CSRF:', error);
+  }
+};
+
+const useCsrfTokenRefresher = () => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshCsrfToken();
+    }, 5 * 60 * 1000); // Refresca cada 5 minutos
+
+    return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
+  }, []);
 };
 
 const CedulaRegistroForm = () => {
@@ -118,6 +141,7 @@ const CedulaRegistroForm = () => {
 
     return objetivos.map(objetivo => ({ value: objetivo, label: objetivo }));
   };
+  useCsrfTokenRefresher();
 
   // Función para enviar el formulario
   const handleSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
@@ -125,7 +149,6 @@ const CedulaRegistroForm = () => {
     console.log('Form data to be submitted:', values);
     setLoading(true); // Muestra el loader al iniciar el envío
     setErrorMessage(''); // Limpiar cualquier mensaje de error previo
-
 
     const formData = new FormData();
     for (const key in values) {
@@ -162,6 +185,11 @@ const CedulaRegistroForm = () => {
       setModalOpen(true);
       resetForm(); // Reinicia el formulario
     } catch (error) {
+      if (error.response) {
+        console.error('Error al enviar el formulario:', error.response.data);
+      } else {
+        console.error('Error al enviar el formulario:', error);
+      }
       setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
       console.error('Error al enviar el formulario:', error);
       setErrors({
