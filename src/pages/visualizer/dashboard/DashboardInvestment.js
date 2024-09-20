@@ -33,7 +33,7 @@ const DashboardInvestment = () => {
       .then(response => setCoberturaProyecto(response.data));
   }, []);
 
-  // Calcular el total de proyectos para calcular los porcentajes
+  // Calcular el total de proyectos sumando los proyectos por unidad responsable
   const totalProyectosUnidad = proyectosPorUnidad.reduce((sum, item) => sum + item.total, 0);
   const totalProyectosUsuario = proyectosPorUsuario.reduce((sum, item) => sum + item.total, 0);
 
@@ -120,6 +120,8 @@ const DashboardInvestment = () => {
   return (
     <div className="dashboard-container">
       <h2 className="dashboard-title">Dashboard de Inversiones</h2>
+      {/* Mostrar el total de proyectos */}
+      <p className="total-proyectos">Total de proyectos por unidad responsable: {totalProyectosUnidad}</p>
 
       {/* Proyectos por Unidad Responsable */}
       <div className="chart-section">
