@@ -1,6 +1,6 @@
 /* Archivo: src/pages/Responsible/ProjectReportReact.css */
 
-p {
+.project-report p {
   margin: 0;
 }
 
@@ -28,11 +28,12 @@ p {
   top: 10px;
   right: 10px;
   padding: 10px 20px;
-  background-color: #691B32;
-  color: white;
+  background-color: var(--doradoOsc);
+  color: var(--blanco);
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  z-index: 9999;
 }
 
 @media print {
@@ -163,8 +164,9 @@ p {
 }
 
 .project-report .value-project-name {
-  width: 70%;
+  width: 95%;
   font-size: 16px;
+  text-align: justify;
   color: #DEC9A3;
   font-weight: 700;
 }
@@ -219,7 +221,7 @@ p {
 }
 
 .project-report .project-name {
-  width: 80%;
+  width: 95%;
   height: auto;
   background-color: #691B32;
   border-bottom-right-radius: 40px;
@@ -244,15 +246,17 @@ p {
 
 .project-report .image-container {
   width: 220px;
-  height: 367px;
+  height: 440px;
   margin-top: -50px;
+  padding: 20px 0;
+  gap: 20px;
   border-radius: 10px;
   overflow: hidden;
   background: linear-gradient(to right, #a02142, #92203e, #841e3b, #761d36, #691b32);
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
   z-index: 100;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
 }

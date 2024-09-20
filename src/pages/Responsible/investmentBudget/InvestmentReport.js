@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import './InvestmentReport.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pdf/";
+const imgLogos = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pdf/logos/";
 
 const ProjectReportReact = () => {
   const { projectId } = useParams();
@@ -126,7 +127,7 @@ const ProjectReportReact = () => {
             </div>
             <div className="image-container">
               <div className="logoSecretaria">
-                <img src={`${imgBasePath}${project.dependencia}.png`} alt="Logo de secretaria" />
+                <img src={`${imgLogos}${project.dependencia}.png`} alt="Logo de secretaria" />
               </div>
               <div className="inversionImg">
                 <img src={`${imgBasePath}inver.png`} alt="Proyecto" />

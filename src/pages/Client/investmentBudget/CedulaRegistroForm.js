@@ -185,18 +185,29 @@ const CedulaRegistroForm = () => {
       setModalOpen(true);
       resetForm(); // Reinicia el formulario
     } catch (error) {
+      // Determinamos si hay respuesta del servidor y capturamos el mensaje de error
+      let errorMsg = 'Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.';
+
       if (error.response) {
-        console.error('Error al enviar el formulario:', error.response.data);
+        if (error.response.data && typeof error.response.data === 'object') {
+          // Si es un objeto, mostramos los errores del servidor detalladamente
+          errorMsg = `Error al enviar el formulario: ${JSON.stringify(error.response.data)}`;
+        } else {
+          // Si es un string, lo mostramos directamente
+          errorMsg = `Error al enviar el formulario: ${error.response.data}`;
+        }
       } else {
-        console.error('Error al enviar el formulario:', error);
+        errorMsg = `Error al enviar el formulario: ${error.message}`;
       }
-      setErrorMessage('Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.');
-      console.error('Error al enviar el formulario:', error);
+
+      // Mostramos el mensaje de error al usuario
+      setErrorMessage(errorMsg);
+
       setErrors({
         general: (
           <div>
             <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
-            Error al enviar el formulario: {error.message || 'Algo salió mal. Por favor, intente nuevamente.'}
+            {errorMsg}
           </div>
         ),
       });
@@ -205,6 +216,7 @@ const CedulaRegistroForm = () => {
       setSubmitting(false); // Finaliza el estado de envío
     }
   };
+
 
   return (
     <section className="formulario-container">
