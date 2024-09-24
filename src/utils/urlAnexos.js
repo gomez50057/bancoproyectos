@@ -502,7 +502,16 @@ const urlAnexos = [
     "archivo": "/Documents/investmentform2025/402009240047/Validaci%C3%B3n%20Normativa/Reglas_de_Operaci%C3%B3n_Energ_yF0tBxr.pdf",
     "descripcion": null,
     "cedula": 428
+  },
+  {
+    "id": 163,
+    "projInvestment_id": "272309240001",
+    "tipo_anexo": "otros_estudios",
+    "archivo": "/Documents/investmentform2025/272309240001/Otros%20Estudios/2024_ene_31_alc4_05_-_reglas_de_SufrWry.pdf",
+    "descripcion": null,
+    "cedula": 438
   }
+
 ];
 
 
