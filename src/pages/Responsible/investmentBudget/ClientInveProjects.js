@@ -85,9 +85,7 @@ const ClientProjects = () => {
       "ID del Proyecto": project[0],
       "Fecha de Registro": project[1],
       "Nombre del Proyecto": project[2],
-      "Anexos": Array.isArray(project[3]) 
-        ? project[3].map(anexo => `${anexo.tipo_anexo}: https://bibliotecadigitaluplaph.hidalgo.gob.mx${anexo.archivo}`).join('\n') 
-        : 'No cuenta con anexos', // Incluimos los anexos en Excel
+      
       "Nombre de la Dependencia": project[4],
       "Área de Adscripción": project[5],
       "Nombre del Registrante": project[6],
@@ -124,6 +122,9 @@ const ClientProjects = () => {
       "¿Cuál Propuesta?": project[37],
       "Prioridad": project[38],
       "¿Cuenta con expediente técnico validado?": project[39],
+      "Anexos": Array.isArray(project[3]) 
+        ? project[3].map(anexo => `${anexo.tipo_anexo}: https://bibliotecadigitaluplaph.hidalgo.gob.mx${anexo.archivo}`).join('\n') 
+        : 'No cuenta con anexos', // Incluimos los anexos en Excel
     })));
     
     const wb = XLSX.utils.book_new();
