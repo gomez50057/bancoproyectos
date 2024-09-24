@@ -37,7 +37,7 @@
     "xlsx": "^0.18.5",
     "yup": "^1.4.0"
   },
-  "homepage": "./",
+  "homepage": "/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

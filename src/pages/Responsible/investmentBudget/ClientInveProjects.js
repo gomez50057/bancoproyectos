@@ -3,10 +3,10 @@ import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Typography, IconButton, Tooltip } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx'; // Importamos XLSX para trabajar con archivos Excel
 import { saveAs } from 'file-saver'; // Importamos file-saver para guardar el archivo
 import DownloadIcon from '@mui/icons-material/Download'; // Importamos el ícono de descarga
+import { useNavigate } from 'react-router-dom';
 
 const ClientProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -42,8 +42,8 @@ const ClientProjects = () => {
           project.numero_beneficiarios,
           project.inversion_presupuestada,
           project.cobertura,
-          project.regiones.join(', '), // Si es un array, lo unimos en una cadena
-          project.municipios.join(', '), // Igual para los municipios
+          project.regiones.join(', '),
+          project.municipios.join(', '),
           project.ods,
           project.plan_estatal,
           project.objetivo_ped,
@@ -55,7 +55,14 @@ const ClientProjects = () => {
           project.propuesta_campana,
           project.cual_propuesta,
           project.prioridad,
-          project.expediente_tecnico
+          project.expediente_tecnico,
+          project.anexos.map(anexo => (
+            anexo.archivo_url ? (
+              <a href={anexo.archivo_url} target="_blank" rel="noopener noreferrer">
+                {anexo.tipo_anexo}
+              </a>
+            ) : 'No hay archivos'
+          )).join(', ')
         ]);
         setProjects(data);
       } catch (error) {
@@ -113,7 +120,8 @@ const ClientProjects = () => {
       "Propuesta de Campaña": project[35],
       "¿Cuál Propuesta?": project[36],
       "Prioridad": project[37],
-      "¿Cuenta con expediente técnico validado?": project[38]
+      "¿Cuenta con expediente técnico validado?": project[38],
+      "Anexos": project[39] // Incluimos los anexos como enlaces
     })));
     
     const wb = XLSX.utils.book_new();
@@ -127,6 +135,7 @@ const ClientProjects = () => {
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
     { name: "Fecha de Creación", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
+    { name: "Anexos", options: { customBodyRender: (value) => <div>{value}</div> } }, 
     {
       name: "Acciones",
       options: {

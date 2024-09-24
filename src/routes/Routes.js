@@ -55,7 +55,9 @@ const AppRoutes = () => {
       <Route path="/editar-proyecto-inversion/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><EditProjectInvest /></LoginLayout></PrivateRoute>} />
       <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} />
       <Route path="/project-report-react/:projectId" element={<PrivateRoute allowedGroups={['responsable']}><ProjectReportReact /></PrivateRoute>} />
-      <Route path="/reporte-inversion/:projectId" element={<PrivateRoute allowedGroups={['responsable']}><InvestmentReport /></PrivateRoute>} />
+      <Route path="/reporte-inversion/:projectId" element={<InvestmentReport />} />
+      {/* <Route path="/reporte-inversion/:projectId" element={<PrivateRoute allowedGroups={['responsable']}><InvestmentReport /></PrivateRoute>} /> */}
+
       {/* <Route path="/panel-proyectos" element={<DashboardClient />} /> */}
       <Route path="/panel-proyectos" element={<PrivateRoute allowedGroups={['cliente']}><DashboardClient /></PrivateRoute>} />
 

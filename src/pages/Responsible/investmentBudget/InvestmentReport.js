@@ -95,14 +95,36 @@ const ProjectReportReact = () => {
 
             <div className="beneficiarios-section">
               <div className="inline-section">
-                <p className="inline-label">Cobertura: <span className="inline-value">{project.cobertura}</span></p>
+                <p className="inline-label">
+                  Cobertura: <span className="inline-value">{project.cobertura}</span>
+                </p>
               </div>
               <div className="section">
                 {project.cobertura === 'Regional' && (
-                  <span className="value">{project.regiones}</span>
+                  <div className="value">
+                    {Array.isArray(project.regiones)
+                      ? project.regiones.map((region, index) => (
+                        <div key={index}>{region}</div>
+                      ))
+                      : typeof project.regiones === 'string'
+                        ? project.regiones.split(',').map((region, index) => (
+                          <div key={index}>{region}</div>
+                        ))
+                        : null}
+                  </div>
                 )}
                 {project.cobertura === 'Municipal' && (
-                  <span className="value">{project.municipios}</span>
+                  <div className="value">
+                    {Array.isArray(project.municipios)
+                      ? project.municipios.map((municipio, index) => (
+                        <div key={index}>{municipio}</div>
+                      ))
+                      : typeof project.municipios === 'string'
+                        ? project.municipios.split(',').map((municipio, index) => (
+                          <div key={index}>{municipio}</div>
+                        ))
+                        : null}
+                  </div>
                 )}
               </div>
             </div>

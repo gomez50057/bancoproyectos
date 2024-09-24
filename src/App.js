@@ -1,6 +1,8 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+// import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import { HashRouter as Router, useLocation } from 'react-router-dom';
+
 
 import Footer from './components/Footer';
 import AppRoutes from './routes/Routes';

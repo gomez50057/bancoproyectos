@@ -25,7 +25,7 @@
 
 .project-report .print-button {
   position: absolute;
-  top: 10px;
+  top: -25px;
   right: 10px;
   padding: 10px 20px;
   background-color: var(--doradoOsc);
@@ -172,7 +172,7 @@
 }
 
 .project-report .value-num-be {
-  font-size: 24px;
+  font-size: 22px;
   color: #98989a;
   font-weight: 500;
 }
@@ -217,7 +217,7 @@
   flex-direction: column;
   flex-grow: 1;
   margin-left: 180px;
-  padding: 20px;
+  padding: 10px 20px;
 }
 
 .project-report .project-name {
@@ -228,9 +228,8 @@
   border-right: 7px solid #fff;
   border-bottom: 7px solid #fff;
   padding: 9px;
-  margin: 10px 0;
+  margin: 0 0 10px -20px;
   z-index: 200;
-  margin-left: -20px;
 }
 
 .project-report .project-container {
@@ -279,8 +278,10 @@
 }
 
 .project-report .logoSecretaria img {
-  width: auto;
-  height: 110px;
+  height: auto;
+  max-height: 110px;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .project-report .inversionImg img {
