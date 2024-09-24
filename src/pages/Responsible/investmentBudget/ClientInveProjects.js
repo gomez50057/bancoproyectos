@@ -56,13 +56,7 @@ const ClientProjects = () => {
           project.cual_propuesta,
           project.prioridad,
           project.expediente_tecnico,
-          project.anexos.map(anexo => (
-            anexo.archivo_url ? (
-              <a href={anexo.archivo_url} target="_blank" rel="noopener noreferrer">
-                {anexo.tipo_anexo}
-              </a>
-            ) : 'No hay archivos'
-          )).join(', ')
+          `https://bibliotecadigitaluplaph.hidalgo.gob.mx/Documents/investmentform2025/${project.projInvestment_id}` // Enlace a anexos
         ]);
         setProjects(data);
       } catch (error) {
@@ -121,7 +115,7 @@ const ClientProjects = () => {
       "¿Cuál Propuesta?": project[36],
       "Prioridad": project[37],
       "¿Cuenta con expediente técnico validado?": project[38],
-      "Anexos": project[39] // Incluimos los anexos como enlaces
+      "Enlace a Anexos": project[39] // Incluimos el enlace a anexos en el archivo Excel
     })));
     
     const wb = XLSX.utils.book_new();
@@ -135,7 +129,18 @@ const ClientProjects = () => {
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
     { name: "Fecha de Creación", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
-    { name: "Anexos", options: { customBodyRender: (value) => <div>{value}</div> } }, 
+    { 
+      name: "Enlace a Anexos", 
+      options: { 
+        customBodyRender: (value, tableMeta) => {
+          const projectId = projects[tableMeta.rowIndex][0]; // Obtenemos el projInvestment_id desde la fila actual
+          const anexoUrl = `https://bibliotecadigitaluplaph.hidalgo.gob.mx/Documents/investmentform2025/${projectId}`;
+          return (
+            <a href={anexoUrl} target="_blank" rel="noopener noreferrer">Ver Anexos</a>
+          );
+        }
+      }
+    },
     {
       name: "Acciones",
       options: {
