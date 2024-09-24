@@ -3,11 +3,11 @@ import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Typography, IconButton, Tooltip } from '@mui/material';
 import axios from 'axios';
-import * as XLSX from 'xlsx'; // Importamos XLSX para trabajar con archivos Excel
-import { saveAs } from 'file-saver'; // Importamos file-saver para guardar el archivo
-import DownloadIcon from '@mui/icons-material/Download'; // Importamos el ícono de descarga
+import * as XLSX from 'xlsx'; 
+import { saveAs } from 'file-saver'; 
+import DownloadIcon from '@mui/icons-material/Download'; 
 import { useNavigate } from 'react-router-dom';
-import urlAnexos from '../../../utils/urlAnexos';
+import urlAnexos from '../../../utils/urlAnexos'; // Correcta ruta del archivo
 
 const ClientProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -17,48 +17,17 @@ const ClientProjects = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('cedulas/');
-        const data = response.data.map(project => [
-          project.projInvestment_id,
-          project.fecha_registro,
-          project.nombre_proyecto,
-          project.nombre_dependencia,
-          project.area_adscripcion,
-          project.nombre_registrante,
-          project.apellido_paterno,
-          project.apellido_materno,
-          project.correo,
-          project.telefono,
-          project.extension,
-          project.ejercicio_fiscal,
-          project.dependencia,
-          project.organismo,
-          project.unidad_responsable,
-          project.unidad_presupuestal,
-          project.descripcion_proyecto,
-          project.situacion_actual,
-          project.tipo_obra,
-          project.calendario_ejecucion,
-          project.beneficio_social,
-          project.beneficio_economico,
-          project.numero_beneficiarios,
-          project.inversion_presupuestada,
-          project.cobertura,
-          project.regiones.join(', '),
-          project.municipios.join(', '),
-          project.ods,
-          project.plan_estatal,
-          project.objetivo_ped,
-          project.estrategia_ped,
-          project.linea_accion_ped,
-          project.indicador_ped,
-          project.programa_sectorial,
-          project.objetivo_programa,
-          project.propuesta_campana,
-          project.cual_propuesta,
-          project.prioridad,
-          project.expediente_tecnico,
-          `https://bibliotecadigitaluplaph.hidalgo.gob.mx/Documents/investmentform2025/${project.projInvestment_id}` // Enlace a anexos
-        ]);
+        const data = response.data.map(project => {
+          // Filtrar los anexos que pertenecen a este proyecto
+          const anexos = urlAnexos.filter(anexo => anexo.projInvestment_id === project.projInvestment_id);
+          
+          return [
+            project.projInvestment_id,
+            project.fecha_registro,
+            project.nombre_proyecto,
+            anexos.length > 0 ? anexos : 'No cuenta con anexos', // Si tiene anexos, los mostramos, si no, mostramos un mensaje
+          ];
+        });
         setProjects(data);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -76,55 +45,15 @@ const ClientProjects = () => {
   };
 
   const exportToXLSX = () => {
-    const ws = XLSX.utils.json_to_sheet(projects.map(project => {
-      const projectId = project[0]; // Obtenemos el ID del proyecto (projInvestment_id)
-      const anexo = urlAnexos.find(item => item.projInvestment_id === projectId); // Buscar en urlAnexos.js
-      const anexoLink = anexo ? `https://bibliotecadigitaluplaph.hidalgo.gob.mx${anexo.archivo}` : 'No cuenta con anexos';
-
-      return {
-        "ID del Proyecto": project[0],
-        "Fecha de Registro": project[1],
-        "Nombre del Proyecto": project[2],
-        "Nombre de la Dependencia": project[3],
-        "Área de Adscripción": project[4],
-        "Nombre del Registrante": project[5],
-        "Apellido Paterno": project[6],
-        "Apellido Materno": project[7],
-        "Correo Electrónico": project[8],
-        "Teléfono": project[9],
-        "Extensión": project[10],
-        "Ejercicio Fiscal": project[11],
-        "Dependencia": project[12],
-        "Organismo": project[13],
-        "Unidad Responsable": project[14],
-        "Unidad Presupuestal": project[15],
-        "Descripción del Proyecto": project[16],
-        "Situación Actual": project[17],
-        "Tipo de Obra": project[18],
-        "Calendario de Ejecución (meses)": project[19],
-        "Beneficio Social": project[20],
-        "Beneficio Económico": project[21],
-        "Número de Beneficiarios": project[22],
-        "Inversión Presupuestada": project[23],
-        "Cobertura": project[24],
-        "Regiones": project[25],
-        "Municipios": project[26],
-        "ODS": project[27],
-        "Plan Estatal de Desarrollo": project[28],
-        "Objetivo PED": project[29],
-        "Estrategia PED": project[30],
-        "Línea de Acción PED": project[31],
-        "Indicador PED": project[32],
-        "Programa Sectorial": project[33],
-        "Objetivo del Programa": project[34],
-        "Propuesta de Campaña": project[35],
-        "¿Cuál Propuesta?": project[36],
-        "Prioridad": project[37],
-        "¿Cuenta con expediente técnico validado?": project[38],
-        "Anexos": anexoLink // Añadimos el enlace o el mensaje de "No cuenta con anexos"
-      };
-    }));
-
+    const ws = XLSX.utils.json_to_sheet(projects.map(project => ({
+      "ID del Proyecto": project[0],
+      "Fecha de Registro": project[1],
+      "Nombre del Proyecto": project[2],
+      "Anexos": Array.isArray(project[3]) 
+        ? project[3].map(anexo => `${anexo.tipo_anexo}: https://bibliotecadigitaluplaph.hidalgo.gob.mx${anexo.archivo}`).join('\n') 
+        : 'No cuenta con anexos' // Incluimos los anexos en Excel
+    })));
+    
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Proyectos de Inversión");
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -134,28 +63,31 @@ const ClientProjects = () => {
 
   const columns = [
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
-    { name: "Fecha de Creación", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
+    { name: "Fecha de Registro", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
-    {
-      name: "Enlace a Anexos",
-      options: {
-        customBodyRender: (value, tableMeta) => {
-          const projectId = projects[tableMeta.rowIndex][0]; // Obtener el projInvestment_id desde la fila actual
-          const anexo = urlAnexos.find(item => item.projInvestment_id === projectId); // Buscar en urlAnexos.js
-
-          if (anexo) {
-            const archivoUrl = `https://bibliotecadigitaluplaph.hidalgo.gob.mx${anexo.archivo}`;
-            return (
-              <a href={archivoUrl} target="_blank" rel="noopener noreferrer">
-                {anexo.tipo_anexo} {/* Texto del link basado en tipo_anexo */}
-              </a>
-            );
-          } else {
-            return 'No cuenta con anexos'; // Mostrar mensaje si no hay anexos
+    { 
+      name: "Anexos", 
+      options: { 
+        customBodyRender: (anexos) => {
+          // Verifica si "anexos" es un array
+          if (!Array.isArray(anexos) || anexos.length === 0) {
+            return "No cuenta con anexos"; // Si no hay anexos, mostrar este mensaje
           }
+
+          return (
+            <div>
+              {anexos.map((anexo, index) => (
+                <div key={index}>
+                  <a href={`https://bibliotecadigitaluplaph.hidalgo.gob.mx${anexo.archivo}`} target="_blank" rel="noopener noreferrer">
+                    {anexo.tipo_anexo}
+                  </a>
+                </div>
+              ))}
+            </div>
+          );
         }
       }
-    },
+    }, 
     {
       name: "Acciones",
       options: {
