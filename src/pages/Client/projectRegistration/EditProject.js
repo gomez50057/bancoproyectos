@@ -24,7 +24,7 @@ import {
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
-import './ClientPanel.css';
+import '../panel/ClientPanel.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 

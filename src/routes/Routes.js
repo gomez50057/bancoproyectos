@@ -6,7 +6,7 @@ import Login from '../components/Login';
 import FormDependencia from '../pages/Client/projectRegistration/FormDependencia';
 import TableComponent from '../pages/FrontPage/TableComponent';
 import CRUDTable from '../pages/Responsible/projectRegistration/CRUDTable';
-import ClientPanel from '../pages/Client/projectRegistration/ClientPanel';
+import ClientPanel from '../pages/Client/panel/ClientPanel';
 import ClientProjects from '../pages/Client/projectRegistration/ClientProjects';
 import EditProject from '../pages/Client/projectRegistration/EditProject';
 import EditProjectInvest from '../pages/Client/investmentBudget/EditProjectInvest';
