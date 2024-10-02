@@ -35,7 +35,7 @@ const DashboardInvestment = () => {
 
   // Calcular el total de proyectos sumando los proyectos por unidad responsable
   const totalProyectosUnidad = proyectosPorUnidad.reduce((sum, item) => sum + item.total, 0);
-  const totalProyectosUsuario = proyectosPorUsuario.reduce((sum, item) => sum + item.total, 0);
+  // const totalProyectosUsuario = proyectosPorUsuario.reduce((sum, item) => sum + item.total, 0);
 
   // Datos para el gráfico "Proyectos por Unidad Responsable"
   const chartDataUnidad = {
