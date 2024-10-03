@@ -52,7 +52,7 @@ const FormDependencia = () => {
           tipoEntidad: '',
           dependencia: '',
           organismo: '',
-          municipio: '',
+          municipioAyuntamiento: '',
           sector: '',
           tipoProyecto: '',
           PeticionPersonal: '',
@@ -157,12 +157,12 @@ const FormDependencia = () => {
 
               {entityType === 'Municipio' && (
                 <CustomSelectField
-                  name="municipio"
+                  name="municipioAyuntamiento"
                   label="Municipio"
                   options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
                   placeholder="Selecciona una opción"
                   tooltipText="Selecciona el municipio que gestionará el proyecto."
-                  onChange={(option) => setFieldValue('municipio', option.value)}
+                  onChange={(option) => setFieldValue('municipioAyuntamiento', option.value)}
                 />
               )}
             </div>
