@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import validationSchemaStep2 from './validationSchemaStep2';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -194,55 +194,14 @@ const FormDependencia = () => {
             </div>
 
             <div className="form-row">
-              <FieldGroup
+              <CustomSelectFieldGrouped
                 name="ramoPresupuestal"
                 label="Ramo Presupuestal"
-                as="select"
+                options={ramoPresupuestalOptions}
+                placeholder="Seleccione una opción"
                 tooltipText="Selecciona el ramo presupuestal correspondiente."
-              >
-                <option value="">Seleccione</option>
-                <optgroup label="Ramos Autónomos">
-                  <option value="Legislativo">Legislativo</option>
-                  <option value="Judicial">Judicial</option>
-                  <option value="Electoral">Electoral</option>
-                  <option value="Derechos Humanos">Derechos Humanos</option>
-                  <option value="Acceso a la Información Pública Gubernamental">Acceso a la Información Pública Gubernamental</option>
-                  <option value="Justicia Electoral">Justicia Electoral</option>
-                </optgroup>
-                <optgroup label="Ramos Administrativos">
-                  <option value="Despacho del Poder Ejecutivo">Despacho del Poder Ejecutivo</option>
-                  <option value="Gobierno">Gobierno</option>
-                  <option value="Hacienda Pública">Hacienda Pública</option>
-                  <option value="Bienestar e Inclusión Social">Bienestar e Inclusión Social</option>
-                  <option value="Infraestructura Pública y Desarrollo Urbano Sostenible">Infraestructura Pública y Desarrollo Urbano Sostenible</option>
-                  <option value="Medio Ambiente y Recursos Naturales">Medio Ambiente y Recursos Naturales</option>
-                  <option value="Desarrollo Económico">Desarrollo Económico</option>
-                  <option value="Agricultura y Desarrollo Rural">Agricultura y Desarrollo Rural</option>
-                  <option value="Turismo">Turismo</option>
-                  <option value="Contraloría">Contraloría</option>
-                  <option value="Educación Pública">Educación Pública</option>
-                  <option value="Salud">Salud</option>
-                  <option value="Seguridad Pública">Seguridad Pública</option>
-                  <option value="Trabajo y Previsión Social">Trabajo y Previsión Social</option>
-                  <option value="Movilidad y Transporte">Movilidad y Transporte</option>
-                  <option value="Cultura">Cultura</option>
-                  <option value="Planeación y Prospectiva">Planeación y Prospectiva</option>
-                  <option value="Administración">Administración</option>
-                  <option value="Justicia">Justicia</option>
-                </optgroup>
-                <optgroup label="Ramos Generales">
-                  <option value="Transferencias">Transferencias</option>
-                  <option value="Participaciones a Municipios">Participaciones a Municipios</option>
-                  <option value="Contingencias">Contingencias</option>
-                  <option value="Provisiones Salariales">Provisiones Salariales</option>
-                  <option value="Deuda Pública">Deuda Pública</option>
-                  <option value="Adeudos de Ejercicios Fiscales Anteriores">Adeudos de Ejercicios Fiscales Anteriores</option>
-                  <option value="Aportaciones a Municipios">Aportaciones a Municipios</option>
-                  <option value="Erogaciones para las Operaciones y Programas de Saneamiento Financiero">Erogaciones para las Operaciones y Programas de Saneamiento Financiero</option>
-                  <option value="Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca">Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca</option>
-                  <option value="Inversión en Municipios">Inversión en Municipios</option>
-                </optgroup>
-              </FieldGroup>
+                note="Este campo es requerido para el registro del proyecto."
+              />
             </div>
 
             {/* Datos Financieros */}
@@ -390,7 +349,7 @@ const FormDependencia = () => {
 };
 
 // Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip
-const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
+const FieldGroup = ({ label, name, note, tooltipText, children, ...props }) => (
   <div className="form-group">
     <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
       {label}
@@ -403,7 +362,7 @@ const FieldGroup = ({ label, name, note, tooltipText, ...props }) => (
         </div>
       )}
     </label>
-    <Field id={name} name={name} {...props} />
+    {children ? children : <Field id={name} name={name} {...props} />}
     {note && <p className="field-note">{note}</p>}
     <ErrorMessage name={name} component="div" className="error" />
   </div>
@@ -459,6 +418,43 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
       />
       <ErrorMessage name={name} component="div" className="error" />
     </div>
+  );
+};
+
+// Implementación del Select con optgroup
+const CustomSelectFieldGrouped = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', onChange, note }) => {
+  const [field, , helpers] = useField(name);
+
+  const handleChange = (selectedOption) => {
+    helpers.setValue(selectedOption ? selectedOption.value : '');
+    if (onChange) {
+      onChange(selectedOption);
+    }
+  };
+
+  const selectedOption = options?.find(opt =>
+    opt.options.some(option => option.value === field.value)
+  )?.options.find(option => option.value === field.value);
+
+  return (
+    <FieldGroup
+      label={label}
+      name={name}
+      note={note}
+      tooltipText={tooltipText}
+    >
+      <Select
+        options={options}
+        value={selectedOption}
+        onChange={handleChange}
+        isDisabled={isDisabled}
+        placeholder={placeholder}
+        menuPortalTarget={document.body}
+        styles={{
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        }}
+      />
+    </FieldGroup>
   );
 };
 

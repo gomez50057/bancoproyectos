@@ -153,6 +153,59 @@ export const organismos = [
     'Universidad Digital del Estado de Hidalgo'
 ];
 
+export const ramoPresupuestalOptions = [
+    {
+        label: 'Ramos Autónomos',
+        options: [
+            { value: 'Legislativo', label: 'Legislativo' },
+            { value: 'Judicial', label: 'Judicial' },
+            { value: 'Electoral', label: 'Electoral' },
+            { value: 'Derechos Humanos', label: 'Derechos Humanos' },
+            { value: 'Acceso a la Información Pública Gubernamental', label: 'Acceso a la Información Pública Gubernamental' },
+            { value: 'Justicia Electoral', label: 'Justicia Electoral' },
+        ],
+    },
+    {
+        label: 'Ramos Administrativos',
+        options: [
+            { value: 'Despacho del Poder Ejecutivo', label: 'Despacho del Poder Ejecutivo' },
+            { value: 'Gobierno', label: 'Gobierno' },
+            { value: 'Hacienda Pública', label: 'Hacienda Pública' },
+            { value: 'Bienestar e Inclusión Social', label: 'Bienestar e Inclusión Social' },
+            { value: 'Infraestructura Pública y Desarrollo Urbano Sostenible', label: 'Infraestructura Pública y Desarrollo Urbano Sostenible' },
+            { value: 'Medio Ambiente y Recursos Naturales', label: 'Medio Ambiente y Recursos Naturales' },
+            { value: 'Desarrollo Económico', label: 'Desarrollo Económico' },
+            { value: 'Agricultura y Desarrollo Rural', label: 'Agricultura y Desarrollo Rural' },
+            { value: 'Turismo', label: 'Turismo' },
+            { value: 'Contraloría', label: 'Contraloría' },
+            { value: 'Educación Pública', label: 'Educación Pública' },
+            { value: 'Salud', label: 'Salud' },
+            { value: 'Seguridad Pública', label: 'Seguridad Pública' },
+            { value: 'Trabajo y Previsión Social', label: 'Trabajo y Previsión Social' },
+            { value: 'Movilidad y Transporte', label: 'Movilidad y Transporte' },
+            { value: 'Cultura', label: 'Cultura' },
+            { value: 'Planeación y Prospectiva', label: 'Planeación y Prospectiva' },
+            { value: 'Administración', label: 'Administración' },
+            { value: 'Justicia', label: 'Justicia' },
+        ],
+    },
+    {
+        label: 'Ramos Generales',
+        options: [
+            { value: 'Transferencias', label: 'Transferencias' },
+            { value: 'Participaciones a Municipios', label: 'Participaciones a Municipios' },
+            { value: 'Contingencias', label: 'Contingencias' },
+            { value: 'Provisiones Salariales', label: 'Provisiones Salariales' },
+            { value: 'Deuda Pública', label: 'Deuda Pública' },
+            { value: 'Adeudos de Ejercicios Fiscales Anteriores', label: 'Adeudos de Ejercicios Fiscales Anteriores' },
+            { value: 'Aportaciones a Municipios', label: 'Aportaciones a Municipios' },
+            { value: 'Erogaciones para las Operaciones y Programas de Saneamiento Financiero', label: 'Erogaciones para las Operaciones y Programas de Saneamiento Financiero' },
+            { value: 'Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca', label: 'Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca' },
+            { value: 'Inversión en Municipios', label: 'Inversión en Municipios' },
+        ],
+    },
+];
+
 export const unidadPresupuestalPorUnidadResponsable = {
     '01.Poder Legislativo': [
         '01.Presidencia de la Junta de Gobierno',
