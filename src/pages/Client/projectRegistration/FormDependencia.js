@@ -11,13 +11,12 @@ import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 
-const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
-
 const FormDependencia = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
   const [entityType, setEntityType] = useState(''); // Estado para determinar el tipo de entidad
   const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState(''); // Estado para unidadResponsable
+  const [selectedProgramaPresupuestario, setSelectedProgramaPresupuestario] = useState(''); // Estado para programaPresupuestario
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -50,7 +49,7 @@ const FormDependencia = () => {
       <Formik
         initialValues={{
           projectName: '',
-          tipoEntidad: '',  // Nuevo campo para el tipo de entidad
+          tipoEntidad: '',
           dependencia: '',
           organismo: '',
           municipio: '',
@@ -72,6 +71,7 @@ const FormDependencia = () => {
           gastoProgramable: '',
           programaPresupuestario: '',
           beneficiarios: '',
+          normativaAplicableVigente: '',
           alineacionNormativa: '',
           region: '',
           latitud: '',
@@ -262,75 +262,84 @@ const FormDependencia = () => {
               />
             </div>
 
-            {/* Ubicación del Proyecto */}
-            <SectionTitle title="Ubicación del Proyecto" />
+            <SectionTitle title="Datos del Proyecto" />
+            <div className="form-row">
+            <FieldGroup
+              name="descripcion"
+              label="Descripción"
+              as="textarea"
+              maxLength="1000"
+              tooltipText="Describe el proyecto. Máximo 1000 caracteres."
+              note="Máximo 1000 caracteres."
+            />
+            </div>
+            <div className="form-row">
+            <FieldGroup
+              name="situacionSinProyecto"
+              label="Situación Sin Proyecto"
+              as="textarea"
+              maxLength="1000"
+              tooltipText="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
+              note="Máximo 1000 caracteres."
+            />
+            </div>
+            <div className="form-row">
+              <FieldGroup
+                name="objetivos"
+                label="Objetivos"
+                as="textarea"
+                maxLength="500"
+                tooltipText="Describe los objetivos del proyecto. Máximo 500 caracteres."
+                note="Máximo 500 caracteres."
+              />
+              <FieldGroup
+                name="metas"
+                label="Metas"
+                as="textarea"
+                maxLength="500"
+                tooltipText="Indica las metas del proyecto. Máximo 500 caracteres."
+                note="Máximo 500 caracteres."
+              />
+            </div>
+            <div className="form-row">
             <CustomSelectField
-              name="region"
-              label="Región"
-              options={Object.keys(municipiosPorRegion).map(region => ({ value: region, label: region }))}
+              name="programaPresupuestario"
+              label="Programa Presupuestario"
+              options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
               placeholder="Selecciona una opción"
-              tooltipText="Selecciona la región donde se ubica el proyecto."
+              tooltipText="Selecciona el programa presupuestario."
               onChange={(option) => {
-                setFieldValue('region', option.value);
-                setFieldValue('municipio', '');
+                setFieldValue('programaPresupuestario', option.value);
+                setSelectedProgramaPresupuestario(option.value);
               }}
             />
-            <CustomSelectField
-              name="municipio"
-              label="Municipio"
-              options={municipiosPorRegion[values.region]?.map(mun => ({ value: mun, label: mun })) || []}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el municipio donde se desarrollará el proyecto."
-              isDisabled={!values.region}
-            />
-
-            {/* Alineación Estratégica */}
-            <SectionTitle title="Alineación Estratégica" />
-            <CustomSelectField
-              name="planNacional"
-              label="Plan Nacional de Desarrollo"
-              options={[
-                { value: 'Justicia', label: 'Justicia y Estado de derecho' },
-                { value: 'Bienestar', label: 'Bienestar' },
-              ]}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el plan nacional de desarrollo aplicable."
-            />
-            <CustomSelectField
-              name="planEstatal"
-              label="Plan Estatal de Desarrollo"
-              options={[
-                { value: 'Acuerdo 1', label: 'Acuerdo para un Gobierno Cercano, Justo y Honesto' },
-                { value: 'Acuerdo 2', label: 'Acuerdo para el Bienestar del Pueblo' },
-              ]}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el plan estatal de desarrollo aplicable."
-            />
-            <CustomSelectField
-              name="ods"
-              label="Objetivos de Desarrollo Sostenible"
-              options={Object.keys(programasSectorialesOptions).map(opt => ({ value: opt, label: opt }))}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona los objetivos de desarrollo sostenible aplicables."
-            />
-
-            {/* Otros Datos */}
-            <SectionTitle title="Indicadores" />
-            <CustomSelectField
-              name="indicadoresEstrategicos"
-              label="Indicadores Estratégicos"
-              options={indicadoresEstrategicosOptions[values.planEstatal]?.map(ind => ({ value: ind, label: ind })) || []}
-              placeholder="Selecciona una opción"
-              isDisabled={!values.planEstatal}
-              tooltipText="Selecciona los indicadores estratégicos aplicables."
-            />
+            {selectedProgramaPresupuestario && (
+              <CustomSelectField
+                name="gastoProgramable"
+                label="Gasto Programable"
+                options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
+                placeholder="Selecciona una opción"
+                tooltipText="Selecciona el gasto programable."
+                isDisabled={!selectedProgramaPresupuestario}
+              />
+            )}
             <FieldGroup
-              name="objetivos"
-              label="Objetivos"
-              as="textarea"
-              maxLength="500"
-              tooltipText="Describe los objetivos del proyecto."
+              name="beneficiarios"
+              label="Número de Beneficiarios"
+              type="number"
+              tooltipText="Indica el número de beneficiarios del proyecto."
             />
+            </div>
+            <div className="form-row">
+              <FieldGroup
+                name="normativaAplicableVigente"
+                label="Normativa Aplicable Vigente"
+                as="textarea"
+                maxLength="1500"
+                tooltipText="Describe la normativa aplicable vigente. Máximo 1500 caracteres."
+                note="Máximo 1500 caracteres."
+              />
+            </div>
 
             {/* Documentación */}
             <SectionTitle title="Documentación" />
@@ -348,7 +357,7 @@ const FormDependencia = () => {
   );
 };
 
-// Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip
+// Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip y notas
 const FieldGroup = ({ label, name, note, tooltipText, children, ...props }) => (
   <div className="form-group">
     <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
