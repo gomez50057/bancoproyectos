@@ -452,6 +452,7 @@ const CustomSelectFieldGrouped = ({ label, options, name, placeholder, isDisable
         menuPortalTarget={document.body}
         styles={{
           menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+          control: (base) => ({ ...base, borderRadius: '15px' }),
         }}
       />
     </FieldGroup>
