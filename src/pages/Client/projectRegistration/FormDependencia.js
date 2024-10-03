@@ -106,118 +106,124 @@ const FormDependencia = () => {
                   setFieldValue('tipoProyecto', tipoProyecto);
                 }}
               />
+              <FieldGroup
+                name="tipoProyecto"
+                label="Tipo de Proyecto"
+                tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
+                readOnly
+              />
             </div>
 
-            <FieldGroup
-              name="tipoProyecto"
-              label="Tipo de Proyecto"
-              tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
-              readOnly
-            />
+            <div className="form-row">
 
-            {/* Tipo de Entidad */}
-            <CustomSelectField
-              name="tipoEntidad"
-              label="Tipo de Entidad"
-              options={[
-                { value: 'Dependencia', label: 'Dependencia' },
-                { value: 'Organismo', label: 'Organismo' },
-                { value: 'Municipio', label: 'Municipio' },
-              ]}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el tipo de entidad para el proyecto."
-              onChange={(option) => {
-                setFieldValue('tipoEntidad', option.value);
-                setEntityType(option.value);  // Actualiza el estado de entityType
-              }}
-            />
-
-            {/* Campos dependientes del tipo de entidad */}
-            {entityType === 'Dependencia' && (
               <CustomSelectField
-                name="dependencia"
-                label="Dependencia"
-                options={dependencias.map(dep => ({ value: dep, label: dep }))}
+                name="tipoEntidad"
+                label="Tipo de Entidad"
+                options={[
+                  { value: 'Dependencia', label: 'Dependencia' },
+                  { value: 'Organismo', label: 'Organismo' },
+                  { value: 'Municipio', label: 'Municipio' },
+                ]}
                 placeholder="Selecciona una opción"
-                tooltipText="Selecciona la dependencia que gestiona el proyecto."
-                onChange={(option) => setFieldValue('dependencia', option.value)}
+                tooltipText="Selecciona el tipo de entidad para el proyecto."
+                onChange={(option) => {
+                  setFieldValue('tipoEntidad', option.value);
+                  setEntityType(option.value);  // Actualiza el estado de entityType
+                }}
               />
-            )}
 
-            {entityType === 'Organismo' && (
-              <CustomSelectField
-                name="organismo"
-                label="Organismo"
-                options={organismos.map(org => ({ value: org, label: org }))}
-                placeholder="Selecciona una opción"
-                tooltipText="Selecciona el organismo encargado del proyecto."
-                onChange={(option) => setFieldValue('organismo', option.value)}
-              />
-            )}
+              {entityType === 'Dependencia' && (
+                <CustomSelectField
+                  name="dependencia"
+                  label="Dependencia"
+                  options={dependencias.map(dep => ({ value: dep, label: dep }))}
+                  placeholder="Selecciona una opción"
+                  tooltipText="Selecciona la dependencia que gestiona el proyecto."
+                  onChange={(option) => setFieldValue('dependencia', option.value)}
+                />
+              )}
 
-            {entityType === 'Municipio' && (
-              <CustomSelectField
-                name="municipio"
-                label="Municipio"
-                options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
-                placeholder="Selecciona una opción"
-                tooltipText="Selecciona el municipio que gestionará el proyecto."
-                onChange={(option) => setFieldValue('municipio', option.value)}
-              />
-            )}
+              {entityType === 'Organismo' && (
+                <CustomSelectField
+                  name="organismo"
+                  label="Organismo"
+                  options={organismos.map(org => ({ value: org, label: org }))}
+                  placeholder="Selecciona una opción"
+                  tooltipText="Selecciona el organismo encargado del proyecto."
+                  onChange={(option) => setFieldValue('organismo', option.value)}
+                />
+              )}
+
+              {entityType === 'Municipio' && (
+                <CustomSelectField
+                  name="municipio"
+                  label="Municipio"
+                  options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
+                  placeholder="Selecciona una opción"
+                  tooltipText="Selecciona el municipio que gestionará el proyecto."
+                  onChange={(option) => setFieldValue('municipio', option.value)}
+                />
+              )}
+            </div>
 
             {/* Datos Financieros */}
+
             <SectionTitle title="Fuentes de Financiamiento" />
-            <FieldGroup
-              name="montoFederal"
-              label="Monto Federal"
-              type="number"
-              tooltipText="Indica el monto de financiamiento federal."
-              onChange={(e) => {
-                setFieldValue('montoFederal', e.target.value);
-                const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
-                setFieldValue('inversionEstimada', total.toFixed(2));
-              }}
-            />
-            <FieldGroup
-              name="montoEstatal"
-              label="Monto Estatal"
-              type="number"
-              tooltipText="Indica el monto de financiamiento estatal."
-              onChange={(e) => {
-                setFieldValue('montoEstatal', e.target.value);
-                const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
-                setFieldValue('inversionEstimada', total.toFixed(2));
-              }}
-            />
-            <FieldGroup
-              name="montoMunicipal"
-              label="Monto Municipal"
-              type="number"
-              tooltipText="Indica el monto de financiamiento municipal."
-              onChange={(e) => {
-                setFieldValue('montoMunicipal', e.target.value);
-                const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
-                setFieldValue('inversionEstimada', total.toFixed(2));
-              }}
-            />
-            <FieldGroup
-              name="montoOtros"
-              label="Otros Montos"
-              type="number"
-              tooltipText="Indica cualquier otro tipo de financiamiento."
-              onChange={(e) => {
-                setFieldValue('montoOtros', e.target.value);
-                const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
-                setFieldValue('inversionEstimada', total.toFixed(2));
-              }}
-            />
-            <FieldGroup
-              name="inversionEstimada"
-              label="Inversión Estimada"
-              tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
-              readOnly
-            />
+            <div className="form-row">
+              <FieldGroup
+                name="montoFederal"
+                label="Monto Federal"
+                type="number"
+                tooltipText="Indica el monto de financiamiento federal."
+                onChange={(e) => {
+                  setFieldValue('montoFederal', e.target.value);
+                  const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
+                  setFieldValue('inversionEstimada', total.toFixed(2));
+                }}
+              />
+              <FieldGroup
+                name="montoEstatal"
+                label="Monto Estatal"
+                type="number"
+                tooltipText="Indica el monto de financiamiento estatal."
+                onChange={(e) => {
+                  setFieldValue('montoEstatal', e.target.value);
+                  const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
+                  setFieldValue('inversionEstimada', total.toFixed(2));
+                }}
+              />
+              <FieldGroup
+                name="montoMunicipal"
+                label="Monto Municipal"
+                type="number"
+                tooltipText="Indica el monto de financiamiento municipal."
+                onChange={(e) => {
+                  setFieldValue('montoMunicipal', e.target.value);
+                  const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
+                  setFieldValue('inversionEstimada', total.toFixed(2));
+                }}
+              />
+              <FieldGroup
+                name="montoOtros"
+                label="Otros Montos"
+                type="number"
+                tooltipText="Indica cualquier otro tipo de financiamiento."
+                onChange={(e) => {
+                  setFieldValue('montoOtros', e.target.value);
+                  const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
+                  setFieldValue('inversionEstimada', total.toFixed(2));
+                }}
+              />
+            </div>
+
+            <div className="form-row">
+              <FieldGroup
+                name="inversionEstimada"
+                label="Inversión Estimada"
+                tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
+                readOnly
+              />
+            </div>
 
             {/* Ubicación del Proyecto */}
             <SectionTitle title="Ubicación del Proyecto" />
