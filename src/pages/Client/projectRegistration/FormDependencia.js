@@ -16,6 +16,7 @@ const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 const FormDependencia = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
+  const [entityType, setEntityType] = useState(''); // Estado para determinar el tipo de entidad
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -48,11 +49,12 @@ const FormDependencia = () => {
       <Formik
         initialValues={{
           projectName: '',
-          sector: '',
-          tipoProyecto: '',
+          tipoEntidad: '',  // Nuevo campo para el tipo de entidad
           dependencia: '',
           organismo: '',
           municipio: '',
+          sector: '',
+          tipoProyecto: '',
           PeticionPersonal: '',
           unidadResponsable: '',
           unidadPresupuestal: '',
@@ -76,6 +78,8 @@ const FormDependencia = () => {
           planEstatal: '',
           ods: '',
           planSectorial: '',
+          indicadoresEstrategicos: '',
+          indicadoresTacticos: '',
         }}
         validationSchema={validationSchemaStep2}
         onSubmit={handleSubmit}
@@ -85,46 +89,82 @@ const FormDependencia = () => {
             {/* Registro del Responsable del Proyecto */}
             <SectionTitle title="Registro del Responsable del Proyecto" />
             <div className="form-row">
-            <FieldGroup
-              name="projectName"
-              label="Nombre del Proyecto"
-              tooltipText="Indica el nombre del proyecto."
-            />
-            <CustomSelectField
-              name="sector"
-              label="Sector"
-              options={sectorOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el sector correspondiente."
-              onChange={(option) => {
-                setFieldValue('sector', option.value);
-                const tipoProyecto = tipoProyectoOptions[option.value] || '';
-                setFieldValue('tipoProyecto', tipoProyecto);
-              }}
-            />
+              <FieldGroup
+                name="projectName"
+                label="Nombre del Proyecto"
+                tooltipText="Indica el nombre del proyecto."
+              />
+              <CustomSelectField
+                name="sector"
+                label="Sector"
+                options={sectorOptions.map(opt => ({ value: opt.value, label: opt.label }))}
+                placeholder="Selecciona una opción"
+                tooltipText="Selecciona el sector correspondiente."
+                onChange={(option) => {
+                  setFieldValue('sector', option.value);
+                  const tipoProyecto = tipoProyectoOptions[option.value] || '';
+                  setFieldValue('tipoProyecto', tipoProyecto);
+                }}
+              />
             </div>
+
             <FieldGroup
               name="tipoProyecto"
               label="Tipo de Proyecto"
               tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
               readOnly
             />
+
+            {/* Tipo de Entidad */}
             <CustomSelectField
-              name="dependencia"
-              label="Dependencia"
-              options={dependencias.map(dep => ({ value: dep, label: dep }))}
+              name="tipoEntidad"
+              label="Tipo de Entidad"
+              options={[
+                { value: 'Dependencia', label: 'Dependencia' },
+                { value: 'Organismo', label: 'Organismo' },
+                { value: 'Municipio', label: 'Municipio' },
+              ]}
               placeholder="Selecciona una opción"
-              tooltipText="Selecciona la dependencia que gestiona el proyecto."
-              onChange={(option) => setFieldValue('dependencia', option.value)}
+              tooltipText="Selecciona el tipo de entidad para el proyecto."
+              onChange={(option) => {
+                setFieldValue('tipoEntidad', option.value);
+                setEntityType(option.value);  // Actualiza el estado de entityType
+              }}
             />
-            <CustomSelectField
-              name="organismo"
-              label="Organismo"
-              options={organismos.map(org => ({ value: org, label: org }))}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el organismo encargado, si aplica."
-              onChange={(option) => setFieldValue('organismo', option.value)}
-            />
+
+            {/* Campos dependientes del tipo de entidad */}
+            {entityType === 'Dependencia' && (
+              <CustomSelectField
+                name="dependencia"
+                label="Dependencia"
+                options={dependencias.map(dep => ({ value: dep, label: dep }))}
+                placeholder="Selecciona una opción"
+                tooltipText="Selecciona la dependencia que gestiona el proyecto."
+                onChange={(option) => setFieldValue('dependencia', option.value)}
+              />
+            )}
+
+            {entityType === 'Organismo' && (
+              <CustomSelectField
+                name="organismo"
+                label="Organismo"
+                options={organismos.map(org => ({ value: org, label: org }))}
+                placeholder="Selecciona una opción"
+                tooltipText="Selecciona el organismo encargado del proyecto."
+                onChange={(option) => setFieldValue('organismo', option.value)}
+              />
+            )}
+
+            {entityType === 'Municipio' && (
+              <CustomSelectField
+                name="municipio"
+                label="Municipio"
+                options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
+                placeholder="Selecciona una opción"
+                tooltipText="Selecciona el municipio que gestionará el proyecto."
+                onChange={(option) => setFieldValue('municipio', option.value)}
+              />
+            )}
 
             {/* Datos Financieros */}
             <SectionTitle title="Fuentes de Financiamiento" />
