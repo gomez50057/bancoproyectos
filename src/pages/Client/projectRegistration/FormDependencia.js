@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import validationSchemaStep2 from './validationSchemaStep2';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, planEstatalOptions, acuerdosTransversalesOptions, odsOptions, programasSIEOptions} from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -95,8 +95,10 @@ const FormDependencia = () => {
           municipiosImpacto: [],
           planNacional: '',
           planEstatal: '',
+          planMunicipal: '',
+          acuerdosTransversales: '',
           ods: '',
-          planSectorial: '',
+          programasSIE: '',
           indicadoresEstrategicos: '',
           indicadoresTacticos: '',
         }}
@@ -436,6 +438,65 @@ const FormDependencia = () => {
                 placeholder="Seleccione los municipios de impacto"
                 tooltipText="Selecciona los municipios donde el proyecto tendrá impacto. Seleccione 'No Aplica' si no corresponde."
                 onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
+              />
+            </div>
+
+            {/* Sección de Alineación Estratégica */}
+            <SectionTitle title="Alineación Estratégica" />
+            <div className="form-row">
+              <CustomSelectField
+                name="planNacional"
+                label="Plan Nacional de Desarrollo"
+                options={planNacionalOptions.map(opt => ({ value: opt, label: opt }))}
+                placeholder="Selecciona el plan nacional"
+                tooltipText="Selecciona el plan nacional de desarrollo al que se alinea el proyecto."
+              />
+
+              <CustomSelectField
+                name="planEstatal"
+                label="Plan Estatal de Desarrollo"
+                options={planEstatalOptions.map(opt => ({ value: opt, label: opt }))}
+                placeholder="Selecciona el plan estatal"
+                tooltipText="Selecciona el plan estatal de desarrollo al que se alinea el proyecto."
+              />
+            </div>
+
+            <div className="form-row">
+              <FieldGroup
+                name="planMunicipal"
+                label="Plan Municipal"
+                tooltipText="Ingresa el plan municipal de desarrollo."
+                as="textarea"
+                maxLength="500"
+                placeholder="Máximo 500 caracteres"
+              />
+            </div>
+
+            <div className="form-row">
+              <CustomSelectField
+                name="acuerdosTransversales"
+                label="Acuerdos Transversales"
+                options={acuerdosTransversalesOptions.map(opt => ({ value: opt, label: opt }))}
+                placeholder="Selecciona un acuerdo transversal"
+                tooltipText="Selecciona los acuerdos transversales relacionados con el proyecto."
+              />
+
+              <CustomSelectField
+                name="ods"
+                label="Objetivos de Desarrollo Sostenible (ODS)"
+                options={odsOptions.map(opt => ({ value: opt, label: opt }))}
+                placeholder="Selecciona un objetivo de desarrollo sostenible"
+                tooltipText="Selecciona los ODS al que se alinea el proyecto."
+              />
+            </div>
+
+            <div className="form-row">
+              <CustomSelectField
+                name="programasSIE"
+                label="Programas Sectoriales Institucionales Especiales (SIE)"
+                options={programasSIEOptions.map(opt => ({ value: opt, label: opt }))}
+                placeholder="Selecciona un programa SIE"
+                tooltipText="Selecciona el programa sectorial, institucional o especial al que se alinea el proyecto."
               />
             </div>
 

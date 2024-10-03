@@ -1238,7 +1238,7 @@ export const programasSectorialesOptions = {
     'Instituto de Vivienda, Desarrollo Urbano y Asentamientos Humanos': 'Programa Institucional de Desarrollo del Instituto de Vivienda, Desarrollo Urbano y Asentamientos Humanos'
 };
 
-export const planNacional = [
+export const planNacionalOptions = [
     'Justicia y Estado de derecho',
     'Bienestar',
     'Desarrollo económico',
@@ -1247,20 +1247,20 @@ export const planNacional = [
     'Territorio y desarrollo sostenible'
 ];
 
-export const planEstatal = [
+export const planEstatalOptions = [
     'Acuerdo para un Gobierno Cercano, Justo y Honesto',
     'Acuerdo para el Bienestar del Pueblo',
     'Acuerdo para el Desarrollo Económico',
     'Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora'
 ];
 
-export const acurdosTransversales = [
+export const acuerdosTransversalesOptions = [
     'Acuerdo Transversal por la Ciencia y Tecnología para el Desarrollo',
     'Acuerdo Transversal para Garantizar los Derechos Humanos',
     'Acuerdo Transversal por la Transparencia y Rendición de Cuentas'
 ];
 
-export const ODS = [
+export const odsOptions = [
     '1. Fin de la pobreza',
     '2. Hambre cero',
     '3. Salud y bienestar',
@@ -1279,3 +1279,9 @@ export const ODS = [
     '16. Paz, justicia e instituciones sólidas',
     '17. Alianzas para lograr los objetivos',
 ];
+
+export const programasSIEOptions = [
+    'trabajando',
+
+];
+
