@@ -359,7 +359,6 @@ const FormDependencia = () => {
             </div>
 
             <SectionTitle title="Territorio y Georreferenciación" />
-
             <div className="form-row">
               <CustomSelectField
                 label="Región"
@@ -427,7 +426,7 @@ const FormDependencia = () => {
                 placeholder="Longitud (ej. -99.5678)"
               />
             </div>
-            
+
             <div className="form-row">
               <CustomSelectField
                 label="Municipios de Impacto"

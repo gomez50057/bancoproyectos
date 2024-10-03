@@ -1237,3 +1237,45 @@ export const programasSectorialesOptions = {
     'Comisión Estatal de Biodiversidad de Hidalgo': 'Programa Institucional de Desarrollo de la Comisión Estatal de Biodiversidad de Hidalgo',
     'Instituto de Vivienda, Desarrollo Urbano y Asentamientos Humanos': 'Programa Institucional de Desarrollo del Instituto de Vivienda, Desarrollo Urbano y Asentamientos Humanos'
 };
+
+export const planNacional = [
+    'Justicia y Estado de derecho',
+    'Bienestar',
+    'Desarrollo económico',
+    'Igualdad de género, no discriminación e inclusión',
+    'Combate a la corrupción y mejora de la gestión pública',
+    'Territorio y desarrollo sostenible'
+];
+
+export const planEstatal = [
+    'Acuerdo para un Gobierno Cercano, Justo y Honesto',
+    'Acuerdo para el Bienestar del Pueblo',
+    'Acuerdo para el Desarrollo Económico',
+    'Acuerdo para el Desarrollo Sostenible e Infraestructura Transformadora'
+];
+
+export const acurdosTransversales = [
+    'Acuerdo Transversal por la Ciencia y Tecnología para el Desarrollo',
+    'Acuerdo Transversal para Garantizar los Derechos Humanos',
+    'Acuerdo Transversal por la Transparencia y Rendición de Cuentas'
+];
+
+export const ODS = [
+    '1. Fin de la pobreza',
+    '2. Hambre cero',
+    '3. Salud y bienestar',
+    '4. Educación de calidad',
+    '5. Igualdad de género',
+    '6. Agua limpia y saneamiento',
+    '7. Energía asequible y no contaminante',
+    '8. Trabajo decente y crecimiento económico',
+    '9. Industria, innovación e infraestructura',
+    '10. Reducción de las desigualdades',
+    '11. Ciudades y comunidades sostenibles',
+    '12. Producción y consumo responsables',
+    '13. Acción por el clima',
+    '14. Vida submarina',
+    '15. Vida de ecosistemas terrestres',
+    '16. Paz, justicia e instituciones sólidas',
+    '17. Alianzas para lograr los objetivos',
+];
