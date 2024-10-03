@@ -17,6 +17,8 @@ const FormDependencia = () => {
   const [entityType, setEntityType] = useState(''); // Estado para determinar el tipo de entidad
   const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState(''); // Estado para unidadResponsable
   const [selectedProgramaPresupuestario, setSelectedProgramaPresupuestario] = useState(''); // Estado para programaPresupuestario
+  const [selectedRegion, setSelectedRegion] = useState('');
+
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -43,6 +45,17 @@ const FormDependencia = () => {
     setModalIsOpen(false);
     window.location.href = '/';
   };
+
+  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
+    if (selectedOptions.some((option) => option.value === 'No Aplica')) {
+      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
+    } else {
+      setFieldValue('municipiosImpacto', selectedOptions);
+    }
+  };
+
+  const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
+
 
   return (
     <div className="formulario-container">
@@ -74,8 +87,12 @@ const FormDependencia = () => {
           normativaAplicableVigente: '',
           alineacionNormativa: '',
           region: '',
+          municipio: '',
+          localidad: '',
+          barrioColoniaEjido: '',
           latitud: '',
           longitud: '',
+          municipiosImpacto: [],
           planNacional: '',
           planEstatal: '',
           ods: '',
@@ -264,24 +281,24 @@ const FormDependencia = () => {
 
             <SectionTitle title="Datos del Proyecto" />
             <div className="form-row">
-            <FieldGroup
-              name="descripcion"
-              label="Descripción"
-              as="textarea"
-              maxLength="1000"
-              tooltipText="Describe el proyecto. Máximo 1000 caracteres."
-              note="Máximo 1000 caracteres."
-            />
+              <FieldGroup
+                name="descripcion"
+                label="Descripción"
+                as="textarea"
+                maxLength="1000"
+                tooltipText="Describe el proyecto. Máximo 1000 caracteres."
+                note="Máximo 1000 caracteres."
+              />
             </div>
             <div className="form-row">
-            <FieldGroup
-              name="situacionSinProyecto"
-              label="Situación Sin Proyecto"
-              as="textarea"
-              maxLength="1000"
-              tooltipText="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
-              note="Máximo 1000 caracteres."
-            />
+              <FieldGroup
+                name="situacionSinProyecto"
+                label="Situación Sin Proyecto"
+                as="textarea"
+                maxLength="1000"
+                tooltipText="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
+                note="Máximo 1000 caracteres."
+              />
             </div>
             <div className="form-row">
               <FieldGroup
@@ -302,33 +319,33 @@ const FormDependencia = () => {
               />
             </div>
             <div className="form-row">
-            <CustomSelectField
-              name="programaPresupuestario"
-              label="Programa Presupuestario"
-              options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
-              placeholder="Selecciona una opción"
-              tooltipText="Selecciona el programa presupuestario."
-              onChange={(option) => {
-                setFieldValue('programaPresupuestario', option.value);
-                setSelectedProgramaPresupuestario(option.value);
-              }}
-            />
-            {selectedProgramaPresupuestario && (
               <CustomSelectField
-                name="gastoProgramable"
-                label="Gasto Programable"
-                options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
+                name="programaPresupuestario"
+                label="Programa Presupuestario"
+                options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
                 placeholder="Selecciona una opción"
-                tooltipText="Selecciona el gasto programable."
-                isDisabled={!selectedProgramaPresupuestario}
+                tooltipText="Selecciona el programa presupuestario."
+                onChange={(option) => {
+                  setFieldValue('programaPresupuestario', option.value);
+                  setSelectedProgramaPresupuestario(option.value);
+                }}
               />
-            )}
-            <FieldGroup
-              name="beneficiarios"
-              label="Número de Beneficiarios"
-              type="number"
-              tooltipText="Indica el número de beneficiarios del proyecto."
-            />
+              {selectedProgramaPresupuestario && (
+                <CustomSelectField
+                  name="gastoProgramable"
+                  label="Gasto Programable"
+                  options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
+                  placeholder="Selecciona una opción"
+                  tooltipText="Selecciona el gasto programable."
+                  isDisabled={!selectedProgramaPresupuestario}
+                />
+              )}
+              <FieldGroup
+                name="beneficiarios"
+                label="Número de Beneficiarios"
+                type="number"
+                tooltipText="Indica el número de beneficiarios del proyecto."
+              />
             </div>
             <div className="form-row">
               <FieldGroup
@@ -340,6 +357,89 @@ const FormDependencia = () => {
                 note="Máximo 1500 caracteres."
               />
             </div>
+
+            <SectionTitle title="Territorio y Georreferenciación" />
+
+            <div className="form-row">
+              <CustomSelectField
+                label="Región"
+                name="region"
+                options={Object.keys(municipiosPorRegion).map((region) => ({
+                  value: region,
+                  label: region,
+                }))}
+                placeholder="Seleccione una región"
+                tooltipText="Selecciona la región donde se encuentra el proyecto."
+                onChange={(option) => {
+                  setFieldValue('region', option.value);
+                  setSelectedRegion(option.value);
+                  setFieldValue('municipio', ''); // Reinicia el campo municipio al seleccionar una nueva región
+                }}
+              />
+
+              <CustomSelectField
+                label="Municipio"
+                name="municipio"
+                options={municipiosPorRegion[selectedRegion]?.map((mun) => ({
+                  value: mun,
+                  label: mun,
+                })) || []}
+                placeholder="Seleccione un municipio"
+                tooltipText="Selecciona el municipio correspondiente a la región seleccionada."
+                isDisabled={!selectedRegion} // Deshabilita el campo si no se ha seleccionado una región
+              />
+
+              <FieldGroup
+                name="localidad"
+                label="Localidad"
+                tooltipText="Ingresa la localidad donde se llevará a cabo el proyecto. Máximo 250 caracteres."
+                type="text"
+                maxLength="250"
+                placeholder="Localidad (máximo 250 caracteres)"
+              />
+
+              <FieldGroup
+                label="Barrio/Colonia/Ejido"
+                name="barrioColoniaEjido"
+                tooltipText="Ingresa el barrio, colonia o ejido relacionado al proyecto. Máximo 250 caracteres."
+                type="text"
+                maxLength="250"
+                placeholder="Barrio/Colonia/Ejido (máximo 250 caracteres)"
+              />
+            </div>
+
+            <div className="form-row">
+              <FieldGroup
+                label="Latitud"
+                name="latitud"
+                tooltipText="Ingresa la latitud geográfica del proyecto. Debe ser un valor numérico."
+                type="number"
+                step="any"
+                placeholder="Latitud (ej. 20.1234)"
+              />
+
+              <FieldGroup
+                label="Longitud"
+                name="longitud"
+                tooltipText="Ingresa la longitud geográfica del proyecto. Debe ser un valor numérico."
+                type="number"
+                step="any"
+                placeholder="Longitud (ej. -99.5678)"
+              />
+            </div>
+            
+            <div className="form-row">
+              <CustomSelectField
+                label="Municipios de Impacto"
+                name="municipiosImpacto"
+                options={municipiosOptions}
+                isMulti
+                placeholder="Seleccione los municipios de impacto"
+                tooltipText="Selecciona los municipios donde el proyecto tendrá impacto. Seleccione 'No Aplica' si no corresponde."
+                onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
+              />
+            </div>
+
 
             {/* Documentación */}
             <SectionTitle title="Documentación" />
