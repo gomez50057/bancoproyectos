@@ -656,6 +656,7 @@ const FieldGroup = ({ label, name, note, tooltipText, children, ...props }) => (
         </div>
       )}
     </label>
+    {/* Si el campo tiene hijos (por ejemplo, un componente personalizado), los renderiza */}
     {children ? children : <Field id={name} name={name} {...props} />}
     {note && <p className="field-note">{note}</p>}
     <ErrorMessage name={name} component="div" className="error" />
@@ -668,7 +669,7 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
 
   const handleChange = (selectedOptions) => {
     if (isMulti) {
-      const selectedValues = selectedOptions ? selectedOptions.map((option) => option.value) : [];
+      const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
       helpers.setValue(selectedValues);
     } else {
       helpers.setValue(selectedOptions ? selectedOptions.value : '');
