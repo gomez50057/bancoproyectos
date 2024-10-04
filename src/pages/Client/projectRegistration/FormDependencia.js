@@ -14,10 +14,11 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 const FormDependencia = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
-  const [entityType, setEntityType] = useState(''); // Estado para determinar el tipo de entidad
-  const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState(''); // Estado para unidadResponsable
-  const [selectedProgramaPresupuestario, setSelectedProgramaPresupuestario] = useState(''); // Estado para programaPresupuestario
+  const [entityType, setEntityType] = useState('');
+  const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState('');
+  const [selectedProgramaPresupuestario, setSelectedProgramaPresupuestario] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedPlanEstatal, setSelectedPlanEstatal] = useState('');
 
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -89,6 +90,30 @@ const FormDependencia = () => {
       setFieldValue('municipioAyuntamiento', 'No Aplica');
       setFieldValue('dependencia', 'No Aplica');
     }
+  };
+
+  // Extrae solo los encabezados de indicadoresEstrategicosOptions
+  const planEstatalOptions = Object.keys(indicadoresEstrategicosOptions).map(key => ({
+    value: key,
+    label: key,
+  }));
+
+  // Maneja los cambios en planEstatal
+  const handlePlanEstatalChange = (selectedOption, setFieldValue) => {
+    const selectedValue = selectedOption ? selectedOption.value : '';
+    setSelectedPlanEstatal(selectedValue); // Actualiza el estado de planEstatal
+    setFieldValue('planEstatal', selectedValue);
+    setFieldValue('indicadoresEstrategicos', ''); // Resetea el campo indicadoresEstrategicos al cambiar planEstatal
+  };
+
+  // Obtiene las opciones de indicadoresEstrategicos según el planEstatal seleccionado
+  const getIndicadoresEstrategicosOptions = () => {
+    return selectedPlanEstatal
+      ? indicadoresEstrategicosOptions[selectedPlanEstatal].map(option => ({
+        value: option,
+        label: option,
+      }))
+      : [];
   };
 
 
@@ -496,9 +521,10 @@ const FormDependencia = () => {
               <CustomSelectField
                 name="planEstatal"
                 label="Plan Estatal de Desarrollo"
-                options={planEstatalOptions.map(opt => ({ value: opt, label: opt }))}
+                options={planEstatalOptions}
                 placeholder="Selecciona el plan estatal"
                 tooltipText="Selecciona el plan estatal de desarrollo al que se alinea el proyecto."
+                onChange={(option) => handlePlanEstatalChange(option, setFieldValue)}
               />
             </div>
 
@@ -547,6 +573,17 @@ const FormDependencia = () => {
               />
             </div>
 
+            <SectionTitle title="Mecanismos de Evaluación y Seguimiento a Proyectos " />
+
+            <CustomSelectField
+              name="indicadoresEstrategicos"
+              label="Indicadores Estratégicos"
+              options={getIndicadoresEstrategicosOptions()}
+              placeholder="Selecciona un indicador estratégico"
+              tooltipText="Selecciona el indicador estratégico correspondiente al plan estatal seleccionado."
+              isDisabled={!selectedPlanEstatal}
+              onChange={(option) => setFieldValue('indicadoresEstrategicos', option.value)}
+            />
 
             {/* Documentación */}
             <SectionTitle title="Documentación" />
