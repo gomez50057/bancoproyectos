@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import validationSchemaStep2 from './validationSchemaStep2';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, planEstatalOptions, acuerdosTransversalesOptions, odsOptions, programasSIEOptions} from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, planEstatalOptions, acuerdosTransversalesOptions, odsOptions, programasSIEOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -461,7 +461,7 @@ const FormDependencia = () => {
               />
             </div>
 
-            <div className="form-row">
+            {entityType === 'Municipio' ? (
               <FieldGroup
                 name="planMunicipal"
                 label="Plan Municipal"
@@ -470,7 +470,13 @@ const FormDependencia = () => {
                 maxLength="500"
                 placeholder="Máximo 500 caracteres"
               />
-            </div>
+            ) : (
+              <Field
+                type="hidden"
+                name="planMunicipal"
+                value="No Aplica"
+              />
+            )}
 
             <div className="form-row">
               <CustomSelectField
