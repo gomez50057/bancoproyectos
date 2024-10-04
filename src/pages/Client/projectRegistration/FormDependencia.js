@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import validationSchemaStep2 from './validationSchemaStep2';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, planEstatalOptions, acuerdosTransversalesOptions, odsOptions, programasSIEOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, planEstatalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -55,6 +55,41 @@ const FormDependencia = () => {
   };
 
   const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
+
+  const getProgramasSIEValue = (tipoEntidad, dependencia, organismo) => {
+    if (tipoEntidad === 'Municipio') {
+      return 'No Aplica';
+    }
+
+    if (tipoEntidad === 'Dependencia') {
+      return programasSectorialesOptions[dependencia] || 'No Aplica';
+    }
+
+    if (tipoEntidad === 'Organismo') {
+      return programasSectorialesOptions[organismo] || 'No Aplica';
+    }
+
+    return 'No Aplica';
+  };
+
+  const handleEntityTypeChange = (tipoEntidad, setFieldValue) => {
+    setEntityType(tipoEntidad);
+
+    if (tipoEntidad === 'Municipio') {
+      // Si seleccionamos Municipio, los otros campos se marcan como "No Aplica"
+      setFieldValue('dependencia', 'No Aplica');
+      setFieldValue('organismo', 'No Aplica');
+      setFieldValue('programasSIE', 'No Aplica');
+    } else if (tipoEntidad === 'Dependencia') {
+      // Si es Dependencia, los otros campos se marcan como "No Aplica"
+      setFieldValue('municipioAyuntamiento', 'No Aplica');
+      setFieldValue('organismo', 'No Aplica');
+    } else if (tipoEntidad === 'Organismo') {
+      // Si es Organismo, los otros campos se marcan como "No Aplica"
+      setFieldValue('municipioAyuntamiento', 'No Aplica');
+      setFieldValue('dependencia', 'No Aplica');
+    }
+  };
 
 
   return (
@@ -148,7 +183,7 @@ const FormDependencia = () => {
                 tooltipText="Selecciona el tipo de entidad para el proyecto."
                 onChange={(option) => {
                   setFieldValue('tipoEntidad', option.value);
-                  setEntityType(option.value);  // Actualiza el estado de entityType
+                  handleEntityTypeChange(option.value, setFieldValue);
                 }}
               />
 
@@ -159,7 +194,10 @@ const FormDependencia = () => {
                   options={dependencias.map(dep => ({ value: dep, label: dep }))}
                   placeholder="Selecciona una opción"
                   tooltipText="Selecciona la dependencia que gestiona el proyecto."
-                  onChange={(option) => setFieldValue('dependencia', option.value)}
+                  onChange={(option) => {
+                    setFieldValue('dependencia', option.value);
+                    setFieldValue('programasSIE', getProgramasSIEValue('Dependencia', option.value, values.organismo));
+                  }}
                 />
               )}
 
@@ -170,7 +208,10 @@ const FormDependencia = () => {
                   options={organismos.map(org => ({ value: org, label: org }))}
                   placeholder="Selecciona una opción"
                   tooltipText="Selecciona el organismo encargado del proyecto."
-                  onChange={(option) => setFieldValue('organismo', option.value)}
+                  onChange={(option) => {
+                    setFieldValue('organismo', option.value);
+                    setFieldValue('programasSIE', getProgramasSIEValue('Organismo', values.dependencia, option.value));
+                  }}
                 />
               )}
 
@@ -387,7 +428,7 @@ const FormDependencia = () => {
                 })) || []}
                 placeholder="Seleccione un municipio"
                 tooltipText="Selecciona el municipio correspondiente a la región seleccionada."
-                isDisabled={!selectedRegion} // Deshabilita el campo si no se ha seleccionado una región
+                isDisabled={!selectedRegion}
               />
 
               <FieldGroup
@@ -497,12 +538,12 @@ const FormDependencia = () => {
             </div>
 
             <div className="form-row">
-              <CustomSelectField
+              <FieldGroup
                 name="programasSIE"
                 label="Programas Sectoriales Institucionales Especiales (SIE)"
-                options={programasSIEOptions.map(opt => ({ value: opt, label: opt }))}
-                placeholder="Selecciona un programa SIE"
-                tooltipText="Selecciona el programa sectorial, institucional o especial al que se alinea el proyecto."
+                tooltipText="Este campo se llena automáticamente en base al tipo de entidad seleccionado."
+                readOnly
+                value={values.programasSIE}
               />
             </div>
 
