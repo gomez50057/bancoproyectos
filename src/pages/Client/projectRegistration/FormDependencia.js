@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
 import validationSchemaStep2 from './validationSchemaStep2';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, planEstatalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
@@ -116,6 +116,17 @@ const FormDependencia = () => {
       : [];
   };
 
+  const getIndicadoresTacticosOptions = (tipoEntidad, dependencia) => {
+    if (tipoEntidad === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
+      const opciones = indicadoresTacticosOptions[dependencia] || [];
+      // Retorna las opciones si existen, si no, devuelve "No Aplica"
+      return opciones.length > 0
+        ? opciones.map((opcion) => ({ value: opcion, label: opcion }))
+        : [{ value: 'No Aplica', label: 'No Aplica' }];
+    }
+    return [{ value: 'No Aplica', label: 'No Aplica' }];
+  };
+
 
   return (
     <div className="formulario-container">
@@ -161,6 +172,8 @@ const FormDependencia = () => {
           programasSIE: '',
           indicadoresEstrategicos: '',
           indicadoresTacticos: '',
+          indicadoresDesempeno: '',
+          indicadoresRentabilidad: '',
         }}
         validationSchema={validationSchemaStep2}
         onSubmit={handleSubmit}
@@ -574,16 +587,44 @@ const FormDependencia = () => {
             </div>
 
             <SectionTitle title="Mecanismos de Evaluación y Seguimiento a Proyectos " />
+            <div className="form-row">
+              <CustomSelectField
+                name="indicadoresEstrategicos"
+                label="Indicadores Estratégicos"
+                options={getIndicadoresEstrategicosOptions()}
+                placeholder="Selecciona un indicador estratégico"
+                tooltipText="Selecciona el indicador estratégico correspondiente al plan estatal seleccionado."
+                isDisabled={!selectedPlanEstatal}
+                onChange={(option) => setFieldValue('indicadoresEstrategicos', option.value)}
+              />
 
-            <CustomSelectField
-              name="indicadoresEstrategicos"
-              label="Indicadores Estratégicos"
-              options={getIndicadoresEstrategicosOptions()}
-              placeholder="Selecciona un indicador estratégico"
-              tooltipText="Selecciona el indicador estratégico correspondiente al plan estatal seleccionado."
-              isDisabled={!selectedPlanEstatal}
-              onChange={(option) => setFieldValue('indicadoresEstrategicos', option.value)}
-            />
+              <CustomSelectField
+                name="indicadoresTacticos"
+                label="Indicadores Tácticos"
+                options={getIndicadoresTacticosOptions(entityType, values.dependencia)}
+                placeholder="Selecciona un indicador táctico"
+                tooltipText="Selecciona los indicadores tácticos correspondientes o 'No Aplica' si no aplica."
+              />
+            </div>
+            <div className="form-row">
+              <FieldGroup
+                name="indicadoresDesempeno"
+                label="Indicadores de Desempeño"
+                as="textarea"
+                maxLength="1000"
+                tooltipText="Indica los indicadores de desempeño del proyecto. Máximo 1000 caracteres."
+                note="Máximo 1000 caracteres."
+              />
+
+              <FieldGroup
+                name="indicadoresRentabilidad"
+                label="Indicadores de Rentabilidad"
+                as="textarea"
+                maxLength="1000"
+                tooltipText="Indica los indicadores de rentabilidad del proyecto. Máximo 1000 caracteres."
+                note="Máximo 1000 caracteres."
+              />
+            </div>
 
             {/* Documentación */}
             <SectionTitle title="Documentación" />
@@ -601,7 +642,7 @@ const FormDependencia = () => {
   );
 };
 
-// Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip y notas
+/// Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip y notas
 const FieldGroup = ({ label, name, note, tooltipText, children, ...props }) => (
   <div className="form-group">
     <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
@@ -627,7 +668,7 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
 
   const handleChange = (selectedOptions) => {
     if (isMulti) {
-      const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+      const selectedValues = selectedOptions ? selectedOptions.map((option) => option.value) : [];
       helpers.setValue(selectedValues);
     } else {
       helpers.setValue(selectedOptions ? selectedOptions.value : '');
