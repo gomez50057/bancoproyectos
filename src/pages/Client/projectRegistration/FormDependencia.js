@@ -39,6 +39,9 @@ const FormDependencia = () => {
   // Pasamos las funciones y valores a Formulario
   return (
     <div className="formulario-container">
+      <div className="banner">
+        <h1>Banco de Proyectos - Registro</h1>
+      </div>
       <Formik
         initialValues={{
           projectName: '',

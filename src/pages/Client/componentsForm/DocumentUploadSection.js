@@ -11,8 +11,8 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
     { label: 'Análisis Costo Beneficio (ACB)', field: 'analisis_costo_beneficio' },
     { label: 'Proyecto Ejecutivo', field: 'proyecto_ejecutivo' },
     { label: 'Manifestación Impacto Ambiental (MIA)', field: 'manifestacion_impacto_ambiental' },
-    { label: 'Fotografía o Render del Proyecto', field: 'fotografia_render_proyecto' },
-    { label: 'Otros Estudios y/o Documentos Que Complementen el Proyecto', field: 'otros_estudios' },
+    { label: 'Render del Proyecto', field: 'fotografia_render_proyecto' },
+    { label: 'Otros Estudios y/o Documentos que Complementen el Proyecto', field: 'otros_estudios' },
   ];
 
   const handleDrop = (acceptedFiles, field) => {
@@ -26,6 +26,7 @@ const DocumentUploadSection = ({ applies, handleApplyChange, values, setFieldVal
 
   return (
     <div className="RENTABILIDAD">
+      <p>Si cuentas con documentos complementarios para tu proyecto, anéxalos en el campo correspondiente. Solo se permiten archivos en formato PDF, XLSX, JPEG, DWG, MP4 y KML. Además, el tamaño total de los archivos adjuntos no debe exceder los 250 MB por envío. Asegúrate de que los documentos cumplan con estos requisitos para evitar problemas al cargar el formulario. Si tus archivos superan este límite, te recomendamos reducir el tamaño de tus archivos antes de adjuntarlos.</p>
       {documentos.map(({ label, field }) => (
         <div key={field} className="CargaDocumentacion">
           <div className="textAplica">

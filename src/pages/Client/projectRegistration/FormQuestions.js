@@ -7,6 +7,12 @@ import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import TooltipHelp from '../componentsForm/TooltipHelp';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 
+const handleNumericInput = (fieldName, setFieldValue) => (e) => {
+  const { value } = e.target;
+  const onlyNums = value.replace(/[^0-9]/g, '');
+  setFieldValue(fieldName, onlyNums);
+};
+
 const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const [entityType, setEntityType] = useState('');
   const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState('');
@@ -98,6 +104,24 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
     <Form>
       {/* Registro del Responsable del Proyecto */}
       <SectionTitle title="Registro del Responsable del Proyecto" />
+      <div className="form-row">
+        <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área de adscripción del responsable del registro." />
+      </div>
+      <div className="form-row">
+        <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre como responsable de este registro." />
+        <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
+        <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
+      </div>
+      <div className="form-row">
+        <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
+        <FieldGroup name="telefono" label="Teléfono"
+          type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
+        <FieldGroup name="extension" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('extension', setFieldValue)} />
+      </div>
+
+      {/* Datos Generales del Proyecto */}
+      <SectionTitle title="Datos Generales del Proyecto" />
+
       <div className="form-row">
         <FieldGroup
           name="projectName"
@@ -207,25 +231,14 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         )}
       </div>
 
-      <div className="form-row">
-        <CustomSelectFieldGrouped
-          name="ramoPresupuestal"
-          label="Ramo Presupuestal"
-          options={ramoPresupuestalOptions}
-          placeholder="Seleccione una opción"
-          tooltipText="Selecciona el ramo presupuestal correspondiente."
-          note="Este campo es requerido para el registro del proyecto."
-        />
-      </div>
-
       {/* Datos Financieros */}
       <SectionTitle title="Fuentes de Financiamiento" />
       <div className="form-row">
         <FieldGroup
           name="montoFederal"
-          label="Monto Federal"
+          label="Inversión Federal"
           type="number"
-          tooltipText="Indica el monto de financiamiento federal."
+          tooltipText="Indica la inversión de financiamiento federal."
           onChange={(e) => {
             setFieldValue('montoFederal', e.target.value);
             const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
@@ -234,9 +247,9 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
         <FieldGroup
           name="montoEstatal"
-          label="Monto Estatal"
+          label="Inversión Estatal"
           type="number"
-          tooltipText="Indica el monto de financiamiento estatal."
+          tooltipText="Indica la inversión de financiamiento estatal."
           onChange={(e) => {
             setFieldValue('montoEstatal', e.target.value);
             const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
@@ -245,9 +258,9 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
         <FieldGroup
           name="montoMunicipal"
-          label="Monto Municipal"
+          label="Inversión Municipal"
           type="number"
-          tooltipText="Indica el monto de financiamiento municipal."
+          tooltipText="Indica la inversión de financiamiento municipal."
           onChange={(e) => {
             setFieldValue('montoMunicipal', e.target.value);
             const total = parseFloat(values.montoFederal || 0) + parseFloat(values.montoEstatal || 0) + parseFloat(values.montoMunicipal || 0) + parseFloat(values.montoOtros || 0);
@@ -256,7 +269,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
         <FieldGroup
           name="montoOtros"
-          label="Otros Montos"
+          label="Otras Inversiones"
           type="number"
           tooltipText="Indica cualquier otro tipo de financiamiento."
           onChange={(e) => {
@@ -270,9 +283,17 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       <div className="form-row">
         <FieldGroup
           name="inversionEstimada"
-          label="Inversión Estimada"
+          label="Inversión Total"
           tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
           readOnly
+        />
+        <CustomSelectFieldGrouped
+          name="ramoPresupuestal"
+          label="Ramo Presupuestal"
+          options={ramoPresupuestalOptions}
+          placeholder="Seleccione una opción"
+          tooltipText="Selecciona el ramo presupuestal correspondiente."
+          // note="Este campo es requerido para el registro del proyecto."
         />
       </div>
 
@@ -395,12 +416,12 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
 
         <FieldGroup
-          label="Barrio/Colonia/Ejido"
+          label="Barrio/Colonia"
           name="barrioColoniaEjido"
-          tooltipText="Ingresa el barrio, colonia o ejido relacionado al proyecto. Máximo 250 caracteres."
+          tooltipText="Ingresa el barrio o colonia relacionado al proyecto. Máximo 250 caracteres."
           type="text"
           maxLength="250"
-          placeholder="Barrio/Colonia/Ejido (máximo 250 caracteres)"
+          placeholder="Barrio/Colonia (máximo 250 caracteres)"
         />
       </div>
 
@@ -522,7 +543,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           tooltipText="Selecciona los indicadores tácticos correspondientes o 'No Aplica' si no aplica."
         />
       </div>
-      <div className="form-row">
+      {/* <div className="form-row">
         <FieldGroup
           name="indicadoresDesempeno"
           label="Indicadores de Desempeño"
@@ -540,10 +561,12 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           tooltipText="Indica los indicadores de rentabilidad del proyecto. Máximo 1000 caracteres."
           note="Máximo 1000 caracteres."
         />
-      </div>
+      </div> */}
 
       {/* Documentación */}
-      <SectionTitle title="Documentación" />
+      <SectionTitle title="Anexos del proyecto" />
+
+
       <DocumentUploadSection applies={{}} values={values} setFieldValue={setFieldValue} />
 
       <button type="submit" disabled={isSubmitting}>

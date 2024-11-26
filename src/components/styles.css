@@ -1246,8 +1246,6 @@ select {
 /* Mejoras generales */
 .RENTABILIDAD {
   width: 100%;
-  max-width: 1000px;
-  /* Ajusta según el diseño general */
   margin: 0 auto;
 }
 
