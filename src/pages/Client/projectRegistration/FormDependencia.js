@@ -7,11 +7,14 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 const FormDependencia = () => {
+  const fechaHoy = new Date().toISOString().split('T')[0];
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
 
   // Manejo de la presentación de datos
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    alert('Iniciando el envío del formulario...');
+    console.log('Form data to be submitted:', values);
     try {
       const csrfToken = Cookies.get('csrftoken');
       const response = await axios.post('guardar-proyecto/', values, {
@@ -44,35 +47,41 @@ const FormDependencia = () => {
       </div>
       <Formik
         initialValues={{
-          projectName: '',
+          areaAdscripcion: '',
+          nombreRegistrante: '',
+          apellidoPaterno: '',
+          apellidoMaterno: '',
+          correo: '',
+          telefono: '',
+          telefonoExt: '',
+          fechaRegistro: fechaHoy,
+          nombreProyecto: '',
+          sector: '',
+          tipoProyecto: '',
           tipoEntidad: '',
           dependencia: '',
           organismo: '',
           municipioAyuntamiento: '',
-          sector: '',
-          tipoProyecto: '',
-          PeticionPersonal: '',
           unidadResponsable: '',
           unidadPresupuestal: '',
+          inversionFederal: '0',
+          inversionEstatal: '0',
+          inversionMunicipal: '0',
+          inversionOtros: '0',
+          inversionTotal: '0',
           ramoPresupuestal: '',
-          montoFederal: '0',
-          montoEstatal: '0',
-          montoMunicipal: '0',
-          montoOtros: '0',
-          inversionEstimada: '0',
           descripcion: '',
           situacionSinProyecto: '',
           objetivos: '',
           metas: '',
-          gastoProgramable: '',
           programaPresupuestario: '',
+          gastoProgramable: '',
           beneficiarios: '',
-          normativaAplicableVigente: '',
-          alineacionNormativa: '',
+          normativaAplicable: '',
           region: '',
           municipio: '',
           localidad: '',
-          barrioColoniaEjido: '',
+          barrioColonia: '',
           latitud: '',
           longitud: '',
           municipiosImpacto: [],
@@ -84,8 +93,9 @@ const FormDependencia = () => {
           programasSIE: '',
           indicadoresEstrategicos: '',
           indicadoresTacticos: '',
-          indicadoresDesempeno: '',
-          indicadoresRentabilidad: '',
+
+
+          observaciones: '',          
         }}
         validationSchema={validationSchemaStep2}
         onSubmit={handleSubmit}
