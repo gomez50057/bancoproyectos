@@ -22,45 +22,45 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
   const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
     if (selectedOptions.some((option) => option.value === 'No Aplica')) {
-      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
+      setFieldValue('municipio_impacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
     } else {
-      setFieldValue('municipiosImpacto', selectedOptions);
+      setFieldValue('municipio_impacto', selectedOptions);
     }
   };
 
   const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
 
-  const getProgramasSIEValue = (tipoEntidad, dependencia, organismo) => {
-    if (tipoEntidad === 'Municipio') {
+  const getProgramasSIEValue = (tipo_entidad, dependencia, organismo) => {
+    if (tipo_entidad === 'Municipio') {
       return 'No Aplica';
     }
 
-    if (tipoEntidad === 'Dependencia') {
+    if (tipo_entidad === 'Dependencia') {
       return programasSectorialesOptions[dependencia] || 'No Aplica';
     }
 
-    if (tipoEntidad === 'Organismo') {
+    if (tipo_entidad === 'Organismo') {
       return programasSectorialesOptions[organismo] || 'No Aplica';
     }
 
     return 'No Aplica';
   };
 
-  const handleEntityTypeChange = (tipoEntidad, setFieldValue) => {
-    setEntityType(tipoEntidad);
+  const handleEntityTypeChange = (tipo_entidad, setFieldValue) => {
+    setEntityType(tipo_entidad);
 
-    if (tipoEntidad === 'Municipio') {
+    if (tipo_entidad === 'Municipio') {
       // Si seleccionamos Municipio, los otros campos se marcan como "No Aplica"
       setFieldValue('dependencia', 'No Aplica');
       setFieldValue('organismo', 'No Aplica');
-      setFieldValue('programasSIE', 'No Aplica');
-    } else if (tipoEntidad === 'Dependencia') {
+      setFieldValue('programas_SIE', 'No Aplica');
+    } else if (tipo_entidad === 'Dependencia') {
       // Si es Dependencia, los otros campos se marcan como "No Aplica"
-      setFieldValue('municipioAyuntamiento', 'No Aplica');
+      setFieldValue('municipio_ayuntamiento', 'No Aplica');
       setFieldValue('organismo', 'No Aplica');
-    } else if (tipoEntidad === 'Organismo') {
+    } else if (tipo_entidad === 'Organismo') {
       // Si es Organismo, los otros campos se marcan como "No Aplica"
-      setFieldValue('municipioAyuntamiento', 'No Aplica');
+      setFieldValue('municipio_ayuntamiento', 'No Aplica');
       setFieldValue('dependencia', 'No Aplica');
     }
   };
@@ -71,15 +71,15 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
     label: key,
   }));
 
-  // Maneja los cambios en planEstatal
+  // Maneja los cambios en plan_estatal
   const handlePlanEstatalChange = (selectedOption, setFieldValue) => {
     const selectedValue = selectedOption ? selectedOption.value : '';
-    setSelectedPlanEstatal(selectedValue); // Actualiza el estado de planEstatal
-    setFieldValue('planEstatal', selectedValue);
-    setFieldValue('indicadoresEstrategicos', ''); // Resetea el campo indicadoresEstrategicos al cambiar planEstatal
+    setSelectedPlanEstatal(selectedValue); // Actualiza el estado de plan_estatal
+    setFieldValue('plan_estatal', selectedValue);
+    setFieldValue('indicadores_estrategicos', ''); // Resetea el campo indicadores_estrategicos al cambiar plan_estatal
   };
 
-  // Obtiene las opciones de indicadoresEstrategicos según el planEstatal seleccionado
+  // Obtiene las opciones de indicadores_estrategicos según el plan_estatal seleccionado
   const getIndicadoresEstrategicosOptions = () => {
     return selectedPlanEstatal
       ? indicadoresEstrategicosOptions[selectedPlanEstatal].map(option => ({
@@ -89,8 +89,8 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       : [];
   };
 
-  const getIndicadoresTacticosOptions = (tipoEntidad, dependencia) => {
-    if (tipoEntidad === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
+  const getIndicadoresTacticosOptions = (tipo_entidad, dependencia) => {
+    if (tipo_entidad === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
       const opciones = indicadoresTacticosOptions[dependencia] || [];
       // Retorna las opciones si existen, si no, devuelve "No Aplica"
       return opciones.length > 0
@@ -105,28 +105,28 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       {/* Registro del Responsable del Proyecto */}
       <SectionTitle title="Registro del Responsable del Proyecto" />
       <div className="form-row">
-        <FieldGroup name="areaAdscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área de adscripción del responsable del registro." />
+        <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área de adscripción del responsable del registro." />
       </div>
       <div className="form-row">
-        <FieldGroup name="nombreRegistrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre como responsable de este registro." />
-        <FieldGroup name="apellidoPaterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
-        <FieldGroup name="apellidoMaterno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
+        <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre como responsable de este registro." />
+        <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
+        <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
       </div>
       <div className="form-row">
         <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
         <FieldGroup name="telefono" label="Teléfono"
           type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
-        <FieldGroup name="telefonoExt" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('extension', setFieldValue)} />
+        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('extension', setFieldValue)} />
       </div>
 
       {/* Datos Generales del Proyecto */}
       <SectionTitle title="Datos Generales del Proyecto" />
       <div className="form-row">
-        <FieldGroup name="fechaRegistro" label="Fecha de Registro" type="date" value={values.fechaRegistro} tooltipText="Esta es la fecha en que estás registrando el proyecto y se agrega de manera automática tomando el dato del día en que se elabora." readOnly />
+        <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipText="Esta es la fecha en que estás registrando el proyecto y se agrega de manera automática tomando el dato del día en que se elabora." readOnly />
       </div>
       <div className="form-row">
         <FieldGroup
-          name="nombreProyecto"
+          name="nombre_proyecto"
           label="Nombre del Proyecto"
           tooltipText="Indica el nombre del proyecto."
         />
@@ -138,12 +138,12 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           tooltipText="Selecciona el sector correspondiente."
           onChange={(option) => {
             setFieldValue('sector', option.value);
-            const tipoProyecto = tipoProyectoOptions[option.value] || '';
-            setFieldValue('tipoProyecto', tipoProyecto);
+            const tipo_proyecto = tipoProyectoOptions[option.value] || '';
+            setFieldValue('tipo_proyecto', tipo_proyecto);
           }}
         />
         <FieldGroup
-          name="tipoProyecto"
+          name="tipo_proyecto"
           label="Tipo de Proyecto"
           tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
           readOnly
@@ -152,7 +152,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       <div className="form-row">
         <CustomSelectField
-          name="tipoEntidad"
+          name="tipo_entidad"
           label="Tipo de Entidad"
           options={[
             { value: 'Dependencia', label: 'Dependencia' },
@@ -162,7 +162,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           placeholder="Selecciona una opción"
           tooltipText="Selecciona el tipo de entidad para el proyecto."
           onChange={(option) => {
-            setFieldValue('tipoEntidad', option.value);
+            setFieldValue('tipo_entidad', option.value);
             handleEntityTypeChange(option.value, setFieldValue);
           }}
         />
@@ -176,7 +176,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             tooltipText="Selecciona la dependencia que gestiona el proyecto."
             onChange={(option) => {
               setFieldValue('dependencia', option.value);
-              setFieldValue('programasSIE', getProgramasSIEValue('Dependencia', option.value, values.organismo));
+              setFieldValue('programas_SIE', getProgramasSIEValue('Dependencia', option.value, values.organismo));
             }}
           />
         )}
@@ -190,40 +190,40 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             tooltipText="Selecciona el organismo encargado del proyecto."
             onChange={(option) => {
               setFieldValue('organismo', option.value);
-              setFieldValue('programasSIE', getProgramasSIEValue('Organismo', values.dependencia, option.value));
+              setFieldValue('programas_SIE', getProgramasSIEValue('Organismo', values.dependencia, option.value));
             }}
           />
         )}
 
         {entityType === 'Ayuntamiento' && (
           <CustomSelectField
-            name="municipioAyuntamiento"
+            name="municipio_ayuntamiento"
             label="Ayuntamiento"
             options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
             placeholder="Selecciona una opción"
             tooltipText="Selecciona el municipio que gestionará el proyecto."
-            onChange={(option) => setFieldValue('municipioAyuntamiento', option.value)}
+            onChange={(option) => setFieldValue('municipio_ayuntamiento', option.value)}
           />
         )}
       </div>
 
       <div className="form-row">
         <CustomSelectField
-          name="unidadResponsable"
+          name="unidad_responsable"
           label="Unidad Responsable"
           options={unidadesResponsables.map(unidad => ({ value: unidad, label: unidad }))}
           placeholder="Selecciona una opción"
           tooltipText="Selecciona la unidad responsable del proyecto."
           onChange={(option) => {
-            setFieldValue('unidadResponsable', option.value);
+            setFieldValue('unidad_responsable', option.value);
             setSelectedUnidadResponsable(option.value);
-            setFieldValue('unidadPresupuestal', ''); // Resetea el campo unidadPresupuestal al cambiar la unidadResponsable
+            setFieldValue('unidad_presupuestal', ''); // Resetea el campo unidad_presupuestal al cambiar la unidad_responsable
           }}
         />
 
         {selectedUnidadResponsable && (
           <CustomSelectField
-            name="unidadPresupuestal"
+            name="unidad_presupuestal"
             label="Unidad Presupuestal"
             options={unidadPresupuestalPorUnidadResponsable[selectedUnidadResponsable]?.map(unidad => ({ value: unidad, label: unidad })) || []}
             placeholder="Selecciona una opción"
@@ -237,60 +237,60 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       <SectionTitle title="Fuentes de Financiamiento" />
       <div className="form-row">
         <FieldGroup
-          name="inversionFederal"
+          name="inversion_federal"
           label="Inversión Federal"
           type="number"
           tooltipText="Indica la inversión de financiamiento federal."
           onChange={(e) => {
-            setFieldValue('inversionFederal', e.target.value);
-            const total = parseFloat(values.inversionFederal || 0) + parseFloat(values.inversionEstatal || 0) + parseFloat(values.inversionMunicipal || 0) + parseFloat(values.inversionOtros || 0);
-            setFieldValue('inversionTotal', total.toFixed(2));
+            setFieldValue('inversion_federal', e.target.value);
+            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
+            setFieldValue('inversion_total', total.toFixed(2));
           }}
         />
         <FieldGroup
-          name="inversionEstatal"
+          name="inversion_estatal"
           label="Inversión Estatal"
           type="number"
           tooltipText="Indica la inversión de financiamiento estatal."
           onChange={(e) => {
-            setFieldValue('inversionEstatal', e.target.value);
-            const total = parseFloat(values.inversionFederal || 0) + parseFloat(values.inversionEstatal || 0) + parseFloat(values.inversionMunicipal || 0) + parseFloat(values.inversionOtros || 0);
-            setFieldValue('inversionTotal', total.toFixed(2));
+            setFieldValue('inversion_estatal', e.target.value);
+            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
+            setFieldValue('inversion_total', total.toFixed(2));
           }}
         />
         <FieldGroup
-          name="inversionMunicipal"
+          name="inversion_municipal"
           label="Inversión Municipal"
           type="number"
           tooltipText="Indica la inversión de financiamiento municipal."
           onChange={(e) => {
-            setFieldValue('inversionMunicipal', e.target.value);
-            const total = parseFloat(values.inversionFederal || 0) + parseFloat(values.inversionEstatal || 0) + parseFloat(values.inversionMunicipal || 0) + parseFloat(values.inversionOtros || 0);
-            setFieldValue('inversionTotal', total.toFixed(2));
+            setFieldValue('inversion_municipal', e.target.value);
+            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
+            setFieldValue('inversion_total', total.toFixed(2));
           }}
         />
         <FieldGroup
-          name="inversionOtros"
+          name="inversion_otros"
           label="Otras Inversiones"
           type="number"
           tooltipText="Indica cualquier otro tipo de financiamiento."
           onChange={(e) => {
-            setFieldValue('inversionOtros', e.target.value);
-            const total = parseFloat(values.inversionFederal || 0) + parseFloat(values.inversionEstatal || 0) + parseFloat(values.inversionMunicipal || 0) + parseFloat(values.inversionOtros || 0);
-            setFieldValue('inversionTotal', total.toFixed(2));
+            setFieldValue('inversion_otros', e.target.value);
+            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
+            setFieldValue('inversion_total', total.toFixed(2));
           }}
         />
       </div>
 
       <div className="form-row">
         <FieldGroup
-          name="inversionTotal"
+          name="inversion_total"
           label="Inversión Total"
           tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
           readOnly
         />
         <CustomSelectFieldGrouped
-          name="ramoPresupuestal"
+          name="ramo_presupuestal"
           label="Ramo Presupuestal"
           options={ramoPresupuestalOptions}
           placeholder="Seleccione una opción"
@@ -312,7 +312,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       </div>
       <div className="form-row">
         <FieldGroup
-          name="situacionSinProyecto"
+          name="situacion_sin_proyecto"
           label="Situación Sin Proyecto"
           as="textarea"
           maxLength="1000"
@@ -340,19 +340,19 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       </div>
       <div className="form-row">
         <CustomSelectField
-          name="programaPresupuestario"
+          name="programa_presupuestario"
           label="Programa Presupuestario"
           options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona una opción"
           tooltipText="Selecciona el programa presupuestario."
           onChange={(option) => {
-            setFieldValue('programaPresupuestario', option.value);
+            setFieldValue('programa_presupuestario', option.value);
             setSelectedProgramaPresupuestario(option.value);
           }}
         />
         {selectedProgramaPresupuestario && (
           <CustomSelectField
-            name="gastoProgramable"
+            name="gasto_programable"
             label="Gasto Programable"
             options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
             placeholder="Selecciona una opción"
@@ -369,7 +369,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       </div>
       <div className="form-row">
         <FieldGroup
-          name="normativaAplicable"
+          name="normativa_aplicable"
           label="Normativa Aplicable Vigente"
           as="textarea"
           maxLength="1500"
@@ -418,7 +418,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
 
         <FieldGroup
-          name="barrioColonia"
+          name="barrio_colonia"
           label="Barrio/Colonia"
           tooltipText="Ingresa el barrio o colonia relacionado al proyecto. Máximo 250 caracteres."
           type="text"
@@ -449,7 +449,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       <div className="form-row">
         <CustomSelectField
-          name="municipiosImpacto"
+          name="municipio_impacto"
           label="Municipios de Impacto"
           options={municipiosOptions}
           isMulti
@@ -463,7 +463,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       <SectionTitle title="Alineación Estratégica" />
       <div className="form-row">
         <CustomSelectField
-          name="planNacional"
+          name="plan_nacional"
           label="Plan Nacional de Desarrollo"
           options={planNacionalOptions.map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona el plan nacional"
@@ -471,7 +471,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
 
         <CustomSelectField
-          name="planEstatal"
+          name="plan_estatal"
           label="Plan Estatal de Desarrollo"
           options={planEstatalOptions}
           placeholder="Selecciona el plan estatal"
@@ -482,7 +482,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       {entityType === 'Municipio' ? (
         <FieldGroup
-          name="planMunicipal"
+          name="plan_municipal"
           label="Plan Municipal"
           tooltipText="Ingresa el plan municipal de desarrollo."
           as="textarea"
@@ -492,14 +492,14 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       ) : (
         <Field
           type="hidden"
-          name="planMunicipal"
+          name="plan_municipal"
           value="No Aplica"
         />
       )}
 
       <div className="form-row">
         <CustomSelectField
-          name="acuerdosTransversales"
+          name="acuerdos_transversales"
           label="Acuerdos Transversales"
           options={acuerdosTransversalesOptions.map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona un acuerdo transversal"
@@ -517,28 +517,28 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       <div className="form-row">
         <FieldGroup
-          name="programasSIE"
+          name="programas_SIE"
           label="Programas Sectoriales-Institucionales-Especiales"
           tooltipText="Este campo se llena automáticamente en base al tipo de entidad seleccionado."
           readOnly
-          value={values.programasSIE}
+          value={values.programas_SIE}
         />
       </div>
 
       <SectionTitle title="Mecanismos de Evaluación y Seguimiento a Proyectos " />
       <div className="form-row">
         <CustomSelectField
-          name="indicadoresEstrategicos"
+          name="indicadores_estrategicos"
           label="Indicadores Estratégicos"
           options={getIndicadoresEstrategicosOptions()}
           placeholder="Selecciona un indicador estratégico"
           tooltipText="Selecciona el indicador estratégico correspondiente al plan estatal seleccionado."
           isDisabled={!selectedPlanEstatal}
-          onChange={(option) => setFieldValue('indicadoresEstrategicos', option.value)}
+          onChange={(option) => setFieldValue('indicadores_estrategicos', option.value)}
         />
 
         <CustomSelectField
-          name="indicadoresTacticos"
+          name="indicadores_tacticos"
           label="Indicadores Tácticos"
           options={getIndicadoresTacticosOptions(entityType, values.dependencia)}
           placeholder="Selecciona un indicador táctico"
@@ -562,7 +562,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           note="Máximo 1000 caracteres."
         />
       </div>
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" disabled={isSubmitting} onClick={() => console.log('El botón de enviar fue clicado.')}>
         Enviar
       </button>
     </Form>
