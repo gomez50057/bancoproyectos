@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Formulario from './FormQuestions';
-import validationSchemaStep2 from './validationSchemaStep2';
+import validationSchemaStep from './validationSchemaStep';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -105,7 +105,7 @@ const FormDependencia = () => {
 
           observaciones: '',
         }}
-        validationSchema={null}
+        validationSchema={validationSchemaStep}
         onSubmit={(values, actions) => {
           console.log('Formulario enviado:', values);
           handleSubmit(values, actions);

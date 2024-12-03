@@ -13,6 +13,15 @@ const handleNumericInput = (fieldName, setFieldValue) => (e) => {
   setFieldValue(fieldName, onlyNums);
 };
 
+const calculateTotalInvestment = (federal, estatal, municipal, otros) => {
+  return (
+    parseFloat(federal || 0) +
+    parseFloat(estatal || 0) +
+    parseFloat(municipal || 0) +
+    parseFloat(otros || 0)
+  ).toFixed(2); // Redondear a 2 decimales
+};
+
 const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const [entityType, setEntityType] = useState('');
   const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState('');
@@ -235,6 +244,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       {/* Datos Financieros */}
       <SectionTitle title="Fuentes de Financiamiento" />
+      <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
       <div className="form-row">
         <FieldGroup
           name="inversion_federal"
@@ -242,9 +252,10 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           type="number"
           tooltipText="Indica la inversión de financiamiento federal."
           onChange={(e) => {
-            setFieldValue('inversion_federal', e.target.value);
-            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
-            setFieldValue('inversion_total', total.toFixed(2));
+            const federalValue = e.target.value;
+            setFieldValue('inversion_federal', federalValue);
+            const total = calculateTotalInvestment(federalValue, values.inversion_estatal, values.inversion_municipal, values.inversion_otros);
+            setFieldValue('inversion_total', total);
           }}
         />
         <FieldGroup
@@ -253,9 +264,10 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           type="number"
           tooltipText="Indica la inversión de financiamiento estatal."
           onChange={(e) => {
-            setFieldValue('inversion_estatal', e.target.value);
-            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
-            setFieldValue('inversion_total', total.toFixed(2));
+            const estatalValue = e.target.value;
+            setFieldValue('inversion_estatal', estatalValue);
+            const total = calculateTotalInvestment(values.inversion_federal, estatalValue, values.inversion_municipal, values.inversion_otros);
+            setFieldValue('inversion_total', total);
           }}
         />
         <FieldGroup
@@ -264,9 +276,10 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           type="number"
           tooltipText="Indica la inversión de financiamiento municipal."
           onChange={(e) => {
-            setFieldValue('inversion_municipal', e.target.value);
-            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
-            setFieldValue('inversion_total', total.toFixed(2));
+            const municipalValue = e.target.value;
+            setFieldValue('inversion_municipal', municipalValue);
+            const total = calculateTotalInvestment(values.inversion_federal, values.inversion_estatal, municipalValue, values.inversion_otros);
+            setFieldValue('inversion_total', total);
           }}
         />
         <FieldGroup
@@ -275,9 +288,10 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           type="number"
           tooltipText="Indica cualquier otro tipo de financiamiento."
           onChange={(e) => {
-            setFieldValue('inversion_otros', e.target.value);
-            const total = parseFloat(values.inversion_federal || 0) + parseFloat(values.inversion_estatal || 0) + parseFloat(values.inversion_municipal || 0) + parseFloat(values.inversion_otros || 0);
-            setFieldValue('inversion_total', total.toFixed(2));
+            const otrosValue = e.target.value;
+            setFieldValue('inversion_otros', otrosValue);
+            const total = calculateTotalInvestment(values.inversion_federal, values.inversion_estatal, values.inversion_municipal, otrosValue);
+            setFieldValue('inversion_total', total);
           }}
         />
       </div>
