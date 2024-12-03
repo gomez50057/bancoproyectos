@@ -29,12 +29,12 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedPlanEstatal, setSelectedPlanEstatal] = useState('');
 
-  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
-    if (selectedOptions.some((option) => option.value === 'No Aplica')) {
-      setFieldValue('municipio_impacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
-    } else {
-      setFieldValue('municipio_impacto', selectedOptions);
-    }
+  const handleMunicipioImpactoChange = (selectedOptions, setFieldValue) => {
+    const updatedValues = selectedOptions
+      .some(option => option.value === 'No Aplica')
+      ? ['No Aplica']
+      : selectedOptions.filter(option => option.value !== 'No Aplica').map(option => option.value);
+    setFieldValue('municipio_impacto', updatedValues);
   };
 
   const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
@@ -469,7 +469,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           isMulti
           placeholder="Seleccione los municipios de impacto"
           tooltipText="Selecciona los municipios donde el proyecto tendrá impacto. Seleccione 'No Aplica' si no corresponde."
-          onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
+          onChange={(selectedOptions) => handleMunicipioImpactoChange(selectedOptions, setFieldValue)}
         />
       </div>
 

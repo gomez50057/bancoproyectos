@@ -112,7 +112,7 @@ const FormDependencia = () => {
         }}
       >
         {({ isSubmitting, setFieldValue, values, errors }) => {
-          console.log('Errores actuales del formulario:', errors);
+          // console.log('Errores actuales del formulario:', errors);
           return (
             <Formulario
               setFieldValue={setFieldValue}
