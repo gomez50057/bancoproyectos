@@ -12,7 +12,7 @@ const validationSchemaStep2 = Yup.object().shape({
   apellido_materno: Yup.string().required('El apellido materno es obligatorio'),
   correo: Yup.string().email('Correo electrónico no válido').required('El correo institucional es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
   telefono: Yup.string().matches(/^\d{10}$/, 'El teléfono de oficina debe tener exactamente 10 dígitos, solo números').required('El teléfono de oficina es obligatorio').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
-  telefono_ext: Yup.string().matches(/^\d+$/, 'Solo se permiten números').required('La extensión es obligatoria').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
+  telefono_ext: Yup.string().matches(/^\d+$/, 'Solo se permiten números').test('no-spaces', 'No se permiten espacios en blanco', noSpacesValidation),
 
   nombre_proyecto: Yup.string().required('El nombre del proyecto es obligatorio'),
   tipo_entidad: Yup.string().required('El tipo de entidad es obligatorio'),

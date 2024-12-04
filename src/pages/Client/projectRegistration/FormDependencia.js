@@ -5,16 +5,21 @@ import validationSchemaStep from './validationSchemaStep';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import ErrorIcon from '@mui/icons-material/Error';
 
 const FormDependencia = () => {
   const fechaHoy = new Date().toISOString().split('T')[0];
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [generatedId, setGeneratedId] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   // Manejo de la presentación de datos
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
     console.log('Iniciando handleSubmit'); // Log inicial
     console.log('Datos del formulario:', values); // Datos enviados
+    setErrorMessage(''); // Limpiar cualquier mensaje de error previo
+
     try {
       const csrfToken = Cookies.get('csrftoken');
       console.log('Token CSRF:', csrfToken); // Verifica el token CSRF
@@ -33,9 +38,30 @@ const FormDependencia = () => {
 
       resetForm();
     } catch (error) {
+      // Determinamos si hay respuesta del servidor y capturamos el mensaje de error
+      let errorMsg = 'Formulario no enviado. Valida que todos los campos estén llenos y tu conexión a internet.';
       if (error.response) {
-        console.error('Detalles del error del servidor:', error.response.data);
+        if (error.response.data && typeof error.response.data === 'object') {
+          // Si es un objeto, mostramos los errores del servidor detalladamente
+          errorMsg = `Error al enviar el formulario: ${JSON.stringify(error.response.data)}`;
+        } else {
+          // Si es un string, lo mostramos directamente
+          errorMsg = `Error al enviar el formulario: ${error.response.data}`;
+        }
+      } else {
+        errorMsg = `Error al enviar el formulario: ${error.message}`;
       }
+      // Mostramos el mensaje de error al usuario
+      setErrorMessage(errorMsg);
+
+      setErrors({
+        general: (
+          <div>
+            <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
+            {errorMsg}
+          </div>
+        ),
+      });
     } finally {
       console.log('Finalizando handleSubmit');
       setSubmitting(false);
@@ -53,6 +79,8 @@ const FormDependencia = () => {
       <div className="banner">
         <h1>Banco de Proyectos - Registro</h1>
       </div>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+
       <Formik
         initialValues={{
           area_adscripcion: '',
@@ -111,17 +139,41 @@ const FormDependencia = () => {
           handleSubmit(values, actions);
         }}
       >
-        {({ isSubmitting, setFieldValue, values, errors }) => {
-          // console.log('Errores actuales del formulario:', errors);
+        {({ isSubmitting, setFieldValue, values, errors, isValid, touched }) => {
           return (
-            <Formulario
-              setFieldValue={setFieldValue}
-              values={values}
-              isSubmitting={isSubmitting}
-            />
+            <div>
+              {/* Renderizado del formulario */}
+              <Formulario
+                setFieldValue={setFieldValue}
+                values={values}
+                isSubmitting={isSubmitting}
+              />
+              
+              {/* Bloque para mostrar errores generales */}
+              {Object.keys(errors).length > 0 && touched && !isValid && (
+                <div className="error-summary">
+                  <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
+                  <p>Por favor, revisa el formulario. Los siguientes campos tienen errores:</p>
+                  <ul>
+                    {Object.keys(errors).map((field) => (
+                      <li key={field} className="error-item">
+                        {field}: {errors[field]}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Mostrar errores generales si existen */}
+              {errors.general && (
+                <div className="error-message">
+                  <ErrorIcon style={{ color: 'red', marginRight: '5px' }} />
+                  {errors.general}
+                </div>
+              )}
+            </div>
           );
         }}
-
       </Formik>
 
       <ProjectCreationModal isOpen={modalIsOpen} onRequestClose={closeModal} projectId={generatedId} />
