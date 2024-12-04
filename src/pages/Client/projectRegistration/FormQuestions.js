@@ -125,7 +125,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
         <FieldGroup name="telefono" label="Teléfono"
           type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
-        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('extension', setFieldValue)} />
+        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('telefono_ext', setFieldValue)} />
       </div>
 
       {/* Datos Generales del Proyecto */}
