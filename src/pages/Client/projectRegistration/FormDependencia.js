@@ -5,6 +5,7 @@ import validationSchemaStep from './validationSchemaStep';
 import ProjectCreationModal from '../componentsForm/ProjectCreationModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { fieldLabels } from '../../../utils';
 import ErrorIcon from '@mui/icons-material/Error';
 
 const FormDependencia = () => {
@@ -157,7 +158,7 @@ const FormDependencia = () => {
                   <ul>
                     {Object.keys(errors).map((field) => (
                       <li key={field} className="error-item">
-                        {field}: {errors[field]}
+                        {fieldLabels[field] || field}: {errors[field]}
                       </li>
                     ))}
                   </ul>

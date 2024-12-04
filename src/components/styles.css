@@ -1289,3 +1289,41 @@ select {
 .CargaDocumentacion button:hover {
   background-color: #ff0000;
 }
+
+
+.error-summary {
+  
+  background-color: #ffe6e6;
+  border: 1px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.error-summary p {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  color: red;
+}
+
+.error-summary ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.error-item {
+  color: #d9534f;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  color: red;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
