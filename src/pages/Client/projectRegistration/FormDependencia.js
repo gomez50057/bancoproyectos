@@ -80,8 +80,6 @@ const FormDependencia = () => {
       <div className="banner">
         <h1>Banco de Proyectos - Registro</h1>
       </div>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-
       <Formik
         initialValues={{
           area_adscripcion: '',
