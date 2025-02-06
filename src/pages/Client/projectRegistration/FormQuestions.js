@@ -45,6 +45,29 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
     setFieldValue('municipio', '');
   };
 
+  const getRegionByMunicipio = (municipio) => {
+    for (const region in municipiosPorRegion) {
+      if (municipiosPorRegion[region].includes(municipio)) {
+        return region;
+      }
+    }
+    return '';
+  };
+
+  const handleMunicipioAyuntamientoChange = (option, setFieldValue) => {
+    const municipioValue = option.value;
+    // Se guarda el municipio en el campo municipio_ayuntamiento
+    setFieldValue('municipio_ayuntamiento', municipioValue);
+    // Se asigna el mismo valor al campo 'municipio'
+    setFieldValue('municipio', municipioValue);
+    // Se determina la región correspondiente al municipio
+    const region = getRegionByMunicipio(municipioValue);
+    // Se guarda la región en el campo 'region' (en formato de array ya que es un select multi)
+    setFieldValue('region', region ? [region] : []);
+    // Actualizamos el estado local para 'selectedRegion'
+    setSelectedRegion(region ? [region] : []);
+  };
+
 
   const getMunicipiosOptions = () => {
     if (!selectedRegion || selectedRegion.length === 0) return [];
@@ -184,7 +207,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
             placeholder="Selecciona una opción"
             tooltipText="Selecciona el municipio que gestionará el proyecto."
-            onChange={(option) => setFieldValue('municipio_ayuntamiento', option.value)}
+            onChange={(option) => handleMunicipioAyuntamientoChange(option, setFieldValue)}
           />
         )}
         <FieldGroup
@@ -206,16 +229,21 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           placeholder="Seleccione una o más regiones"
           tooltipText="Selecciona la(s) región(es) donde se encuentra el proyecto."
           onChange={(selectedOptions) => handleRegionChange(selectedOptions, setFieldValue)}
+          isDisabled={entityType === 'Ayuntamiento'}
         />
 
         <CustomSelectField
           name="municipio"
           label="Municipio"
-          options={getMunicipiosOptions()}
+          options={
+            entityType === 'Ayuntamiento'
+              ? (values.municipio ? [{ value: values.municipio, label: values.municipio }] : [])
+              : getMunicipiosOptions()
+          }
           placeholder="Seleccione uno o más municipios"
           tooltipText="Selecciona el/los municipio(s) correspondientes a la(s) región(es) seleccionada(s)."
-          isDisabled={!selectedRegion || selectedRegion.length === 0}
-          isMulti
+          isDisabled={entityType === 'Ayuntamiento' || (!selectedRegion || selectedRegion.length === 0)}
+          isMulti={entityType !== 'Ayuntamiento'}
         />
 
         <FieldGroup
