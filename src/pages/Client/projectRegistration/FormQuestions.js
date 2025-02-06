@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, modalidadEjecucionOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions,aplicaOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, modalidadEjecucionOptions, tipoLocalidadOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import TooltipHelp from '../componentsForm/TooltipHelp';
@@ -161,9 +161,6 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             onChange={(option) => setFieldValue('municipio_ayuntamiento', option.value)}
           />
         )}
-      </div>
-
-      <div className="form-row">
         <FieldGroup
           name="nombre_proyecto"
           label="Nombre del Proyecto"
@@ -236,6 +233,13 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           type="number"
           step="any"
           placeholder="Longitud (ej. -99.5678)"
+        />
+        <CustomSelectField
+          name="tipo_localidad"
+          label="Tipo de Localidad"
+          options={tipoLocalidadOptions}
+          placeholder="Selecciona una opción"
+          tooltipText="Ingresa el tipo de localidad(es) según corresponda"
         />
       </div>
 
@@ -547,7 +551,13 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           isDisabled={!selectedPlanEstatal}
           onChange={(option) => setFieldValue('indicadores_estrategicos', option.value)}
         />
-
+        <CustomSelectField
+          name="indicadores_socioeconomicos"
+          label="Indicadores Socioeconomicos"
+          options={aplicaOptions}
+          placeholder="Selecciona una opción"
+          tooltipText="Elige Si en caso de aplicar en caso contrario elegir No"
+        />
       </div>
 
       {/* Registro del Responsable del Proyecto */}

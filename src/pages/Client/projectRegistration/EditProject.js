@@ -193,6 +193,7 @@ const EditProject = () => {
             region: project.region || '',
             localidad: project.localidad || '',
             barrio_colonia_ejido: project.barrio_colonia_ejido || '',
+            tipo_localidad: project.tipo_localidad || '',
             latitud: project.latitud || '',
             longitud: project.longitud || '',
             planNacional: project.plan_nacional || '',
@@ -219,6 +220,7 @@ const EditProject = () => {
             observaciones: project.observaciones || '',
             gastoProgramable: project.gasto_programable || '',
             indicadoresEstrategicos: project.indicadores_estrategicos || '',
+            indicadores_socioeconomicos: project.indicadores_socioeconomicos || '',
             indicadoresDesempeno: project.indicadores_desempeno || '',
             indicadoresRentabilidad: project.indicadores_rentabilidad || '',
             estadoInicial: project.estado_inicial || null,
@@ -270,9 +272,12 @@ const EditProject = () => {
 
               formData.append('localidad', values.localidad || 'No Aplica');
               formData.append('barrio_colonia_ejido', values.barrio_colonia_ejido || 'No Aplica');
+              formData.append('tipo_localidad', values.tipo_localidad || 'No Aplica');
+
               formData.append('observaciones', values.observaciones || 'No Aplica');
               formData.append('gasto_programable', values.gastoProgramable);
               formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
+              formData.append('indicadores_socioeconomicos', values.indicadores_socioeconomicos);
               formData.append('indicadores_desempeno', values.indicadoresDesempeno || 'No Aplica');
               formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
 
@@ -713,6 +718,13 @@ const EditProject = () => {
                   <Field type="text" name="barrio_colonia_ejido" disabled={project.isBlocked_barrio_colonia_ejido} />
                   <ErrorMessage name="barrio_colonia_ejido" component="div" className="error" />
                 </div>
+                <div className="form-group tipo_localidad">
+                  <label>Tipo de Localidad {project.observacion_tipo_localidad && (
+                    <CustomTooltip id="observacion_tipo_localidad" text={project.observacion_tipo_localidad} />
+                  )}</label>
+                  <Field type="text" name="tipo_localidad" disabled={project.isBlocked_tipo_localidado} />
+                  <ErrorMessage name="tipo_localidad" component="div" className="error" />
+                </div>
               </div>
               <p>COORDENADAS GEOGRÁFICAS:</p>
               <div className="formTwo">
@@ -842,6 +854,13 @@ const EditProject = () => {
                     ))}
                   </Field>
                   <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
+                </div>
+                <div className="form-group indicadores_socioeconomicos">
+                  <label>indicadores Socioeconomicos {project.observacion_indicadores_socioeconomicos && (
+                    <CustomTooltip id="observacion_indicadores_socioeconomicos" text={project.observacion_indicadores_socioeconomicos} />
+                  )}</label>
+                  <Field type="text" name="indicadores_socioeconomicos" disabled={project.isBlocked_indicadores_socioeconomicoso} />
+                  <ErrorMessage name="indicadores_socioeconomicos" component="div" className="error" />
                 </div>
               </div>
 

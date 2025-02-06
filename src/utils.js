@@ -1359,5 +1359,15 @@ export const fieldLabels = {
 
 export const modalidadEjecucionOptions = [
   { value: 'Contrato', label: 'Contrato' },
-  { value: 'Administración de Obra', label: 'Administración de Obra' }
+  { value: 'Administración de Directa', label: 'Administración de Directa' }
+];
+
+export const tipoLocalidadOptions = [
+  { value: 'Urbana', label: 'Urbana' },
+  { value: 'Rural', label: 'Rural' }
+];
+
+export const aplicaOptions = [
+  { value: 'no', label: 'No' },
+  { value: 'si', label: 'Si' }
 ];

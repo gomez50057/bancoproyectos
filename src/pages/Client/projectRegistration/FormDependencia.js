@@ -119,6 +119,7 @@ const FormDependencia = () => {
           municipio: '',
           localidad: '',
           barrio_colonia: '',
+          tipo_localidad: '',
           latitud: '',
           longitud: '',
           municipio_impacto: [],
@@ -129,6 +130,8 @@ const FormDependencia = () => {
           ods: '',
           programas_SIE: '',
           indicadores_estrategicos: '',
+          indicadores_socioeconomicos: '',
+
 
           observaciones: '',
         }}
