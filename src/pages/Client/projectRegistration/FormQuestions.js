@@ -26,7 +26,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const [entityType, setEntityType] = useState('');
   const [selectedUnidadResponsable, setSelectedUnidadResponsable] = useState('');
   const [selectedProgramaPresupuestario, setSelectedProgramaPresupuestario] = useState('');
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState([]);
   const [selectedPlanEstatal, setSelectedPlanEstatal] = useState('');
 
   const handleMunicipioImpactoChange = (selectedOptions, setFieldValue) => {
@@ -36,6 +36,32 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       : selectedOptions.filter(option => option.value !== 'No Aplica').map(option => option.value);
     setFieldValue('municipio_impacto', updatedValues);
   };
+
+  const handleRegionChange = (selectedOptions, setFieldValue) => {
+    const updatedValues = selectedOptions.map(option => option.value);
+    setFieldValue('region', updatedValues);
+    setSelectedRegion(updatedValues);
+    // Reinicia el campo 'municipio' al cambiar las regiones seleccionadas
+    setFieldValue('municipio', '');
+  };
+
+
+  const getMunicipiosOptions = () => {
+    if (!selectedRegion || selectedRegion.length === 0) return [];
+
+    // Combina los municipios de cada región seleccionada
+    const allMunicipios = selectedRegion.reduce((acc, region) => {
+      const municipios = municipiosPorRegion[region] || [];
+      return [...acc, ...municipios];
+    }, []);
+
+    // Elimina duplicados
+    const uniqueMunicipios = [...new Set(allMunicipios)];
+
+    // Mapea los municipios al formato { value, label }
+    return uniqueMunicipios.map(mun => ({ value: mun, label: mun }));
+  };
+
 
   const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
 
@@ -176,25 +202,20 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             value: region,
             label: region,
           }))}
-          placeholder="Seleccione una región"
-          tooltipText="Selecciona la región donde se encuentra el proyecto."
-          onChange={(option) => {
-            setFieldValue('region', option.value);
-            setSelectedRegion(option.value);
-            setFieldValue('municipio', ''); // Reinicia el campo municipio al seleccionar una nueva región
-          }}
+          isMulti
+          placeholder="Seleccione una o más regiones"
+          tooltipText="Selecciona la(s) región(es) donde se encuentra el proyecto."
+          onChange={(selectedOptions) => handleRegionChange(selectedOptions, setFieldValue)}
         />
 
         <CustomSelectField
           name="municipio"
           label="Municipio"
-          options={municipiosPorRegion[selectedRegion]?.map((mun) => ({
-            value: mun,
-            label: mun,
-          })) || []}
-          placeholder="Seleccione un municipio"
-          tooltipText="Selecciona el municipio correspondiente a la región seleccionada."
-          isDisabled={!selectedRegion}
+          options={getMunicipiosOptions()}
+          placeholder="Seleccione uno o más municipios"
+          tooltipText="Selecciona el/los municipio(s) correspondientes a la(s) región(es) seleccionada(s)."
+          isDisabled={!selectedRegion || selectedRegion.length === 0}
+          isMulti
         />
 
         <FieldGroup
