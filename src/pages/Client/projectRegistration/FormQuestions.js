@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions,aplicaOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, modalidadEjecucionOptions, tipoLocalidadOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions, aplicaOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, modalidadEjecucionOptions, tipoLocalidadOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import TooltipHelp from '../componentsForm/TooltipHelp';
@@ -442,23 +442,23 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           tooltipText="Indica el número de beneficiarios del proyecto."
         />
         <CustomSelectField
-          name="programa_presupuestario"
-          label="Programa Presupuestario"
+          name="gasto_programable"
+          label="Gasto Programable"
           options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona una opción"
-          tooltipText="Selecciona el programa presupuestario."
+          tooltipText="Selecciona el gasto programable."
           onChange={(option) => {
-            setFieldValue('programa_presupuestario', option.value);
+            setFieldValue('gasto_programable', option.value);
             setSelectedProgramaPresupuestario(option.value);
           }}
         />
         {selectedProgramaPresupuestario && (
           <CustomSelectField
-            name="gasto_programable"
-            label="Gasto Programable"
+            name="programa_presupuestario"
+            label="Programa Presupuestario"
             options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
             placeholder="Selecciona una opción"
-            tooltipText="Selecciona el gasto programable."
+            tooltipText="Selecciona el programa presupuestario."
             isDisabled={!selectedProgramaPresupuestario}
           />
         )}
