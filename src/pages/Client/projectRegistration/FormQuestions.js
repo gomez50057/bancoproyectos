@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Field, ErrorMessage, useField } from 'formik';
 import Select from 'react-select';
-import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions, indicadoresTacticosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, ramoPresupuestalOptions, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, programaPresupuestarioOptions, indicadoresEstrategicosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions, modalidadEjecucionOptions, planNacionalOptions, acuerdosTransversalesOptions, odsOptions } from '../../../utils';
 import SectionTitle from '../componentsForm/SectionTitle';
 import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
 import TooltipHelp from '../componentsForm/TooltipHelp';
@@ -40,7 +40,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
 
   const getProgramasSIEValue = (tipo_entidad, dependencia, organismo) => {
-    if (tipo_entidad === 'Municipio') {
+    if (tipo_entidad === 'municipio_ayuntamiento') {
       return 'No Aplica';
     }
 
@@ -58,8 +58,8 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const handleEntityTypeChange = (tipo_entidad, setFieldValue) => {
     setEntityType(tipo_entidad);
 
-    if (tipo_entidad === 'Municipio') {
-      // Si seleccionamos Municipio, los otros campos se marcan como "No Aplica"
+    if (tipo_entidad === 'municipio_ayuntamiento') {
+      // Se marcan como "No Aplica"
       setFieldValue('dependencia', 'No Aplica');
       setFieldValue('organismo', 'No Aplica');
       setFieldValue('programas_SIE', 'No Aplica');
@@ -98,65 +98,12 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       : [];
   };
 
-  const getIndicadoresTacticosOptions = (tipo_entidad, dependencia) => {
-    if (tipo_entidad === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
-      const opciones = indicadoresTacticosOptions[dependencia] || [];
-      // Retorna las opciones si existen, si no, devuelve "No Aplica"
-      return opciones.length > 0
-        ? opciones.map((opcion) => ({ value: opcion, label: opcion }))
-        : [{ value: 'No Aplica', label: 'No Aplica' }];
-    }
-    return [{ value: 'No Aplica', label: 'No Aplica' }];
-  };
-
   return (
     <Form>
-      {/* Registro del Responsable del Proyecto */}
-      <SectionTitle title="Registro del Responsable del Proyecto" />
-      <div className="form-row">
-        <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área de adscripción del responsable del registro." />
-      </div>
-      <div className="form-row">
-        <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre como responsable de este registro." />
-        <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
-        <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
-      </div>
-      <div className="form-row">
-        <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
-        <FieldGroup name="telefono" label="Teléfono"
-          type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
-        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('telefono_ext', setFieldValue)} />
-      </div>
-
       {/* Datos Generales del Proyecto */}
-      <SectionTitle title="Datos Generales del Proyecto" />
+      <SectionTitle title="Generalidades del Proyecto" />
       <div className="form-row">
         <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipText="Esta es la fecha en que estás registrando el proyecto y se agrega de manera automática tomando el dato del día en que se elabora." readOnly />
-      </div>
-      <div className="form-row">
-        <FieldGroup
-          name="nombre_proyecto"
-          label="Nombre del Proyecto"
-          tooltipText="Indica el nombre del proyecto."
-        />
-        <CustomSelectField
-          name="sector"
-          label="Sector"
-          options={sectorOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-          placeholder="Selecciona una opción"
-          tooltipText="Selecciona el sector correspondiente."
-          onChange={(option) => {
-            setFieldValue('sector', option.value);
-            const tipo_proyecto = tipoProyectoOptions[option.value] || '';
-            setFieldValue('tipo_proyecto', tipo_proyecto);
-          }}
-        />
-        <FieldGroup
-          name="tipo_proyecto"
-          label="Tipo de Proyecto"
-          tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
-          readOnly
-        />
       </div>
 
       <div className="form-row">
@@ -217,182 +164,13 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       </div>
 
       <div className="form-row">
-        <CustomSelectField
-          name="unidad_responsable"
-          label="Unidad Responsable"
-          options={unidadesResponsables.map(unidad => ({ value: unidad, label: unidad }))}
-          placeholder="Selecciona una opción"
-          tooltipText="Selecciona la unidad responsable del proyecto."
-          onChange={(option) => {
-            setFieldValue('unidad_responsable', option.value);
-            setSelectedUnidadResponsable(option.value);
-            setFieldValue('unidad_presupuestal', ''); // Resetea el campo unidad_presupuestal al cambiar la unidad_responsable
-          }}
-        />
-
-        {selectedUnidadResponsable && (
-          <CustomSelectField
-            name="unidad_presupuestal"
-            label="Unidad Presupuestal"
-            options={unidadPresupuestalPorUnidadResponsable[selectedUnidadResponsable]?.map(unidad => ({ value: unidad, label: unidad })) || []}
-            placeholder="Selecciona una opción"
-            tooltipText="Selecciona la unidad presupuestal correspondiente."
-            isDisabled={!selectedUnidadResponsable}
-          />
-        )}
-      </div>
-
-      {/* Datos Financieros */}
-      <SectionTitle title="Fuentes de Financiamiento" />
-      <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
-      <div className="form-row">
         <FieldGroup
-          name="inversion_federal"
-          label="Inversión Federal"
-          type="number"
-          tooltipText="Indica la inversión de financiamiento federal."
-          onChange={(e) => {
-            const federalValue = e.target.value;
-            setFieldValue('inversion_federal', federalValue);
-            const total = calculateTotalInvestment(federalValue, values.inversion_estatal, values.inversion_municipal, values.inversion_otros);
-            setFieldValue('inversion_total', total);
-          }}
-        />
-        <FieldGroup
-          name="inversion_estatal"
-          label="Inversión Estatal"
-          type="number"
-          tooltipText="Indica la inversión de financiamiento estatal."
-          onChange={(e) => {
-            const estatalValue = e.target.value;
-            setFieldValue('inversion_estatal', estatalValue);
-            const total = calculateTotalInvestment(values.inversion_federal, estatalValue, values.inversion_municipal, values.inversion_otros);
-            setFieldValue('inversion_total', total);
-          }}
-        />
-        <FieldGroup
-          name="inversion_municipal"
-          label="Inversión Municipal"
-          type="number"
-          tooltipText="Indica la inversión de financiamiento municipal."
-          onChange={(e) => {
-            const municipalValue = e.target.value;
-            setFieldValue('inversion_municipal', municipalValue);
-            const total = calculateTotalInvestment(values.inversion_federal, values.inversion_estatal, municipalValue, values.inversion_otros);
-            setFieldValue('inversion_total', total);
-          }}
-        />
-        <FieldGroup
-          name="inversion_otros"
-          label="Otras Inversiones"
-          type="number"
-          tooltipText="Indica cualquier otro tipo de financiamiento."
-          onChange={(e) => {
-            const otrosValue = e.target.value;
-            setFieldValue('inversion_otros', otrosValue);
-            const total = calculateTotalInvestment(values.inversion_federal, values.inversion_estatal, values.inversion_municipal, otrosValue);
-            setFieldValue('inversion_total', total);
-          }}
+          name="nombre_proyecto"
+          label="Nombre del Proyecto"
+          tooltipText="Indica el nombre del proyecto."
         />
       </div>
 
-      <div className="form-row">
-        <FieldGroup
-          name="inversion_total"
-          label="Inversión Total"
-          tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
-          readOnly
-        />
-        <CustomSelectFieldGrouped
-          name="ramo_presupuestal"
-          label="Ramo Presupuestal"
-          options={ramoPresupuestalOptions}
-          placeholder="Seleccione una opción"
-          tooltipText="Selecciona el ramo presupuestal correspondiente."
-        // note="Este campo es requerido para el registro del proyecto."
-        />
-      </div>
-
-      <SectionTitle title="Datos del Proyecto" />
-      <div className="form-row">
-        <FieldGroup
-          name="descripcion"
-          label="Descripción"
-          as="textarea"
-          maxLength="1000"
-          tooltipText="Describe el proyecto. Máximo 1000 caracteres."
-          note="Máximo 1000 caracteres."
-        />
-      </div>
-      <div className="form-row">
-        <FieldGroup
-          name="situacion_sin_proyecto"
-          label="Situación Sin Proyecto"
-          as="textarea"
-          maxLength="1000"
-          tooltipText="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
-          note="Máximo 1000 caracteres."
-        />
-      </div>
-      <div className="form-row">
-        <FieldGroup
-          name="objetivos"
-          label="Objetivos"
-          as="textarea"
-          maxLength="500"
-          tooltipText="Describe los objetivos del proyecto. Máximo 500 caracteres."
-          note="Máximo 500 caracteres."
-        />
-        <FieldGroup
-          name="metas"
-          label="Metas"
-          as="textarea"
-          maxLength="500"
-          tooltipText="Indica las metas del proyecto. Máximo 500 caracteres."
-          note="Máximo 500 caracteres."
-        />
-      </div>
-      <div className="form-row">
-        <CustomSelectField
-          name="programa_presupuestario"
-          label="Programa Presupuestario"
-          options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
-          placeholder="Selecciona una opción"
-          tooltipText="Selecciona el programa presupuestario."
-          onChange={(option) => {
-            setFieldValue('programa_presupuestario', option.value);
-            setSelectedProgramaPresupuestario(option.value);
-          }}
-        />
-        {selectedProgramaPresupuestario && (
-          <CustomSelectField
-            name="gasto_programable"
-            label="Gasto Programable"
-            options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
-            placeholder="Selecciona una opción"
-            tooltipText="Selecciona el gasto programable."
-            isDisabled={!selectedProgramaPresupuestario}
-          />
-        )}
-        <FieldGroup
-          name="beneficiarios"
-          label="Número de Beneficiarios"
-          type="number"
-          tooltipText="Indica el número de beneficiarios del proyecto."
-        />
-      </div>
-      <div className="form-row">
-        <FieldGroup
-          name="normativa_aplicable"
-          label="Normativa Aplicable Vigente"
-          as="textarea"
-          maxLength="1500"
-          tooltipText="Describe la normativa aplicable vigente. Máximo 1500 caracteres."
-          note="Máximo 1500 caracteres."
-        />
-      </div>
-
-      <SectionTitle title="Territorio y Georreferenciación" />
       <div className="form-row">
         <CustomSelectField
           name="region"
@@ -473,6 +251,226 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
       </div>
 
+      {/* Estructura Presupuestal */}
+      <SectionTitle title="Estructura Presupuestal" />
+      <div className="form-row">
+        <CustomSelectField
+          name="sector"
+          label="Sector"
+          options={sectorOptions.map(opt => ({ value: opt.value, label: opt.label }))}
+          placeholder="Selecciona una opción"
+          tooltipText="Selecciona el sector correspondiente."
+          onChange={(option) => {
+            setFieldValue('sector', option.value);
+            const tipo_proyecto = tipoProyectoOptions[option.value] || '';
+            setFieldValue('tipo_proyecto', tipo_proyecto);
+          }}
+        />
+        <FieldGroup
+          name="tipo_proyecto"
+          label="Tipo de Proyecto"
+          tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
+          readOnly
+        />
+      </div>
+
+      <div className="form-row">
+        <CustomSelectField
+          name="unidad_responsable"
+          label="Unidad Responsable"
+          options={unidadesResponsables.map(unidad => ({ value: unidad, label: unidad }))}
+          placeholder="Selecciona una opción"
+          tooltipText="Selecciona la unidad responsable del proyecto."
+          onChange={(option) => {
+            setFieldValue('unidad_responsable', option.value);
+            setSelectedUnidadResponsable(option.value);
+            setFieldValue('unidad_presupuestal', ''); // Resetea el campo unidad_presupuestal al cambiar la unidad_responsable
+          }}
+        />
+
+        {selectedUnidadResponsable && (
+          <CustomSelectField
+            name="unidad_presupuestal"
+            label="Unidad Presupuestal"
+            options={unidadPresupuestalPorUnidadResponsable[selectedUnidadResponsable]?.map(unidad => ({ value: unidad, label: unidad })) || []}
+            placeholder="Selecciona una opción"
+            tooltipText="Selecciona la unidad presupuestal correspondiente."
+            isDisabled={!selectedUnidadResponsable}
+          />
+        )}
+        <CustomSelectFieldGrouped
+          name="ramo_presupuestal"
+          label="Ramo Presupuestal"
+          options={ramoPresupuestalOptions}
+          placeholder="Seleccione una opción"
+          tooltipText="Selecciona el ramo presupuestal correspondiente."
+        // note="Este campo es requerido para el registro del proyecto."
+        />
+      </div>
+
+      {/* Datos Financieros */}
+      <SectionTitle title="Fuentes de Financiamiento" />
+      <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
+      <div className="form-row">
+        <FieldGroup
+          name="inversion_federal"
+          label="Inversión Federal"
+          type="number"
+          tooltipText="Indica la inversión de financiamiento federal."
+          onChange={(e) => {
+            const federalValue = e.target.value;
+            setFieldValue('inversion_federal', federalValue);
+            const total = calculateTotalInvestment(federalValue, values.inversion_estatal, values.inversion_municipal, values.inversion_otros);
+            setFieldValue('inversion_total', total);
+          }}
+        />
+        <FieldGroup
+          name="inversion_estatal"
+          label="Inversión Estatal"
+          type="number"
+          tooltipText="Indica la inversión de financiamiento estatal."
+          onChange={(e) => {
+            const estatalValue = e.target.value;
+            setFieldValue('inversion_estatal', estatalValue);
+            const total = calculateTotalInvestment(values.inversion_federal, estatalValue, values.inversion_municipal, values.inversion_otros);
+            setFieldValue('inversion_total', total);
+          }}
+        />
+        <FieldGroup
+          name="inversion_municipal"
+          label="Inversión Municipal"
+          type="number"
+          tooltipText="Indica la inversión de financiamiento municipal."
+          onChange={(e) => {
+            const municipalValue = e.target.value;
+            setFieldValue('inversion_municipal', municipalValue);
+            const total = calculateTotalInvestment(values.inversion_federal, values.inversion_estatal, municipalValue, values.inversion_otros);
+            setFieldValue('inversion_total', total);
+          }}
+        />
+        <FieldGroup
+          name="inversion_otros"
+          label="Otras Inversiones"
+          type="number"
+          tooltipText="Indica cualquier otro tipo de financiamiento."
+          onChange={(e) => {
+            const otrosValue = e.target.value;
+            setFieldValue('inversion_otros', otrosValue);
+            const total = calculateTotalInvestment(values.inversion_federal, values.inversion_estatal, values.inversion_municipal, otrosValue);
+            setFieldValue('inversion_total', total);
+          }}
+        />
+      </div>
+
+      <div className="form-row">
+        <FieldGroup
+          name="inversion_total"
+          label="Inversión Total"
+          tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
+          readOnly
+        />
+      </div>
+
+      <SectionTitle title="Resumen del Proyecto" />
+      <div className="form-row">
+        <FieldGroup
+          name="descripcion"
+          label="Descripción"
+          as="textarea"
+          maxLength="1000"
+          tooltipText="Describe el proyecto. Máximo 1000 caracteres."
+          note="Máximo 1000 caracteres."
+        />
+      </div>
+      <div className="form-row">
+        <FieldGroup
+          name="situacion_sin_proyecto"
+          label="Situación Sin Proyecto"
+          as="textarea"
+          maxLength="1000"
+          tooltipText="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
+          note="Máximo 1000 caracteres."
+        />
+      </div>
+      <div className="form-row">
+        <FieldGroup
+          name="objetivos"
+          label="Objetivos"
+          as="textarea"
+          maxLength="500"
+          tooltipText="Describe los objetivos del proyecto. Máximo 500 caracteres."
+          note="Máximo 500 caracteres."
+        />
+        <FieldGroup
+          name="metas"
+          label="Metas Fisicas"
+          as="textarea"
+          maxLength="500"
+          tooltipText="Indica las metas del proyecto. Máximo 500 caracteres."
+          note="Máximo 500 caracteres."
+        />
+      </div>
+
+      <div className="form-row">
+        <FieldGroup
+          name="tiempo_ejecucion"
+          label="Tiempo Ejecución"
+          type="number"
+          tooltipText="Ingresa el tiempo estimado en meses que tomará la obra, incluyendo ejecución y entrega."
+          note="Tiempo estimado en meses."
+        />
+
+        <CustomSelectField
+          name="modalidad_ejecucion"
+          label="Modalidad Ejecución"
+          options={modalidadEjecucionOptions}
+          placeholder="Selecciona una opción"
+          tooltipText="Ingresa el tiempo estimado en meses que tomará la obra, incluyendo ejecución y entrega."
+          note="Tiempo estimado en meses."
+        />
+      </div>
+
+      <div className="form-row">
+        <FieldGroup
+          name="beneficiarios"
+          label="Número de Beneficiarios"
+          type="number"
+          tooltipText="Indica el número de beneficiarios del proyecto."
+        />
+        <CustomSelectField
+          name="programa_presupuestario"
+          label="Programa Presupuestario"
+          options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
+          placeholder="Selecciona una opción"
+          tooltipText="Selecciona el programa presupuestario."
+          onChange={(option) => {
+            setFieldValue('programa_presupuestario', option.value);
+            setSelectedProgramaPresupuestario(option.value);
+          }}
+        />
+        {selectedProgramaPresupuestario && (
+          <CustomSelectField
+            name="gasto_programable"
+            label="Gasto Programable"
+            options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
+            placeholder="Selecciona una opción"
+            tooltipText="Selecciona el gasto programable."
+            isDisabled={!selectedProgramaPresupuestario}
+          />
+        )}
+      </div>
+
+      <div className="form-row">
+        <FieldGroup
+          name="normativa_aplicable"
+          label="Normativa Aplicable Vigente"
+          as="textarea"
+          maxLength="1500"
+          tooltipText="Describe la normativa aplicable vigente. Máximo 1500 caracteres."
+          note="Máximo 1500 caracteres."
+        />
+      </div>
+
       {/* Sección de Alineación Estratégica */}
       <SectionTitle title="Alineación Estratégica" />
       <div className="form-row">
@@ -494,7 +492,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
       </div>
 
-      {entityType === 'Municipio' ? (
+      {entityType === 'municipio_ayuntamiento' ? (
         <FieldGroup
           name="plan_municipal"
           label="Plan Municipal"
@@ -513,19 +511,18 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       <div className="form-row">
         <CustomSelectField
-          name="acuerdos_transversales"
-          label="Acuerdos Transversales"
-          options={acuerdosTransversalesOptions.map(opt => ({ value: opt, label: opt }))}
-          placeholder="Selecciona un acuerdo transversal"
-          tooltipText="Selecciona los acuerdos transversales relacionados con el proyecto."
-        />
-
-        <CustomSelectField
           name="ods"
           label="Objetivos de Desarrollo Sostenible (ODS)"
           options={odsOptions.map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona un objetivo de desarrollo sostenible"
           tooltipText="Selecciona los ODS al que se alinea el proyecto."
+        />
+        <CustomSelectField
+          name="acuerdos_transversales"
+          label="Acuerdos Transversales"
+          options={acuerdosTransversalesOptions.map(opt => ({ value: opt, label: opt }))}
+          placeholder="Selecciona un acuerdo transversal"
+          tooltipText="Selecciona los acuerdos transversales relacionados con el proyecto."
         />
       </div>
 
@@ -551,13 +548,23 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           onChange={(option) => setFieldValue('indicadores_estrategicos', option.value)}
         />
 
-        <CustomSelectField
-          name="indicadores_tacticos"
-          label="Indicadores Tácticos"
-          options={getIndicadoresTacticosOptions(entityType, values.dependencia)}
-          placeholder="Selecciona un indicador táctico"
-          tooltipText="Selecciona los indicadores tácticos correspondientes o 'No Aplica' si no aplica."
-        />
+      </div>
+
+      {/* Registro del Responsable del Proyecto */}
+      <SectionTitle title="Registro del Responsable del Proyecto" />
+      <div className="form-row">
+        <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área de adscripción del responsable del registro." />
+      </div>
+      <div className="form-row">
+        <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre como responsable de este registro." />
+        <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
+        <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
+      </div>
+      <div className="form-row">
+        <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
+        <FieldGroup name="telefono" label="Teléfono"
+          type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
+        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('telefono_ext', setFieldValue)} />
       </div>
 
       {/* Documentación */}

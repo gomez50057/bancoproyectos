@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver'; 
 import DownloadIcon from '@mui/icons-material/Download'; 
 import { useNavigate } from 'react-router-dom';
-import urlAnexos from '../../../utils/urlAnexos'; // Correcta ruta del archivo
+import urlAnexos from '../../../utils/urlAnexos';
 
 const ClientProjects = () => {
   const [projects, setProjects] = useState([]);

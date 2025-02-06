@@ -52,8 +52,9 @@ const ProjectReportReact = () => {
     alert(
       "Por favor, configure las siguientes opciones en el panel de impresión:\n\n" +
       "Destino: Guardar como PDF\n" +
-      "Tamaño del papel: Letter\n" +
-      "Escala: Personalizado (118)"
+      "Tamaño del papel: Letter o carta\n" +
+      "Diseño del papel: Horizontal\n" +
+      "Opciones: Gráficos en segundo plano activados"
     );
     window.print();
   };
@@ -67,7 +68,7 @@ const ProjectReportReact = () => {
           <div className="rectangle-content">
             <div className="section">
               <span className="label">Inversión Estimada: </span>
-              <span className="value-inversion-estimada">${project.inversion_estimada}</span>
+              <span className="value-inversion-estimada"> ${parseFloat(project.inversion_total).toLocaleString('es-MX')}</span>
             </div>
             <div className="inline-section">
               <span className="label">Región: </span>
@@ -92,7 +93,7 @@ const ProjectReportReact = () => {
 
             <div className="beneficiarios-section">
               <div className="inline-section">
-                <img src={`${imgBasePath}${project.sector}.png`} alt="Sector" className="image-beneficiarios" />
+                {/* <img src={`${imgBasePath}${project.sector}.png`} alt="Sector" className="image-beneficiarios" /> */}
                 <div className="beneficiarios-num">
                   <span className="label-sector">Sector</span>
                   <span className="value-sector">{project.sector}</span>
@@ -101,14 +102,14 @@ const ProjectReportReact = () => {
             </div>
 
             <div className="map-container" ref={mapRef}>
-              <MapContainer center={position} zoom={30} style={{ height: "220px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
+              <MapContainer center={position} zoom={30} style={{ height: "200px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
                 <TileLayer
                   url="http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
                   subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                 />
                 <Marker position={position}>
                   <Popup>
-                    {project.project_name}
+                    {project.nombre_proyecto}
                   </Popup>
                 </Marker>
               </MapContainer>
@@ -119,7 +120,7 @@ const ProjectReportReact = () => {
 
         <div className="main-container">
           <div className="project-name">
-            <span className="value-project-name">{project.project_name}</span>
+            <span className="value-project-name">{project.nombre_proyecto}</span>
           </div>
           <div className="project-container">
             <div className="text-container">

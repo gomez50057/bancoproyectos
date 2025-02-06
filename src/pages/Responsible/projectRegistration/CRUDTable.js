@@ -1,6 +1,10 @@
 // Archivo: src/pages/Responsible/CRUDTable.js
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import DownloadIcon from '@mui/icons-material/Download';
+import { IconButton, Tooltip } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Typography } from '@mui/material';
@@ -23,6 +27,7 @@ const CRUDTable = () => {
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
+        alert("No se pudieron cargar los proyectos. Intenta nuevamente.");
       }
     };
     fetchProjects();
@@ -48,7 +53,7 @@ const CRUDTable = () => {
     const csrfToken = getCsrfToken();
     try {
       if (isEditMode) {
-        await axios.put(`/proyecto/${currentProject.project_id}/`, currentProject, { 
+        await axios.put(`/proyecto/${currentProject.project_id}/`, currentProject, {
           headers: {
             'X-CSRFToken': csrfToken,
           },
@@ -70,19 +75,121 @@ const CRUDTable = () => {
 
   const handleGenerateReport = useCallback((project_id) => {
     const reportUrl = `/proyecto/reporte/${project_id}/`;
-    window.open(reportUrl, '_blank');
+    const newTab = window.open(reportUrl, '_blank');
+
+    if (!newTab) {
+      alert("El reporte no pudo abrirse. Habilita las ventanas emergentes.");
+    }
   }, []);
 
   const handleViewReactReport = useCallback((projectId) => {
+    if (!projectId) {
+      alert("Error: ID del proyecto no encontrado.");
+      return;
+    }
     navigate(`/project-report-react/${projectId}`);
   }, [navigate]);
 
+
   const renderTruncatedText = (value) => (
-    <div className="truncate-text" title={value}>{value}</div>
+    <div className="truncate-text" title={value || "N/A"}>{value || "N/A"}</div>
   );
 
+  const exportToXLSX = () => {
+    if (projects.length === 0) {
+      alert("No hay datos para exportar.");
+      return;
+    }
+  
+    // Mapeamos los datos para exportar solo las columnas necesarias
+    const ws = XLSX.utils.json_to_sheet(projects.map(project => ({
+      "Usuario": project.user || "N/A",
+      "ID del Proyecto": project.project_id || "N/A",
+      
+      "Área de Adscripción": project.area_adscripcion || "N/A",
+      "Nombre del Registrante": project.nombre_registrante || "N/A",
+      "Apellido Paterno": project.apellido_paterno || "N/A",
+      "Apellido Materno": project.apellido_materno || "N/A",
+      "Correo Electrónico": project.correo || "N/A",
+      "Teléfono": project.telefono || "N/A",
+      "Extensión Telefónica": project.telefono_ext || "N/A",
+  
+      "Fecha de Registro": project.fecha_registro || "N/A",
+      "Nombre del Proyecto": project.nombre_proyecto || "N/A",
+      "Sector": project.sector || "N/A",
+      "Tipo de Proyecto": project.tipo_proyecto || "N/A",
+      "Tipo de Entidad": project.tipo_entidad || "N/A",
+      "Dependencia": project.dependencia || "N/A",
+      "Organismo": project.organismo || "N/A",
+      "Municipio o Ayuntamiento": project.municipio_ayuntamiento || "N/A",
+      "Unidad Responsable": project.unidad_responsable || "N/A",
+      "Unidad Presupuestal": project.unidad_presupuestal || "N/A",
+      
+      "Inversión Federal": project.inversion_federal || "N/A",
+      "Inversión Estatal": project.inversion_estatal || "N/A",
+      "Inversión Municipal": project.inversion_municipal || "N/A",
+      "Inversión de Otros": project.inversion_otros || "N/A",
+      "Inversión Total": project.inversion_total || "N/A",
+      
+      "Ramo Presupuestal": project.ramo_presupuestal || "N/A",
+      "Descripción": project.descripcion || "N/A",
+      "Situación Sin Proyecto": project.situacion_sin_proyecto || "N/A",
+      "Objetivos": project.objetivos || "N/A",
+      "Metas": project.metas || "N/A",
+      "Gasto Programable": project.gasto_programable || "N/A",
+      "Tiempo de Ejecución (meses)": project.tiempo_ejecucion || "N/A",
+      "Modalidad de Ejecución": project.modalidad_ejecucion || "N/A",
+      "Programa Presupuestario": project.programa_presupuestario || "N/A",
+      "Beneficiarios": project.beneficiarios || "N/A",
+      "Normativa Aplicable": project.normativa_aplicable || "N/A",
+      
+      "Región": project.region || "N/A",
+      "Municipio": project.municipio || "N/A",
+      "Localidad": project.localidad || "N/A",
+      "Barrio o Colonia": project.barrio_colonia || "N/A",
+      "Latitud": project.latitud || "N/A",
+      "Longitud": project.longitud || "N/A",
+      "Municipio de Impacto": project.municipio_impacto || "N/A",
+      
+      "Plan Nacional": project.plan_nacional || "N/A",
+      "Plan Estatal": project.plan_estatal || "N/A",
+      "Plan Municipal": project.plan_municipal || "N/A",
+      "Acuerdos Transversales": project.acuerdos_transversales || "N/A",
+      "Objetivos de Desarrollo Sostenible (ODS)": project.ods || "N/A",
+      "Programas SIE": project.programas_SIE || "N/A",
+      "Indicadores Estratégicos": project.indicadores_estrategicos || "N/A",
+      
+      "Situación Actual": project.situacion_actual || "N/A",
+      "Expediente Técnico": project.expediente_tecnico || "N/A",
+      "Estudios de Factibilidad": project.estudios_factibilidad || "N/A",
+      "Análisis de Alternativas": project.analisis_alternativas || "N/A",
+      "Validación Normativa": project.validacion_normativa || "N/A",
+      "Liberación de Derecho de Vía": project.liberacion_derecho_via || "N/A",
+      "Análisis Costo-Beneficio": project.analisis_costo_beneficio || "N/A",
+      "Proyecto Ejecutivo": project.proyecto_ejecutivo || "N/A",
+      "Manifestación de Impacto Ambiental": project.manifestacion_impacto_ambiental || "N/A",
+      "Render": project.render || "N/A",
+      "Otros Estudios": project.otros_estudios || "N/A",
+      
+      "Observaciones": project.observaciones || "N/A",
+      "Porcentaje de Avance": project.porcentaje_avance || "N/A",
+      "Estatus": project.estatus || "N/A",
+      "Situación": project.situacion || "N/A",
+      "Retroalimentación": project.retroalimentacion || "N/A"
+  })));
+  
+  
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Proyectos");
+  
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(data, 'proyectos.xlsx');
+  };
+  
+
   const columns = [
-    { name: "project_id", options: { display: false, customBodyRender: renderTruncatedText } },
+    { name: "project_id", options: { display: false } },
     { name: "Id del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Fecha del Registro", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Nombre del Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -96,15 +203,16 @@ const CRUDTable = () => {
     { name: "Unidad Responsable", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Unidad Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Ramo Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Monto Federal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Monto Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Monto Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Monto Otros", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Inversión Estimada", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversion Federal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversion Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversion Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversion Otros", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Inversión Total", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Descripción", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Situación Sin Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Objetivos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Metas", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Tiempo de Ejecución", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Modalidad de Ejecución", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Gasto Programable", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Programa Presupuestario", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Beneficiarios", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -122,9 +230,6 @@ const CRUDTable = () => {
     { name: "ODS", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Plan Sectorial", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Indicadores Estratégicos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Indicadores Tácticos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Indicadores de Desempeño", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Indicadores de Rentabilidad", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -138,12 +243,15 @@ const CRUDTable = () => {
       options: {
         setCellProps: () => ({ className: 'sticky-column' }),
         customBodyRender: (value, tableMeta, updateValue) => {
-          const projectId = tableMeta.rowData[1];
+          if (!tableMeta.rowData || tableMeta.rowData.length < 2) return <span>Error</span>;
+
+          const projectId = tableMeta.rowData[1] || "N/A";
           const project = projects.find(p => p.project_id === projectId);
+
           return (
             <div className="Acciones-con">
               <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
-              <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button>
+              {/* <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button> */}
               <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Ficha</button>
             </div>
           );
@@ -153,12 +261,16 @@ const CRUDTable = () => {
   ];
 
   const options = {
+    download: false,
     selectableRows: 'none',
-    stickyHeader: true,  // Habilitar stickyHeader
-    setRowProps: (row, dataIndex) => ({
-      className: dataIndex % 2 === 0 ? 'table_row_even' : 'table_row_odd',
-      classNameHover: 'table_row_hover'
-    }),
+    stickyHeader: true,
+    customToolbar: () => (
+      <Tooltip title="Descargar XLSX" arrow>
+        <IconButton onClick={exportToXLSX}>
+        <DownloadIcon sx={{ color: '#dec9a3' }} />
+        </IconButton>
+      </Tooltip>
+    ),
     textLabels: {
       body: {
         noMatch: "No se encontraron registros",
@@ -172,7 +284,7 @@ const CRUDTable = () => {
       },
       toolbar: {
         search: "Buscar",
-        downloadCsv: "Descargar CSV",
+        // downloadCsv: "Descargar CSV",
         print: "Imprimir",
         viewColumns: "Ver columnas",
         filterTable: "Filtrar tabla",
@@ -192,7 +304,7 @@ const CRUDTable = () => {
         deleteAria: "Eliminar filas seleccionadas",
       },
     }
-  };
+  }  
 
   const getMuiTheme = () =>
     createTheme({
@@ -286,76 +398,23 @@ const CRUDTable = () => {
     <ThemeProvider theme={getMuiTheme()}>
       <CssBaseline />
       <div className="table_grid">
-        <MUIDataTable
-          title={<Typography variant="h3">Proyectos Registrados</Typography>}
-          data={projects.map(project => [
-            project.id,
-            project.project_id,
-            project.fecha_registro,
-            project.project_name,
-            project.sector,
-            project.tipo_proyecto,
-            project.tipo_entidad,
-            project.dependencia,
-            project.organismo,
-            project.municipioEnd,
-            project.peticion_personal,
-            project.unidad_responsable,
-            project.unidad_presupuestal,
-            project.ramo_presupuestal,
-            project.monto_federal,
-            project.monto_estatal,
-            project.monto_municipal,
-            project.monto_otros,
-            project.inversion_estimada,
-            project.descripcion,
-            project.situacion_sin_proyecto,
-            project.objetivos,
-            project.metas,
-            project.gasto_programable,
-            project.programa_presupuestario,
-            project.beneficiarios,
-            project.alineacion_normativa,
-            project.region,
-            project.municipio,
-            project.municipio_impacto,
-            project.localidad,
-            project.barrio_colonia_ejido,
-            project.latitud,
-            project.longitud,
-            project.plan_nacional,
-            project.plan_estatal,
-            project.plan_municipal,
-            project.ods,
-            project.plan_sectorial,
-            project.indicadores_estrategicos,
-            project.indicadores_tacticos,
-            project.indicadores_desempeno,
-            project.indicadores_rentabilidad,
-            project.estado_inicial,
-            project.estado_con_proyecto,
-            project.observaciones,
-            project.porcentaje_avance,
-            project.estatus,
-            project.situacion,
-            project.retroalimentacion,
-            project.user__username,
-            project.estudios_prospectivos,
-            project.estudios_factibilidad,
-            project.analisis_alternativas,
-            project.validacion_normativa,
-            project.liberacion_derecho_via,
-            project.situacion_sin_proyecto_fotografico,
-            project.situacion_con_proyecto_proyeccion,
-            project.analisis_costo_beneficio,
-            project.expediente_tecnico,
-            project.proyecto_ejecutivo,
-            project.manifestacion_impacto_ambiental,
-            project.otros_estudios,
-          ])}
-          columns={columns}
-          options={options}
-        />
+        {projects.length > 0 ? (  // ✅ Asegura que haya datos antes de renderizar la tabla
+          <MUIDataTable
+            title={<Typography variant="h3">Proyectos Registrados</Typography>}
+            data={projects.map(project => [
+              project.id || "N/A",
+              project.project_id || "N/A",
+              project.fecha_registro || "N/A",
+              project.nombre_proyecto || "N/A",
+              project.sector || "N/A",
+              project.tipo_proyecto || "N/A",
+            ])}
+            columns={columns}
+            options={options}
+          />
+        ) : (
+          <Typography variant="h6" align="center">Cargando proyectos...</Typography>
+        )}
       </div>
       <ProjectDialog
         open={open}

@@ -45,6 +45,8 @@ const validationSchemaStep2 = Yup.object().shape({
   programa_presupuestario: Yup.string().required('El programa presupuestario es obligatorio'),
   gasto_programable: Yup.string().required('El gasto programable es obligatorio'),
   beneficiarios: Yup.number().min(1, 'El número de beneficiarios tiene que ser mayor a 01').required('El número de beneficiarios es obligatorio'),
+  tiempo_ejecucion: Yup.number().min(1, 'El tiempo de ejecución tiene que ser mayor a un mes').required('El tiempo de ejecución es obligatorio'),
+  modalidad_ejecucion: Yup.string().required('La modalidad de ejecucion es obligatoria'),
   normativa_aplicable: Yup.string().max(1500, 'Máximo 1500 caracteres').required('La alineación normativa es obligatoria'),
   region: Yup.string().required('La región es obligatoria'),
   municipio: Yup.string().required('El municipio es obligatoria'),
@@ -63,13 +65,6 @@ const validationSchemaStep2 = Yup.object().shape({
   ods: Yup.string().required('Los objetivos de desarrollo sostenible son obligatorios'),
   programas_SIE: Yup.string().required('El plan sectorial institucional es obligatorio'),
   indicadores_estrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
-  indicadores_tacticos: Yup.string().test('indicadoresTacticos', 'Los indicadores tácticos son obligatorios', function (value) {
-    const { entityType, dependencia } = this.parent;
-    if (entityType === 'Dependencia' && dependencia !== 'Secretaría del Despacho del Gobernador') {
-      return value === 'No Aplica' || Boolean(value);
-    }
-    return true;
-  }).required('Los indicadores tácticos son obligatorios'),
   
   observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),
 });

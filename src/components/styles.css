@@ -44,7 +44,7 @@ body {
 
 h1,
 h2 {
-  font-size: 45px;
+  font-size: 35px;
   color: var(--vinoOsc);
   font-weight: 400;
 }
@@ -52,6 +52,9 @@ h2 {
 h1 span,
 h2 span {
   font-weight: 700;
+  font-style: italic;
+  font-size: 55px;
+  color: var(--doradoOsc);
 }
 
 p {

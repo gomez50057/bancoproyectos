@@ -126,12 +126,12 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
               onChange={handleIsBlockedChange}
             />
           </div>
-          
+
           <div className="dialog-row">
             {renderInputField('project_id')}
             {renderInputField('fecha_registro')}
           </div>
-          {renderInputField('project_name')}
+          {renderInputField('nombre_proyecto')}
           <div className="dialog-row">
             {renderInputField('sector')}
             {renderInputField('tipo_proyecto')}
@@ -140,8 +140,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
           <div className="dialog-row">
             {renderInputField('dependencia')}
             {renderInputField('organismo')}
-            {renderInputField('municipioEnd')}
-            {renderInputField('peticion_personal')}
+            {renderInputField('municipio_ayuntamiento')}
           </div>
           <div className="dialog-row">
             {renderInputField('unidad_responsable')}
@@ -149,17 +148,21 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
             {renderInputField('ramo_presupuestal')}
           </div>
           <div className="dialog-row">
-            {renderInputField('monto_federal')}
-            {renderInputField('monto_estatal')}
-            {renderInputField('monto_municipal')}
-            {renderInputField('monto_otros')}
+            {renderInputField('inversion_federal')}
+            {renderInputField('inversion_estatal')}
+            {renderInputField('inversion_municipal')}
+            {renderInputField('inversion_otros')}
           </div>
-          {renderInputField('inversion_estimada')}
+          {renderInputField('inversion_total')}
           {renderInputField('descripcion')}
           {renderInputField('situacion_sin_proyecto')}
           <div className="dialog-row">
             {renderInputField('objetivos')}
             {renderInputField('metas')}
+          </div>
+          <div className="dialog-row">
+            {renderInputField('tiempo_ejecucion')}
+            {renderInputField('modalidad_ejecucion')}
           </div>
           <div className="dialog-row">
             {renderInputField('gasto_programable')}
@@ -186,14 +189,12 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
             {renderInputField('plan_municipal')}
           </div>
           <div className="dialog-row">
+            {renderInputField('acuerdos_transversales')}
             {renderInputField('ods')}
-            {renderInputField('plan_sectorial')}
             {renderInputField('indicadores_estrategicos')}
           </div>
           <div className="dialog-row">
-            {renderInputField('indicadores_tacticos')}
-            {renderInputField('indicadores_desempeno')}
-            {renderInputField('indicadores_rentabilidad')}
+            {renderInputField('programas_SIE')}
           </div>
           <div className="dialog-row">
             {renderInputField('estado_inicial')}

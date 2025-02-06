@@ -1336,6 +1336,8 @@ export const fieldLabels = {
   programa_presupuestario: "Programa Presupuestario",
   gasto_programable: "Gasto Programable",
   beneficiarios: "Número de Beneficiarios",
+  tiempo_ejecucion: "Tiempo de Ejecución",
+  modalidad_ejecucion: "Modalidad de Ejecución",
   normativa_aplicable: "Normativa Aplicable Vigente",
   region: "Región",
   municipio: "Municipio",
@@ -1355,3 +1357,7 @@ export const fieldLabels = {
   observaciones: "Observaciones y Comentarios",
 };
 
+export const modalidadEjecucionOptions = [
+  { value: 'Contrato', label: 'Contrato' },
+  { value: 'Administración de Obra', label: 'Administración de Obra' }
+];

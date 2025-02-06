@@ -16,7 +16,6 @@ import {
   gastoProgramableOptions,
   programaPresupuestarioOptions,
   indicadoresEstrategicosOptions,
-  indicadoresTacticosOptions,
   sectorOptions,
   tipoProyectoOptions,
   programasSectorialesOptions
@@ -143,8 +142,8 @@ const EditProject = () => {
   };
 
   const calculateTotal = (values) => {
-    const { montoFederal, montoEstatal, montoMunicipal, montoOtros } = values;
-    const total = (parseFloat(montoFederal) || 0) + (parseFloat(montoEstatal) || 0) + (parseFloat(montoMunicipal) || 0) + (parseFloat(montoOtros) || 0);
+    const { inversionFederal, inversionEstatal, inversionMunicipal, inversionOtros } = values;
+    const total = (parseFloat(inversionFederal) || 0) + (parseFloat(inversionEstatal) || 0) + (parseFloat(inversionMunicipal) || 0) + (parseFloat(inversionOtros) || 0);
     return formatCurrency(total);
   };
 
@@ -171,24 +170,25 @@ const EditProject = () => {
       {project && (
         <Formik
           initialValues={{
-            projectName: project.project_name || '',
+            nombreProyecto: project.nombre_proyecto || '',
             sector: project.sector || '',
             tipoProyecto: project.tipo_proyecto || '',
             entityType: project.tipo_entidad || '',
             dependencia: project.dependencia || '',
             organismo: project.organismo || '',
             municipio: project.municipio || '',
-            PeticionPersonal: project.peticion_personal || '',
-            montoFederal: project.monto_federal || '0',
-            montoEstatal: project.monto_estatal || '0',
-            montoMunicipal: project.monto_municipal || '0',
-            montoOtros: project.monto_otros || '0',
+            inversionFederal: project.inversion_federal || '0',
+            inversionEstatal: project.inversion_estatal || '0',
+            inversionMunicipal: project.inversion_municipal || '0',
+            inversionOtros: project.inversion_otros || '0',
             descripcion: project.descripcion || '',
             situacionSinProyecto: project.situacion_sin_proyecto || '',
             objetivos: project.objetivos || '',
             metas: project.metas || '',
             programaPresupuestario: project.programa_presupuestario || '',
             beneficiarios: project.beneficiarios || '',
+            tiempo_ejecucion: project.tiempo_ejecucion || '',
+            modalidad_ejecucion: project.modalidad_ejecucion || '',
             alineacionNormativa: project.alineacion_normativa || '',
             region: project.region || '',
             localidad: project.localidad || '',
@@ -219,7 +219,6 @@ const EditProject = () => {
             observaciones: project.observaciones || '',
             gastoProgramable: project.gasto_programable || '',
             indicadoresEstrategicos: project.indicadores_estrategicos || '',
-            indicadoresTacticos: project.indicadores_tacticos || '',
             indicadoresDesempeno: project.indicadores_desempeno || '',
             indicadoresRentabilidad: project.indicadores_rentabilidad || '',
             estadoInicial: project.estado_inicial || null,
@@ -228,26 +227,27 @@ const EditProject = () => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               const formData = new FormData();
-              formData.append('project_name', values.projectName);
+              formData.append('nombre_proyecto', values.nombreProyecto);
               formData.append('sector', values.sector);
               formData.append('tipo_proyecto', values.tipoProyecto);
               formData.append('tipo_entidad', values.entityType);
               formData.append('dependencia', values.dependencia || 'No Aplica');
               formData.append('organismo', values.organismo || 'No Aplica');
               formData.append('municipio', values.municipio || 'No Aplica');
-              formData.append('municipioEnd', values.municipioEnd || 'No Aplica');
-              formData.append('peticion_personal', values.PeticionPersonal || 'No Aplica');
-              formData.append('monto_federal', parseFloat(values.montoFederal) || 0);
-              formData.append('monto_estatal', parseFloat(values.montoEstatal) || 0);
-              formData.append('monto_municipal', parseFloat(values.montoMunicipal) || 0);
-              formData.append('monto_otros', parseFloat(values.montoOtros) || 0);
-              formData.append('inversion_estimada', parseFloat(values.inversionEstimada) || 0);
+              formData.append('municipio_ayuntamiento', values.municipio_ayuntamiento || 'No Aplica');
+              formData.append('inversion_federal', parseFloat(values.inversionFederal) || 0);
+              formData.append('inversion_estatal', parseFloat(values.inversionEstatal) || 0);
+              formData.append('inversion_municipal', parseFloat(values.inversionMunicipal) || 0);
+              formData.append('inversion_otros', parseFloat(values.inversionOtros) || 0);
+              formData.append('inversion_total', parseFloat(values.inversionTotal) || 0);
               formData.append('descripcion', values.descripcion);
               formData.append('situacion_sin_proyecto', values.situacionSinProyecto);
               formData.append('objetivos', values.objetivos);
               formData.append('metas', values.metas);
               formData.append('programa_presupuestario', values.programaPresupuestario);
               formData.append('beneficiarios', values.beneficiarios || 0);
+              formData.append('tiempo_ejecucion', values.tiempo_ejecucion || 0);
+              formData.append('modalidad_ejecucion', values.modalidad_ejecucion || 0);
               formData.append('alineacion_normativa', values.alineacionNormativa);
               formData.append('region', values.region);
               formData.append('latitud', parseFloat(values.latitud));
@@ -273,7 +273,6 @@ const EditProject = () => {
               formData.append('observaciones', values.observaciones || 'No Aplica');
               formData.append('gasto_programable', values.gastoProgramable);
               formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
-              formData.append('indicadores_tacticos', values.indicadoresTacticos || 'No Aplica');
               formData.append('indicadores_desempeno', values.indicadoresDesempeno || 'No Aplica');
               formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
 
@@ -325,12 +324,12 @@ const EditProject = () => {
                 </div>
 
                 <div className="formThree">
-                  <div className="form-group projectName">
-                    <label>Nombre del Proyecto {project.observacion_project_name && (
-                      <CustomTooltip id="observacion_project_name" text={project.observacion_project_name} />
+                  <div className="form-group nombreProyecto">
+                    <label>Nombre del Proyecto {project.observacion_nombre_proyecto && (
+                      <CustomTooltip id="observacion_nombre_proyecto" text={project.observacion_nombre_proyecto} />
                     )}</label>
-                    <Field type="text" name="projectName" disabled={project.isBlocked_project_name} />
-                    <ErrorMessage name="projectName" component="div" className="error" />
+                    <Field type="text" name="nombreProyecto" disabled={project.isBlocked_nombre_proyecto} />
+                    <ErrorMessage name="nombreProyecto" component="div" className="error" />
                   </div>
                   <div className="form-group sector">
                     <label>Sector {project.observacion_sector && (
@@ -411,27 +410,17 @@ const EditProject = () => {
                   )}
 
                   {values.entityType === 'Municipio' && (
-                    <div className="form-group municipioEnd">
-                      <label>Municipio {project.observacion_municipioEnd && (
-                        <CustomTooltip id="observacion_municipioEnd" text={project.observacion_municipioEnd} />
+                    <div className="form-group municipio_ayuntamiento">
+                      <label>Municipio {project.observacion_municipio_ayuntamiento && (
+                        <CustomTooltip id="observacion_municipio_ayuntamiento" text={project.observacion_municipio_ayuntamiento} />
                       )}</label>
-                      <Field as="select" name="municipioEnd" disabled={project.isBlocked_municipioEnd}>
+                      <Field as="select" name="municipio_ayuntamiento" disabled={project.isBlocked_municipio_ayuntamiento}>
                         <option value="">Seleccione</option>
                         {municipiosDeHidalgo.map((mun) => (
                           <option key={mun} value={mun}>{mun}</option>
                         ))}
                       </Field>
-                      <ErrorMessage name="municipioEnd" component="div" className="error" />
-                    </div>
-                  )}
-
-                  {values.entityType === 'Petición Personal' && (
-                    <div className="form-group PeticionPersonal">
-                      <label>Petición Personal {project.observacion_peticion_personal && (
-                        <CustomTooltip id="observacion_peticion_personal" text={project.observacion_peticion_personal} />
-                      )}</label>
-                      <Field type="text" name="PeticionPersonal" disabled={project.isBlocked_peticion_personal} />
-                      <ErrorMessage name="PeticionPersonal" component="div" className="error" />
+                      <ErrorMessage name="municipio_ayuntamiento" component="div" className="error" />
                     </div>
                   )}
                 </div>
@@ -525,53 +514,53 @@ const EditProject = () => {
               <div className="FuentesFinanciamiento">
                 <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
                 <div className="formFour">
-                  <div className="form-group montoFederal">
-                    <label>Monto Federal {project.observacion_monto_federal && (
-                      <CustomTooltip id="observacion_monto_federal" text={project.observacion_monto_federal} />
+                  <div className="form-group inversionFederal">
+                    <label>Monto Federal {project.observacion_inversion_federal && (
+                      <CustomTooltip id="observacion_inversion_federal" text={project.observacion_inversion_federal} />
                     )}</label>
-                    <Field type="number" name="montoFederal" min="0" disabled={project.isBlocked_monto_federal} onChange={(e) => {
-                      setFieldValue('montoFederal', e.target.value);
-                      setFieldValue('inversionEstimada', calculateTotal(values));
+                    <Field type="number" name="inversionFederal" min="0" disabled={project.isBlocked_inversion_federal} onChange={(e) => {
+                      setFieldValue('inversionFederal', e.target.value);
+                      setFieldValue('inversionTotal', calculateTotal(values));
                     }} />
-                    <ErrorMessage name="montoFederal" component="div" className="error" />
+                    <ErrorMessage name="inversionFederal" component="div" className="error" />
                   </div>
-                  <div className="form-group montoMunicipal">
-                    <label>Monto Municipal {project.observacion_monto_municipal && (
-                      <CustomTooltip id="observacion_monto_municipal" text={project.observacion_monto_municipal} />
+                  <div className="form-group inversionMunicipal">
+                    <label>Monto Municipal {project.observacion_inversion_municipal && (
+                      <CustomTooltip id="observacion_inversion_municipal" text={project.observacion_inversion_municipal} />
                     )}</label>
-                    <Field type="number" name="montoMunicipal" min="0" disabled={project.isBlocked_monto_municipal} onChange={(e) => {
-                      setFieldValue('montoMunicipal', e.target.value);
-                      setFieldValue('inversionEstimada', calculateTotal(values));
+                    <Field type="number" name="inversionMunicipal" min="0" disabled={project.isBlocked_inversion_municipal} onChange={(e) => {
+                      setFieldValue('inversionMunicipal', e.target.value);
+                      setFieldValue('inversionTotal', calculateTotal(values));
                     }} />
-                    <ErrorMessage name="montoMunicipal" component="div" className="error" />
+                    <ErrorMessage name="inversionMunicipal" component="div" className="error" />
                   </div>
-                  <div className="form-group montoOtros">
-                    <label>Otros {project.observacion_monto_otros && (
-                      <CustomTooltip id="observacion_monto_otros" text={project.observacion_monto_otros} />
+                  <div className="form-group inversionOtros">
+                    <label>Otros {project.observacion_inversion_otros && (
+                      <CustomTooltip id="observacion_inversion_otros" text={project.observacion_inversion_otros} />
                     )}</label>
-                    <Field type="number" name="montoOtros" min="0" disabled={project.isBlocked_monto_otros} onChange={(e) => {
-                      setFieldValue('montoOtros', e.target.value);
-                      setFieldValue('inversionEstimada', calculateTotal(values));
+                    <Field type="number" name="inversionOtros" min="0" disabled={project.isBlocked_inversion_otros} onChange={(e) => {
+                      setFieldValue('inversionOtros', e.target.value);
+                      setFieldValue('inversionTotal', calculateTotal(values));
                     }} />
-                    <ErrorMessage name="montoOtros" component="div" className="error" />
+                    <ErrorMessage name="inversionOtros" component="div" className="error" />
                   </div>
-                  <div className="form-group montoEstatal">
-                    <label>Monto Estatal {project.observacion_monto_estatal && (
-                      <CustomTooltip id="observacion_monto_estatal" text={project.observacion_monto_estatal} />
+                  <div className="form-group inversionEstatal">
+                    <label>Monto Estatal {project.observacion_inversion_estatal && (
+                      <CustomTooltip id="observacion_inversion_estatal" text={project.observacion_inversion_estatal} />
                     )}</label>
-                    <Field type="number" name="montoEstatal" min="0" disabled={project.isBlocked_monto_estatal} onChange={(e) => {
-                      setFieldValue('montoEstatal', e.target.value);
-                      setFieldValue('inversionEstimada', calculateTotal(values));
+                    <Field type="number" name="inversionEstatal" min="0" disabled={project.isBlocked_inversion_estatal} onChange={(e) => {
+                      setFieldValue('inversionEstatal', e.target.value);
+                      setFieldValue('inversionTotal', calculateTotal(values));
                     }} />
-                    <ErrorMessage name="montoEstatal" component="div" className="error" />
+                    <ErrorMessage name="inversionEstatal" component="div" className="error" />
                   </div>
                 </div>
 
-                <div className="form-group inversionEstimada">
-                  <label>Inversión Estimada {project.observacion_inversion_estimada && (
-                    <CustomTooltip id="observacion_inversion_estimada" text={project.observacion_inversion_estimada} />
+                <div className="form-group inversionTotal">
+                  <label>Inversión Total {project.observacion_inversion_total && (
+                    <CustomTooltip id="observacion_inversion_total" text={project.observacion_inversion_total} />
                   )}</label>
-                  <Field type="text" name="inversionEstimada" readOnly disabled={project.isBlocked_inversion_estimada} value={calculateTotal(values)} />
+                  <Field type="text" name="inversionTotal" readOnly disabled={project.isBlocked_inversion_total} value={calculateTotal(values)} />
                 </div>
 
               </div>
@@ -656,6 +645,27 @@ const EditProject = () => {
                     <ErrorMessage name="alineacionNormativa" component="div" className="error" />
                     <div>Máximo 200 caracteres</div>
                   </div>
+                </div>
+
+                <div className="formTwo">
+                  <div className="form-group beneficiarios">
+                    <label>Tiempo de Ejecucion {project.observacion_tiempo_ejecucion && (
+                      <CustomTooltip id="observacion_tiempo_ejecucion" text={project.observacion_tiempo_ejecucion} />
+                    )}</label>
+                    <Field type="number" name="tiempo_ejecucion" min="1" disabled={project.isBlocked_tiempo_ejecucion} />
+                    <ErrorMessage name="tiempo_ejecucion" component="div" className="error" />
+                  </div>
+                  <div className="form-group planNacional">
+                  <label>Plan Nacional de Desarrollo {project.observacion_modalidad_ejecucion && (
+                    <CustomTooltip id="observacion_modalidad_ejecucion" text={project.observacion_modalidad_ejecucion} />
+                  )}</label>
+                  <Field as="select" name="modalidad_ejecucion" disabled={project.isBlocked_modalidad_ejecucion}>
+                    <option value="">Seleccione</option>
+                    <option value="Contrato">Contrato</option>
+                    <option value="Administración de Obra">Administración de Obra</option>
+                  </Field>
+                  <ErrorMessage name="modalidad_ejecucion" component="div" className="error" />
+                </div>
                 </div>
               </div>
 
@@ -832,23 +842,6 @@ const EditProject = () => {
                     ))}
                   </Field>
                   <ErrorMessage name="indicadoresEstrategicos" component="div" className="error" />
-                </div>
-                <div className="form-group indicadoresTacticos">
-                  <label>Indicadores Tácticos {project.observacion_indicadores_tacticos && (
-                    <CustomTooltip id="observacion_indicadores_tacticos" text={project.observacion_indicadores_tacticos} />
-                  )}</label>
-                  {values.entityType === 'Dependencia' && values.dependencia !== 'Secretaría del Despacho del Gobernador' ? (
-                    <Field as="select" name="indicadoresTacticos" disabled={project.isBlocked_indicadores_tacticos}>
-                      <option value="">Seleccione</option>
-                      {indicadoresTacticosOptions[values.dependencia]?.map((ind) => (
-                        <option key={ind} value={ind}>{ind}</option>
-                      ))}
-                      <option value="No Aplica">No Aplica</option>
-                    </Field>
-                  ) : (
-                    <Field type="text" name="indicadoresTacticos" value="No Aplica" readOnly />
-                  )}
-                  <ErrorMessage name="indicadoresTacticos" component="div" className="error" />
                 </div>
               </div>
 

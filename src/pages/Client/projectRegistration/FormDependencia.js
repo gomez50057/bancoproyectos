@@ -112,6 +112,8 @@ const FormDependencia = () => {
           programa_presupuestario: '',
           gasto_programable: '',
           beneficiarios: '',
+          tiempo_ejecucion: '',
+          modalidad_ejecucion: '',
           normativa_aplicable: '',
           region: '',
           municipio: '',
@@ -127,8 +129,6 @@ const FormDependencia = () => {
           ods: '',
           programas_SIE: '',
           indicadores_estrategicos: '',
-          indicadores_tacticos: '',
-
 
           observaciones: '',
         }}
@@ -147,7 +147,7 @@ const FormDependencia = () => {
                 values={values}
                 isSubmitting={isSubmitting}
               />
-              
+
               {/* Bloque para mostrar errores generales */}
               {Object.keys(errors).length > 0 && touched && !isValid && (
                 <div className="error-summary">
@@ -170,6 +170,7 @@ const FormDependencia = () => {
                   {errors.general}
                 </div>
               )}
+              {errorMessage && <div className="error-message">{errorMessage}</div>}
             </div>
           );
         }}
