@@ -122,7 +122,6 @@ const FormDependencia = () => {
           tipo_localidad: '',
           latitud: '',
           longitud: '',
-          municipio_impacto: [],
           plan_nacional: '',
           plan_estatal: '',
           plan_municipal: '',

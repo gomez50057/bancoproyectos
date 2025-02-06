@@ -216,7 +216,6 @@ const EditProject = () => {
             proyectoEjecutivo: [],
             manifestacionImpactoAmbiental: [],
             otrosEstudios: [],
-            municipiosImpacto: project.municipio_impacto ? project.municipio_impacto.map(mun => ({ value: mun, label: mun })) : [],
             observaciones: project.observaciones || '',
             gastoProgramable: project.gasto_programable || '',
             indicadoresEstrategicos: project.indicadores_estrategicos || '',
@@ -742,22 +741,6 @@ const EditProject = () => {
                   <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" disabled={project.isBlocked_longitud} />
                   <ErrorMessage name="longitud" component="div" className="error" />
                 </div>
-              </div>
-
-              <div className="form-group municipiosImpacto">
-                <label>Municipios de Impacto {project.observacion_municipiosImpacto && (
-                  <CustomTooltip id="observacion_municipiosImpacto" text={project.observacion_municipiosImpacto} />
-                )}</label>
-                <p>Por favor, selecciona los municipios en los que se localiza el proyecto. Es importante que indiques todas las áreas de impacto para asegurarnos de que la información esté completa y precisa. En caso de que no fuera el caso seleccionar "No Aplica".</p>
-                <Select
-                  name="municipiosImpacto"
-                  options={municipiosOptions}
-                  isMulti
-                  onChange={(selectedOptions) => handleMunicipiosImpactoChange(selectedOptions, setFieldValue)}
-                  value={values.municipiosImpacto}
-                  placeholder="Municipios"
-                />
-                <ErrorMessage name="municipiosImpacto" component="div" className="error" />
               </div>
 
               <SectionTitle title="Alineación Estratégica" />

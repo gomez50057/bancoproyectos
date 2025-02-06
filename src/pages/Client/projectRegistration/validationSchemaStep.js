@@ -55,7 +55,6 @@ const validationSchemaStep2 = Yup.object().shape({
   latitud: Yup.number().required('La latitud es obligatoria'),
   longitud: Yup.number().required('La longitud es obligatoria'),
   tipo_localidad: Yup.string().required('El tipo de localidad es obligatoria'),
-  municipio_impacto: Yup.array().nullable(),
   plan_nacional: Yup.string().required('El plan nacional de desarrollo es obligatorio'),
   plan_estatal: Yup.string().required('El plan estatal de desarrollo es obligatorio'),
   plan_municipal: Yup.string().when('entityType', {
@@ -64,7 +63,6 @@ const validationSchemaStep2 = Yup.object().shape({
   }),
 
   ods: Yup.string().required('Los objetivos de desarrollo sostenible son obligatorios'),
-  programas_SIE: Yup.string().required('El plan sectorial institucional es obligatorio'),
   indicadores_estrategicos: Yup.string().required('Los indicadores estratégicos son obligatorios'),
   indicadores_socioeconomicos: Yup.string().required('Los indicadores socioeconómicos son obligatorios'),  
   observaciones: Yup.string().max(1000, 'Máximo 1000 caracteres'),

@@ -29,14 +29,6 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const [selectedRegion, setSelectedRegion] = useState([]);
   const [selectedPlanEstatal, setSelectedPlanEstatal] = useState('');
 
-  const handleMunicipioImpactoChange = (selectedOptions, setFieldValue) => {
-    const updatedValues = selectedOptions
-      .some(option => option.value === 'No Aplica')
-      ? ['No Aplica']
-      : selectedOptions.filter(option => option.value !== 'No Aplica').map(option => option.value);
-    setFieldValue('municipio_impacto', updatedValues);
-  };
-
   const handleRegionChange = (selectedOptions, setFieldValue) => {
     const updatedValues = selectedOptions.map(option => option.value);
     setFieldValue('region', updatedValues);
@@ -107,7 +99,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const handleEntityTypeChange = (tipo_entidad, setFieldValue) => {
     setEntityType(tipo_entidad);
 
-    if (tipo_entidad === 'municipio_ayuntamiento') {
+    if (tipo_entidad === 'Ayuntamiento') {
       // Se marcan como "No Aplica"
       setFieldValue('dependencia', 'No Aplica');
       setFieldValue('organismo', 'No Aplica');
@@ -289,18 +281,6 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           options={tipoLocalidadOptions}
           placeholder="Selecciona una opción"
           tooltipText="Ingresa el tipo de localidad(es) según corresponda"
-        />
-      </div>
-
-      <div className="form-row">
-        <CustomSelectField
-          name="municipio_impacto"
-          label="Municipios de Impacto"
-          options={municipiosOptions}
-          isMulti
-          placeholder="Seleccione los municipios de impacto"
-          tooltipText="Selecciona los municipios donde el proyecto tendrá impacto. Seleccione 'No Aplica' si no corresponde."
-          onChange={(selectedOptions) => handleMunicipioImpactoChange(selectedOptions, setFieldValue)}
         />
       </div>
 
@@ -545,7 +525,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
       </div>
 
-      {entityType === 'municipio_ayuntamiento' ? (
+      {entityType === 'Ayuntamiento' ? (
         <FieldGroup
           name="plan_municipal"
           label="Plan Municipal"
@@ -579,15 +559,17 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         />
       </div>
 
-      <div className="form-row">
-        <FieldGroup
-          name="programas_SIE"
-          label="Programas Sectoriales-Institucionales-Especiales"
-          tooltipText="Este campo se llena automáticamente en base al tipo de entidad seleccionado."
-          readOnly
-          value={values.programas_SIE}
-        />
-      </div>
+      {entityType !== 'Ayuntamiento' && (
+        <div className="form-row">
+          <FieldGroup
+            name="programas_SIE"
+            label="Programas Sectoriales-Institucionales-Especiales"
+            tooltipText="Este campo se llena automáticamente en base al tipo de entidad seleccionado."
+            readOnly
+            value={values.programas_SIE}
+          />
+        </div>
+      )}
 
       <SectionTitle title="Mecanismos de Evaluación y Seguimiento a Proyectos " />
       <div className="form-row">
