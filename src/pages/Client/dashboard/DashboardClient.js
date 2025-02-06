@@ -27,12 +27,13 @@ const Dashboard = () => {
     localStorage.setItem('activeComponent', activeComponent);
 
     const listItems = document.querySelectorAll('.list-item');
-    listItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        listItems.forEach((li) => li.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
+
+    const handleClick = (event) => {
+      listItems.forEach((li) => li.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    };
+
+    listItems.forEach((item) => item.addEventListener('click', handleClick));
 
     const toggleBtn = document.querySelector('.toggle');
     const sidebar = document.querySelector('.sidebar');
@@ -44,16 +45,25 @@ const Dashboard = () => {
       toggleBtn.classList.toggle('active');
       sidebar.classList.toggle('active');
     };
+
+    return () => {
+      listItems.forEach((item) => item.removeEventListener('click', handleClick));
+    };
   }, [activeComponent]);
 
   const handleMenuClick = (componentName) => {
-    setActiveComponent(componentName); // Actualiza el componente activo según el menú seleccionado
+    setActiveComponent(componentName);
+    localStorage.setItem('activeComponent', componentName);
+
     const listItems = document.querySelectorAll('.list-item');
     listItems.forEach((li) => li.classList.remove('active'));
-    document.querySelector(`[data-component=${componentName}]`).classList.add('active');
+
+    const activeItem = document.querySelector(`[data-component=${componentName}]`);
+    if (activeItem) {
+      activeItem.classList.add('active');
+    }
   };
 
-  // Renderiza el componente activo basado en el estado
   const renderContent = () => {
     switch (activeComponent) {
       case 'formulario':
@@ -75,13 +85,23 @@ const Dashboard = () => {
             data-component="ProjInvestment"
             onClick={() => handleMenuClick('ProjInvestment')}
           >
-            <b></b>
-            <b></b>
             <button className="list-item-link">
               <div className="icon">
                 <SvgIcon name="acuerdo" />
               </div>
               <span className="title">Proyectos de inversión</span>
+            </button>
+          </li>
+          <li
+            className={`list-item ${activeComponent === 'formulario' ? 'active' : ''}`}
+            data-component="formulario"
+            onClick={() => handleMenuClick('formulario')}
+          >
+            <button className="list-item-link">
+              <div className="icon">
+                <SvgIcon name="formulario" />
+              </div>
+              <span className="title">Registro de Proyectos Admin</span>
             </button>
           </li>
         </ul>

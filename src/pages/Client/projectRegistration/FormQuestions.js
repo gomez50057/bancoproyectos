@@ -78,7 +78,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   };
 
 
-  const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
+  // const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map((mun) => ({ value: mun, label: mun }))];
 
   const getProgramasSIEValue = (tipo_entidad, dependencia, organismo) => {
     if (tipo_entidad === 'municipio_ayuntamiento') {

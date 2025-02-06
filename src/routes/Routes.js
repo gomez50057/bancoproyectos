@@ -46,16 +46,18 @@ const AppRoutes = () => {
       {/* <Route path="/presupuesto-inversion" element={<LoginLayout><CedulaRegistroForm /></LoginLayout>} /> */}
       <Route path="/presupuesto-inversion/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><CedulaRegistroForm /></LoginLayout></PrivateRoute>} />
 
-      <Route path="/dependencia" element={<LoginLayout><FormDependencia /></LoginLayout>} />
-      {/* <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} /> */}
+      {/* <Route path="/dependencia" element={<LoginLayout><FormDependencia /></LoginLayout>} /> */}
+      <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} />
       {/* <Route path="/panel-usuario/*" element={<LoginLayout><ClientPanel /></LoginLayout>} /> */}
       <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} />
 
       <Route path="/consulta" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientProjects /></LoginLayout></PrivateRoute>} />
+      {/* <Route path="/consulta" element={<LoginLayout><ClientProjects /></LoginLayout>} /> */}
+
       <Route path="/editar-proyecto/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><EditProject /></LoginLayout></PrivateRoute>} />
       <Route path="/editar-proyecto-inversion/:projectId" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><EditProjectInvest /></LoginLayout></PrivateRoute>} />
-      {/* <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} /> */}
-      <Route path="/crud" element={<LoginLayout><CRUDTable /></LoginLayout>} />
+      <Route path="/crud" element={<PrivateRoute allowedGroups={['responsable']}><LoginLayout><CRUDTable /></LoginLayout></PrivateRoute>} />
+      {/* <Route path="/crud" element={<LoginLayout><CRUDTable /></LoginLayout>} /> */}
 
       <Route path="/project-report-react/:projectId" element={<PrivateRoute allowedGroups={['responsable']}><ProjectReportReact /></PrivateRoute>} />
       <Route path="/reporte-inversion/:projectId" element={<InvestmentReport />} />
@@ -64,14 +66,12 @@ const AppRoutes = () => {
       {/* <Route path="/panel-proyectos" element={<DashboardClient />} /> */}
       <Route path="/panel-proyectos" element={<PrivateRoute allowedGroups={['cliente']}><DashboardClient /></PrivateRoute>} />
 
-      <Route path="/panel-responsable" element={<DashboardResponsible />} />
-      {/* <Route path="/panel-responsable" element={<PrivateRoute allowedGroups={['responsable']}><DashboardResponsible /></PrivateRoute>} /> */}
+      {/* <Route path="/panel-responsable" element={<DashboardResponsible />} /> */}
+      <Route path="/panel-responsable" element={<PrivateRoute allowedGroups={['responsable']}><DashboardResponsible /></PrivateRoute>} />
 
       <Route path="/preguntas-frecuentes" element={<FAQ />} />
 
-
       <Route path="/panel-admin" element={<DashboardInvestment />} />
-
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

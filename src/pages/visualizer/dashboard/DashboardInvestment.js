@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import axios from 'axios';
-import './DashboardInvestment.css'; // Asegúrate de incluir tu archivo CSS
+import './DashboardInvestment.module.css';
 import 'chart.js/auto';
 
 const DashboardInvestment = () => {

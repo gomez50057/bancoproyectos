@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import Select from 'react-select';
+// import Select from 'react-select';
 import { useParams, useNavigate } from 'react-router-dom';
 import CustomTooltip from '../componentsForm/Tooltip';
 import SectionTitle from '../componentsForm/SectionTitle';
@@ -151,15 +151,15 @@ const EditProject = () => {
     setApplies((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))];
+  // const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))];
 
-  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
-    if (selectedOptions.some(option => option.value === 'No Aplica')) {
-      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
-    } else {
-      setFieldValue('municipiosImpacto', selectedOptions);
-    }
-  };
+  // const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
+  //   if (selectedOptions.some(option => option.value === 'No Aplica')) {
+  //     setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
+  //   } else {
+  //     setFieldValue('municipiosImpacto', selectedOptions);
+  //   }
+  // };
 
   return (
     <div className="formulario-container">

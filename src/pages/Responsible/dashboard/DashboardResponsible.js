@@ -80,7 +80,6 @@ const DashboardResponsible = () => {
       <div className="sidebar active">
         <div className="toggle active"></div>
         <ul className="list">
-          {/* Opción para ClientInveProjectsAdmin */}
           <li
             className={`list-item ${activeComponent === 'ClientInveProjectsAdmin' ? 'active' : ''}`}
             data-component="ClientInveProjectsAdmin"
@@ -108,6 +107,9 @@ const DashboardResponsible = () => {
         </ul>
 
         <div className="sidebar-card">
+          <div className="sidebarCardImg">
+            <img src={`${imgBasePath}sidebarRecurso.webp`} alt="sidebar Recurso" />
+          </div>
           <button onClick={handleLogoutClick}>
             <img src={`${imgBasePath}exit.png`} alt="Cerrar Sesión" className="icon" />
             Cerrar Sesión

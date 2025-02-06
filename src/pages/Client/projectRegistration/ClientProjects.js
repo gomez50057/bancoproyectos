@@ -16,9 +16,8 @@ const ClientProjects = () => {
         const response = await axios.get('/ver-proyectos-usuario/');
         const data = response.data.map(project => [
           project.project_id,
-          project.project_name,
+          project.nombre_proyecto,
           project.estatus,
-          project.porcentaje_avance,
           project.isBlocked_project, // Asegúrate de que esta línea esté presente
         ]);
         setProjects(data);
@@ -37,7 +36,6 @@ const ClientProjects = () => {
     { name: "ID del Proyecto", options: { setCellProps: () => ({ style: { fontWeight: 700, textAlign: 'left' } }) } },
     { name: "Nombre del Proyecto", options: { setCellProps: () => ({ style: { textAlign: 'left' } }) } },
     { name: "Estatus", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
-    { name: "Porcentaje de Avance", options: { setCellProps: () => ({ style: { textAlign: 'center' } }) } },
     { 
       name: "Acciones", 
       options: { 
@@ -45,7 +43,7 @@ const ClientProjects = () => {
         customBodyRender: (value, tableMeta) => {
           const projectId = projects[tableMeta.rowIndex][0];
           const estatus = projects[tableMeta.rowIndex][2];
-          const isBlocked = projects[tableMeta.rowIndex][4]; 
+          const isBlocked = projects[tableMeta.rowIndex][3]; 
 
           if (isBlocked) {
             if (estatus === "Atendido") {
