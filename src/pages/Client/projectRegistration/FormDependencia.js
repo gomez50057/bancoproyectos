@@ -23,8 +23,9 @@ const FormDependencia = () => {
 
     try {
       const csrfToken = Cookies.get('csrftoken');
-      console.log('Token CSRF:', csrfToken); // Verifica el token CSRF
+      console.log('Token CSRF:', csrfToken);
 
+      // Enviar la información del proyecto (sin archivos) al endpoint principal.
       const response = await axios.post('guardar-proyecto/', values, {
         headers: {
           'X-CSRFToken': csrfToken,
@@ -35,6 +36,43 @@ const FormDependencia = () => {
       console.log('Respuesta del servidor:', response.data);
       const projectId = response.data.project_id;
       setGeneratedId(projectId);
+
+      // Definir los campos documentales y su correspondencia con el backend
+      const documentFields = [
+        { field: 'estudios_factibilidad', type: 'estudios_factibilidad' },
+        { field: 'analisis_alternativas', type: 'analisis_alternativas' },
+        { field: 'validacion_normativa', type: 'validacion_normativa' },
+        { field: 'liberacion_derecho_via', type: 'liberacion_derecho_via' },
+        { field: 'analisis_costo_beneficio', type: 'analisis_costo_beneficio' },
+        { field: 'expediente_tecnico_docu', type: 'expediente_tecnico' },
+        { field: 'proyecto_ejecutivo', type: 'proyecto_ejecutivo' },
+        { field: 'manifestacion_impacto_ambiental', type: 'manifestacion_impacto_ambiental' },
+        { field: 'fotografia_render_proyecto', type: 'render' },
+        { field: 'otros_estudios', type: 'otros_estudios' }
+      ];
+
+      // Por cada campo de documento, recorrer la lista de archivos y subir cada uno
+      for (const doc of documentFields) {
+        const files = values[doc.field];
+        if (files && files.length > 0) {
+          for (const file of files) {
+            // Crear FormData para el archivo actual
+            const formData = new FormData();
+            formData.append('document_type', doc.type);
+            formData.append('file', file);
+            
+            // Realizar la petición de subida
+            await axios.post(`/projects/${projectId}/upload-document/`, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRFToken': csrfToken,
+              },
+            });
+          }
+        }
+      }
+
+      // Mostrar modal de éxito y reiniciar el formulario
       setModalIsOpen(true);
 
       resetForm();
@@ -152,7 +190,7 @@ const FormDependencia = () => {
         {({ isSubmitting, setFieldValue, values, errors, isValid, touched }) => {
           return (
             <div>
-              {/* Renderizado del formulario */}
+              {/* Renderiza el formulario principal */}
               <Formulario
                 setFieldValue={setFieldValue}
                 values={values}
