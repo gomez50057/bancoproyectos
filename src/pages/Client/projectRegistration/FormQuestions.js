@@ -29,6 +29,27 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   const [selectedRegion, setSelectedRegion] = useState([]);
   const [selectedPlanEstatal, setSelectedPlanEstatal] = useState('');
 
+  const [applies, setApplies] = useState({
+    estudios_factibilidad: false,
+    analisis_alternativas: false,
+    validacion_normativa: false,
+    liberacion_derecho_via: false,
+    analisis_costo_beneficio: false,
+    expediente_tecnico_docu: false,
+    proyecto_ejecutivo: false,
+    manifestacion_impacto_ambiental: false,
+    fotografia_render_proyecto: false,
+    otros_estudios: false,
+  });
+
+  // Manejadores de cambios
+  const handleApplyChange = (field) => {
+    setApplies((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
+  };
+
   const handleRegionChange = (selectedOptions, setFieldValue) => {
     const updatedValues = selectedOptions.map(option => option.value);
     setFieldValue('region', updatedValues);
@@ -610,7 +631,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
 
       {/* Documentación */}
       <SectionTitle title="Anexos del proyecto" />
-      <DocumentUploadSection applies={{}} values={values} setFieldValue={setFieldValue} />
+      <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
       {/* Observaciones y Comentarios */}
       <SectionTitle title="Observaciones y Comentarios" />

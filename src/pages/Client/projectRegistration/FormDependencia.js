@@ -131,7 +131,16 @@ const FormDependencia = () => {
           indicadores_estrategicos: '',
           indicadores_socioeconomicos: '',
 
-
+          estudios_factibilidad: [],
+          analisis_alternativas: [],
+          validacion_normativa: [],
+          liberacion_derecho_via: [],
+          analisis_costo_beneficio: [],
+          expediente_tecnico_docu: [],
+          proyecto_ejecutivo: [],
+          manifestacion_impacto_ambiental: [],
+          fotografia_render_proyecto: [],
+          otros_estudios: [],
           observaciones: '',
         }}
         validationSchema={validationSchemaStep}

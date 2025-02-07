@@ -643,7 +643,6 @@ const CedulaRegistroForm = () => {
                   tooltipText="Indica si el proyecto ya cuenta con un expediente técnico validado. Un expediente técnico validado es un requisito para garantizar que el proyecto ha sido aprobado en términos técnicos."
                 />
               </div>
-              <p>Si cuentas con documentos complementarios para tu proyecto, anéxalos en el campo correspondiente. Solo se permiten archivos en formato PDF, XLSX, JPEG, DWG, MP4 y KML. Además, el tamaño total de los archivos adjuntos no debe exceder los 250 MB por envío. Asegúrate de que los documentos cumplan con estos requisitos para evitar problemas al cargar el formulario. Si tus archivos superan este límite, te recomendamos reducir el tamaño de tus archivos antes de adjuntarlos.</p>
               <DocumentUploadSection applies={applies} handleApplyChange={handleApplyChange} values={values} setFieldValue={setFieldValue} />
 
               {Object.keys(errors).length > 0 && touched && !isValid && (
