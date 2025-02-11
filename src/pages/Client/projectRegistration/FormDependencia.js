@@ -31,6 +31,7 @@ const FormDependencia = () => {
           'X-CSRFToken': csrfToken,
           'Content-Type': 'application/json',
         },
+        withCredentials: true,
       });
 
       console.log('Respuesta del servidor:', response.data);
@@ -67,6 +68,7 @@ const FormDependencia = () => {
                 'Content-Type': 'multipart/form-data',
                 'X-CSRFToken': csrfToken,
               },
+              withCredentials: true,
             });
           }
         }

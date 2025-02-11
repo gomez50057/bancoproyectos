@@ -830,12 +830,12 @@ export const programaPresupuestarioOptions = {
     '05.Protección, Defensa, Promoción y Difusión de los Derechos Humanos',
     '06.Garantías en Transparencia, Acceso a la Información Pública Gubernamental y Protección de Datos',
     '07.Justicia en los Procesos Electorales'
-  ]
-  // '23.Gasto No Programable': [
-  //   '01.Municipios',
-  //   '02.Deuda',
-  //   '03.Adeudos de Ejercicios Fiscales Anteriores (ADEFAS)'
-  // ]  
+  ],
+  '23.Gasto No Programable': [
+    '01.Municipios',
+    '02.Deuda',
+    '03.Adeudos de Ejercicios Fiscales Anteriores (ADEFAS)'
+  ]  
 };
 
 export const indicadoresEstrategicosOptions = {
