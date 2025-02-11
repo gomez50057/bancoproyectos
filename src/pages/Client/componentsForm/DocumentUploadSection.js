@@ -64,7 +64,8 @@ const DropzoneField = ({ field, handleDrop, handleRemoveFile, values }) => {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
       'image/jpeg': ['.jpeg'],
       'image/vnd.dwg': ['.dwg'],
-      'video/mp4': ['.mp4']
+      'video/mp4': ['.mp4'],
+      'application/vnd.google-earth.kml+xml': ['.kml'], 
     },
     multiple: true,
     onDrop: (acceptedFiles) => handleDrop(acceptedFiles, field),

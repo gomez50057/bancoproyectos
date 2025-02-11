@@ -161,7 +161,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   };
 
   return (
-    <Form>
+    <Form encType="multipart/form-data">
       {/* Datos Generales del Proyecto */}
       <SectionTitle title="Generalidades del Proyecto" />
       <div className="form-row">

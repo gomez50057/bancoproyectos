@@ -31,11 +31,11 @@ const ClientPanel = () => {
             title="Agregar Proyecto" 
             imgSrc={`${imgBasePath}agregar.webp`} 
           /> 
-          <Card 
+          {/* <Card 
             onClick={() => navigate('/presupuesto-inversion')} 
             title="Anteproyecto para el Presupuesto de Inversión 2025" 
             imgSrc={`${imgBasePath}agregar.webp`} 
-          />
+          /> */}
           <Card 
             onClick={() => navigate('/panel-proyectos')} 
             title="Consultar Proyecto" 
