@@ -50,6 +50,13 @@ const validationSchemaStep2 = Yup.object().shape({
   normativa_aplicable: Yup.string().max(1500, 'Máximo 1500 caracteres').required('La alineación normativa es obligatoria'),
   region: Yup.array().required('La región es obligatoria'),
   municipio: Yup.array().required('El municipio es obligatoria'),
+
+//   municipio: Yup.array().when('tipo_entidad', {
+//   is: (tipo_entidad) => tipo_entidad !== 'Ayuntamiento',
+//   then: Yup.array().required('El municipio es obligatorio'),
+//   otherwise: Yup.array().notRequired()
+// }),
+
   localidad: Yup.string().required('La localidad es obligatoria'),
   barrio_colonia: Yup.string().required('El Barrio o Colonia es obligatoria'),
   latitud: Yup.number().required('La latitud es obligatoria'),

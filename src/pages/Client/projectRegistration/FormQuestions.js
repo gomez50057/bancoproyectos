@@ -71,15 +71,15 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
     const municipioValue = option.value;
     // Se guarda el municipio en el campo municipio_ayuntamiento
     setFieldValue('municipio_ayuntamiento', municipioValue);
-    // Se asigna el mismo valor al campo 'municipio'
-    setFieldValue('municipio', municipioValue);
+    // Se asigna el valor en formato array para que cumpla con la validación (se envuelve en array)
+    setFieldValue('municipio', [municipioValue]);
     // Se determina la región correspondiente al municipio
     const region = getRegionByMunicipio(municipioValue);
     // Se guarda la región en el campo 'region' (en formato de array ya que es un select multi)
     setFieldValue('region', region ? [region] : []);
     // Actualizamos el estado local para 'selectedRegion'
     setSelectedRegion(region ? [region] : []);
-  };
+  };  
 
 
   const getMunicipiosOptions = () => {
