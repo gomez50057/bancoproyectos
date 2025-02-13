@@ -79,7 +79,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
     setFieldValue('region', region ? [region] : []);
     // Actualizamos el estado local para 'selectedRegion'
     setSelectedRegion(region ? [region] : []);
-  };  
+  };
 
 
   const getMunicipiosOptions = () => {
@@ -503,14 +503,30 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           }}
         />
         {selectedProgramaPresupuestario && (
-          <CustomSelectField
-            name="programa_presupuestario"
-            label="Programa Presupuestario"
-            options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
-            placeholder="Selecciona una opción"
-            tooltipText="Selecciona el programa presupuestario."
-            isDisabled={!selectedProgramaPresupuestario}
-          />
+          selectedProgramaPresupuestario === "23.Municipios" ? (
+            // Campo de texto libre
+            <FieldGroup
+              name="programa_presupuestario"
+              label="Programa Presupuestario"
+              type="text"
+              placeholder="Ingresa el programa presupuestario"
+              tooltipText="Ingresa el programa presupuestario de forma libre"
+            />
+          ) : (
+            // Campo select con opciones predeterminadas
+            <CustomSelectField
+              name="programa_presupuestario"
+              label="Programa Presupuestario"
+              options={programaPresupuestarioOptions[selectedProgramaPresupuestario] ? programaPresupuestarioOptions[selectedProgramaPresupuestario].map(opt => ({ value: opt, label: opt })) : []}
+              placeholder="Selecciona una opción"
+              tooltipText="Selecciona el programa presupuestario."
+              isDisabled={!selectedProgramaPresupuestario}
+              // options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
+              // placeholder="Selecciona una opción"
+              // tooltipText="Selecciona el programa presupuestario."
+              // isDisabled={!selectedProgramaPresupuestario}
+            />
+          )
         )}
       </div>
 
