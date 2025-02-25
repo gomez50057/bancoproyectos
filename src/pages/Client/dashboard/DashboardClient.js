@@ -101,7 +101,7 @@ const Dashboard = () => {
               <div className="icon">
                 <SvgIcon name="formulario" />
               </div>
-              <span className="title">Registro de Proyectos Admin</span>
+              <span className="title">Registro de Proyectos</span>
             </button>
           </li>
         </ul>

@@ -23,7 +23,7 @@ const CRUDTable = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/ver-proyectos-tabla/');
+        const response = await axios.get('/ver-proyectos-tabla-admin/');
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -65,7 +65,7 @@ const CRUDTable = () => {
           },
         });
       }
-      const response = await axios.get('/ver-proyectos-tabla/');
+      const response = await axios.get('/ver-proyectos-tabla-admin/');
       setProjects(response.data);
       handleClose();
     } catch (error) {
@@ -100,12 +100,12 @@ const CRUDTable = () => {
       alert("No hay datos para exportar.");
       return;
     }
-  
+
     // Mapeamos los datos para exportar solo las columnas necesarias
     const ws = XLSX.utils.json_to_sheet(projects.map(project => ({
       "Usuario": project.user || "N/A",
       "ID del Proyecto": project.project_id || "N/A",
-      
+
       "Área de Adscripción": project.area_adscripcion || "N/A",
       "Nombre del Registrante": project.nombre_registrante || "N/A",
       "Apellido Paterno": project.apellido_paterno || "N/A",
@@ -113,7 +113,7 @@ const CRUDTable = () => {
       "Correo Electrónico": project.correo || "N/A",
       "Teléfono": project.telefono || "N/A",
       "Extensión Telefónica": project.telefono_ext || "N/A",
-  
+
       "Fecha de Registro": project.fecha_registro || "N/A",
       "Nombre del Proyecto": project.nombre_proyecto || "N/A",
       "Sector": project.sector || "N/A",
@@ -124,13 +124,13 @@ const CRUDTable = () => {
       "Municipio o Ayuntamiento": project.municipio_ayuntamiento || "N/A",
       "Unidad Responsable": project.unidad_responsable || "N/A",
       "Unidad Presupuestal": project.unidad_presupuestal || "N/A",
-      
+
       "Inversión Federal": project.inversion_federal || "N/A",
       "Inversión Estatal": project.inversion_estatal || "N/A",
       "Inversión Municipal": project.inversion_municipal || "N/A",
       "Inversión de Otros": project.inversion_otros || "N/A",
       "Inversión Total": project.inversion_total || "N/A",
-      
+
       "Ramo Presupuestal": project.ramo_presupuestal || "N/A",
       "Descripción": project.descripcion || "N/A",
       "Situación Sin Proyecto": project.situacion_sin_proyecto || "N/A",
@@ -142,15 +142,14 @@ const CRUDTable = () => {
       "Programa Presupuestario": project.programa_presupuestario || "N/A",
       "Beneficiarios": project.beneficiarios || "N/A",
       "Normativa Aplicable": project.normativa_aplicable || "N/A",
-      
-      "Región": project.region || "N/A",
-      "Municipio": project.municipio || "N/A",
+
+      "Región": Array.isArray(project.region) ? project.region.join(', ') : project.region || "N/A",
+      "Municipio": Array.isArray(project.municipio) ? project.municipio.join(', ') : project.municipio || "N/A",
       "Localidad": project.localidad || "N/A",
       "Barrio o Colonia": project.barrio_colonia || "N/A",
       "Latitud": project.latitud || "N/A",
       "Longitud": project.longitud || "N/A",
-      "Municipio de Impacto": project.municipio_impacto || "N/A",
-      
+
       "Plan Nacional": project.plan_nacional || "N/A",
       "Plan Estatal": project.plan_estatal || "N/A",
       "Plan Municipal": project.plan_municipal || "N/A",
@@ -158,7 +157,7 @@ const CRUDTable = () => {
       "Objetivos de Desarrollo Sostenible (ODS)": project.ods || "N/A",
       "Programas SIE": project.programas_SIE || "N/A",
       "Indicadores Estratégicos": project.indicadores_estrategicos || "N/A",
-      
+
       "Situación Actual": project.situacion_actual || "N/A",
       "Expediente Técnico": project.expediente_tecnico || "N/A",
       "Estudios de Factibilidad": project.estudios_factibilidad || "N/A",
@@ -170,23 +169,23 @@ const CRUDTable = () => {
       "Manifestación de Impacto Ambiental": project.manifestacion_impacto_ambiental || "N/A",
       "Render": project.render || "N/A",
       "Otros Estudios": project.otros_estudios || "N/A",
-      
+
       "Observaciones": project.observaciones || "N/A",
       "Porcentaje de Avance": project.porcentaje_avance || "N/A",
       "Estatus": project.estatus || "N/A",
       "Situación": project.situacion || "N/A",
       "Retroalimentación": project.retroalimentacion || "N/A"
-  })));
-  
-  
+    })));
+
+
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Proyectos");
-  
+
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
     saveAs(data, 'proyectos.xlsx');
   };
-  
+
 
   const columns = [
     { name: "project_id", options: { display: false } },
@@ -199,39 +198,20 @@ const CRUDTable = () => {
     { name: "Dependencia", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Organismo", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Municipio End", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Petición Personal", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Unidad Responsable", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Unidad Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Ramo Presupuestal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Inversion Federal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Inversion Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Inversion Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Inversion Otros", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Inversión Total", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Descripción", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Situación Sin Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Objetivos", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Tiempo de Ejecución", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Modalidad de Ejecución", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Gasto Programable", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Programa Presupuestario", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Beneficiarios", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Alineación Normativa", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Región", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Municipio", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Municipio Impacto", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Localidad", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Barrio/Colonia/Ejido", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Latitud", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Longitud", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Plan Nacional", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Plan Estatal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Plan Municipal", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "ODS", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Plan Sectorial", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Indicadores Estratégicos", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Estado Inicial", options: { display: true, customBodyRender: renderTruncatedText } },
-    { name: "Estado con Proyecto", options: { display: true, customBodyRender: renderTruncatedText } },
+    { name: "Tipo Localidad", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Observaciones", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Porcentaje Avance", options: { display: true, customBodyRender: renderTruncatedText } },
     { name: "Estatus", options: { display: true, customBodyRender: renderTruncatedText } },
@@ -267,7 +247,7 @@ const CRUDTable = () => {
     customToolbar: () => (
       <Tooltip title="Descargar XLSX" arrow>
         <IconButton onClick={exportToXLSX}>
-        <DownloadIcon sx={{ color: '#dec9a3' }} />
+          <DownloadIcon sx={{ color: '#dec9a3' }} />
         </IconButton>
       </Tooltip>
     ),
@@ -304,7 +284,7 @@ const CRUDTable = () => {
         deleteAria: "Eliminar filas seleccionadas",
       },
     }
-  }  
+  }
 
   const getMuiTheme = () =>
     createTheme({
@@ -408,6 +388,34 @@ const CRUDTable = () => {
               project.nombre_proyecto || "N/A",
               project.sector || "N/A",
               project.tipo_proyecto || "N/A",
+              
+              project.tipo_entidad || "N/A",
+              project.dependencia || "N/A",
+              project.organismo || "N/A",
+              project.municipio_ayuntamiento || "N/A",
+              project.unidad_responsable || "N/A",
+              project.unidad_presupuestal || "N/A",
+              project.inversion_total || "N/A",
+              project.descripcion || "N/A",
+              project.situacion_sin_proyecto || "N/A",
+              project.objetivos || "N/A",
+              project.tiempo_ejecucion || "N/A",
+              project.modalidad_ejecucion || "N/A",
+              project.beneficiarios || "N/A",
+              project.region || "N/A",
+
+              project.municipio || "N/A",
+              project.localidad || "N/A",
+              project.barrio_colonia || "N/A",
+              project.tipo_localidad || "N/A",
+
+
+              project.observaciones || "N/A",
+              project.porcentaje_avance || "N/A",
+              project.estatus || "N/A",
+              project.situacion || "N/A",
+              project.retroalimentacion || "N/A",
+              project.user || "N/A",
             ])}
             columns={columns}
             options={options}
