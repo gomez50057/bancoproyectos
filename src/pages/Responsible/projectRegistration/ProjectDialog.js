@@ -62,7 +62,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
   };
 
   const renderInputField = (key) => {
-    // Para los campos de inversión, formateamos el valor con comas
+    // Formatea el valor con comas
     const inversionFields = [
       'inversion_federal',
       'inversion_estatal',
