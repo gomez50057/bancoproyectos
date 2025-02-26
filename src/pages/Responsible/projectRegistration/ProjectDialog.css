@@ -135,3 +135,33 @@
         opacity: 1;
     }
 }
+
+
+.dialog-header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .dialog-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .dialog-close-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+  }
+  
