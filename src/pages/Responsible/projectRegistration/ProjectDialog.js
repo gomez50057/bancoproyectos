@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ProjectDialog.css';
+import { fieldLabels } from '../../../utils'; // Ajusta la ruta según la ubicación real
 
 const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode }) => {
   const [showObservationFields, setShowObservationFields] = useState({});
@@ -50,7 +51,9 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
 
   const renderInputField = (key) => (
     <div key={key} className="dialog-input-container">
-      <label className="dialog-label">{key.replace('_', ' ')}</label>
+      <label className="dialog-label">
+        {fieldLabels[key] || key.replace('_', ' ')}
+      </label>
       <div className="input-actions-container">
         <textarea
           className="dialog-input"
@@ -96,7 +99,9 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
 
   const renderSelectField = (key, options) => (
     <div key={key} className="dialog-select-container">
-      <label className="dialog-label">{key.replace('_', ' ')}</label>
+      <label className="dialog-label">
+        {fieldLabels[key] || key.replace('_', ' ')}
+      </label>
       <select
         name={key}
         value={project[key] || ''}
@@ -236,34 +241,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
             {renderInputField('telefono')}
             {renderInputField('telefono_ext')}
           </div>
-          {/* <div className="dialog-row">
-            {renderInputField('estado_inicial')}
-            {renderInputField('estado_con_proyecto')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('estudios_prospectivos')}
-            {renderInputField('estudios_factibilidad')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('analisis_alternativas')}
-            {renderInputField('validacion_normativa')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('liberacion_derecho_via')}
-            {renderInputField('situacion_sin_proyecto_fotografico')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('situacion_con_proyecto_proyeccion')}
-            {renderInputField('analisis_costo_beneficio')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('expediente_tecnico')}
-            {renderInputField('proyecto_ejecutivo')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('manifestacion_impacto_ambiental')}
-            {renderInputField('otros_estudios')}
-          </div> */}
+
           {renderInputField('observaciones')}
           {renderInputField('porcentaje_avance')}
           {renderSelectField('estatus', ['Atendido', 'En Proceso', 'Registrado'])}
