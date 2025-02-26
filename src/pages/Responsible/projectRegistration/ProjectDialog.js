@@ -52,13 +52,18 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
     <div key={key} className="dialog-input-container">
       <label className="dialog-label">{key.replace('_', ' ')}</label>
       <div className="input-actions-container">
-        <input
+        <textarea
           className="dialog-input"
-          type="text"
           name={key}
           value={project[key] || ''}
           onChange={onChange}
-          disabled={project[`isBlocked_${key}`] || key === 'project_id' || key === 'fecha_registro' || key === 'user__username'}
+          disabled={
+            project[`isBlocked_${key}`] ||
+            key === 'project_id' ||
+            key === 'fecha_registro' ||
+            key === 'user__username'
+          }
+          rows={3}
         />
         <div className="input-actions">
           {!(key === 'project_id' || key === 'fecha_registro' || key === 'user__username') && (
@@ -73,13 +78,13 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
       </div>
       {showObservationFields[key] && (
         <div className="dialog-observation-container">
-          <input
+          <textarea
             className="dialog-input"
-            type="text"
             name={`observacion_${key}`}
             placeholder="Agregar observación"
             value={project[`observacion_${key}`] || ''}
             onChange={onChange}
+            rows={3}
           />
           <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
             Quitar comentario
@@ -131,72 +136,107 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
             {renderInputField('project_id')}
             {renderInputField('fecha_registro')}
           </div>
+
           {renderInputField('nombre_proyecto')}
+
           <div className="dialog-row">
-            {renderInputField('sector')}
-            {renderInputField('tipo_proyecto')}
             {renderInputField('tipo_entidad')}
           </div>
+
           <div className="dialog-row">
             {renderInputField('dependencia')}
             {renderInputField('organismo')}
             {renderInputField('municipio_ayuntamiento')}
           </div>
+
+          <div className="dialog-row">
+            {renderInputField('region')}
+            {renderInputField('municipio')}
+            {renderInputField('localidad')}
+          </div>
+
+          <div className="dialog-row">
+            {renderInputField('barrio_colonia')}
+            {renderInputField('tipo_localidad')}
+          </div>
+
+          <div className="dialog-row">
+            {renderInputField('latitud')}
+            {renderInputField('longitud')}
+          </div>
+
+          <div className="dialog-row">
+            {renderInputField('sector')}
+            {renderInputField('tipo_proyecto')}
+          </div>
+
           <div className="dialog-row">
             {renderInputField('unidad_responsable')}
             {renderInputField('unidad_presupuestal')}
             {renderInputField('ramo_presupuestal')}
           </div>
+
           <div className="dialog-row">
             {renderInputField('inversion_federal')}
             {renderInputField('inversion_estatal')}
             {renderInputField('inversion_municipal')}
             {renderInputField('inversion_otros')}
           </div>
+
           {renderInputField('inversion_total')}
+
           {renderInputField('descripcion')}
+
           {renderInputField('situacion_sin_proyecto')}
+
           <div className="dialog-row">
             {renderInputField('objetivos')}
             {renderInputField('metas')}
           </div>
+
           <div className="dialog-row">
             {renderInputField('tiempo_ejecucion')}
             {renderInputField('modalidad_ejecucion')}
           </div>
+
           <div className="dialog-row">
+            {renderInputField('beneficiarios')}
             {renderInputField('gasto_programable')}
             {renderInputField('programa_presupuestario')}
-            {renderInputField('beneficiarios')}
           </div>
-          {renderInputField('alineacion_normativa')}
-          <div className="dialog-row">
-            {renderInputField('region')}
-            {renderInputField('municipio')}
-            {renderInputField('municipio_impacto')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('localidad')}
-            {renderInputField('barrio_colonia_ejido')}
-          </div>
-          <div className="dialog-row">
-            {renderInputField('latitud')}
-            {renderInputField('longitud')}
-          </div>
+
+          {renderInputField('normativa_aplicable')}
+
           <div className="dialog-row">
             {renderInputField('plan_nacional')}
             {renderInputField('plan_estatal')}
             {renderInputField('plan_municipal')}
           </div>
+
           <div className="dialog-row">
-            {renderInputField('acuerdos_transversales')}
             {renderInputField('ods')}
-            {renderInputField('indicadores_estrategicos')}
-          </div>
-          <div className="dialog-row">
+            {renderInputField('acuerdos_transversales')}
             {renderInputField('programas_SIE')}
           </div>
+
           <div className="dialog-row">
+            {renderInputField('indicadores_estrategicos')}
+            {renderInputField('indicadores_socioeconomicos')}
+          </div>
+
+          <div className="dialog-row">
+            {renderInputField('area_adscripcion')}
+            {renderInputField('nombre_registrante')}
+            {renderInputField('apellido_paterno')}
+            {renderInputField('apellido_materno')}
+          </div>
+
+          <div className="dialog-row">
+            {renderInputField('correo')}
+            {renderInputField('telefono')}
+            {renderInputField('telefono_ext')}
+          </div>
+          {/* <div className="dialog-row">
             {renderInputField('estado_inicial')}
             {renderInputField('estado_con_proyecto')}
           </div>
@@ -223,7 +263,7 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
           <div className="dialog-row">
             {renderInputField('manifestacion_impacto_ambiental')}
             {renderInputField('otros_estudios')}
-          </div>
+          </div> */}
           {renderInputField('observaciones')}
           {renderInputField('porcentaje_avance')}
           {renderSelectField('estatus', ['Atendido', 'En Proceso', 'Registrado'])}
@@ -232,7 +272,9 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
         </div>
         <div className="dialog-actions">
           <button className="dialog-button" onClick={onClose}>Cancelar</button>
-          <button className="dialog-button" onClick={handleSubmit}>{isEditMode ? 'Actualizar' : 'Agregar'}</button>
+          <button className="dialog-button" onClick={handleSubmit}>
+            {isEditMode ? 'Actualizar' : 'Agregar'}
+          </button>
         </div>
       </div>
     </div>
