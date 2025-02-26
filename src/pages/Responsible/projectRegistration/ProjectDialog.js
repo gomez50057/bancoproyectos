@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ProjectDialog.css';
-import { fieldLabels } from '../../../utils'; // Ajusta la ruta según la ubicación real
+import { fieldLabels } from '../../../utils'; // Ajusta la ruta según corresponda
 
 const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode }) => {
   const [showObservationFields, setShowObservationFields] = useState({});
@@ -49,53 +49,80 @@ const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode 
     }
   };
 
-  const renderInputField = (key) => (
-    <div key={key} className="dialog-input-container">
-      <label className="dialog-label">
-        {fieldLabels[key] || key.replace('_', ' ')}
-      </label>
-      <div className="input-actions-container">
-        <textarea
-          className="dialog-input"
-          name={key}
-          value={project[key] || ''}
-          onChange={onChange}
-          disabled={
-            project[`isBlocked_${key}`] ||
-            key === 'project_id' ||
-            key === 'fecha_registro' ||
-            key === 'user__username'
-          }
-          rows={3}
-        />
-        <div className="input-actions">
-          {!(key === 'project_id' || key === 'fecha_registro' || key === 'user__username') && (
-            <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
-              {project[`isBlocked_${key}`] ? 'Corrección' : 'Validado'}
-            </span>
-          )}
-          <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
-            Agregar observación
-          </span>
-        </div>
-      </div>
-      {showObservationFields[key] && (
-        <div className="dialog-observation-container">
+  // Función para formatear números con comas
+  const formatWithCommas = (value) => {
+    if (value === null || value === undefined || value === '') return '';
+    // Eliminamos comas existentes
+    const numericValue = value.toString().replace(/,/g, '');
+    const number = parseFloat(numericValue);
+    if (isNaN(number)) {
+      return value;
+    }
+    return number.toLocaleString('es-MX');
+  };
+
+  const renderInputField = (key) => {
+    // Para los campos de inversión, formateamos el valor con comas
+    const inversionFields = [
+      'inversion_federal',
+      'inversion_estatal',
+      'inversion_municipal',
+      'inversion_otros',
+      'inversion_total',
+    ];
+    const fieldValue =
+      inversionFields.includes(key) && project[key]
+        ? formatWithCommas(project[key])
+        : project[key] || '';
+
+    return (
+      <div key={key} className="dialog-input-container">
+        <label className="dialog-label">
+          {fieldLabels[key] || key.replace('_', ' ')}
+        </label>
+        <div className="input-actions-container">
           <textarea
             className="dialog-input"
-            name={`observacion_${key}`}
-            placeholder="Agregar observación"
-            value={project[`observacion_${key}`] || ''}
+            name={key}
+            value={fieldValue}
             onChange={onChange}
+            disabled={
+              project[`isBlocked_${key}`] ||
+              key === 'project_id' ||
+              key === 'fecha_registro' ||
+              key === 'user__username'
+            }
             rows={3}
           />
-          <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
-            Quitar comentario
-          </span>
+          <div className="input-actions">
+            {!(key === 'project_id' || key === 'fecha_registro' || key === 'user__username') && (
+              <span className="toggle-text" onClick={() => handleToggleBlockField(key)}>
+                {project[`isBlocked_${key}`] ? 'Corrección' : 'Validado'}
+              </span>
+            )}
+            <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
+              Agregar observación
+            </span>
+          </div>
         </div>
-      )}
-    </div>
-  );
+        {showObservationFields[key] && (
+          <div className="dialog-observation-container">
+            <textarea
+              className="dialog-input"
+              name={`observacion_${key}`}
+              placeholder="Agregar observación"
+              value={project[`observacion_${key}`] || ''}
+              onChange={onChange}
+              rows={3}
+            />
+            <span className="toggle-text" onClick={() => handleToggleObservationField(key)}>
+              Quitar comentario
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const renderSelectField = (key, options) => (
     <div key={key} className="dialog-select-container">
