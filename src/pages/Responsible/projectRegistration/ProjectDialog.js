@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ProjectDialog.css';
-import { fieldLabels } from '../../../utils'; // Ajusta la ruta según corresponda
-
+import { fieldLabels } from '../../../utils';
 const ProjectDialog = ({ open, onClose, project, onChange, onSubmit, isEditMode }) => {
   const [showObservationFields, setShowObservationFields] = useState({});
 
