@@ -256,3 +256,10 @@
 .leaflet-container .leaflet-control-attribution {
   opacity: 0;
 } */
+
+
+
+.image-container img {
+  width: 85%;
+  height: auto;
+}

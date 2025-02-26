@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './ProjectReportReact.css';
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/pdf/";
+const img_banco = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 // Corrección del ícono de marcador de Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -74,7 +75,7 @@ const ProjectReportReact = () => {
               <span className="label">Región: </span>
               <span className="value">{project.region}</span>
             </div>
-            <div className="inline-section">
+            <div className="section">
               <span className="label">Municipio: </span>
               <span className="value">{project.municipio}</span>
             </div>
@@ -82,7 +83,7 @@ const ProjectReportReact = () => {
               <div className="inline-section">
                 <img src={`${imgBasePath}benificiarios.png`} alt="Beneficiarios" className="image-beneficiarios" />
                 <div className="beneficiarios-num">
-                  <span className="value-num-be">{project.beneficiarios}</span>
+                  <span className="value-num-be"> {parseFloat(project.beneficiarios).toLocaleString('es-MX')}</span>
                   <span className="label-num-be">Personas</span>
                 </div>
               </div>
@@ -102,7 +103,7 @@ const ProjectReportReact = () => {
             </div>
 
             <div className="map-container" ref={mapRef}>
-              <MapContainer center={position} zoom={30} style={{ height: "200px", width: "100%", borderRadius: "0px 0px 40px 0px"}} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
+              <MapContainer center={position} zoom={30} style={{ height: "200px", width: "100%", borderRadius: "0px 0px 40px 0px" }} zoomControl={false} whenCreated={map => map.attributionControl.setPrefix('')}>
                 <TileLayer
                   url="http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
                   subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
@@ -134,7 +135,8 @@ const ProjectReportReact = () => {
               </div>
             </div>
             <div className="image-container">
-              <img src={`${imgBasePath}foto_proyecto.png`} alt="Proyecto" className="project-image" />
+              <img src={`${img_banco}hometxt.webp`} alt="Proyecto" className="project-image" />
+              <img src={`${imgBasePath}inver.png`} alt="Proyecto" className="project-image" />
             </div>
           </div>
         </div>
