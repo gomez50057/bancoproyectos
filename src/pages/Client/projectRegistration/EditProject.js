@@ -463,20 +463,29 @@ const EditProject = () => {
               </div>
 
               <div className="form-row">
-                <div className="form-group latitud">
-                  <label>Latitud {project.observacion_latitud && (
-                    <CustomTooltip id="observacion_latitud" text={project.observacion_latitud} />
-                  )}</label>
-                  <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" disabled={project.isBlocked_latitud} />
-                  <ErrorMessage name="latitud" component="div" className="error" />
-                </div>
-                <div className="form-group longitud">
-                  <label>Longitud {project.observacion_longitud && (
-                    <CustomTooltip id="observacion_longitud" text={project.observacion_longitud} />
-                  )}</label>
-                  <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" disabled={project.isBlocked_longitud} />
-                  <ErrorMessage name="longitud" component="div" className="error" />
-                </div>
+                <FieldGroup
+                  name="latitud"
+                  label="Latitud"
+                  tooltipText="Ingresa la latitud geográfica del proyecto. Debe ser un valor numérico."
+                  type="number"
+                  step="any"
+                  placeholder="Latitud (ej. 20.1234)"
+                  tooltipObservation={project.observacion_latitud}
+                  disabled={project.isBlocked_latitud}
+                />
+
+                <FieldGroup
+                  name="longitud"
+                  label="Longitud"
+                  tooltipText="Ingresa la longitud geográfica del proyecto. Debe ser un valor numérico."
+                  type="number"
+                  step="any"
+                  placeholder="Longitud (ej. -99.5678)"
+                  tooltipObservation={project.observacion_longitud}
+                  disabled={project.isBlocked_longitud}
+                />
+
+
                 <div className="form-group tipo_localidad">
                   <label>Tipo de Localidad {project.observacion_tipo_localidad && (
                     <CustomTooltip id="observacion_tipo_localidad" text={project.observacion_tipo_localidad} />
