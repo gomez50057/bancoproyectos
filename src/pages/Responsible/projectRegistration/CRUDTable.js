@@ -158,17 +158,17 @@ const CRUDTable = () => {
       "Programas SIE": project.programas_SIE || "N/A",
       "Indicadores Estratégicos": project.indicadores_estrategicos || "N/A",
 
-      "Situación Actual": project.situacion_actual || "N/A",
-      "Expediente Técnico": project.expediente_tecnico || "N/A",
-      "Estudios de Factibilidad": project.estudios_factibilidad || "N/A",
-      "Análisis de Alternativas": project.analisis_alternativas || "N/A",
-      "Validación Normativa": project.validacion_normativa || "N/A",
-      "Liberación de Derecho de Vía": project.liberacion_derecho_via || "N/A",
-      "Análisis Costo-Beneficio": project.analisis_costo_beneficio || "N/A",
-      "Proyecto Ejecutivo": project.proyecto_ejecutivo || "N/A",
-      "Manifestación de Impacto Ambiental": project.manifestacion_impacto_ambiental || "N/A",
-      "Render": project.render || "N/A",
-      "Otros Estudios": project.otros_estudios || "N/A",
+      // "Situación Actual": project.situacion_actual || "N/A",
+      // "Expediente Técnico": project.expediente_tecnico || "N/A",
+      // "Estudios de Factibilidad": project.estudios_factibilidad || "N/A",
+      // "Análisis de Alternativas": project.analisis_alternativas || "N/A",
+      // "Validación Normativa": project.validacion_normativa || "N/A",
+      // "Liberación de Derecho de Vía": project.liberacion_derecho_via || "N/A",
+      // "Análisis Costo-Beneficio": project.analisis_costo_beneficio || "N/A",
+      // "Proyecto Ejecutivo": project.proyecto_ejecutivo || "N/A",
+      // "Manifestación de Impacto Ambiental": project.manifestacion_impacto_ambiental || "N/A",
+      // "Render": project.render || "N/A",
+      // "Otros Estudios": project.otros_estudios || "N/A",
 
       "Observaciones": project.observaciones || "N/A",
       "Porcentaje de Avance": project.porcentaje_avance || "N/A",
@@ -232,7 +232,7 @@ const CRUDTable = () => {
             <div className="Acciones-con">
               <button className="crud-button" onClick={() => handleOpen(project)}>Editar</button>
               {/* <button className="crud-button" onClick={() => handleGenerateReport(projectId)}>Reporte</button> */}
-              <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Ficha</button>
+              {/* <button className="crud-button" onClick={() => handleViewReactReport(projectId)}>Ficha</button> */}
             </div>
           );
         }

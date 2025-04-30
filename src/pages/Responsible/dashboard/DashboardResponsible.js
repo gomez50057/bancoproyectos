@@ -80,7 +80,7 @@ const DashboardResponsible = () => {
       <div className="sidebar active">
         <div className="toggle active"></div>
         <ul className="list">
-          <li
+          {/* <li
             className={`list-item ${activeComponent === 'ClientInveProjectsAdmin' ? 'active' : ''}`}
             data-component="ClientInveProjectsAdmin"
             onClick={() => handleMenuClick('ClientInveProjectsAdmin')}
@@ -91,7 +91,7 @@ const DashboardResponsible = () => {
               </div>
               <span className="title">Proyectos de Inversión Admin</span>
             </button>
-          </li>
+          </li> */}
           <li
             className={`list-item ${activeComponent === 'CRUDTable' ? 'active' : ''}`}
             data-component="CRUDTable"
