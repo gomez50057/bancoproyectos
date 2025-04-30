@@ -149,7 +149,7 @@
 
 .tooltip-icon-container {
   position: relative;
-  display: inline-block;
+  display: flex;
   cursor: pointer;
 }
 

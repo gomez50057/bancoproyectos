@@ -6,24 +6,15 @@ import Cookies from 'js-cookie';
 import { useParams, useNavigate } from 'react-router-dom';
 import CustomTooltip from '../componentsForm/Tooltip';
 import SectionTitle from '../componentsForm/SectionTitle';
-import {
-  municipiosDeHidalgo,
-  unidadesResponsables,
-  dependencias,
-  organismos,
-  municipiosPorRegion,
-  unidadPresupuestalPorUnidadResponsable,
-  gastoProgramableOptions,
-  programaPresupuestarioOptions,
-  indicadoresEstrategicosOptions,
-  sectorOptions,
-  tipoProyectoOptions,
-  programasSectorialesOptions
-} from '../../../utils';
+import { municipiosDeHidalgo, unidadesResponsables, dependencias, organismos, municipiosPorRegion, unidadPresupuestalPorUnidadResponsable, gastoProgramableOptions, programaPresupuestarioOptions, indicadoresEstrategicosOptions, sectorOptions, tipoProyectoOptions, programasSectorialesOptions } from '../../../utils';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Modal from 'react-modal';
 import '../panel/ClientPanel.css';
+
+// import DocumentUploadSection from '../componentsForm/DocumentUploadSection';
+import TooltipHelp from '../componentsForm/TooltipHelp';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
@@ -177,25 +168,25 @@ const EditProject = () => {
             dependencia: project.dependencia || '',
             organismo: project.organismo || '',
             municipio: project.municipio || '',
-            inversionFederal: project.inversion_federal || '0',
-            inversionEstatal: project.inversion_estatal || '0',
-            inversionMunicipal: project.inversion_municipal || '0',
-            inversionOtros: project.inversion_otros || '0',
+            inversionFederal: project.inversion_federal?.toString() || '0',
+            inversionEstatal: project.inversion_estatal?.toString() || '0',
+            inversionMunicipal: project.inversion_municipal?.toString() || '0',
+            inversionOtros: project.inversion_otros?.toString() || '0',
             descripcion: project.descripcion || '',
             situacionSinProyecto: project.situacion_sin_proyecto || '',
             objetivos: project.objetivos || '',
             metas: project.metas || '',
             programaPresupuestario: project.programa_presupuestario || '',
-            beneficiarios: project.beneficiarios || '',
-            tiempo_ejecucion: project.tiempo_ejecucion || '',
+            beneficiarios: project.beneficiarios?.toString() || '',
+            tiempo_ejecucion: project.tiempo_ejecucion?.toString() || '',
             modalidad_ejecucion: project.modalidad_ejecucion || '',
             alineacionNormativa: project.alineacion_normativa || '',
             region: project.region || '',
             localidad: project.localidad || '',
-            barrio_colonia_ejido: project.barrio_colonia_ejido || '',
+            barrio_colonia: project.barrio_colonia || '',
             tipo_localidad: project.tipo_localidad || '',
-            latitud: project.latitud || '',
-            longitud: project.longitud || '',
+            latitud: project.latitud?.toString() || '',
+            longitud: project.longitud?.toString() || '',
             planNacional: project.plan_nacional || '',
             planEstatal: project.plan_estatal || '',
             planMunicipal: project.plan_municipal || '',
@@ -204,102 +195,116 @@ const EditProject = () => {
             unidadResponsable: project.unidad_responsable || '',
             unidadPresupuestal: project.unidad_presupuestal || '',
             ramoPresupuestal: project.ramo_presupuestal || '',
-            estudiosProspectivos: [],
-            estudiosFactibilidad: [],
-            analisisAlternativas: [],
-            validacionNormativa: [],
-            liberacionDerechoVia: [],
-            situacionSinProyectoFotografico: [],
-            situacionConProyectoProyeccion: [],
-            analisisCostoBeneficio: [],
-            expedienteTecnico: [],
-            proyectoEjecutivo: [],
-            manifestacionImpactoAmbiental: [],
-            otrosEstudios: [],
+
+            // Documentos (arrays de archivos o URLs)
+            estudiosProspectivos: project.estudios_prospectivos || [],
+            estudiosFactibilidad: project.estudios_factibilidad || [],
+            analisisAlternativas: project.analisis_alternativas || [],
+            validacionNormativa: project.validacion_normativa || [],
+            liberacionDerechoVia: project.liberacion_derecho_via || [],
+            situacionSinProyectoFotografico: project.situacion_sin_proyecto_fotografico || [],
+            situacionConProyectoProyeccion: project.situacion_con_proyecto_proyeccion || [],
+            analisisCostoBeneficio: project.analisis_costo_beneficio || [],
+            expedienteTecnico: project.expediente_tecnico || [],
+            proyectoEjecutivo: project.proyecto_ejecutivo || [],
+            manifestacionImpactoAmbiental: project.manifestacion_impacto_ambiental || [],
+            otrosEstudios: project.otros_estudios || [],
+
+            // Archivos individuales
+            estadoInicial: project.estado_inicial || null,
+            estadoConProyecto: project.estado_con_proyecto || null,
+
+            // Otras observaciones e indicadores
             observaciones: project.observaciones || '',
             gastoProgramable: project.gasto_programable || '',
             indicadoresEstrategicos: project.indicadores_estrategicos || '',
             indicadores_socioeconomicos: project.indicadores_socioeconomicos || '',
             indicadoresDesempeno: project.indicadores_desempeno || '',
             indicadoresRentabilidad: project.indicadores_rentabilidad || '',
-            estadoInicial: project.estado_inicial || null,
-            estadoConProyecto: project.estado_con_proyecto || null,
+
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               const formData = new FormData();
+
+              // --- Campos básicos ---
               formData.append('nombre_proyecto', values.nombreProyecto);
               formData.append('sector', values.sector);
               formData.append('tipo_proyecto', values.tipoProyecto);
               formData.append('tipo_entidad', values.entityType);
-              formData.append('dependencia', values.dependencia || 'No Aplica');
-              formData.append('organismo', values.organismo || 'No Aplica');
-              formData.append('municipio', values.municipio || 'No Aplica');
-              formData.append('municipio_ayuntamiento', values.municipio_ayuntamiento || 'No Aplica');
+              formData.append('dependencia', values.dependencia);
+              formData.append('organismo', values.organismo);
+              formData.append('municipio', values.municipio);
+
+              // --- Fuentes de inversión ---
               formData.append('inversion_federal', parseFloat(values.inversionFederal) || 0);
               formData.append('inversion_estatal', parseFloat(values.inversionEstatal) || 0);
               formData.append('inversion_municipal', parseFloat(values.inversionMunicipal) || 0);
               formData.append('inversion_otros', parseFloat(values.inversionOtros) || 0);
-              formData.append('inversion_total', parseFloat(values.inversionTotal) || 0);
+
+              // --- Descripción y metas ---
               formData.append('descripcion', values.descripcion);
               formData.append('situacion_sin_proyecto', values.situacionSinProyecto);
               formData.append('objetivos', values.objetivos);
               formData.append('metas', values.metas);
               formData.append('programa_presupuestario', values.programaPresupuestario);
-              formData.append('beneficiarios', values.beneficiarios || 0);
-              formData.append('tiempo_ejecucion', values.tiempo_ejecucion || 0);
-              formData.append('modalidad_ejecucion', values.modalidad_ejecucion || 0);
+              formData.append('beneficiarios', parseInt(values.beneficiarios, 10) || 0);
+              formData.append('tiempo_ejecucion', parseInt(values.tiempo_ejecucion, 10) || 0);
+              formData.append('modalidad_ejecucion', values.modalidad_ejecucion);
               formData.append('alineacion_normativa', values.alineacionNormativa);
+
+              // --- Ubicación y georreferenciación ---
               formData.append('region', values.region);
-              formData.append('latitud', parseFloat(values.latitud));
-              formData.append('longitud', parseFloat(values.longitud));
+              formData.append('localidad', values.localidad);
+              formData.append('barrio_colonia', values.barrio_colonia);
+              formData.append('tipo_localidad', values.tipo_localidad);
+              formData.append('latitud', parseFloat(values.latitud) || 0);
+              formData.append('longitud', parseFloat(values.longitud) || 0);
+
+              // --- Alineación estratégica ---
               formData.append('plan_nacional', values.planNacional);
               formData.append('plan_estatal', values.planEstatal);
-              formData.append('plan_municipal', values.planMunicipal || 'No Aplica');
+              formData.append('plan_municipal', values.planMunicipal);
               formData.append('ods', values.ods);
-              formData.append('plan_sectorial', values.planSectorial || 'No Aplica');
+              formData.append('plan_sectorial', values.planSectorial);
+
+              // --- Unidades y ramo presupuestal ---
               formData.append('unidad_responsable', values.unidadResponsable);
               formData.append('unidad_presupuestal', values.unidadPresupuestal);
               formData.append('ramo_presupuestal', values.ramoPresupuestal);
 
-              if (values.municipiosImpacto && values.municipiosImpacto.length > 0) {
-                const municipiosImpactoJson = JSON.stringify(values.municipiosImpacto.map(mun => mun.value));
-                formData.append('municipios_impacto', municipiosImpactoJson);
-              } else {
-                formData.append('municipios_impacto', '[]');
-              }
+              // --- Municipios de impacto (si aplica) ---
+              const impacto = values.municipiosImpacto || [];
+              formData.append('municipios_impacto', JSON.stringify(impacto.map(m => m.value)));
 
-              formData.append('localidad', values.localidad || 'No Aplica');
-              formData.append('barrio_colonia_ejido', values.barrio_colonia_ejido || 'No Aplica');
-              formData.append('tipo_localidad', values.tipo_localidad || 'No Aplica');
-
-              formData.append('observaciones', values.observaciones || 'No Aplica');
-              formData.append('gasto_programable', values.gastoProgramable);
-              formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
-              formData.append('indicadores_socioeconomicos', values.indicadores_socioeconomicos);
-              formData.append('indicadores_desempeno', values.indicadoresDesempeno || 'No Aplica');
-              formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad || 'No Aplica');
-
-              // Manejar estadoInicial
-              if (values.estadoInicial && typeof values.estadoInicial !== 'string') {
-                formData.append('estado_inicial', values.estadoInicial);
-              }
-
-              // Manejar estadoConProyecto
-              if (values.estadoConProyecto && typeof values.estadoConProyecto !== 'string') {
-                formData.append('estado_con_proyecto', values.estadoConProyecto);
-              }
-
+              // --- Documentos (archivos) según applies ---
               for (const key in applies) {
-                if (applies[key]) {
-                  for (const file of values[key]) {
-                    formData.append(key, file);
-                  }
+                if (applies[key] && Array.isArray(values[key])) {
+                  values[key].forEach(file => {
+                    if (file instanceof File) {
+                      formData.append(key, file);
+                    }
+                  });
                 }
               }
 
-              const csrfToken = Cookies.get('csrftoken');
+              // --- Archivos individuales ---
+              if (values.estadoInicial instanceof File) {
+                formData.append('estado_inicial', values.estadoInicial);
+              }
+              if (values.estadoConProyecto instanceof File) {
+                formData.append('estado_con_proyecto', values.estadoConProyecto);
+              }
 
+              // --- Observaciones e indicadores ---
+              formData.append('observaciones', values.observaciones);
+              formData.append('gasto_programable', values.gastoProgramable);
+              formData.append('indicadores_estrategicos', values.indicadoresEstrategicos);
+              formData.append('indicadores_socioeconomicos', values.indicadores_socioeconomicos);
+              formData.append('indicadores_desempeno', values.indicadoresDesempeno);
+              formData.append('indicadores_rentabilidad', values.indicadoresRentabilidad);
+
+              const csrfToken = Cookies.get('csrftoken');
               await axios.put(`/update-project/${projectId}/`, formData, {
                 headers: {
                   'X-CSRFToken': csrfToken,
@@ -308,7 +313,6 @@ const EditProject = () => {
               });
 
               setModalIsOpen(true);
-
               resetForm();
               setSubmitting(false);
             } catch (error) {
@@ -320,147 +324,225 @@ const EditProject = () => {
         >
           {({ isSubmitting, setFieldValue, values }) => (
             <Form>
-              <SectionTitle title="Datos Generales" />
-              <div className="DatosGenerales">
+              <SectionTitle title="Generalidades del Proyecto" />
+              <div className="form-row">
                 <div className="form-group projectDate">
                   <label>Fecha de Registro</label>
                   <Field type="text" name="fechaRegistro" value={new Date().toISOString().split('T')[0]} readOnly />
                 </div>
+              </div>
 
-                <div className="formThree">
-                  <div className="form-group nombreProyecto">
-                    <label>Nombre del Proyecto {project.observacion_nombre_proyecto && (
-                      <CustomTooltip id="observacion_nombre_proyecto" text={project.observacion_nombre_proyecto} />
+              <div className="form-row">
+                <div className="form-group entityType">
+                  <label>Tipo de Entidad {project.observacion_tipo_entidad && (
+                    <CustomTooltip id="observacion_tipo_entidad" text={project.observacion_tipo_entidad} />
+                  )}</label>
+                  <Field as="select" name="entityType" disabled={project.isBlocked_tipo_entidad}>
+                    <option value="">Seleccione</option>
+                    <option value="Dependencia">Dependencia</option>
+                    <option value="Organismo">Organismo</option>
+                    <option value="Ayuntamiento">Ayuntamiento</option>
+                  </Field>
+                  <ErrorMessage name="entityType" component="div" className="error" />
+                </div>
+
+                {values.entityType === 'Dependencia' && (
+                  <div className="form-group dependencia">
+                    <label>Dependencia {project.observacion_dependencia && (
+                      <CustomTooltip id="observacion_dependencia" text={project.observacion_dependencia} />
                     )}</label>
-                    <Field type="text" name="nombreProyecto" disabled={project.isBlocked_nombre_proyecto} />
-                    <ErrorMessage name="nombreProyecto" component="div" className="error" />
-                  </div>
-                  <div className="form-group sector">
-                    <label>Sector {project.observacion_sector && (
-                      <CustomTooltip id="observacion_sector" text={project.observacion_sector} />
-                    )}</label>
-                    <Field as="select" name="sector" disabled={project.isBlocked_sector} onChange={(e) => {
-                      setFieldValue('sector', e.target.value);
-                      const tipoProyecto = tipoProyectoOptions[e.target.value] || '';
-                      setFieldValue('tipoProyecto', tipoProyecto);
+                    <Field as="select" name="dependencia" disabled={project.isBlocked_dependencia} onChange={(e) => {
+                      setFieldValue('dependencia', e.target.value);
+                      const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
+                      setFieldValue('planSectorial', programaSectorial);
                     }}>
                       <option value="">Seleccione</option>
-                      {sectorOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      {dependencias.map((dep) => (
+                        <option key={dep} value={dep}>{dep}</option>
                       ))}
                     </Field>
-                    <ErrorMessage name="sector" component="div" className="error" />
+                    <ErrorMessage name="dependencia" component="div" className="error" />
                   </div>
-                  <div className="form-group tipoProyecto">
-                    <label>Tipo de Proyecto {project.observacion_tipo_proyecto && (
-                      <CustomTooltip id="observacion_tipo_proyecto" text={project.observacion_tipo_proyecto} />
+                )}
+
+                {values.entityType === 'Organismo' && (
+                  <div className="form-group organismo">
+                    <label>Organismo {project.observacion_organismo && (
+                      <CustomTooltip id="observacion_organismo" text={project.observacion_organismo} />
                     )}</label>
-                    <Field type="text" name="tipoProyecto" readOnly />
-                    <ErrorMessage name="tipoProyecto" component="div" className="error" />
-                  </div>
-                </div>
-
-                <div className="formTwo">
-                  <div className="form-group entityType">
-                    <label>Tipo de Entidad {project.observacion_tipo_entidad && (
-                      <CustomTooltip id="observacion_tipo_entidad" text={project.observacion_tipo_entidad} />
-                    )}</label>
-                    <Field as="select" name="entityType" disabled={project.isBlocked_tipo_entidad}>
-                      <option value="">Seleccione</option>
-                      <option value="Dependencia">Dependencia</option>
-                      <option value="Organismo">Organismo</option>
-                      <option value="Municipio">Municipio</option>
-                      <option value="Petición Personal">Petición Personal</option>
-                    </Field>
-                    <ErrorMessage name="entityType" component="div" className="error" />
-                  </div>
-
-                  {values.entityType === 'Dependencia' && (
-                    <div className="form-group dependencia">
-                      <label>Dependencia {project.observacion_dependencia && (
-                        <CustomTooltip id="observacion_dependencia" text={project.observacion_dependencia} />
-                      )}</label>
-                      <Field as="select" name="dependencia" disabled={project.isBlocked_dependencia} onChange={(e) => {
-                        setFieldValue('dependencia', e.target.value);
-                        const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
-                        setFieldValue('planSectorial', programaSectorial);
-                      }}>
-                        <option value="">Seleccione</option>
-                        {dependencias.map((dep) => (
-                          <option key={dep} value={dep}>{dep}</option>
-                        ))}
-                      </Field>
-                      <ErrorMessage name="dependencia" component="div" className="error" />
-                    </div>
-                  )}
-
-                  {values.entityType === 'Organismo' && (
-                    <div className="form-group organismo">
-                      <label>Organismo {project.observacion_organismo && (
-                        <CustomTooltip id="observacion_organismo" text={project.observacion_organismo} />
-                      )}</label>
-                      <Field as="select" name="organismo" disabled={project.isBlocked_organismo} onChange={(e) => {
-                        setFieldValue('organismo', e.target.value);
-                        const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
-                        setFieldValue('planSectorial', programaSectorial);
-                      }}>
-                        <option value="">Seleccione</option>
-                        {organismos.map((org) => (
-                          <option key={org} value={org}>{org}</option>
-                        ))}
-                      </Field>
-                      <ErrorMessage name="organismo" component="div" className="error" />
-                    </div>
-                  )}
-
-                  {values.entityType === 'Municipio' && (
-                    <div className="form-group municipio_ayuntamiento">
-                      <label>Municipio {project.observacion_municipio_ayuntamiento && (
-                        <CustomTooltip id="observacion_municipio_ayuntamiento" text={project.observacion_municipio_ayuntamiento} />
-                      )}</label>
-                      <Field as="select" name="municipio_ayuntamiento" disabled={project.isBlocked_municipio_ayuntamiento}>
-                        <option value="">Seleccione</option>
-                        {municipiosDeHidalgo.map((mun) => (
-                          <option key={mun} value={mun}>{mun}</option>
-                        ))}
-                      </Field>
-                      <ErrorMessage name="municipio_ayuntamiento" component="div" className="error" />
-                    </div>
-                  )}
-                </div>
-
-                <div className="formTwo">
-                  <div className="form-group unidadResponsable">
-                    <label>Unidad Responsable {project.observacion_unidad_responsable && (
-                      <CustomTooltip id="observacion_unidad_responsable" text={project.observacion_unidad_responsable} />
-                    )}</label>
-                    <Field as="select" name="unidadResponsable" disabled={project.isBlocked_unidad_responsable} onChange={(e) => {
-                      setFieldValue('unidadResponsable', e.target.value);
-                      setFieldValue('unidadPresupuestal', ''); // Reset unidadPresupuestal cuando unidadResponsable changes
+                    <Field as="select" name="organismo" disabled={project.isBlocked_organismo} onChange={(e) => {
+                      setFieldValue('organismo', e.target.value);
+                      const programaSectorial = programasSectorialesOptions[e.target.value] || 'No Aplica';
+                      setFieldValue('planSectorial', programaSectorial);
                     }}>
                       <option value="">Seleccione</option>
-                      {unidadesResponsables.map((unidad) => (
+                      {organismos.map((org) => (
+                        <option key={org} value={org}>{org}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name="organismo" component="div" className="error" />
+                  </div>
+                )}
+
+                {values.entityType === 'Ayuntamiento' && (
+                  <div className="form-group municipio_ayuntamiento">
+                    <label>Municipio {project.observacion_municipio_ayuntamiento && (
+                      <CustomTooltip id="observacion_municipio_ayuntamiento" text={project.observacion_municipio_ayuntamiento} />
+                    )}</label>
+                    <Field as="select" name="municipio_ayuntamiento" disabled={project.isBlocked_municipio_ayuntamiento}>
+                      <option value="">Seleccione</option>
+                      {municipiosDeHidalgo.map((mun) => (
+                        <option key={mun} value={mun}>{mun}</option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name="municipio_ayuntamiento" component="div" className="error" />
+                  </div>
+                )}
+
+                <FieldGroup
+                  name="nombreProyecto"
+                  label="Nombre del Proyecto"
+                  type="text"
+                  disabled={project.isBlocked_nombre_proyecto}
+                  tooltipHelp="Explicación de este campo"
+                  tooltipObservation={project.observacion_nombre_proyecto}
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group region">
+                  <label>Región {project.observacion_region && (
+                    <CustomTooltip id="observacion_region" text={project.observacion_region} />
+                  )}</label>
+                  <Field as="select" name="region" disabled={project.isBlocked_region} onChange={(e) => {
+                    setSelectedRegion(e.target.value);
+                    setFieldValue('region', e.target.value);
+                    setFieldValue('municipio', '');
+                  }}>
+                    <option value="">Seleccione</option>
+                    {Object.keys(municipiosPorRegion).map((region) => (
+                      <option key={region} value={region}>{region}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="region" component="div" className="error" />
+                </div>
+                <div className="form-group municipio">
+                  <label>Municipio {project.observacion_municipio && (
+                    <CustomTooltip id="observacion_municipio" text={project.observacion_municipio} />
+                  )}</label>
+                  <Field as="select" name="municipio" disabled={project.isBlocked_municipio}>
+                    <option value="">Seleccione</option>
+                    {municipiosPorRegion[selectedRegion]?.map((mun) => (
+                      <option key={mun} value={mun}>{mun}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="municipio" component="div" className="error" />
+                </div>
+
+                <FieldGroup
+                  name="localidad"
+                  label="Localidad"
+                  tooltipHelp="Ingresa la localidad donde se llevará a cabo el proyecto. Máximo 250 caracteres."
+                  tooltipObservation={project.observacion_localidad}
+                  type="text"
+                  maxLength="250"
+                  placeholder="Localidad (máximo 250 caracteres)"
+                  disabled={project.isBlocked_localidad}
+                />
+
+                <FieldGroup
+                  name="barrio_colonia"
+                  label="Barrio/Colonia"
+                  tooltipText="Ingresa el barrio o colonia relacionado al proyecto. Máximo 250 caracteres."
+                  tooltipObservation={project.observacion_barrio_colonia}
+                  type="text"
+                  maxLength="250"
+                  placeholder="Barrio/Colonia (máximo 250 caracteres)"
+                  disabled={project.isBlocked_barrio_colonia}
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group latitud">
+                  <label>Latitud {project.observacion_latitud && (
+                    <CustomTooltip id="observacion_latitud" text={project.observacion_latitud} />
+                  )}</label>
+                  <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" disabled={project.isBlocked_latitud} />
+                  <ErrorMessage name="latitud" component="div" className="error" />
+                </div>
+                <div className="form-group longitud">
+                  <label>Longitud {project.observacion_longitud && (
+                    <CustomTooltip id="observacion_longitud" text={project.observacion_longitud} />
+                  )}</label>
+                  <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" disabled={project.isBlocked_longitud} />
+                  <ErrorMessage name="longitud" component="div" className="error" />
+                </div>
+                <div className="form-group tipo_localidad">
+                  <label>Tipo de Localidad {project.observacion_tipo_localidad && (
+                    <CustomTooltip id="observacion_tipo_localidad" text={project.observacion_tipo_localidad} />
+                  )}</label>
+                  <Field type="text" name="tipo_localidad" disabled={project.isBlocked_tipo_localidado} />
+                  <ErrorMessage name="tipo_localidad" component="div" className="error" />
+                </div>
+              </div>
+
+              <SectionTitle title="Estructura Presupuestal" />
+              <div className="form-row">
+                <div className="form-group sector">
+                  <label>Sector {project.observacion_sector && (
+                    <CustomTooltip id="observacion_sector" text={project.observacion_sector} />
+                  )}</label>
+                  <Field as="select" name="sector" disabled={project.isBlocked_sector} onChange={(e) => {
+                    setFieldValue('sector', e.target.value);
+                    const tipoProyecto = tipoProyectoOptions[e.target.value] || '';
+                    setFieldValue('tipoProyecto', tipoProyecto);
+                  }}>
+                    <option value="">Seleccione</option>
+                    {sectorOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="sector" component="div" className="error" />
+                </div>
+                <div className="form-group tipoProyecto">
+                  <label>Tipo de Proyecto {project.observacion_tipo_proyecto && (
+                    <CustomTooltip id="observacion_tipo_proyecto" text={project.observacion_tipo_proyecto} />
+                  )}</label>
+                  <Field type="text" name="tipoProyecto" readOnly />
+                  <ErrorMessage name="tipoProyecto" component="div" className="error" />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group unidadResponsable">
+                  <label>Unidad Responsable {project.observacion_unidad_responsable && (
+                    <CustomTooltip id="observacion_unidad_responsable" text={project.observacion_unidad_responsable} />
+                  )}</label>
+                  <Field as="select" name="unidadResponsable" disabled={project.isBlocked_unidad_responsable} onChange={(e) => {
+                    setFieldValue('unidadResponsable', e.target.value);
+                    setFieldValue('unidadPresupuestal', ''); // Reset unidadPresupuestal cuando unidadResponsable changes
+                  }}>
+                    <option value="">Seleccione</option>
+                    {unidadesResponsables.map((unidad) => (
+                      <option key={unidad} value={unidad}>{unidad}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="unidadResponsable" component="div" className="error" />
+                </div>
+                {values.unidadResponsable && (
+                  <div className="form-group unidadPresupuestal">
+                    <label>Unidad Presupuestal {project.observacion_unidad_presupuestal && (
+                      <CustomTooltip id="observacion_unidad_presupuestal" text={project.observacion_unidad_presupuestal} />
+                    )}</label>
+                    <Field as="select" name="unidadPresupuestal" disabled={project.isBlocked_unidad_presupuestal}>
+                      <option value="">Seleccione</option>
+                      {unidadPresupuestalPorUnidadResponsable[values.unidadResponsable]?.map((unidad) => (
                         <option key={unidad} value={unidad}>{unidad}</option>
                       ))}
                     </Field>
-                    <ErrorMessage name="unidadResponsable" component="div" className="error" />
+                    <ErrorMessage name="unidadPresupuestal" component="div" className="error" />
                   </div>
-
-                  {values.unidadResponsable && (
-                    <div className="form-group unidadPresupuestal">
-                      <label>Unidad Presupuestal {project.observacion_unidad_presupuestal && (
-                        <CustomTooltip id="observacion_unidad_presupuestal" text={project.observacion_unidad_presupuestal} />
-                      )}</label>
-                      <Field as="select" name="unidadPresupuestal" disabled={project.isBlocked_unidad_presupuestal}>
-                        <option value="">Seleccione</option>
-                        {unidadPresupuestalPorUnidadResponsable[values.unidadResponsable]?.map((unidad) => (
-                          <option key={unidad} value={unidad}>{unidad}</option>
-                        ))}
-                      </Field>
-                      <ErrorMessage name="unidadPresupuestal" component="div" className="error" />
-                    </div>
-                  )}
-                </div>
+                )}
 
                 <div className="form-group ramoPresupuestal">
                   <label>Ramo Presupuestal {project.observacion_ramo_presupuestal && (
@@ -517,7 +599,7 @@ const EditProject = () => {
               <SectionTitle title="Fuentes de Financiamiento" />
               <div className="FuentesFinanciamiento">
                 <p>Si no recibes financiamiento de alguna de las siguientes fuentes, por favor, déjalo en cero.</p>
-                <div className="formFour">
+                <div className="form-row">
                   <div className="form-group inversionFederal">
                     <label>Monto Federal {project.observacion_inversion_federal && (
                       <CustomTooltip id="observacion_inversion_federal" text={project.observacion_inversion_federal} />
@@ -559,14 +641,15 @@ const EditProject = () => {
                     <ErrorMessage name="inversionEstatal" component="div" className="error" />
                   </div>
                 </div>
+              </div>
 
+              <div className="form-row">
                 <div className="form-group inversionTotal">
                   <label>Inversión Total {project.observacion_inversion_total && (
                     <CustomTooltip id="observacion_inversion_total" text={project.observacion_inversion_total} />
                   )}</label>
                   <Field type="text" name="inversionTotal" readOnly disabled={project.isBlocked_inversion_total} value={calculateTotal(values)} />
                 </div>
-
               </div>
 
               <SectionTitle title="Descripción del Proyecto" />
@@ -660,88 +743,23 @@ const EditProject = () => {
                     <ErrorMessage name="tiempo_ejecucion" component="div" className="error" />
                   </div>
                   <div className="form-group planNacional">
-                  <label>Plan Nacional de Desarrollo {project.observacion_modalidad_ejecucion && (
-                    <CustomTooltip id="observacion_modalidad_ejecucion" text={project.observacion_modalidad_ejecucion} />
-                  )}</label>
-                  <Field as="select" name="modalidad_ejecucion" disabled={project.isBlocked_modalidad_ejecucion}>
-                    <option value="">Seleccione</option>
-                    <option value="Contrato">Contrato</option>
-                    <option value="Administración de Obra">Administración de Obra</option>
-                  </Field>
-                  <ErrorMessage name="modalidad_ejecucion" component="div" className="error" />
-                </div>
+                    <label>Plan Nacional de Desarrollo {project.observacion_modalidad_ejecucion && (
+                      <CustomTooltip id="observacion_modalidad_ejecucion" text={project.observacion_modalidad_ejecucion} />
+                    )}</label>
+                    <Field as="select" name="modalidad_ejecucion" disabled={project.isBlocked_modalidad_ejecucion}>
+                      <option value="">Seleccione</option>
+                      <option value="Contrato">Contrato</option>
+                      <option value="Administración de Obra">Administración de Obra</option>
+                    </Field>
+                    <ErrorMessage name="modalidad_ejecucion" component="div" className="error" />
+                  </div>
                 </div>
               </div>
 
               <SectionTitle title="Territorio y Georreferenciación" />
-              <div className="formFour">
-                <div className="form-group region">
-                  <label>Región {project.observacion_region && (
-                    <CustomTooltip id="observacion_region" text={project.observacion_region} />
-                  )}</label>
-                  <Field as="select" name="region" disabled={project.isBlocked_region} onChange={(e) => {
-                    setSelectedRegion(e.target.value);
-                    setFieldValue('region', e.target.value);
-                    setFieldValue('municipio', '');
-                  }}>
-                    <option value="">Seleccione</option>
-                    {Object.keys(municipiosPorRegion).map((region) => (
-                      <option key={region} value={region}>{region}</option>
-                    ))}
-                  </Field>
-                  <ErrorMessage name="region" component="div" className="error" />
-                </div>
-                <div className="form-group municipio">
-                  <label>Municipio {project.observacion_municipio && (
-                    <CustomTooltip id="observacion_municipio" text={project.observacion_municipio} />
-                  )}</label>
-                  <Field as="select" name="municipio" disabled={project.isBlocked_municipio}>
-                    <option value="">Seleccione</option>
-                    {municipiosPorRegion[selectedRegion]?.map((mun) => (
-                      <option key={mun} value={mun}>{mun}</option>
-                    ))}
-                  </Field>
-                  <ErrorMessage name="municipio" component="div" className="error" />
-                </div>
-                <div className="form-group localidad">
-                  <label>Localidad {project.observacion_localidad && (
-                    <CustomTooltip id="observacion_localidad" text={project.observacion_localidad} />
-                  )}</label>
-                  <Field type="text" name="localidad" disabled={project.isBlocked_localidad} />
-                  <ErrorMessage name="localidad" component="div" className="error" />
-                </div>
-                <div className="form-group barrio_colonia_ejido">
-                  <label>Barrio/Colonia/Ejido {project.observacion_barrio_colonia_ejido && (
-                    <CustomTooltip id="observacion_barrio_colonia_ejido" text={project.observacion_barrio_colonia_ejido} />
-                  )}</label>
-                  <Field type="text" name="barrio_colonia_ejido" disabled={project.isBlocked_barrio_colonia_ejido} />
-                  <ErrorMessage name="barrio_colonia_ejido" component="div" className="error" />
-                </div>
-                <div className="form-group tipo_localidad">
-                  <label>Tipo de Localidad {project.observacion_tipo_localidad && (
-                    <CustomTooltip id="observacion_tipo_localidad" text={project.observacion_tipo_localidad} />
-                  )}</label>
-                  <Field type="text" name="tipo_localidad" disabled={project.isBlocked_tipo_localidado} />
-                  <ErrorMessage name="tipo_localidad" component="div" className="error" />
-                </div>
-              </div>
+
               <p>COORDENADAS GEOGRÁFICAS:</p>
-              <div className="formTwo">
-                <div className="form-group latitud">
-                  <label>Latitud {project.observacion_latitud && (
-                    <CustomTooltip id="observacion_latitud" text={project.observacion_latitud} />
-                  )}</label>
-                  <Field type="number" name="latitud" step="any" placeholder="Latitud (+), ej: 20.1224" disabled={project.isBlocked_latitud} />
-                  <ErrorMessage name="latitud" component="div" className="error" />
-                </div>
-                <div className="form-group longitud">
-                  <label>Longitud {project.observacion_longitud && (
-                    <CustomTooltip id="observacion_longitud" text={project.observacion_longitud} />
-                  )}</label>
-                  <Field type="number" name="longitud" step="any" placeholder="Longitud (-), ej: -98.7368" disabled={project.isBlocked_longitud} />
-                  <ErrorMessage name="longitud" component="div" className="error" />
-                </div>
-              </div>
+
 
               <SectionTitle title="Alineación Estratégica" />
               <div className="formTwo">
@@ -1007,5 +1025,31 @@ const EditProject = () => {
     </div>
   );
 };
+
+const FieldGroup = ({ label, name, note, tooltipHelp, tooltipObservation, children, disabled, ...props }) => (
+  <div className="form-group">
+    <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
+      {label}
+      <div className="tooltip-icon-container">
+        {tooltipHelp && (
+          <div className="tooltip-icon-support">
+            <ContactSupportIcon style={{ marginLeft: '5px', cursor: 'pointer', color: 'var(--doradoOsc)' }} />
+            <TooltipHelp id={`${name}-help`} text={tooltipHelp} />
+          </div>
+        )}
+        {tooltipObservation && (
+          <div className="tooltip-icon-support">
+            <CustomTooltip id={`observacion_${name}`} text={tooltipObservation} />
+          </div>
+        )}
+      </div>
+    </label>
+
+    {/* Renderiza children si existe, de lo contrario un Field de Formik */}
+    {children ? (children) : (<Field id={name} name={name} disabled={disabled} {...props} />)}
+    {note && <p className="field-note">{note}</p>}
+    <ErrorMessage name={name} component="div" className="error" />
+  </div>
+);
 
 export default EditProject;
