@@ -11,14 +11,16 @@ import { CssBaseline, Typography } from '@mui/material';
 import { getCsrfToken } from '../../../utils';
 import ProjectDialog from './ProjectDialog';
 import './CRUDTable.css';
-import { useNavigate } from 'react-router-dom';
+//para el handleViewReactReport
+// import { useNavigate } from 'react-router-dom';
 
 const CRUDTable = () => {
   const [projects, setProjects] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
-  const navigate = useNavigate();
+  //para el handleViewReactReportF
+  // const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -73,22 +75,22 @@ const CRUDTable = () => {
     }
   }, [isEditMode, currentProject, handleClose]);
 
-  const handleGenerateReport = useCallback((project_id) => {
-    const reportUrl = `/proyecto/reporte/${project_id}/`;
-    const newTab = window.open(reportUrl, '_blank');
+  // const handleGenerateReport = useCallback((project_id) => {
+  //   const reportUrl = `/proyecto/reporte/${project_id}/`;
+  //   const newTab = window.open(reportUrl, '_blank');
 
-    if (!newTab) {
-      alert("El reporte no pudo abrirse. Habilita las ventanas emergentes.");
-    }
-  }, []);
+  //   if (!newTab) {
+  //     alert("El reporte no pudo abrirse. Habilita las ventanas emergentes.");
+  //   }
+  // }, []);
 
-  const handleViewReactReport = useCallback((projectId) => {
-    if (!projectId) {
-      alert("Error: ID del proyecto no encontrado.");
-      return;
-    }
-    navigate(`/project-report-react/${projectId}`);
-  }, [navigate]);
+  // const handleViewReactReport = useCallback((projectId) => {
+  //   if (!projectId) {
+  //     alert("Error: ID del proyecto no encontrado.");
+  //     return;
+  //   }
+  //   navigate(`/project-report-react/${projectId}`);
+  // }, [navigate]);
 
 
   const renderTruncatedText = (value) => (
@@ -388,7 +390,7 @@ const CRUDTable = () => {
               project.nombre_proyecto || "N/A",
               project.sector || "N/A",
               project.tipo_proyecto || "N/A",
-              
+
               project.tipo_entidad || "N/A",
               project.dependencia || "N/A",
               project.organismo || "N/A",
