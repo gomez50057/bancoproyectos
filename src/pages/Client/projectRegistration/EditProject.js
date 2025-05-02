@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage, FieldArray, useField } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Select from 'react-select';
@@ -85,7 +85,7 @@ const EditProject = () => {
     manifestacionImpactoAmbiental: false,
     otrosEstudios: false,
   });
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -114,7 +114,9 @@ const EditProject = () => {
           manifestacionImpactoAmbiental: [],
           otrosEstudios: [],
         });
-        setSelectedRegion(response.data.region);
+        // Si viene un string, lo metemos en un array; si ya viene array, lo usamos directamente
+        const reg = response.data.region;
+        setSelectedRegion(Array.isArray(reg) ? reg : (reg ? [reg] : []));
 
         setApplies({
           estudiosProspectivos: response.data.applies_estudiosProspectivos,
@@ -259,16 +261,6 @@ const EditProject = () => {
       : [];
   };
 
-  const municipiosOptions = [{ value: 'No Aplica', label: 'No Aplica' }, ...municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))];
-
-  const handleMunicipiosImpactoChange = (selectedOptions, setFieldValue) => {
-    if (selectedOptions.some(option => option.value === 'No Aplica')) {
-      setFieldValue('municipiosImpacto', [{ value: 'No Aplica', label: 'No Aplica' }]);
-    } else {
-      setFieldValue('municipiosImpacto', selectedOptions);
-    }
-  };
-
   return (
     <div className="formulario-container">
       <div className="formTitulo">
@@ -284,7 +276,9 @@ const EditProject = () => {
             dependencia: project.dependencia || '',
             organismo: project.organismo || '',
             municipio_ayuntamiento: project.municipio || '',
-            region: project.region || '',
+            region: Array.isArray(project.region)
+              ? project.region
+              : (project.region ? [project.region] : []),
             municipio: project.municipio || '',
             localidad: project.localidad || '',
             barrio_colonia: project.barrio_colonia || '',
@@ -530,34 +524,37 @@ const EditProject = () => {
               </div>
 
               <div className="form-row">
-                <div className="form-group region">
-                  <label>Región {project.observacion_region && (
-                    <CustomTooltip id="observacion_region" text={project.observacion_region} />
-                  )}</label>
-                  <Field as="select" name="region" disabled={project.isBlocked_region} onChange={(e) => {
-                    setSelectedRegion(e.target.value);
-                    setFieldValue('region', e.target.value);
-                    setFieldValue('municipio', '');
-                  }}>
-                    <option value="">Seleccione</option>
-                    {Object.keys(municipiosPorRegion).map((region) => (
-                      <option key={region} value={region}>{region}</option>
-                    ))}
-                  </Field>
-                  <ErrorMessage name="region" component="div" className="error" />
-                </div>
-                <div className="form-group municipio">
-                  <label>Municipio {project.observacion_municipio && (
-                    <CustomTooltip id="observacion_municipio" text={project.observacion_municipio} />
-                  )}</label>
-                  <Field as="select" name="municipio" disabled={project.isBlocked_municipio}>
-                    <option value="">Seleccione</option>
-                    {municipiosPorRegion[selectedRegion]?.map((mun) => (
-                      <option key={mun} value={mun}>{mun}</option>
-                    ))}
-                  </Field>
-                  <ErrorMessage name="municipio" component="div" className="error" />
-                </div>
+                <CustomSelectField
+                  name="region"
+                  label="Región"
+                  options={Object.keys(municipiosPorRegion).map((region) => ({
+                    value: region,
+                    label: region,
+                  }))}
+                  isMulti
+                  placeholder="Seleccione una o más regiones"
+                  tooltipText="Selecciona la(s) región(es) donde se encuentra el proyecto."
+                  tooltipObservation={project.observacion_region}
+                  disabled={project.isBlocked_region}
+                  onChange={(selectedOptions) => handleRegionChange(selectedOptions, setFieldValue)}
+                  isDisabled={entityType === 'Ayuntamiento'}
+                />
+
+                <CustomSelectField
+                  name="municipio"
+                  label="Municipio"
+                  options={
+                    entityType === 'Ayuntamiento'
+                      ? (values.municipio ? [{ value: values.municipio, label: values.municipio }] : [])
+                      : getMunicipiosOptions()
+                  }
+                  placeholder="Seleccione uno o más municipios"
+                  tooltipText="Selecciona el/los municipio(s) correspondientes a la(s) región(es) seleccionada(s)."
+                  tooltipObservation={project.observacion_municipio}
+                  disabled={project.isBlocked_municipio}
+                  isDisabled={entityType === 'Ayuntamiento' || (!selectedRegion || selectedRegion.length === 0)}
+                  isMulti={entityType !== 'Ayuntamiento'}
+                />
 
                 <FieldGroup
                   name="localidad"
@@ -1048,7 +1045,7 @@ const EditProject = () => {
         <h2>Proyecto actualizado exitosamente</h2>
         <button onClick={closeModal}>He finalizado</button>
       </StyledModal>
-    </div>
+    </div >
   );
 };
 
