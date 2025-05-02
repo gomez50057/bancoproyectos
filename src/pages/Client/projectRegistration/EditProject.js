@@ -350,8 +350,8 @@ const EditProject = () => {
               formData.append('dependencia', values.dependencia);
               formData.append('organismo', values.organismo);
               formData.append('municipio_ayuntamiento', values.municipio_ayuntamiento);
-              formData.append('region', values.region);
-              formData.append('municipio', values.municipio);
+              formData.append('region', JSON.stringify(values.region));
+              formData.append('municipio', JSON.stringify(values.municipio));
               formData.append('localidad', values.localidad);
               formData.append('barrio_colonia', values.barrio_colonia);
               formData.append('latitud', parseFloat(values.latitud) || 0);
