@@ -165,7 +165,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
       {/* Datos Generales del Proyecto */}
       <SectionTitle title="Generalidades del Proyecto" />
       <div className="form-row">
-        <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipText="Esta es la fecha en que estás registrando el proyecto y se agrega de manera automática tomando el dato del día en que se elabora." readOnly />
+        <FieldGroup name="fecha_registro" label="Fecha de Registro" type="date" value={values.fecha_registro} tooltipHelp="Esta es la fecha en que estás registrando el proyecto y se agrega de manera automática tomando el dato del día en que se elabora." readOnly />
       </div>
 
       <div className="form-row">
@@ -178,7 +178,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             { value: 'Ayuntamiento', label: 'Ayuntamiento' },
           ]}
           placeholder="Selecciona una opción"
-          tooltipText="Selecciona el tipo de entidad para el proyecto."
+          tooltipHelp="Selecciona el tipo de entidad para el proyecto."
           onChange={(option) => {
             setFieldValue('tipo_entidad', option.value);
             handleEntityTypeChange(option.value, setFieldValue);
@@ -191,7 +191,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             label="Dependencia"
             options={dependencias.map(dep => ({ value: dep, label: dep }))}
             placeholder="Selecciona una opción"
-            tooltipText="Selecciona la dependencia que gestiona el proyecto."
+            tooltipHelp="Selecciona la dependencia que gestiona el proyecto."
             onChange={(option) => {
               setFieldValue('dependencia', option.value);
               setFieldValue('programas_SIE', getProgramasSIEValue('Dependencia', option.value, values.organismo));
@@ -205,7 +205,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             label="Organismo"
             options={organismos.map(org => ({ value: org, label: org }))}
             placeholder="Selecciona una opción"
-            tooltipText="Selecciona el organismo encargado del proyecto."
+            tooltipHelp="Selecciona el organismo encargado del proyecto."
             onChange={(option) => {
               setFieldValue('organismo', option.value);
               setFieldValue('programas_SIE', getProgramasSIEValue('Organismo', values.dependencia, option.value));
@@ -219,14 +219,14 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             label="Ayuntamiento"
             options={municipiosDeHidalgo.map(mun => ({ value: mun, label: mun }))}
             placeholder="Selecciona una opción"
-            tooltipText="Selecciona el municipio que gestionará el proyecto."
+            tooltipHelp="Selecciona el municipio que gestionará el proyecto."
             onChange={(option) => handleMunicipioAyuntamientoChange(option, setFieldValue)}
           />
         )}
         <FieldGroup
           name="nombre_proyecto"
           label="Nombre del Proyecto"
-          tooltipText="Indica el nombre del proyecto."
+          tooltipHelp="Indica el nombre del proyecto."
         />
       </div>
 
@@ -240,7 +240,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           }))}
           isMulti
           placeholder="Seleccione una o más regiones"
-          tooltipText="Selecciona la(s) región(es) donde se encuentra el proyecto."
+          tooltipHelp="Selecciona la(s) región(es) donde se encuentra el proyecto."
           onChange={(selectedOptions) => handleRegionChange(selectedOptions, setFieldValue)}
           isDisabled={entityType === 'Ayuntamiento'}
         />
@@ -254,7 +254,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
               : getMunicipiosOptions()
           }
           placeholder="Seleccione uno o más municipios"
-          tooltipText="Selecciona el/los municipio(s) correspondientes a la(s) región(es) seleccionada(s)."
+          tooltipHelp="Selecciona el/los municipio(s) correspondientes a la(s) región(es) seleccionada(s)."
           isDisabled={entityType === 'Ayuntamiento' || (!selectedRegion || selectedRegion.length === 0)}
           isMulti={entityType !== 'Ayuntamiento'}
         />
@@ -262,7 +262,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="localidad"
           label="Localidad"
-          tooltipText="Ingresa la localidad donde se llevará a cabo el proyecto. Máximo 250 caracteres."
+          tooltipHelp="Ingresa la localidad donde se llevará a cabo el proyecto. Máximo 250 caracteres."
           type="text"
           maxLength="250"
           placeholder="Localidad (máximo 250 caracteres)"
@@ -271,7 +271,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="barrio_colonia"
           label="Barrio/Colonia"
-          tooltipText="Ingresa el barrio o colonia relacionado al proyecto. Máximo 250 caracteres."
+          tooltipHelp="Ingresa el barrio o colonia relacionado al proyecto. Máximo 250 caracteres."
           type="text"
           maxLength="250"
           placeholder="Barrio/Colonia (máximo 250 caracteres)"
@@ -282,7 +282,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="latitud"
           label="Latitud"
-          tooltipText="Ingresa la latitud geográfica del proyecto. Debe ser un valor numérico."
+          tooltipHelp="Ingresa la latitud geográfica del proyecto. Debe ser un valor numérico."
           type="number"
           step="any"
           placeholder="Latitud (ej. 20.1234)"
@@ -291,7 +291,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="longitud"
           label="Longitud"
-          tooltipText="Ingresa la longitud geográfica del proyecto. Debe ser un valor numérico."
+          tooltipHelp="Ingresa la longitud geográfica del proyecto. Debe ser un valor numérico."
           type="number"
           step="any"
           placeholder="Longitud (ej. -99.5678)"
@@ -301,7 +301,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Tipo de Localidad"
           options={tipoLocalidadOptions}
           placeholder="Selecciona una opción"
-          tooltipText="Ingresa el tipo de localidad(es) según corresponda"
+          tooltipHelp="Ingresa el tipo de localidad(es) según corresponda"
         />
       </div>
 
@@ -313,7 +313,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Sector"
           options={sectorOptions.map(opt => ({ value: opt.value, label: opt.label }))}
           placeholder="Selecciona una opción"
-          tooltipText="Selecciona el sector correspondiente."
+          tooltipHelp="Selecciona el sector correspondiente."
           onChange={(option) => {
             setFieldValue('sector', option.value);
             const tipo_proyecto = tipoProyectoOptions[option.value] || '';
@@ -323,7 +323,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="tipo_proyecto"
           label="Tipo de Proyecto"
-          tooltipText="Este campo se llena automáticamente en base al sector seleccionado."
+          tooltipHelp="Este campo se llena automáticamente en base al sector seleccionado."
           readOnly
         />
       </div>
@@ -334,7 +334,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Unidad Responsable"
           options={unidadesResponsables.map(unidad => ({ value: unidad, label: unidad }))}
           placeholder="Selecciona una opción"
-          tooltipText="Selecciona la unidad responsable del proyecto."
+          tooltipHelp="Selecciona la unidad responsable del proyecto."
           onChange={(option) => {
             setFieldValue('unidad_responsable', option.value);
             setSelectedUnidadResponsable(option.value);
@@ -348,7 +348,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
             label="Unidad Presupuestal"
             options={unidadPresupuestalPorUnidadResponsable[selectedUnidadResponsable]?.map(unidad => ({ value: unidad, label: unidad })) || []}
             placeholder="Selecciona una opción"
-            tooltipText="Selecciona la unidad presupuestal correspondiente."
+            tooltipHelp="Selecciona la unidad presupuestal correspondiente."
             isDisabled={!selectedUnidadResponsable}
           />
         )}
@@ -357,7 +357,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Ramo Presupuestal"
           options={ramoPresupuestalOptions}
           placeholder="Seleccione una opción"
-          tooltipText="Selecciona el ramo presupuestal correspondiente."
+          tooltipHelp="Selecciona el ramo presupuestal correspondiente."
         // note="Este campo es requerido para el registro del proyecto."
         />
       </div>
@@ -370,7 +370,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           name="inversion_federal"
           label="Inversión Federal"
           type="number"
-          tooltipText="Indica la inversión de financiamiento federal."
+          tooltipHelp="Indica la inversión de financiamiento federal."
           onChange={(e) => {
             const federalValue = e.target.value;
             setFieldValue('inversion_federal', federalValue);
@@ -382,7 +382,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           name="inversion_estatal"
           label="Inversión Estatal"
           type="number"
-          tooltipText="Indica la inversión de financiamiento estatal."
+          tooltipHelp="Indica la inversión de financiamiento estatal."
           onChange={(e) => {
             const estatalValue = e.target.value;
             setFieldValue('inversion_estatal', estatalValue);
@@ -394,7 +394,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           name="inversion_municipal"
           label="Inversión Municipal"
           type="number"
-          tooltipText="Indica la inversión de financiamiento municipal."
+          tooltipHelp="Indica la inversión de financiamiento municipal."
           onChange={(e) => {
             const municipalValue = e.target.value;
             setFieldValue('inversion_municipal', municipalValue);
@@ -406,7 +406,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           name="inversion_otros"
           label="Otras Inversiones"
           type="number"
-          tooltipText="Indica cualquier otro tipo de financiamiento."
+          tooltipHelp="Indica cualquier otro tipo de financiamiento."
           onChange={(e) => {
             const otrosValue = e.target.value;
             setFieldValue('inversion_otros', otrosValue);
@@ -420,7 +420,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="inversion_total"
           label="Inversión Total"
-          tooltipText="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
+          tooltipHelp="Este campo se calcula automáticamente sumando las fuentes de financiamiento."
           readOnly
         />
       </div>
@@ -432,7 +432,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Descripción"
           as="textarea"
           maxLength="1000"
-          tooltipText="Describe el proyecto. Máximo 1000 caracteres."
+          tooltipHelp="Describe el proyecto. Máximo 1000 caracteres."
           note="Máximo 1000 caracteres."
         />
       </div>
@@ -442,7 +442,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Situación Sin Proyecto"
           as="textarea"
           maxLength="1000"
-          tooltipText="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
+          tooltipHelp="Describe la situación actual sin el proyecto. Máximo 1000 caracteres."
           note="Máximo 1000 caracteres."
         />
       </div>
@@ -452,7 +452,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Objetivos"
           as="textarea"
           maxLength="500"
-          tooltipText="Describe los objetivos del proyecto. Máximo 500 caracteres."
+          tooltipHelp="Describe los objetivos del proyecto. Máximo 500 caracteres."
           note="Máximo 500 caracteres."
         />
         <FieldGroup
@@ -460,7 +460,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Metas Fisicas"
           as="textarea"
           maxLength="500"
-          tooltipText="Indica las metas del proyecto. Máximo 500 caracteres."
+          tooltipHelp="Indica las metas del proyecto. Máximo 500 caracteres."
           note="Máximo 500 caracteres."
         />
       </div>
@@ -470,7 +470,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           name="tiempo_ejecucion"
           label="Tiempo Ejecución"
           type="number"
-          tooltipText="Ingresa el tiempo estimado en meses que tomará la obra, incluyendo ejecución y entrega."
+          tooltipHelp="Ingresa el tiempo estimado en meses que tomará la obra, incluyendo ejecución y entrega."
           note="Tiempo estimado en meses."
         />
 
@@ -479,7 +479,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Modalidad Ejecución"
           options={modalidadEjecucionOptions}
           placeholder="Selecciona una opción"
-          tooltipText="Ingresa el tiempo estimado en meses que tomará la obra, incluyendo ejecución y entrega."
+          tooltipHelp="Ingresa el tiempo estimado en meses que tomará la obra, incluyendo ejecución y entrega."
           note="Tiempo estimado en meses."
         />
       </div>
@@ -489,14 +489,14 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           name="beneficiarios"
           label="Número de Beneficiarios"
           type="number"
-          tooltipText="Indica el número de beneficiarios del proyecto."
+          tooltipHelp="Indica el número de beneficiarios del proyecto."
         />
         <CustomSelectField
           name="gasto_programable"
           label="Gasto Programable"
           options={Object.keys(programaPresupuestarioOptions).map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona una opción"
-          tooltipText="Selecciona el gasto programable."
+          tooltipHelp="Selecciona el gasto programable."
           onChange={(option) => {
             setFieldValue('gasto_programable', option.value);
             setSelectedProgramaPresupuestario(option.value);
@@ -510,7 +510,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
               label="Programa Presupuestario"
               type="text"
               placeholder="Ingresa el programa presupuestario"
-              tooltipText="Ingresa el programa presupuestario de forma libre"
+              tooltipHelp="Ingresa el programa presupuestario de forma libre"
             />
           ) : (
             // Campo select con opciones predeterminadas
@@ -519,11 +519,11 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
               label="Programa Presupuestario"
               options={programaPresupuestarioOptions[selectedProgramaPresupuestario] ? programaPresupuestarioOptions[selectedProgramaPresupuestario].map(opt => ({ value: opt, label: opt })) : []}
               placeholder="Selecciona una opción"
-              tooltipText="Selecciona el programa presupuestario."
+              tooltipHelp="Selecciona el programa presupuestario."
               isDisabled={!selectedProgramaPresupuestario}
               // options={programaPresupuestarioOptions[selectedProgramaPresupuestario]?.map(opt => ({ value: opt, label: opt })) || []}
               // placeholder="Selecciona una opción"
-              // tooltipText="Selecciona el programa presupuestario."
+              // tooltipHelp="Selecciona el programa presupuestario."
               // isDisabled={!selectedProgramaPresupuestario}
             />
           )
@@ -536,7 +536,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Normativa Aplicable Vigente"
           as="textarea"
           maxLength="1500"
-          tooltipText="Describe la normativa aplicable vigente. Máximo 1500 caracteres."
+          tooltipHelp="Describe la normativa aplicable vigente. Máximo 1500 caracteres."
           note="Máximo 1500 caracteres."
         />
       </div>
@@ -549,7 +549,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Plan Nacional de Desarrollo"
           options={planNacionalOptions.map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona el plan nacional"
-          tooltipText="Selecciona el plan nacional de desarrollo al que se alinea el proyecto."
+          tooltipHelp="Selecciona el plan nacional de desarrollo al que se alinea el proyecto."
         />
 
         <CustomSelectField
@@ -557,7 +557,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Plan Estatal de Desarrollo"
           options={planEstatalOptions}
           placeholder="Selecciona el plan estatal"
-          tooltipText="Selecciona el plan estatal de desarrollo al que se alinea el proyecto."
+          tooltipHelp="Selecciona el plan estatal de desarrollo al que se alinea el proyecto."
           onChange={(option) => handlePlanEstatalChange(option, setFieldValue)}
         />
       </div>
@@ -566,7 +566,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
         <FieldGroup
           name="plan_municipal"
           label="Plan Municipal"
-          tooltipText="Ingresa el plan municipal de desarrollo."
+          tooltipHelp="Ingresa el plan municipal de desarrollo."
           as="textarea"
           maxLength="500"
           placeholder="Máximo 500 caracteres"
@@ -585,14 +585,14 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Objetivos de Desarrollo Sostenible (ODS)"
           options={odsOptions.map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona un objetivo de desarrollo sostenible"
-          tooltipText="Selecciona los ODS al que se alinea el proyecto."
+          tooltipHelp="Selecciona los ODS al que se alinea el proyecto."
         />
         <CustomSelectField
           name="acuerdos_transversales"
           label="Acuerdos Transversales"
           options={acuerdosTransversalesOptions.map(opt => ({ value: opt, label: opt }))}
           placeholder="Selecciona un acuerdo transversal"
-          tooltipText="Selecciona los acuerdos transversales relacionados con el proyecto."
+          tooltipHelp="Selecciona los acuerdos transversales relacionados con el proyecto."
         />
       </div>
 
@@ -601,7 +601,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           <FieldGroup
             name="programas_SIE"
             label="Programas Sectoriales-Institucionales-Especiales"
-            tooltipText="Este campo se llena automáticamente en base al tipo de entidad seleccionado."
+            tooltipHelp="Este campo se llena automáticamente en base al tipo de entidad seleccionado."
             readOnly
             value={values.programas_SIE}
           />
@@ -615,7 +615,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Indicadores Estratégicos"
           options={getIndicadoresEstrategicosOptions()}
           placeholder="Selecciona un indicador estratégico"
-          tooltipText="Selecciona el indicador estratégico correspondiente al plan estatal seleccionado."
+          tooltipHelp="Selecciona el indicador estratégico correspondiente al plan estatal seleccionado."
           isDisabled={!selectedPlanEstatal}
           onChange={(option) => setFieldValue('indicadores_estrategicos', option.value)}
         />
@@ -624,25 +624,25 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Indicadores Socioeconomicos"
           options={aplicaOptions}
           placeholder="Selecciona una opción"
-          tooltipText="Elige Si en caso de aplicar en caso contrario elegir No"
+          tooltipHelp="Elige Si en caso de aplicar en caso contrario elegir No"
         />
       </div>
 
       {/* Registro del Responsable del Proyecto */}
       <SectionTitle title="Registro del Responsable del Proyecto" />
       <div className="form-row">
-        <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipText="Proporciona el área de adscripción del responsable del registro." />
+        <FieldGroup name="area_adscripcion" label="Área de Adscripción" type="text" tooltipHelp="Proporciona el área de adscripción del responsable del registro." />
       </div>
       <div className="form-row">
-        <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipText="Proporciona tu nombre como responsable de este registro." />
-        <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipText="Indica tu apellido paterno." />
-        <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipText="Indica tu apellido materno." />
+        <FieldGroup name="nombre_registrante" label="Nombre(s) de quien registra" type="text" tooltipHelp="Proporciona tu nombre como responsable de este registro." />
+        <FieldGroup name="apellido_paterno" label="Apellido Paterno" type="text" tooltipHelp="Indica tu apellido paterno." />
+        <FieldGroup name="apellido_materno" label="Apellido Materno" type="text" tooltipHelp="Indica tu apellido materno." />
       </div>
       <div className="form-row">
-        <FieldGroup name="correo" label="Correo" type="email" tooltipText="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
+        <FieldGroup name="correo" label="Correo" type="email" tooltipHelp="Proporciona tu correo electrónic dando prioridad al institucional en caso de no contar con uno agregar el personal." />
         <FieldGroup name="telefono" label="Teléfono"
-          type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipText="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
-        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipText="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('telefono_ext', setFieldValue)} />
+          type="text" note="Debe ser un número de 10 dígitos" maxLength={10} tooltipHelp="Ingresa un número de teléfono válido de 10 dígitos." onChange={handleNumericInput('telefono', setFieldValue)} />
+        <FieldGroup name="telefono_ext" label="Extensión (No es Obligatorio)" type="text" maxLength={10} tooltipHelp="Proporciona la extensión telefónica, si aplica." onChange={handleNumericInput('telefono_ext', setFieldValue)} />
       </div>
 
       {/* Documentación */}
@@ -657,7 +657,7 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
           label="Observaciones"
           as="textarea"
           maxLength="1000"
-          tooltipText="Agrega información o aclaraciones importantes para complementar este registro. Máximo 1000 caracteres."
+          tooltipHelp="Agrega información o aclaraciones importantes para complementar este registro. Máximo 1000 caracteres."
           note="Máximo 1000 caracteres."
         />
       </div>
@@ -668,15 +668,15 @@ const Formulario = ({ setFieldValue, values, isSubmitting }) => {
   );
 };
 /// Componente FieldGroup para simplificar la creación de campos, ahora con soporte para Tooltip y notas
-const FieldGroup = ({ label, name, note, tooltipText, children, ...props }) => (
+const FieldGroup = ({ label, name, note, tooltipHelp, children, ...props }) => (
   <div className="form-group">
     <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
       {label}
-      {tooltipText && (
+      {tooltipHelp && (
         <div className="tooltip-icon-container">
           <div className="tooltip-icon-support">
             <ContactSupportIcon style={{ marginLeft: '5px', cursor: 'pointer', color: 'var(--doradoOsc)' }} />
-            <TooltipHelp id={`${name}-tooltip`} text={tooltipText} />
+            <TooltipHelp id={`${name}-tooltip`} text={tooltipHelp} />
           </div>
         </div>
       )}
@@ -689,7 +689,7 @@ const FieldGroup = ({ label, name, note, tooltipText, children, ...props }) => (
 );
 
 // Componente CustomSelectField modificado para integrar React Select con Formik y mostrar tooltip
-const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', isMulti = false, onChange }) => {
+const CustomSelectField = ({ label, options, name, placeholder, isDisabled = false, tooltipHelp = '', isMulti = false, onChange }) => {
   const [field, , helpers] = useField(name);
 
   const handleChange = (selectedOptions) => {
@@ -710,11 +710,11 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
     <div className="form-group" style={{ borderRadius: '15px' }}>
       <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
         {label}
-        {tooltipText && (
+        {tooltipHelp && (
           <div className="tooltip-icon-container">
             <div className="tooltip-icon-support">
               <ContactSupportIcon style={{ marginLeft: '5px', cursor: 'pointer', color: 'var(--doradoOsc)' }} />
-              <TooltipHelp id={`${name}-tooltip`} text={tooltipText} />
+              <TooltipHelp id={`${name}-tooltip`} text={tooltipHelp} />
             </div>
           </div>
         )}
@@ -742,7 +742,7 @@ const CustomSelectField = ({ label, options, name, placeholder, isDisabled = fal
 };
 
 // Implementación del Select con optgroup
-const CustomSelectFieldGrouped = ({ label, options, name, placeholder, isDisabled = false, tooltipText = '', onChange, note }) => {
+const CustomSelectFieldGrouped = ({ label, options, name, placeholder, isDisabled = false, tooltipHelp = '', onChange, note }) => {
   const [field, , helpers] = useField(name);
 
   const handleChange = (selectedOption) => {
@@ -761,7 +761,7 @@ const CustomSelectFieldGrouped = ({ label, options, name, placeholder, isDisable
       label={label}
       name={name}
       note={note}
-      tooltipText={tooltipText}
+      tooltipHelp={tooltipHelp}
     >
       <Select
         options={options}
