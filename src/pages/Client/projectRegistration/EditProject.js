@@ -344,6 +344,7 @@ const EditProject = () => {
 
             // Observaciones y Comentarios
             observaciones: project.observaciones || '',
+            retroalimentacion: project.retroalimentacion || '',
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
@@ -426,6 +427,7 @@ const EditProject = () => {
 
               // --- Observaciones y Comentarios ---
               formData.append('observaciones', values.observaciones);
+              formData.append('retroalimentacion', values.retroalimentacion);
 
               const csrfToken = Cookies.get('csrftoken');
               await axios.put(`/update-project/${projectId}/`, formData, {
@@ -522,6 +524,8 @@ const EditProject = () => {
                   name="nombre_proyecto"
                   label="Nombre del Proyecto"
                   tooltipHelp="Indica el nombre del proyecto."
+                  tooltipObservation={project.observacion_municipio_ayuntamiento}
+                  disabled={project.isBlocked_municipio_ayuntamiento}
                 />
               </div>
 
@@ -662,7 +666,7 @@ const EditProject = () => {
                     placeholder="Selecciona una opción"
                     tooltipHelp="Selecciona la unidad presupuestal correspondiente."
                     tooltipObservation={project.observacion_unidad_presupuestal}
-                  disabled={project.isBlocked_unidad_presupuestal}
+                    disabled={project.isBlocked_unidad_presupuestal}
                     isDisabled={!selectedUnidadResponsable}
                   />
                 )}
@@ -1048,6 +1052,20 @@ const EditProject = () => {
                   maxLength="1000"
                   tooltipHelp="Agrega información o aclaraciones importantes para complementar este registro. Máximo 1000 caracteres."
                   note="Máximo 1000 caracteres."
+                  tooltipObservation={project.observacion_observaciones}
+                  disabled={project.isBlocked_observaciones}
+                />
+              </div>
+
+              <div className="form-row">
+                <FieldGroup
+                  name="retroalimentacion"
+                  label="Retroalimentacion"
+                  as="textarea"
+                  maxLength="1000"
+                  tooltipHelp="Estas son las solvencias que se han determinado; por favor, sube lo solicitado."
+                  tooltipObservation={project.observacion_retroalimentacion}
+                  disabled={project.isBlocked_retroalimentacion}
                 />
               </div>
 
