@@ -671,56 +671,15 @@ const EditProject = () => {
                   />
                 )}
 
-                <div className="form-group ramoPresupuestal">
-                  <label>Ramo Presupuestal {project.observacion_ramo_presupuestal && (
-                    <CustomTooltip id="observacion_ramo_presupuestal" text={project.observacion_ramo_presupuestal} />
-                  )}</label>
-                  <Field as="select" name="ramoPresupuestal" disabled={project.isBlocked_ramo_presupuestal}>
-                    <option value="">Seleccione</option>
-                    <optgroup label="Ramos Autónomos">
-                      <option value="Legislativo">Legislativo</option>
-                      <option value="Judicial">Judicial</option>
-                      <option value="Electoral">Electoral</option>
-                      <option value="Derechos Humanos">Derechos Humanos</option>
-                      <option value="Acceso a la Información Pública Gubernamental">Acceso a la Información Pública Gubernamental</option>
-                      <option value="Justicia Electoral">Justicia Electoral</option>
-                    </optgroup>
-                    <optgroup label="Ramos Administrativos">
-                      <option value="Despacho del Poder Ejecutivo">Despacho del Poder Ejecutivo</option>
-                      <option value="Gobierno">Gobierno</option>
-                      <option value="Hacienda Pública">Hacienda Pública</option>
-                      <option value="Bienestar e Inclusión Social">Bienestar e Inclusión Social</option>
-                      <option value="Infraestructura Pública y Desarrollo Urbano Sostenible">Infraestructura Pública y Desarrollo Urbano Sostenible</option>
-                      <option value="Medio Ambiente y Recursos Naturales">Medio Ambiente y Recursos Naturales</option>
-                      <option value="Desarrollo Económico">Desarrollo Económico</option>
-                      <option value="Agricultura y Desarrollo Rural">Agricultura y Desarrollo Rural</option>
-                      <option value="Turismo">Turismo</option>
-                      <option value="Contraloría">Contraloría</option>
-                      <option value="Educación Pública">Educación Pública</option>
-                      <option value="Salud">Salud</option>
-                      <option value="Seguridad Pública">Seguridad Pública</option>
-                      <option value="Trabajo y Previsión Social">Trabajo y Previsión Social</option>
-                      <option value="Movilidad y Transporte">Movilidad y Transporte</option>
-                      <option value="Cultura">Cultura</option>
-                      <option value="Planeación y Prospectiva">Planeación y Prospectiva</option>
-                      <option value="Administración">Administración</option>
-                      <option value="Justicia">Justicia</option>
-                    </optgroup>
-                    <optgroup label="Ramos Generales">
-                      <option value="Transferencias">Transferencias</option>
-                      <option value="Participaciones a Municipios">Participaciones a Municipios</option>
-                      <option value="Contingencias">Contingencias</option>
-                      <option value="Provisiones Salariales">Provisiones Salariales</option>
-                      <option value="Deuda Pública">Deuda Pública</option>
-                      <option value="Adeudos de Ejercicios Fiscales Anteriores">Adeudos de Ejercicios Fiscales Anteriores</option>
-                      <option value="Aportaciones a Municipios">Aportaciones a Municipios</option>
-                      <option value="Erogaciones para las Operaciones y Programas de Saneamiento Financiero">Erogaciones para las Operaciones y Programas de Saneamiento Financiero</option>
-                      <option value="Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca">Erogaciones para los Programas de Apoyo a Ahorradores y Deudores de la Banca</option>
-                      <option value="Inversión en Municipios">Inversión en Municipios</option>
-                    </optgroup>
-                  </Field>
-                  <ErrorMessage name="ramoPresupuestal" component="div" className="error" />
-                </div>
+                <CustomSelectFieldGrouped
+                  name="ramo_presupuestal"
+                  label="Ramo Presupuestal"
+                  options={ramoPresupuestalOptions}
+                  placeholder="Seleccione una opción"
+                  tooltipHelp="Selecciona el ramo presupuestal correspondiente."
+                  tooltipObservation={project.observacion_ramo_presupuestal}
+                  disabled={project.isBlocked_ramo_presupuestal}
+                />
               </div>
 
               <SectionTitle title="Fuentes de Financiamiento" />
@@ -1197,5 +1156,74 @@ const CustomSelectField = ({
   );
 };
 
+// Implementación del Select con optgroup
+const CustomSelectFieldGrouped = ({
+  label,
+  options,
+  name,
+  placeholder,
+  disabled = false,
+  isDisabled = false,
+  tooltipHelp = '',
+  tooltipObservation = '',
+  onChange,
+}) => {
+  const [field, , helpers] = useField(name);
+  const finalDisabled = disabled || isDisabled;
+
+  const handleChange = selectedOption => {
+    helpers.setValue(selectedOption ? selectedOption.value : '');
+    if (onChange) onChange(selectedOption);
+  };
+
+  const selectedOption = React.useMemo(() => {
+    if (!options) return null;
+    for (const group of options) {
+      const found = group.options.find(opt => opt.value === field.value);
+      if (found) return found;
+    }
+    return null;
+  }, [field.value, options]);
+
+  return (
+    <div className="form-group" style={{ borderRadius: '15px' }}>
+      <label htmlFor={name} style={{ display: 'flex', alignItems: 'center' }}>
+        {label}
+        <div className="tooltip-icon-container">
+          {tooltipHelp && (
+            <div className="tooltip-icon-support">
+              <ContactSupportIcon style={{ marginLeft: 5, cursor: 'pointer', color: 'var(--doradoOsc)' }} />
+              <TooltipHelp id={`${name}-help`} text={tooltipHelp} />
+            </div>
+          )}
+          {tooltipObservation && (
+            <div className="tooltip-icon-support">
+              <CustomTooltip id={`observacion_${name}`} text={tooltipObservation} />
+            </div>
+          )}
+        </div>
+      </label>
+
+      <Select
+        className="form-select"
+        id={name}
+        options={options}
+        name={name}
+        value={selectedOption}
+        onChange={handleChange}
+        placeholder={placeholder}
+        isDisabled={finalDisabled}
+        menuPortalTarget={document.body}
+        styles={{
+          menuPortal: base => ({ ...base, zIndex: 9999 }),
+          control: base => ({ ...base, borderRadius: 15 }),
+        }}
+        menuPlacement="auto"
+      />
+
+      <ErrorMessage name={name} component="div" className="error" />
+    </div>
+  );
+};
 
 export default EditProject;
