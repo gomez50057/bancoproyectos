@@ -330,22 +330,33 @@ const EditProject = () => {
             indicadores_socioeconomicos: project.indicadores_socioeconomicos || '',
 
             // Anexos del proyecto
-            estudios_factibilidad: project.estudios_factibilidad || [],
-            analisis_alternativas: project.analisis_alternativas || [],
-            validacion_normativa: project.validacion_normativa || [],
-            liberacion_derecho_via: project.liberacion_derecho_via || [],
-            analisis_costo_beneficio: project.analisis_costo_beneficio || [],
-            expediente_tecnico_docu: project.expediente_tecnico_docu || [],
-            proyecto_ejecutivo: project.proyecto_ejecutivo || [],
-            manifestacion_impacto_ambiental: project.manifestacion_impacto_ambiental || [],
-            fotografia_render_proyecto: project.fotografia_render_proyecto || [],
-            otros_estudios: project.otros_estudios || [],
+            // estudios_factibilidad: project.estudios_factibilidad || [],
+            // analisis_alternativas: project.analisis_alternativas || [],
+            // validacion_normativa: project.validacion_normativa || [],
+            // liberacion_derecho_via: project.liberacion_derecho_via || [],
+            // analisis_costo_beneficio: project.analisis_costo_beneficio || [],
+            // expediente_tecnico_docu: project.expediente_tecnico_docu || [],
+            // proyecto_ejecutivo: project.proyecto_ejecutivo || [],
+            // manifestacion_impacto_ambiental: project.manifestacion_impacto_ambiental || [],
+            // fotografia_render_proyecto: project.fotografia_render_proyecto || [],
+            // otros_estudios: project.otros_estudios || [],
+
+            estudios_factibilidad: [],
+            analisis_alternativas: [],
+            validacion_normativa: [],
+            liberacion_derecho_via: [],
+            analisis_costo_beneficio: [],
+            expediente_tecnico_docu: [],
+            proyecto_ejecutivo: [],
+            manifestacion_impacto_ambiental: [],
+            fotografia_render_proyecto: [],
+            otros_estudios: [],
 
             // Observaciones y Comentarios
             observaciones: project.observaciones || '',
             retroalimentacion: project.retroalimentacion || '',
           }}
-          onSubmit={async (values, { setSubmitting, resetForm, setErrors}) => {
+          onSubmit={async (values, { setSubmitting, resetForm, setErrors }) => {
             try {
               const formData = new FormData();
 
