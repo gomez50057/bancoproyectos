@@ -77,18 +77,15 @@ const EditProject = () => {
 
   const [project, setProject] = useState(null);
   const [applies, setApplies] = useState({
-    estudiosProspectivos: false,
-    estudiosFactibilidad: false,
-    analisisAlternativas: false,
-    validacionNormativa: false,
-    liberacionDerechoVia: false,
-    situacionSinProyectoFotografico: false,
-    situacionConProyectoProyeccion: false,
-    analisisCostoBeneficio: false,
-    expedienteTecnico: false,
-    proyectoEjecutivo: false,
-    manifestacionImpactoAmbiental: false,
-    otrosEstudios: false,
+    estudios_factibilidad: false,
+    analisis_alternativas: false,
+    validacion_normativa: false,
+    liberacion_derecho_via: false,
+    analisis_costo_beneficio: false,
+    proyecto_ejecutivo: false,
+    manifestacion_impacto_ambiental: false,
+    fotografia_render_proyecto: false,
+    otros_estudios: false,
   });
   const [selectedRegion, setSelectedRegion] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -106,37 +103,31 @@ const EditProject = () => {
         const response = await axios.get(`/proyecto/${projectId}/`);
         setProject({
           ...response.data,
-          estudiosProspectivos: [],
-          estudiosFactibilidad: [],
-          analisisAlternativas: [],
-          validacionNormativa: [],
-          liberacionDerechoVia: [],
-          situacionSinProyectoFotografico: [],
-          situacionConProyectoProyeccion: [],
-          analisisCostoBeneficio: [],
-          expedienteTecnico: [],
-          proyectoEjecutivo: [],
-          manifestacionImpactoAmbiental: [],
-          otrosEstudios: [],
+          estudios_factibilidad: [],
+          analisis_alternativas: [],
+          validacion_normativa: [],
+          liberacion_derecho_via: [],
+          analisis_costo_beneficio: [],
+          proyecto_ejecutivo: [],
+          manifestacion_impacto_ambiental: [],
+          fotografia_render_proyecto: [],
+          otros_estudios: [],
         });
         // Si viene un string, lo metemos en un array; si ya viene array, lo usamos directamente
         const reg = response.data.region;
         setSelectedRegion(Array.isArray(reg) ? reg : (reg ? [reg] : []));
 
-        setApplies({
-          estudiosProspectivos: response.data.applies_estudiosProspectivos,
-          estudiosFactibilidad: response.data.applies_estudiosFactibilidad,
-          analisisAlternativas: response.data.applies_analisisAlternativas,
-          validacionNormativa: response.data.applies_validacionNormativa,
-          liberacionDerechoVia: response.data.applies_liberacionDerechoVia,
-          situacionSinProyectoFotografico: response.data.applies_situacionSinProyectoFotografico,
-          situacionConProyectoProyeccion: response.data.applies_situacionConProyectoProyeccion,
-          analisisCostoBeneficio: response.data.applies_analisisCostoBeneficio,
-          expedienteTecnico: response.data.applies_expedienteTecnico,
-          proyectoEjecutivo: response.data.applies_proyectoEjecutivo,
-          manifestacionImpactoAmbiental: response.data.applies_manifestacionImpactoAmbiental,
-          otrosEstudios: response.data.applies_otrosEstudios,
-        });
+        // setApplies({
+        //   estudios_factibilidad: response.data.applies_estudios_factibilidad,
+        //   analisis_alternativas: response.data.applies_analisis_alternativas,
+        //   validacion_normativa: response.data.applies_validacion_normativa,
+        //   liberacion_derecho_via: response.data.applies_liberacionDerechoVia,
+        //   analisis_costo_beneficio: response.data.applies_analisisCostoBeneficio,
+        //   proyecto_ejecutivo: response.data.applies_proyectoEjecutivo,
+        //   manifestacion_impacto_ambiental: response.data.applies_manifestacionImpactoAmbiental,
+        //   fotografia_render_proyecto: response.data.applies_render,
+        //   otros_estudios: response.data.applies_otrosEstudios,
+        // });
 
       } catch (error) {
         console.error('Error fetching project:', error);
@@ -419,7 +410,6 @@ const EditProject = () => {
                 'validacion_normativa',
                 'liberacion_derecho_via',
                 'analisis_costo_beneficio',
-                'expediente_tecnico_docu',
                 'proyecto_ejecutivo',
                 'manifestacion_impacto_ambiental',
                 'fotografia_render_proyecto',
@@ -441,11 +431,8 @@ const EditProject = () => {
 
               const csrfToken = Cookies.get('csrftoken');
               await axios.put(`/update-project/${projectId}/`, formData, {
-                headers: {
-                  'X-CSRFToken': csrfToken,
-                  'Content-Type': 'multipart/form-data'
-                }
-              });
+                headers: { 'X-CSRFToken': csrfToken }
+              });              
 
               setModalIsOpen(true);
               resetForm();
