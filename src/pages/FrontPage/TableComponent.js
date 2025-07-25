@@ -11,18 +11,38 @@ const TableComponent = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/ver-proyectos-tabla/');
-        const filteredData = response.data.filter(project => {
-          const estatus = project.estatus;
-          // return estatus === 'Atendido' || estatus === 'En Proceso';
-          return estatus === 'Atendido';
-        });
+        // const filteredData = response.data.filter(
+        //   ({ isBlocked_project, situacion }) =>
+        //     isBlocked_project &&
+        //     situacion === 'Vigente'
+        // );
+        const extraIds = [
+          '0191b2025562',
+          '0193d2025553',
+          '0191b2025547',
+          '0191b2025530',
+          '0191b2025512',
+          '0191b2025499',
+          '0191b2025490',
+          '0191b2025485',
+          '0191b2025478',
+          '0191b2025469'
+        ];
+
+        const filteredData = response.data.filter(
+          ({ project_id }) =>
+            // Si project_id viene como número, conviértelo a string:
+            extraIds.includes(project_id.toString())
+        );
         const data = filteredData.map(project => [
-          project.project_name,
+          project.nombre_proyecto,
           project.descripcion,
           project.tipo_proyecto,
           project.municipio,
           project.beneficiarios,
-          project.estatus
+          project.estatus,
+          project.isBlocked_project,
+          project.situacion,
         ]);
         setProjects(data);
       } catch (error) {
@@ -161,7 +181,7 @@ const TableComponent = () => {
   return (
     <ThemeProvider theme={getMuiTheme()}>
       <CssBaseline />
-      <div className="table_grid_pro">
+      <div className="table_grid_pro_publica">
         <MUIDataTable
           title={<Typography variant="h3">Proyectos Registrados</Typography>}
           data={projects}

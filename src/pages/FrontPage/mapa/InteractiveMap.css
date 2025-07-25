@@ -1,18 +1,18 @@
-.mapaConte{
+.mapaConte {
     display: flex;
     align-items: center;
 }
 
-.mapaTxt{
+.mapaTxt {
     background: none;
     justify-content: center;
     width: 40vw;
     padding: 30px;
 }
 
-.mapaTxt p{
-text-align: justify;
-font-size: 1.1rem;
+.mapaTxt p {
+    text-align: justify;
+    font-size: 1.1rem;
 }
 
 #sidebar {
@@ -231,6 +231,55 @@ font-size: 1.1rem;
     text-decoration: underline;
 }
 
+@media (max-width: 768px) {
+    .mapaConte {
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+
+    .mapaTxt {
+        width: 90vw;
+        padding: 20px;
+        text-align: center;
+    }
+
+    #sidebar {
+        width: 90vw;
+        left: -90vw;
+    }
+
+    #sidebar.open {
+        left: 0;
+    }
+
+    #toggleSidebar {
+        left: 10px;
+    }
+
+    #fullscreenButton {
+        right: 10px;
+        top: 5px;
+    }
+
+    #map {
+        width: 90vw;
+        height: 70vh;
+    }
+
+    .leaflet-popup-content-wrapper {
+        width: 90vw;
+        border-radius: 20px;
+    }
+
+    .popup-content {
+        width: 87vw;
+    }
+
+    .popup-project-name {
+        font-size: 16px;
+    }
+}
 
 @media (max-width: 600px) {
     .leaflet-popup-content-wrapper {

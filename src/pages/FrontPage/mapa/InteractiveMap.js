@@ -92,7 +92,24 @@ const InteractiveMap = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/proyecto/');
-                const filteredProjects = response.data.filter(project => project.estatus === 'Atendido');
+                // const filteredProjects = response.data.filter(project => project.estatus === 'Atendido');
+                const extraIds = [
+                    '0191b2025562',
+                    '0193d2025553',
+                    '0191b2025547',
+                    '0191b2025530',
+                    '0191b2025512',
+                    '0191b2025499',
+                    '0191b2025490',
+                    '0191b2025485',
+                    '0191b2025478',
+                    '0191b2025469'
+                ];
+
+                const filteredProjects = response.data.filter(
+                    project =>
+                        extraIds.includes(project.project_id.toString())
+                );
                 setProjects(filteredProjects);
                 if (filteredProjects.length === 0) {
                     alert('No se encontraron proyectos con estatus "Atendido".');
@@ -126,10 +143,10 @@ const InteractiveMap = () => {
 
                     const popupContent = `
                     <div class="popup-content">
-                        <strong class="popup-project-name">${project.project_name}</strong><br>
+                        <strong class="popup-project-name">${project.nombre_proyecto}</strong><br>
                         <span class="popup-label">Tipo de Proyecto:</span> ${project.tipo_proyecto}<br>
                         <span class="popup-label">Sector:</span> ${project.sector}<br>
-                        <span class="popup-label">Municipio:</span> ${project.municipioEnd}<br>
+                        <span class="popup-label">Municipio:</span> ${project.municipio}<br>
                         <span class="popup-label">Descripción:</span> ${project.descripcion}<br>
                         <span class="popup-label">Beneficiarios:</span> ${project.beneficiarios}<br>                       
                     </div>

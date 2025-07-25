@@ -1,111 +1,85 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+// src/components/ProjectIndicators/ProjectIndicators.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import '../../components/styles.css';
+import styles from './ProjectIndicators.module.css';
 
-const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/indicadores/";
+const imgTotalPath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/estrella.webp";
 
 const ProjectIndicators = () => {
-  const [counts, setCounts] = useState({
-    citizens: 0,
-    municipalities: 0,
-    organizations: 0,
-    federal: 0,
-  });
+  const [total, setTotal] = useState(0);
   const [hasCounted, setHasCounted] = useState(false);
-  const indicatorsRef = useRef(null);
-
-  const observer = useMemo(() => new IntersectionObserver(
-    (entries) => {
-      const entry = entries[0];
-      if (entry.isIntersecting && !hasCounted) {
-        setHasCounted(true);
-      }
-    },
-    { threshold: 1 }
-  ), [hasCounted]);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const currentRef = indicatorsRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasCounted) {
+          setHasCounted(true);
+          observer.unobserve(sectionRef.current);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [hasCounted]);
 
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+  useEffect(() => {
+    if (!hasCounted) return;
+    let cancelled = false;
+
+    const fetchAndAnimate = async () => {
+      try {
+        const { data: projects } = await axios.get('/proyecto/');
+        const finalCount = Array.isArray(projects) ? projects.length : 0;
+        let counter = 0;
+        const fastInterval = 5;    // intervalo rápido en ms
+        const slowInterval = 200;   // intervalo lento en ms
+        const thresholdCount = Math.max(finalCount - 10, 0);
+
+        const animate = () => {
+          if (cancelled) return;
+          counter += 1;
+          setTotal(counter);
+          if (counter < finalCount) {
+            const nextDelay = counter <= thresholdCount ? fastInterval : slowInterval;
+            setTimeout(animate, nextDelay);
+          }
+        };
+
+        animate();
+      } catch (err) {
+        console.error('Error fetching projects:', err);
       }
     };
-  }, [observer]);
 
-  useEffect(() => {
-    if (hasCounted) {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get('/proyecto/');
-          const projects = response.data;
-          const totalValues = {
-            citizens: projects.filter(project => project.tipo_entidad === 'Petición Personal').length,
-            municipalities: projects.filter(project => project.tipo_entidad === 'Municipio').length,
-            organizations: projects.filter(project =>
-              project.tipo_entidad === 'Organismo' || project.tipo_entidad === 'Dependencia').length,
-            federal: projects.filter(project => project.tipo_entidad === 'Federal').length,
-          };
-
-          const fastSpeed = 10;
-          const mediumSpeed = 50;
-          const slowSpeed = 200;
-
-          Object.keys(totalValues).forEach((key) => {
-            let counter = 0;
-            if (totalValues[key] === 0) {
-              setCounts((prevCounts) => ({
-                ...prevCounts,
-                [key]: 0,
-              }));
-            } else {
-              const timer = setInterval(() => {
-                counter++;
-                setCounts((prevCounts) => ({
-                  ...prevCounts,
-                  [key]: counter,
-                }));
-                if (counter === totalValues[key]) clearInterval(timer);
-              }, counter > totalValues[key] - 10 ? slowSpeed : (counter > totalValues[key] - 20 ? mediumSpeed : fastSpeed));
-            }
-          });
-        } catch (error) {
-          console.error('Error fetching project data:', error);
-        }
-      };
-
-      fetchData();
-    }
+    fetchAndAnimate();
+    return () => { cancelled = true; };
   }, [hasCounted]);
 
   return (
-    <section id='projects' className="ProjectIndicators-container" ref={indicatorsRef}>
-      <div className="indicators">
-        {/* <Indicator count={counts.federal} imgSrc={`${imgBasePath}Federal.webp`} label="Federal" /> */}
-        <Indicator count={counts.organizations} imgSrc={`${imgBasePath}Organismo.webp`}>
-          <div>Dependencias</div>
-          <div>y Organismos</div>
-        </Indicator>
-        <Indicator count={counts.municipalities} imgSrc={`${imgBasePath}Municipio.webp`} label="Municipios" />
-        {/* <Indicator count={counts.citizens} imgSrc={`${imgBasePath}Ciudadania.webp`} label="Ciudadanía" /> */}
+    <section id="projects" className={styles.container} ref={sectionRef}>
+      <div className={styles.cardWrapper}>
+        <Indicator
+          count={total}
+          imgSrc={imgTotalPath}
+          label="Proyectos Totales"
+        />
       </div>
     </section>
   );
 };
 
-const Indicator = ({ count, imgSrc, label, children }) => (
-  <div className="indicators_ind">
-    <div className="indicators_cont">
-      <img src={imgSrc} alt={`img_${label}`} />
-      <p>{count}</p>
+const Indicator = ({ count, imgSrc, label }) => (
+  <div className={styles.card}>
+    <img src={imgSrc} alt={label} className={styles.icon} />
+    <div className={styles.text}>
+      <p className={styles.count}>{count}</p>
+      <p className={styles.label}>{label}</p>
+      <p className={styles.notice}>
+        El total corresponde a los proyectos registrados por los municipios y dependencias del estado, los cuales serán revisados por el área correspondiente.
+      </p>
     </div>
-    <p className="indicators_txt">
-      {children || label}
-    </p>
   </div>
 );
 

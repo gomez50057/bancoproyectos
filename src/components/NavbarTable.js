@@ -1,12 +1,27 @@
+// Navbar.jsx
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  // 1) Al montar, limpio cualquier hash de la URL:
+  useEffect(() => {
+    if (window.location.hash) {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+    }
+  }, []);
+
+  // 2) Manejo de ocultar/mostrar al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
       const current = window.pageYOffset;
@@ -17,23 +32,37 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrollPosition]);
 
-  const handleScrollTo = (e, id) => {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      setMenuOpen(false); // cierra el menú al navegar
-    }
-  };
+  const toggleMenu = () => setMenuOpen(open => !open);
 
-  const toggleMenu = () => {
-    setMenuOpen((open) => !open);
+  // 3) click en “Mapa Interactivo”: navega a "/" (si hace falta) y luego scroll a #map, SIN dejar el hash en la URL
+  const handleMapClick = async (e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+
+    const scrollToMap = () => {
+      const mapEl = document.getElementById('map');
+      if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth' });
+      // tras el scroll, volvemos a limpiar por si el navegador añade el hash
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+    };
+
+    if (location.pathname !== '/') {
+      await navigate('/');
+      // un pelín de tiempo para que React pinte la sección
+      setTimeout(scrollToMap, 100);
+    } else {
+      scrollToMap();
+    }
   };
 
   const navClass = [
     styles.navbar,
     visible ? styles.active : styles.hidden,
-    scrollPosition > 100 ? styles.scrolled : '',
+    scrollPosition > 100 ? styles.scrolled : ''
   ].join(' ');
 
   return (
@@ -46,7 +75,6 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Botón hamburguesa sólo en móvil */}
         <button className={styles.menuToggle} onClick={toggleMenu}>
           ☰
         </button>
@@ -54,38 +82,11 @@ const Navbar = () => {
         <ul className={`${styles.navOptions} ${menuOpen ? styles.open : ''}`}>
           <li className={styles.navItem}>
             <a
-              href="#about"
-              onClick={(e) => handleScrollTo(e, 'about')}
+              href="/"
+              onClick={handleMapClick}
               className={styles.navLink}
             >
-              Sobre el Proyecto
-            </a>
-          </li>
-          <li className={styles.navItem}>
-            <a
-              href="#projects"
-              onClick={(e) => handleScrollTo(e, 'projects')}
-              className={styles.navLink}
-            >
-              Tablero de Proyectos
-            </a>
-          </li>
-          <li className={styles.navItem}>
-            <a
-              href="#howitWorks"
-              onClick={(e) => handleScrollTo(e, 'howitWorks')}
-              className={styles.navLink}
-            >
-              Cómo Funciona
-            </a>
-          </li>
-          <li className={styles.navItem}>
-            <a
-              href="#map"
-              onClick={(e) => handleScrollTo(e, 'map')}
-              className={styles.navLink}
-            >
-              Mapa Interactivo
+              Inicio
             </a>
           </li>
           <li className={styles.navItem}>

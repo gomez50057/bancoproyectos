@@ -12,6 +12,7 @@ import EditProject from '../pages/Client/projectRegistration/EditProject';
 import EditProjectInvest from '../pages/Client/investmentBudget/EditProjectInvest';
 import PrivateRoute from './PrivateRoute';
 import Navbar from '../components/Navbar';
+import NavbarTable from '../components/NavbarTable';
 import NavbarLogin from '../components/NavbarLogin';
 import ProjectReportReact from '../pages/Responsible/projectRegistration/ProjectReportReact';
 import InvestmentReport from '../pages/Responsible/investmentBudget/InvestmentReport';
@@ -30,6 +31,13 @@ const MainLayout = ({ children }) => (
   </div>
 );
 
+const ExtraLayout = ({ children }) => (
+  <div>
+    <NavbarTable />
+    {children}
+  </div>
+);
+
 const LoginLayout = ({ children }) => (
   <div>
     <NavbarLogin />
@@ -42,7 +50,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<MainLayout><MainContent /></MainLayout>} />
       <Route path="/login" element={<LoginLayout><Login /></LoginLayout>} />
-      <Route path="/table" element={<MainLayout><TableComponent /></MainLayout>} />
+      <Route path="/table" element={<ExtraLayout><TableComponent /></ExtraLayout>} />
       {/* <Route path="/presupuesto-inversion" element={<LoginLayout><CedulaRegistroForm /></LoginLayout>} /> */}
       <Route path="/presupuesto-inversion/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><CedulaRegistroForm /></LoginLayout></PrivateRoute>} />
 

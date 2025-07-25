@@ -1,0 +1,168 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f5f7fa;
+}
+
+.cardWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  padding: 1.5rem 2rem;
+  width: 100%;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.icon {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  margin-right: 1.5rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.count {
+  font-size: 5rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--grisClr);
+  margin: 0;
+}
+
+.label {
+  font-size: 3.25rem;    /* más grande y llamativa */
+  font-weight: 700;
+  color: var(--vinoOsc);
+  margin: 0.25rem 0 0.75rem;
+}
+
+.notice {
+  font-size: 0.75rem;    /* un poco más pequeño */
+  color: #96a5ae;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ----------- Desktop medianos / tablets grandes ----------- */
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .card {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .icon {
+    width: 140px;
+    height: 140px;
+    margin-right: 1rem;
+  }
+
+  .count {
+    font-size: 4.5rem;
+  }
+
+  .label {
+    font-size: 2.75rem;
+  }
+
+  .notice {
+    font-size: 0.7rem;
+  }
+}
+
+/* ----------- Tablets / móviles grandes ----------- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .cardWrapper {
+    width: 100%;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 0 1rem;
+  }
+
+  .text {
+    align-items: center;
+  }
+
+  .count {
+    font-size: 4rem;
+  }
+
+  .label {
+    font-size: 2.5rem;
+  }
+
+  .notice {
+    font-size: 0.65rem;
+  }
+}
+
+/* ----------- Móviles pequeños ----------- */
+@media (max-width: 480px) {
+  .card {
+    padding: 0.75rem;
+  }
+
+  .icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0.75rem;
+  }
+
+  .count {
+    font-size: 3.5rem;
+  }
+
+  .label {
+    font-size: 2rem;
+  }
+
+  .notice {
+    font-size: 0.6rem;
+    line-height: 1.3;
+  }
+}

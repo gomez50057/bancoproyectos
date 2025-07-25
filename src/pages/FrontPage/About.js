@@ -104,17 +104,6 @@ const About = () => {
         <div className="about_img">
           <img src={`${imgBasePath}backAbout.webp`} alt="img_representativa" />
         </div>
-        {/* <div className="about_num">
-          <div className="about_numIndi">
-            <p>{totalProjects}<span>NÚMERO DE PROYECTOS</span></p>
-          </div>
-          <div className="about_numIndi">
-            <p>{projectsInProcess}<span>PROYECTOS EN ANÁLISIS DOCUMENTAL</span></p>
-          </div>
-          <div className="about_numIndi">
-            <p>{approvedProjects}<span>PROYECTOS REVISADOS </span></p>
-          </div>
-        </div> */}
       </div>
     </section>
   );
