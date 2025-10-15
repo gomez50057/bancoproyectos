@@ -23,6 +23,7 @@ import FAQ from '../pages/FrontPage/faq/FAQ';
 
 import DashboardInvestment from '../pages/visualizer/dashboard/DashboardInvestment';
 
+import FormcentroProyectos from '../pages/Client/centroProyectosInfraestructura2025/FormDependencia';
 
 const MainLayout = ({ children }) => (
   <div>
@@ -56,6 +57,10 @@ const AppRoutes = () => {
 
       {/* <Route path="/dependencia" element={<LoginLayout><FormDependencia /></LoginLayout>} /> */}
       <Route path="/dependencia/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><FormDependencia /></LoginLayout></PrivateRoute>} />
+
+      {/* <Route path="/centro-proyectos-infraestructura-2025" element={<LoginLayout><FormcentroProyectos /></LoginLayout>} /> */}
+      <Route path="/centro-proyectos-infraestructura-2025/*" element={<PrivateRoute allowedGroups={['proyectos-infraestructura-2025']}><LoginLayout><FormcentroProyectos /></LoginLayout></PrivateRoute>} />
+
       {/* <Route path="/panel-usuario/*" element={<LoginLayout><ClientPanel /></LoginLayout>} /> */}
       <Route path="/panel-usuario/*" element={<PrivateRoute allowedGroups={['cliente']}><LoginLayout><ClientPanel /></LoginLayout></PrivateRoute>} />
 
