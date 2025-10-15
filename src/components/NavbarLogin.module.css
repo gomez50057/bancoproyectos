@@ -1,0 +1,181 @@
+:root {
+  --vinoOsc: #691B32;
+  --vinoClr: #A02142;
+  --doradoClr: #DEC9A3;
+  --doradoOsc: #BC955B;
+  --bgGlass: hsla(240, 33%, 96%, 0.81);
+  --text: #222;
+}
+
+/* ===== Contenedor fijo y seguro en móviles ===== */
+.nav {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  transition: top .28s ease, backdrop-filter .28s ease, background-color .28s ease;
+  will-change: top;
+  padding-top: env(safe-area-inset-top);
+}
+
+.active { top: 0; }
+.hidden { top: calc(-120px - env(safe-area-inset-top)); }
+
+.scrolled {
+  backdrop-filter: blur(10px);
+  background-color: hsla(345, 3%, 24%, 0.5);
+}
+
+/* ===== Contenido interno: móvil primero ===== */
+.list {
+  /* Layout fluido: en móvil, grid con 2 zonas */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+
+  width: min(100%, 1100px);
+  margin: 8px auto;
+  padding: 6px 8px;
+
+  list-style: none;
+  text-decoration: none;
+  background-color: var(--bgGlass);
+  box-shadow: 0 8px 16px rgba(0,0,0,.12);
+  backdrop-filter: blur(6px);
+  border-radius: 16px; /* radio menor en móvil para que no “corte” */
+}
+
+/* ===== Marca (izquierda) ===== */
+.brand {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 0; /* permite elipsis del texto */
+}
+
+.brandImg {
+  width: auto;
+  height: clamp(24px, 6vw, 40px);
+}
+
+/* Item y link del título */
+.item { min-width: 0; }
+.link {
+  display: block;
+  padding: 6px 8px;
+  font-weight: 700;
+  color: var(--vinoOsc);
+  font-size: clamp(16px, 4.5vw, 20px);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* elipsis en nombres largos */
+}
+
+.link:hover {
+  color: var(--vinoClr);
+  text-decoration: underline;
+}
+
+/* ===== Acciones (derecha) ===== */
+.actions {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: end;
+}
+
+.circle {
+  all: unset;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  width: clamp(36px, 8vw, 44px);
+  height: clamp(36px, 8vw, 44px);
+  transition: transform .18s ease, box-shadow .18s ease;
+  touch-action: manipulation; /* mejor respuesta táctil */
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.circle:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.28),
+    0 10px 24px rgba(0,0,0,.18);
+}
+
+/* ===== Breakpoints responsivos ===== */
+
+/* >= 400px: un poco más de aire */
+@media (min-width: 400px) {
+  .list {
+    padding: 8px 10px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+}
+
+/* >= 520px: tipografía y paddings más cómodos */
+@media (min-width: 520px) {
+  .link { font-size: clamp(17px, 2.6vw, 22px); padding: 8px 10px; }
+  .list { gap: 12px; }
+}
+
+/* >= 640px: container con ancho máximo y “pastilla” más marcada */
+@media (min-width: 640px) {
+  .list {
+    width: min(92vw, 900px);
+    padding: 6px 12px;
+    border-radius: 100vw;
+  }
+}
+
+/* >= 768px: separa zonas con espacio y mejora legibilidad */
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+  }
+  .brand { gap: clamp(10px, 1.6vw, 16px); }
+  .link { font-size: clamp(18px, 2.2vw, 24px); }
+}
+
+/* >= 1024px: escala suave y aumenta sombra */
+@media (min-width: 1024px) {
+  .list {
+    width: min(86vw, 1000px);
+    box-shadow: 0 10px 22px rgba(0,0,0,.14);
+    padding-inline: 14px;
+  }
+  .brandImg { height: clamp(32px, 3.8vw, 42px); }
+}
+
+/* >= 1280px: layout estable “desktop” */
+@media (min-width: 1280px) {
+  .list {
+    width: min(1100px, 90vw);
+    margin: 10px auto;
+    padding: 8px 16px;
+  }
+  .link { padding: 10px 12px; }
+}
+
+/* ===== Respecta preferencias del usuario ===== */
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .circle {
+    transition: none !important;
+  }
+  .circle:hover { transform: none !important; box-shadow: none !important; }
+}

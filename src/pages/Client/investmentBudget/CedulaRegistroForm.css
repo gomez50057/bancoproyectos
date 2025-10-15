@@ -1,5 +1,3 @@
-/* src/pages/Client/investmentBudget/CedulaRegistroForm.css */
-
 .formulario-container form {
   display: flex;
   flex-direction: column;
@@ -20,7 +18,7 @@
 }
 
 
-.formulario-container .form-row-button .submit-button{
+.formulario-container .form-row-button .submit-button {
   width: 150px;
 }
 
@@ -48,7 +46,7 @@
 .formulario-container .banner h1 {
   color: var(--doradoClr);
   font-weight: 600;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 2vw + 1rem, 3rem);
   width: 80%;
   text-align: center;
   margin: 40px 0 0 0;

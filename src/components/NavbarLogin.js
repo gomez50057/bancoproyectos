@@ -1,58 +1,90 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './styles.css';
-import UserOptionsModal from './UserOptionsModal'; // Asegúrate de importar el modal
+import UserOptionsModal from './UserOptionsModal';
+import styles from './NavbarLogin.module.css';
 
 const img = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img/";
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const NavbarLogin = () => {
   const [username, setUsername] = useState('');
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorElement, setAnchorElement] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
 
+  // evita re-render por dependencia del scroll
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  // fetch username 1 vez
   useEffect(() => {
-    const fetchUsername = async () => {
+    (async () => {
       try {
-        const response = await axios.get('/api/current_user/');
-        setUsername(response.data.username);
-      } catch (error) {
-        console.error('Error fetching username:', error);
+        const { data } = await axios.get('/api/current_user/');
+        if (data?.username) setUsername(data.username);
+      } catch (err) {
+        console.error('Error fetching username:', err);
       }
-    };
-    fetchUsername();
+    })();
+  }, []);
+
+  const onScroll = useCallback(() => {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+    setScrolled(y > 100);
+
+    // mostrar cuando sube, ocultar cuando baja (con margen de 10px)
+    const shouldShow = y < lastScrollY.current || y < 10;
+    setVisible(shouldShow);
+    lastScrollY.current = y;
+    ticking.current = false;
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(currentScrollPos < scrollPosition || currentScrollPos < 10);
-      setScrollPosition(currentScrollPos);
+      if (!ticking.current) {
+        window.requestAnimationFrame(onScroll);
+        ticking.current = true;
+      }
     };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [onScroll]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollPosition]);
-
-  const toggleModal = (event) => {
-    setAnchorElement(event.currentTarget);
-    setIsModalOpen(!isModalOpen);
+  const toggleModal = (e) => {
+    setAnchorElement(e.currentTarget);
+    setIsModalOpen((v) => !v);
   };
 
   return (
-    <nav className={`NavbarLogin ${visible ? 'active' : 'hidden'} ${scrollPosition > 100 ? 'scrolled' : ''}`}>
-      <ul>
-        <div className="NavbarLogin_img">
-          <img src={`${img}Logotipo.webp`} alt="img_representativa" />
-          <li><Link to="/" className=""> Banco de Proyectos </Link></li>
+    <nav
+      className={[
+        styles.nav,
+        visible ? styles.active : styles.hidden,
+        scrolled ? styles.scrolled : ''
+      ].join(' ')}
+    >
+      <ul className={styles.list}>
+        <div className={styles.brand}>
+          <img src={`${img}Logotipo.webp`} alt="Logotipo Gobierno" className={styles.brandImg} />
+          <li className={styles.item}>
+            <Link to="/" className={styles.link}>Banco de Proyectos</Link>
+          </li>
         </div>
-        <div className="NavbarLogin_inicio">
-          <div className="Navbar_circulo" data-username={username} onClick={toggleModal}>
-            <img src={`${imgBasePath}estrella.webp`} alt="img_representativa" />
-          </div>
+
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={styles.circle}
+            data-username={username || ''}
+            onClick={toggleModal}
+            aria-haspopup="menu"
+            aria-expanded={isModalOpen ? 'true' : 'false'}
+            aria-label={username ? `Opciones de ${username}` : 'Opciones de usuario'}
+          >
+            <img src={`${imgBasePath}estrella.webp`} alt="" className={styles.avatar} />
+          </button>
         </div>
       </ul>
 
@@ -64,6 +96,6 @@ const NavbarLogin = () => {
       />
     </nav>
   );
-}
+};
 
 export default NavbarLogin;

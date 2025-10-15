@@ -1152,14 +1152,37 @@ select {
   color: #333;
 }
 
-/* Contenedor principal del checkbox */
 .checkAplica {
   display: flex;
-  justify-content: space-around;
-  width: 40%;
   align-items: center;
-  padding: 10px 0;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: clamp(8px, 2.5vw, 16px);
+  inline-size: clamp(260px, 92vw, 40%);
+  padding-block: 10px;
+  padding-inline: 0;
 }
+
+.checkAplica>* {
+  /* crecen y se encogen según espacio */
+  flex: 1 1 auto;
+  /* evita que se encojan demasiado */
+  min-inline-size: clamp(120px, 40vw, 240px);
+}
+
+@media (min-width: 768px) {
+  .checkAplica {
+    inline-size: clamp(320px, 60vw, 40%);
+    gap: clamp(10px, 2vw, 18px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .checkAplica {
+    inline-size: 40%;
+  }
+}
+
 
 /* Estilos base del checkbox */
 .checkAplica label {

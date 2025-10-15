@@ -1,0 +1,161 @@
+.container_login {
+  min-height: 100svh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--blanco, #fff);
+  position: relative;
+  overflow: hidden;
+  padding-top: 100px;
+}
+
+.background_login {
+  position: absolute;
+  inset: 0;
+  /* background-image: url('/img/backlogin.webp'); ⬅️ ELIMINADO */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  filter: blur(3px);
+  opacity: 0.9;
+}
+
+.login_txt {
+  --card-bg: hsla(0, 0%, 18%, 0.6);
+  background-color: var(--card-bg);
+  width: min(720px, 92vw);
+  border-radius: 28px;
+  padding: clamp(16px, 5vw, 40px);
+  display: grid;
+  justify-items: center;
+  gap: clamp(10px, 2.4vw, 16px);
+  backdrop-filter: saturate(1.1) blur(2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 0 0 1px rgba(255, 255, 255, .06) inset;
+}
+
+.brand_img {
+  width: clamp(56px, 10vw, 96px);
+  height: auto;
+  user-select: none;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+  color: var(--blanco);
+}
+
+.form {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+}
+
+.input_container {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 44px 12px 14px;
+  background-color: #000;
+  color: var(--blanco, #fff);
+  border: none;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--vinoClr, #A02142) 60%, #fff 0%);
+}
+
+.toggle_password {
+  all: unset;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.toggle_password img {
+  display: block;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+.toggle_password:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--vinoClr, #A02142) 60%, #fff 0%);
+  outline-offset: 2px;
+}
+
+.error_message {
+  background: rgba(255, 77, 77, .12);
+  border: 1px solid rgba(255, 77, 77, .35);
+  color: #ffdede;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+.submit_btn {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 10px 14px;
+  background-color: var(--vinoClr, #A02142);
+  color: var(--blanco, #fff);
+  border-radius: 24px;
+  cursor: pointer;
+  border: 0;
+  font-weight: 600;
+  transition: transform .08s ease, opacity .2s ease;
+}
+
+.submit_btn:hover {
+  transform: translateY(-1px);
+}
+
+.submit_btn:disabled {
+  opacity: .7;
+  cursor: default;
+  transform: none;
+}
+
+.loading {
+  width: 100%;
+  text-align: center;
+  font-size: 0.95rem;
+  opacity: .9;
+}
+
+@media (min-width: 640px) {
+  .login_txt {
+    border-radius: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .login_txt {
+    width: min(680px, 86vw);
+    border-radius: 36px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .login_txt {
+    width: 30vw;
+    min-width: 520px;
+    max-width: 720px;
+  }
+}
