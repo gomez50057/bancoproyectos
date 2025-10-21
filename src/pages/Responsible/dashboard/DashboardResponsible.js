@@ -118,7 +118,7 @@ const DashboardResponsible = () => {
       </div>
 
       <div className="dashboard-container">
-        <section className="content">
+        <section>
           <NavbarAntepro />
           {renderContent()}
         </section>
