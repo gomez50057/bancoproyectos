@@ -2,17 +2,12 @@
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-// import axios from 'axios';
 import '../../components/styles.css';
 
 const imgBasePath = "https://bibliotecadigitaluplaph.hidalgo.gob.mx/img_banco/";
 
 const About = () => {
-  // const [totalProjects, setTotalProjects] = useState(0);
-  // const [projectsInProcess, setProjectsInProcess] = useState(0);
-  // const [approvedProjects, setApprovedProjects] = useState(0);
-  // const [startCounter, setStartCounter] = useState(false);
-  // const [hasCounted, setHasCounted] = useState(false);
+
 
   const controls = useAnimation();
   const { ref: aboutRef, inView } = useInView({ threshold: 0.5 });
@@ -33,55 +28,6 @@ const About = () => {
     }
   }, [inView, controls]);
 
-  // useEffect(() => {
-  //   if (inView && !hasCounted) {
-  //     setStartCounter(true);
-  //   }
-  // }, [inView, hasCounted]);
-
-  // useEffect(() => {
-  //   if (startCounter && !hasCounted) {
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await axios.get('/proyecto/');
-  //         const projects = response.data;
-
-  //         const totalProjectsCount = projects.filter(project => project.project_name).length;
-  //         setTotalProjects(totalProjectsCount);
-
-  //         const totalProjectsInProcess = projects.filter(project => project.estatus === 'En Proceso').length;
-  //         const totalApprovedProjects = projects.filter(project => project.estatus === 'Atendido').length;
-
-  //         const fastSpeed = 5;
-  //         const slowSpeed = 50;
-
-  //         const animateCounter = (setCounter, total) => {
-  //           if (total === 0) {
-  //             setCounter(0);
-  //             return;
-  //           }
-  //           let counter = 0;
-  //           const timer = setInterval(() => {
-  //             counter++;
-  //             setCounter(counter);
-  //             if (counter === total) {
-  //               clearInterval(timer);
-  //               if (total === totalApprovedProjects) {
-  //                 setHasCounted(true);
-  //               }
-  //             }
-  //           }, counter > total - 10 ? slowSpeed : fastSpeed);
-  //         };
-  //         animateCounter(setProjectsInProcess, totalProjectsInProcess);
-  //         animateCounter(setApprovedProjects, totalApprovedProjects);
-  //       } catch (error) {
-  //         console.error('Error fetching project data:', error);
-  //       }
-  //     };
-
-  //     fetchData();
-  //   }
-  // }, [startCounter, hasCounted]);
 
   return (
     <section id='about' className="about-container">
