@@ -1,6 +1,4 @@
-/* Archivo: LogoutConfirmationModal.css */
-
-.confirmation-modal-overlay {
+.confirmationModalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +11,7 @@
   z-index: 2000;
 }
 
-.confirmation-modal-content {
+.confirmationModalContent {
   background: white;
   padding: 30px;
   border-radius: 12px;
@@ -23,24 +21,24 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para resaltar el modal */
 }
 
-.confirmation-modal-content h2 {
+.confirmationModalContent h2 {
   margin-bottom: 15px;
   font-size: 1.8rem;
   color: #333;
 }
 
-.confirmation-modal-content p {
+.confirmationModalContent p {
   margin-bottom: 20px;
   font-size: 1.2rem;
   color: #666;
 }
 
-.confirmation-modal-buttons {
+.confirmationModalButtons {
   display: flex;
   justify-content: space-around;
 }
 
-.confirmation-modal-buttons button {
+.confirmationModalButtons button {
   padding: 10px 20px;
   font-size: 1rem;
   border: none;
@@ -49,20 +47,20 @@
   transition: background-color 0.3s;
 }
 
-.confirm-button {
+.confirmButton {
   background-color: #d9534f;
   color: white;
 }
 
-.confirm-button:hover {
+.confirmButton:hover {
   background-color: #c9302c;
 }
 
-.cancel-button {
+.cancelButton {
   background-color: #5bc0de;
   color: white;
 }
 
-.cancel-button:hover {
+.cancelButton:hover {
   background-color: #31b0d5;
 }
